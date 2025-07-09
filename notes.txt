@@ -1,0 +1,55 @@
+roles:
+
+3 x farmer
+    - harvest and put in fridges
+    - grow plants
+    - heal plants
+    - water plants (or autowater)
+
+2 x cook
+    - take items from fridge, prepare different kinds of meals and place on counter
+
+2 x janitor
+    - collect trash, put in incinerator
+    - wipe floors
+    - clean toilets
+
+1 x engineer 1:
+    - do something with the generator and electic box
+
+1 x engineer 2:
+    - fix pipes on walls
+    - fix boilers
+
+
+
+2 x laundryman
+    - do laundry
+
+3 x managment (military)
+    - sit in office
+
+4 x radio operators (military)
+    - sit in radio room, try to establish contact
+
+1 x priest
+    - 
+
+1 x doctor:
+    - heal whoever comes to his room
+
+
+4 x guards (military)
+    - guard armoury
+    - guard gate
+
+
+
+all
+ - sleep
+ - wash in bathroom
+ - use toilet
+ - excercise in gym
+ - play cards in living room
+ - watch tv in living room
+ - play darts?

@@ -1,0 +1,73 @@
+module Bandits {
+
+    sound AmbientArk {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_ark.ogg, 
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientVent {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_vent.ogg, 
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientGenerator {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_generator2.ogg, 
+            distanceMin = 1,
+            distanceMax = 25,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientElectricity {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_electricity.ogg, 
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientWaterDrops {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_water_drops.ogg, 
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientPlumbing {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_plumbing.ogg, 
+            distanceMin = 1,
+            distanceMax = 5,
+            reverbFactor = 0.6, 
+        } 
+    }
+}
