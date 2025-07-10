@@ -3,6 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.Generator = {}
 
 BWOARooms.Generator.Init = function ()
+    BWOARooms.Generator.name = "GENERATOR_ROOM"
     BWOARooms.Generator.x1 = 9944
     BWOARooms.Generator.x2 = 9956
     BWOARooms.Generator.y1 = 12615

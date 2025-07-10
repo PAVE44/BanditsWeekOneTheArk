@@ -48,18 +48,18 @@ BWOABuildTools.DoorNConcrete = function(square)
             square:transmitRemoveItemFromSquare(object)
             break
         end
-
-        local obj = IsoObject.new(square, "walls_garage_01_47", "")
-        square:AddSpecialObject(obj)
-        obj:transmitCompleteItemToServer()
-
-        local obj = IsoDoor.new(cell, square, getSprite("fixtures_doors_01_21"), true)
-        square:AddSpecialObject(obj)
-        obj:transmitCompleteItemToServer()
-
-        buildUtil.setHaveConstruction(square, true)
-        square:setSquareChanged()
     end
+
+    local obj = IsoObject.new(square, "walls_garage_01_47", "")
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+
+    local obj = IsoDoor.new(cell, square, getSprite("fixtures_doors_01_21"), true)
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+
+    buildUtil.setHaveConstruction(square, true)
+    square:setSquareChanged()
 end
 
 BWOABuildTools.DoorWConcrete = function(square)
@@ -71,18 +71,18 @@ BWOABuildTools.DoorWConcrete = function(square)
             square:transmitRemoveItemFromSquare(object)
             break
         end
-
-        local obj = IsoObject.new(square, "walls_garage_01_46", "")
-        square:AddSpecialObject(obj)
-        obj:transmitCompleteItemToServer()
-
-        local obj = IsoDoor.new(getCell(), square, getSprite("fixtures_doors_01_52"), true)
-        square:AddSpecialObject(obj)
-        obj:transmitCompleteItemToServer()
-
-        buildUtil.setHaveConstruction(square, true)
-        square:setSquareChanged()
     end
+
+    local obj = IsoObject.new(square, "walls_garage_01_46", "")
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+
+    local obj = IsoDoor.new(getCell(), square, getSprite("fixtures_doors_01_20"), true)
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+
+    buildUtil.setHaveConstruction(square, true)
+    square:setSquareChanged()
 end
 
 BWOABuildTools.VentN = function(square)
@@ -106,8 +106,8 @@ BWOABuildTools.Fridge = function(square)
     square:setSquareChanged()
 end
 
-BWOABuildTools.LampSmall = function(square)
-    local obj = getSprite("lighting_indoor_01_32")
+BWOABuildTools.Lamp = function(square, spriteName)
+    local obj = getSprite(spriteName)
     local spriteProps = obj:getProperties()
     spriteProps:Set("lightR", "100")
     spriteProps:Set("lightG", "100")

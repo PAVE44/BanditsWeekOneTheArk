@@ -19,21 +19,28 @@ end
 
 function BWOAMenu.TestEmmiter(player, square)
     for room, _ in pairs(BWOARooms) do
+        BWOARooms[room].Init()
         BWOARooms[room].SetEmitters()
     end
 end
 
-function BWOAMenu.Farm(player)
-    BWOARooms.Greenhouse.Init()
-    BWOARooms.Greenhouse.Build()
+function BWOAMenu.ArkAlarm(player, state)
+    if state then
+        BWOABaseAPI.AlarmOn()
+    else
+        BWOABaseAPI.AlarmOff()
+    end
 end
 
-function BWOAMenu.Library(player)
-    BWOARooms.Library.Init()
-    BWOARooms.Library.Build()
+function BWOAMenu.MakeRoom(player, roomName)
+    BWOARooms[roomName].Init()
+    BWOARooms[roomName].Build()
+    BWOARooms[roomName].Prepare()
+    BWOARooms[roomName].SetEmitters()
+
 end
 
-function BWOAMenu.WorldContextMenuPre(playerID, context, worldobjects, test)
+local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
     local player = getSpecificPlayer(playerID)
     local square = BanditCompatibility.GetClickedSquare()
 
@@ -43,18 +50,22 @@ function BWOAMenu.WorldContextMenuPre(playerID, context, worldobjects, test)
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Test Emitter", player, BWOAMenu.TestEmmiter, square)
 
-        local objectOption = context:addOption("Spawn Object")
-        local objectMenu = context:getNew(context)
-        context:addSubMenu(objectOption, objectMenu)
+        context:addOption("Ark Alarm On", player, BWOAMenu.ArkAlarm, true)
+        context:addOption("Ark Alarm Off", player, BWOAMenu.ArkAlarm, false)
 
-        local objects = {"Farm", "Library"}
+        local roomOption = context:addOption("Spawn Room")
+        local roomMenu = context:getNew(context)
+        context:addSubMenu(roomOption, roomMenu)
 
-        for i=1, #objects do
-            local objectName = objects[i]
-            objectMenu:addOption(objectName, player, BWOAMenu[objectName], square, objectName)
+        local roomNames = {"Farm", "Library", "Lab", "Incinerator"}
+
+        for i=1, #roomNames do
+            local roomName = roomNames[i]
+            roomMenu:addOption(roomName, player, BWOAMenu.MakeRoom, roomName)
         end
     end
 end
 
-Events.OnPreFillWorldObjectContextMenu.Add(BWOAMenu.WorldContextMenuPre)
+Events.OnPreFillWorldObjectContextMenu.Remove(onPreFillWorldObjectContextMenu)
+Events.OnPreFillWorldObjectContextMenu.Add(onPreFillWorldObjectContextMenu)
 

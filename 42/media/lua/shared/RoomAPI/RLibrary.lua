@@ -3,6 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.Library = {}
 
 BWOARooms.Library.Init = function ()
+    BWOARooms.Library.name = "LIBRARY"
     BWOARooms.Library.x1 = 9973
     BWOARooms.Library.x2 = 9977
     BWOARooms.Library.y1 = 12608
@@ -28,7 +29,7 @@ BWOARooms.Library.Build = function ()
                         BWOABuildTools.VentN(square)
                     end
                 end
-    
+
                 if y == BWOARooms.Library.y1 then 
                     BWOABuildTools.WallNConcrete(square)
                 end
@@ -51,7 +52,7 @@ BWOARooms.Library.Build = function ()
     BWOABuildTools.Generic(cell:getGridSquare(9976, 12613, -4), "furniture_tables_low_01_17")
 
     -- lights
-    BWOABuildTools.LampSmall(cell:getGridSquare(9973, 12613, -4))
+    BWOABuildTools.Lamp(cell:getGridSquare(9973, 12613, -4), "lighting_indoor_01_32")
 
     return true
 end

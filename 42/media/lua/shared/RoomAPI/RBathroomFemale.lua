@@ -3,6 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.BathroomFemale = {}
 
 BWOARooms.BathroomFemale.Init = function ()
+    BWOARooms.BathroomFemale.name = "BATHROOM_ONE"
     BWOARooms.BathroomFemale.x1 = 9948
     BWOARooms.BathroomFemale.x2 = 9956
     BWOARooms.BathroomFemale.y1 = 12600
@@ -16,7 +17,7 @@ BWOARooms.BathroomFemale.Build = function ()
 end
 
 BWOARooms.BathroomFemale.SetEmitters = function ()
-    BWOASound.AddToObject({x=9945, y=12620, z=-4, sound="AmbientWaterDrops"})
+    BWOASound.AddToObject({x=9948, y=12605, z=-4, sound="AmbientWaterDrops"})
 end
 
 BWOARooms.BathroomFemale.Prepare = function ()

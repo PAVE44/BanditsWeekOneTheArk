@@ -3,6 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.Greenhouse = {}
 
 BWOARooms.Greenhouse.Init = function ()
+    BWOARooms.Greenhouse.name = "GREENHOUSE"
     BWOARooms.Greenhouse.x1 = 9962
     BWOARooms.Greenhouse.x2 = 9974
     BWOARooms.Greenhouse.y1 = 12578
