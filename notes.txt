@@ -1,4 +1,21 @@
+rooms:
+
+incinerator room + morgue
+
+laboratory
+
+repair shop
+
+
+warehoouse big 1
+    - canned and jarred food
+warehoouse big 2
+    
+
+
 roles:
+
+3 x scientists 
 
 3 x farmer
     - harvest and put in fridges
@@ -53,3 +70,53 @@ all
  - play cards in living room
  - watch tv in living room
  - play darts?
+
+
+
+life support systems
+
+power
+    - can be turned on/off
+    - uses fuel
+    - fuel may be added
+    - has condition
+    - condition may be improved during repairs
+
+heating
+    - make radiators
+    - make heatpump?
+    - can be turned on/off
+    - uses electricity (pumping and heating is commbined)
+    - termostat - can adjust desired temp
+    - can become frozen, restart is not possible, water in sinks is unavailable, practically game over
+    - has a sensor that needs to be maintained
+
+ventilation
+    - can be turned on/off
+    - uses electricity
+    - the system has oxygen, co2 parameters coupled together
+    - ventilation has filters
+    - filters condition determine radiation increase if ventilation is on
+    - radiation makes you sick
+    - low oxygen impacts endurance and health
+    - has a co2 sensor that needs to be maintained
+    - has a radiation sensor that needs to be maintained
+
+water
+    - can be turned on/off ?
+    - water is unlimited (wells)
+    - there is filtration system, if it fails, the water is tainted
+
+other:
+    - yodine tablets
+    - decontamination
+
+hazmat suits need to protect against radiation and low oxygen. oxygen tanks must work, we dont want players to use them all the time coz its OP
+
+noah alerting
+
+    - instrusion
+    - fire
+    - oxygen and co2 levels
+    - temperature warning
+    - radiation warning

@@ -2,6 +2,11 @@ BWOARooms = BWOARooms or {}
 
 BWOARooms.BathroomFemale = {}
 
+BWOARooms.BathroomFemale.vents = {
+    {x=9952.5, y=12600, z=-4},
+    {x=9949, y=12607, z=-4},
+}
+
 BWOARooms.BathroomFemale.Init = function ()
     BWOARooms.BathroomFemale.name = "BATHROOM_ONE"
     BWOARooms.BathroomFemale.x1 = 9948
@@ -13,14 +18,25 @@ BWOARooms.BathroomFemale.Init = function ()
 end
 
 BWOARooms.BathroomFemale.Build = function ()
-    return true
+    BWOABuildTools.LampOvalS(9950, 12607, -4)
+    BWOABuildTools.LampOvalN(9950, 12600, -4)
+    BWOABuildTools.LampOvalS(9955, 12607, -4)
+    BWOABuildTools.LampOvalN(9955, 12600, -4)
+
+    BWOABuildTools.VentW(9952, 12600, -4)
 end
 
 BWOARooms.BathroomFemale.SetEmitters = function ()
     BWOASound.AddToObject({x=9948, y=12605, z=-4, sound="AmbientWaterDrops"})
 end
 
+BWOARooms.BathroomFemale.SetFlickers = function ()
+    BWOALights.AddFlicker({x=9955, y=12600, z=-4})
+end
+
 BWOARooms.BathroomFemale.Prepare = function ()
+    BWOAPrepareTools.DarkenLight(9956, 12602, -4)
+    BWOAPrepareTools.DarkenLight(9951, 12601, -4)
 end
 
 BWOARooms.BathroomFemale.LightToggle = function ()

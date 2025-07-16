@@ -1,0 +1,13 @@
+version = 1
+tileset
+{
+    file = theark_01
+    size = 8,4
+    id = 1001
+    // theark_01_0
+    tile
+    {
+        xy = 0,0
+        lightswitch = 
+    }
+}

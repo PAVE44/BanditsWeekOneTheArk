@@ -2,6 +2,11 @@ BWOARooms = BWOARooms or {}
 
 BWOARooms.BathroomMale = {}
 
+BWOARooms.BathroomMale.vents = {
+    {x=9952.5, y=12650, z=-4},
+    {x=9949, y=12643, z=-4},
+}
+
 BWOARooms.BathroomMale.Init = function ()
     BWOARooms.BathroomMale.name = "BATHROOM_TWO"
     BWOARooms.BathroomMale.x1 = 9948
@@ -13,7 +18,12 @@ BWOARooms.BathroomMale.Init = function ()
 end
 
 BWOARooms.BathroomMale.Build = function ()
-    return true
+    BWOABuildTools.LampOvalN(9950, 12643, -4)
+    BWOABuildTools.LampOvalS(9950, 12650, -4)
+    BWOABuildTools.LampOvalN(9955, 12643, -4)
+    BWOABuildTools.LampOvalS(9955, 12650, -4)
+
+    BWOABuildTools.VentW(9949, 12643, -4)
 end
 
 BWOARooms.BathroomMale.SetEmitters = function ()
@@ -21,6 +31,8 @@ BWOARooms.BathroomMale.SetEmitters = function ()
 end
 
 BWOARooms.BathroomMale.Prepare = function ()
+    BWOAPrepareTools.DarkenLight(9956, 12650, -4)
+    BWOAPrepareTools.DarkenLight(9951, 12649, -4)
 end
 
 BWOARooms.BathroomMale.LightToggle = function ()

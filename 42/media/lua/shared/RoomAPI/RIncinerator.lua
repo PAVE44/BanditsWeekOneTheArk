@@ -17,27 +17,26 @@ BWOARooms.Incinerator.Build = function ()
     local z = BWOARooms.Incinerator.z
     for x = BWOARooms.Incinerator.x1, BWOARooms.Incinerator.x2 do
         for y = BWOARooms.Incinerator.y1, BWOARooms.Incinerator.y2 do
-            local square = cell:getOrCreateGridSquare(x, y, z)
-            BWOABuildTools.FloorConcrete(square)
+            BWOABuildTools.FloorConcrete(x, y, z)
 
             if x == BWOARooms.Incinerator.x2 then
-                BWOABuildTools.WallWConcrete(square)
+                BWOABuildTools.WallWConcrete(x, y, z)
             end
 
             if y == BWOARooms.Incinerator.y2 then 
-                BWOABuildTools.WallNConcrete(square)
+                BWOABuildTools.WallNConcrete(x, y, z)
             end
         end
     end
 
-    BWOABuildTools.DoorWConcrete(cell:getGridSquare(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z))
-    BWOABuildTools.VentN(cell:getGridSquare(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 5, BWOARooms.Incinerator.z))
+    BWOABuildTools.DoorWConcrete(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z)
+    BWOABuildTools.VentN(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 5, BWOARooms.Incinerator.z)
 
     -- incinerator
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z), "industry_02_56")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Incinerator.x1 + 1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z), "industry_02_55")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Incinerator.x1 + 2, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z), "industry_02_56")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Incinerator.x1 + 3, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z), "industry_02_238")
+    BWOABuildTools.Generic(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_56")
+    BWOABuildTools.Generic(BWOARooms.Incinerator.x1 + 1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_55")
+    BWOABuildTools.Generic(BWOARooms.Incinerator.x1 + 2, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_56")
+    BWOABuildTools.Generic(BWOARooms.Incinerator.x1 + 3, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_238")
 
     return true
 end

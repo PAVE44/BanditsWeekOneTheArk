@@ -3,6 +3,7 @@ BWOASound = BWOASound or {}
 BWOASound.global = {}
 BWOASound.objects = {}
 BWOASound.noah = {}
+BWOASound.noahMax = 12
 BWOASound.tick = 0
 BWOASound.maxDist = 50
 BWOASound.ambientArkSound = "AmbientArk"
@@ -21,15 +22,44 @@ BWOASound.megaphones.noah = {
 
 BWOASound.noahSounds = {
     ["ATTENTION"] = "NoahAttention",
+    ["BIO"] = "NoahBio",
+    ["GENERATORFAILURE"] = "NoahGeneratorFailure",
+    ["GENERATORFUELLOW"] = "NoahGeneratorFuelLow",
+    ["RADIATION"] = "NoahRadiation",
+    ["CO2"] = "NoahCO2",
+    ["WATERFAILURE"] = "NoahWaterFailure",
+    ["HEATINGFAILURE"] = "NoahHeatingFailure",
     ["FIRE"] = "NoahFire",
     ["BATHROOM_ONE"] = "NoahBathroomOne",
     ["BATHROOM_TWO"] = "NoahBathroomTwo",
+    ["BEDROOM_ONE"] = "NoahBedroomOne",
+    ["BEDROOM_TWO"] = "NoahBedroomTwo",
     ["CONTROL_ROOM"] = "NoahControlRoom",
     ["GENERATOR_ROOM"] = "NoahGeneratorRoom",
+    ["GYM"] = "NoahGym",
+    ["HYDROPONICS"] = "NoahHydroponics",
     ["INCINERATOR_ROOM"] = "NoahIncineratorRoom",
+    ["INFIRMARY"] = "NoahInfirmary",
     ["LABORATORY"] = "NoahLaboratory",
     ["LIBRARY"] = "NoahLibrary",
+    ["MECHANICAL"] = "NoahMechanical",
+    ["MESSHALL"] = "NoahMesshall",
+    ["RECROOM"] = "NoahRecRoom",
+    ["STORAGEAREAONE"] = "NoahStorageAreaOne",
+    ["STORAGEAREATWO"] = "NoahStorageAreaTwo",
+    ["STORAGEAREATHREE"] = "NoahStorageAreaThree",
+    ["STORAGEAREAFOUR"] = "NoahStorageAreaFour",
+    ["STORAGEAREAFIVE"] = "NoahStorageAreaFive",
 }
+
+BWOASound.PlayLocation = function(tab)
+    local square = getCell():getGridSquare(tab.x, tab.y, tab.z)
+    if square then
+        local emitter = getWorld():getFreeEmitter(tab.x, tab.y, tab.z)
+        local id = emitter:playSound(tab.sound)
+        emitter:setVolume(id, getSoundManager():getSoundVolume())
+    end
+end
 
 BWOASound.AddGlobal = function(tab)
     table.insert(BWOASound.global, tab)
@@ -49,7 +79,17 @@ BWOASound.RemoveGlobal = function(tab)
 end
 
 BWOASound.AddToObject = function(tab)
-    if tab.sound then
+    if not tab.sound then return end
+
+    local duplicate = false
+    for i, effect in ipairs(BWOASound.objects) do
+        if effect.x == tab.x and effect.y == tab.y and effect.z == tab.z and (tab.sound == effect.sound or not tab.sound) then
+            duplicate = true
+            break
+        end
+    end
+
+    if not duplicate then
         table.insert(BWOASound.objects, tab)
     end
 end
@@ -65,8 +105,15 @@ BWOASound.RemoveFromObject = function(tab)
 end
 
 BWOASound.AddNoah = function(tab)
+    if #BWOASound.noah > BWOASound.noahMax then return end
     if tab.sound then
         table.insert(BWOASound.noah, tab)
+    end
+end
+
+BWOASound.ClearNoah = function(tab)
+    for i = #BWOASound.noah, 2 do
+        table.remove(BWOASound.noah, i)
     end
 end
 

@@ -1,13 +1,15 @@
 BWOABuildTools = BWOABuildTools or {}
 
-BWOABuildTools.Generic = function(square, spriteName)
+BWOABuildTools.Generic = function(x, y, z, spriteName)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, spriteName, "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
 
-BWOABuildTools.FloorConcrete = function(square)
+BWOABuildTools.FloorConcrete = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "floors_exterior_street_01_0", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -15,7 +17,8 @@ BWOABuildTools.FloorConcrete = function(square)
     square:setSquareChanged()
 end
 
-BWOABuildTools.WallWConcrete = function(square)
+BWOABuildTools.WallWConcrete = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "walls_garage_01_36", "")
     obj:setType(IsoObjectType.wall)
     obj:setAttachedAnimSprite(ArrayList.new())
@@ -27,7 +30,8 @@ BWOABuildTools.WallWConcrete = function(square)
     square:setSquareChanged()
 end
 
-BWOABuildTools.WallNConcrete = function(square)
+BWOABuildTools.WallNConcrete = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "walls_garage_01_37", "")
     obj:setType(IsoObjectType.wall)
     obj:setAttachedAnimSprite(ArrayList.new())
@@ -39,7 +43,8 @@ BWOABuildTools.WallNConcrete = function(square)
     square:setSquareChanged()
 end
 
-BWOABuildTools.DoorNConcrete = function(square)
+BWOABuildTools.DoorNConcrete = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local objects = square:getObjects()
     for i=0, objects:size()-1 do
         local object = objects:get(i)
@@ -62,7 +67,8 @@ BWOABuildTools.DoorNConcrete = function(square)
     square:setSquareChanged()
 end
 
-BWOABuildTools.DoorWConcrete = function(square)
+BWOABuildTools.DoorWConcrete = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local objects = square:getObjects()
     for i=0, objects:size()-1 do
         local object = objects:get(i)
@@ -85,64 +91,177 @@ BWOABuildTools.DoorWConcrete = function(square)
     square:setSquareChanged()
 end
 
-BWOABuildTools.VentN = function(square)
+BWOABuildTools.VentN = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "rooftop_furniture_4", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
 
-BWOABuildTools.BookshelfW = function(square)
+BWOABuildTools.VentW = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoObject.new(square, "rooftop_furniture_5", "")
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+end
+
+BWOABuildTools.BookshelfW = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "furniture_shelving_01_44", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
 
-BWOABuildTools.Fridge = function(square)
+BWOABuildTools.Fridge = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "appliances_refrigeration_01_40", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
 
-BWOABuildTools.Lamp = function(square, spriteName)
-    local obj = getSprite(spriteName)
-    local spriteProps = obj:getProperties()
-    spriteProps:Set("lightR", "100")
-    spriteProps:Set("lightG", "100")
-    spriteProps:Set("lightB", "100")
-    spriteProps:Set("LightRadius", "6")
-
-    obj = IsoLightSwitch.new(getCell(), square, obj, square:getRoomID())
-    obj:setUseBattery(false)
-    obj:addLightSourceFromSprite()
-    obj:setActive(true)
+BWOABuildTools.Skeleton = function (x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local spriteName = "location_shop_mall_01_68"
+	local obj = IsoMannequin.new(getCell(), nil, getSprite(spriteName))
+	obj:setMannequinScriptName("MannequinSkeleton01")
     square:AddSpecialObject(obj)
-    obj:setActive(true)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
 
-BWOABuildTools.LampCeiling = function(square)
-    local obj = getSprite("lighting_indoor_03_21")
-    local spriteProps = obj:getProperties()
-    spriteProps:Set("lightR", "100")
-    spriteProps:Set("lightG", "100")
-    spriteProps:Set("lightB", "100")
-    spriteProps:Set("LightRadius", "6")
-
-    obj = IsoLightSwitch.new(getCell(), square, obj, square:getRoomID())
-    obj:setUseBattery(false)
-    obj:addLightSourceFromSprite()
-    obj:setActive(true)
+local container = function(x, y, z, spriteName, data)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoObject.new(square, spriteName, "")
     square:AddSpecialObject(obj)
-    obj:setActive(true)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
 
-BWOABuildTools.FarmPlot = function(square, seedType)
+BWOABuildTools.SmallTableN = function(x, y, z, data)
+    local sprite = "furniture_storage_01_52"
+    container(x, y, z, sprite, data)
+end
+
+BWOABuildTools.SmallTableS = function(x, y, z, data)
+    local sprite = "furniture_storage_01_55"
+    container(x, y, z, sprite, data)
+end
+
+local lamp = function(x, y, z, spriteName, data)
+    local cell = getCell()
+    local square = cell:getOrCreateGridSquare(x, y, z)
+    local sprite = getSprite(spriteName)
+    local spriteProps = sprite:getProperties()
+    spriteProps:Set("lightR", tostring(data.r))
+    spriteProps:Set("lightG", tostring(data.g))
+    spriteProps:Set("lightB", tostring(data.b))
+    spriteProps:Set("LightRadius",tostring(data.d))
+
+    local ls = IsoLightSwitch.new(cell, square, sprite, square:getRoomID())
+    if data.battery then
+        ls:setCanBeModified(true)
+        ls:setPower(1000)
+        ls:setHasBattery(true)
+        ls:setUseBatteryDirect(true)
+    else
+        ls:setUseBattery(false)
+    end
+    ls:addLightSourceFromSprite()
+    ls:setPrimaryR(data.r / 255)
+    ls:setPrimaryG(data.g / 255)
+    ls:setPrimaryB(data.b / 255)
+    ls:setActive(true)
+    square:AddSpecialObject(ls)
+    ls:setActive(data.active or true)
+    ls:transmitCompleteItemToServer()
+    square:setSquareChanged()
+
+end
+
+BWOABuildTools.EmergencyLightN = function(x, y, z)
+    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local sprite = "location_entertainment_theatre_01_138"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.EmergencyLightW = function(x, y, z)
+    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local sprite = "location_entertainment_theatre_01_136"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.EmergencyLightS = function(x, y, z)
+    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local sprite = "location_entertainment_theatre_01_142"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.EmergencyLightE = function(x, y, z)
+    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local sprite = "location_entertainment_theatre_01_140"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampOvalN = function(x, y, z)
+    local data = {r = 255, g = 240, b = 88, d=4}
+    local sprite = "lighting_outdoor_01_40"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampOvalW = function(x, y, z)
+    local data = {r = 255, g = 240, b = 88, d=4}
+    local sprite = "lighting_outdoor_01_41"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampOvalS = function(x, y, z)
+    local data = {r = 255, g = 240, b = 88, d=4}
+    local sprite = "lighting_outdoor_01_44"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampOvalE = function(x, y, z)
+    local data = {r = 255, g = 240, b = 88, d=4}
+    local sprite = "lighting_outdoor_01_45"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampDeskYellowN = function(x, y, z)
+    local data = {r = 255, g = 240, b = 180, d=2}
+    local sprite = "lighting_indoor_02_14"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampDeskYellowW = function(x, y, z)
+    local data = {r = 255, g = 240, b = 180, d=2}
+    local sprite = "lighting_indoor_02_13"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampDeskYellowS = function(x, y, z)
+    local data = {r = 255, g = 240, b = 180, d=2}
+    local sprite = "lighting_indoor_02_12"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampDeskYellowE = function(x, y, z)
+    local data = {r = 255, g = 240, b = 180, d=2}
+    local sprite = "lighting_indoor_02_15"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.LampCeilingNS = function(x, y, z)
+    local data = {r = 255, g = 240, b = 180, d=7}
+    local sprite = "lighting_indoor_03_21"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.FarmPlot = function(x, y, z, seedType)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "blends_natural_01_64", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()

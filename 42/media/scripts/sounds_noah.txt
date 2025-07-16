@@ -12,6 +12,18 @@ module Bandits {
         } 
     }
 
+    sound NoahBio {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_bio.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound NoahFire {
         category = Object, 
         loop = false,
@@ -24,12 +36,84 @@ module Bandits {
         } 
     }
 
+    sound NoahGeneratorFailure {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_generator_failure.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahGeneratorFuelLow {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_generator_fuel_low.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahRadiation {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_radiation.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahCO2 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_co2.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahHeatingFailure {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_heating_failure.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahWaterFailure {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_water_failure.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound NoahBathroomOne {
         category = Object, 
         loop = false,
         is3D = true,
         clip { 
-            file = media/sound/noah_batthroom_one.ogg, 
+            file = media/sound/noah_bathroom_one.ogg, 
             distanceMax = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
@@ -42,6 +126,30 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_bathroom_two.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahBedroomOne {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_bedroom_one.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahBedroomTwo {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_bedroom_two.ogg, 
             distanceMax = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
@@ -72,12 +180,48 @@ module Bandits {
         } 
     }
 
+    sound NoahGym {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_gym.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahHydroponics {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_hydroponics.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound NoahIncineratorRoom {
         category = Object, 
         loop = false,
         is3D = true,
         clip { 
             file = media/sound/noah_incinerator_room.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahInfirmary {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_infirmary.ogg, 
             distanceMax = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
@@ -102,6 +246,102 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_library.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahMechanical {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_mechanical.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahMesshall {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_messhall.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahRecRoom {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_rec_room.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahStorageAreaOne {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_storage_area_one.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahStorageAreaTwo {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_storage_area_two.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahStorageAreaThree {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_storage_area_three.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahStorageAreaFour {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_storage_area_four.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahStorageAreaFive {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_storage_area_five.ogg, 
             distanceMax = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 

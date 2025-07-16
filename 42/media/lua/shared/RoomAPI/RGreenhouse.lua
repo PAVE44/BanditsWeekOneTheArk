@@ -3,7 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.Greenhouse = {}
 
 BWOARooms.Greenhouse.Init = function ()
-    BWOARooms.Greenhouse.name = "GREENHOUSE"
+    BWOARooms.Greenhouse.name = "HYDROPONICS"
     BWOARooms.Greenhouse.x1 = 9962
     BWOARooms.Greenhouse.x2 = 9974
     BWOARooms.Greenhouse.y1 = 12578
@@ -19,22 +19,21 @@ BWOARooms.Greenhouse.Build = function ()
     local z = BWOARooms.Greenhouse.z
     for x = BWOARooms.Greenhouse.x1, BWOARooms.Greenhouse.x2 do
         for y = BWOARooms.Greenhouse.y1, BWOARooms.Greenhouse.y2 do
-            local square = cell:getOrCreateGridSquare(x, y, z)
-            BWOABuildTools.FloorConcrete(square)
+            BWOABuildTools.FloorConcrete(x, y, z)
 
             if x == BWOARooms.Greenhouse.x1 or x == BWOARooms.Greenhouse.x2 then
-                BWOABuildTools.WallWConcrete(square)
+                BWOABuildTools.WallWConcrete(x, y, z)
 
                 if y % 5 == 0 then
-                    BWOABuildTools.VentN(square)
+                    BWOABuildTools.VentN(x, y, z)
                 elseif y % 5 == 2 then
-                    BWOABuildTools.Generic(square, "fixtures_bathroom_01_31")
-                    BWOABuildTools.Generic(square, "street_decoration_01_13")
+                    BWOABuildTools.Generic(x, y, z, "fixtures_bathroom_01_31")
+                    BWOABuildTools.Generic(x, y, z, "street_decoration_01_13")
                 end
             end
 
             if y == BWOARooms.Greenhouse.y1 then 
-                BWOABuildTools.WallNConcrete(square)
+                BWOABuildTools.WallNConcrete(x, y, z)
             end
         end
     end
@@ -43,8 +42,7 @@ BWOARooms.Greenhouse.Build = function ()
 
     -- equipment
     for x = 9963, 9970 do
-        local square = cell:getOrCreateGridSquare(x, 12578, z)
-        BWOABuildTools.Fridge(square)
+        BWOABuildTools.Fridge(x, 12578, z)
     end
 
     -- farmplots
@@ -59,7 +57,6 @@ BWOARooms.Greenhouse.Build = function ()
     local z = BWOARooms.Greenhouse.z
     for _, x in pairs({9963, 9964, 9966, 9967, 9969, 9970}) do
         for y = BWOARooms.Greenhouse.y1 + 3, BWOARooms.Greenhouse.y2 - 2 do
-            local square = cell:getOrCreateGridSquare(x, y, z)
 
             if seedIdx == 0 then
                 seedType = BanditUtils.Choice(seeds)
@@ -67,15 +64,14 @@ BWOARooms.Greenhouse.Build = function ()
             seedIdx = seedIdx + 1
             if seedIdx == 4 then seedIdx = 0 end
             
-            BWOABuildTools.FarmPlot(square, seedType)
+            BWOABuildTools.FarmPlot(x, y, z, seedType)
         end
     end
 
     -- lights
     for _, x in pairs({9964, 9966, 9968, 9970, 9972}) do
         for y = BWOARooms.Greenhouse.y1 + 3, BWOARooms.Greenhouse.y2 - 2 do
-            local square = cell:getOrCreateGridSquare(x, y, z)
-            BWOABuildTools.LampCeiling(square)
+            BWOABuildTools.LampCeilingNS(x, y, z)
         end
     end
 

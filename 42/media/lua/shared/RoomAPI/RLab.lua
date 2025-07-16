@@ -13,82 +13,88 @@ BWOARooms.Lab.Init = function ()
 end
 
 BWOARooms.Lab.Build = function ()
-    local cell = getCell()
 
     -- floors, walls, door
     local z = BWOARooms.Lab.z
     for x = BWOARooms.Lab.x1, BWOARooms.Lab.x2 do
         for y = BWOARooms.Lab.y1, BWOARooms.Lab.y2 do
-            local square = cell:getOrCreateGridSquare(x, y, z)
-            BWOABuildTools.FloorConcrete(square)
+            BWOABuildTools.FloorConcrete(x, y, z)
 
             if x == BWOARooms.Lab.x1 or x == BWOARooms.Lab.x2 then
-                BWOABuildTools.WallWConcrete(square)
+                BWOABuildTools.WallWConcrete(x, y, z)
             end
 
             if y == BWOARooms.Lab.y2 then 
-                BWOABuildTools.WallNConcrete(square)
+                BWOABuildTools.WallNConcrete(x, y, z)
             end
         end
     end
 
-    BWOABuildTools.DoorNConcrete(cell:getGridSquare(9968, 12643, z))
+    BWOABuildTools.DoorNConcrete(9968, 12643, z)
+
+    -- room lamps
+    BWOABuildTools.LampOvalN(9964, 12643, -4)
+    BWOABuildTools.LampOvalN(9970, 12643, -4)
+    BWOABuildTools.LampOvalS(9959, 12650, -4)
+    BWOABuildTools.LampOvalS(9970, 12650, -4)
+
+    -- BWOABuildTools.Skeleton(9970, 12643, -4)
 
     -- closets
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1, -4), "location_community_medical_01_153")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 1, -4), "location_community_medical_01_152")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 2, -4), "location_community_medical_01_103")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 3, -4), "location_community_medical_01_103")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_103")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_103")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 6, -4), "location_community_medical_01_153")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 7, -4), "location_community_medical_01_152")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_153")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 1, BWOARooms.Lab.z, "location_community_medical_01_152")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 2, BWOARooms.Lab.z, "location_community_medical_01_103")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 3, BWOARooms.Lab.z, "location_community_medical_01_103")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_103")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_103")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 6, BWOARooms.Lab.z, "location_community_medical_01_153")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1, BWOARooms.Lab.y1 + 7, BWOARooms.Lab.z, "location_community_medical_01_152")
 
     -- desk
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1, -4), "location_community_medical_01_107")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1, -4), "location_community_medical_01_108")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1, -4), "location_community_medical_01_108")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1, -4), "location_community_medical_01_109")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_107")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_108")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_108")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_109")
 
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1, -4), "location_community_medical_01_11") -- poster
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_11") -- poster
 
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1, -4), "location_community_medical_01_136") -- microscope
-    BWOABuildTools.Lamp(cell:getGridSquare(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1, -4), "lighting_indoor_02_2") -- lamp
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1, -4), "appliances_com_01_72") -- computer
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1, BWOARooms.Lab.z, "location_community_medical_01_136") -- microscope
+    BWOABuildTools.LampDeskYellowN(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1, BWOARooms.Lab.z)
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1, BWOARooms.Lab.z, "appliances_com_01_72") -- computer
 
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 1, -4), "furniture_seating_indoor_01_51") -- chair
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 1, BWOARooms.Lab.z, "furniture_seating_indoor_01_51") -- chair
 
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 3, -4), "location_community_medical_01_10") -- chair
-
-    -- desk
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_107")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_108")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_108")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_109")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 6, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_50")
-
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 4, -4), "fixtures_sinks_01_19") -- sink
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 4, -4), "location_community_medical_01_139") -- microscope
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 3, BWOARooms.Lab.z, "location_community_medical_01_10") -- chair
 
     -- desk
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_107")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_108")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_108")
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_109")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_107")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_108")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_108")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_109")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 6, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_50")
 
-    BWOABuildTools.Lamp(cell:getGridSquare(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 5, -4), "lighting_indoor_02_2") -- lamp
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 5, -4), "fixtures_sinks_01_17") -- sink
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_136")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "fixtures_sinks_01_19") -- sink
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 4, BWOARooms.Lab.z, "location_community_medical_01_139") -- microscope
 
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 6, -4), "location_community_medical_01_10") -- chair
+    -- desk
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_107")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 3, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_108")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_108")
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_109")
 
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 9, BWOARooms.Lab.y1 + 5, -4), "location_community_medical_01_79") -- processing table
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 9, BWOARooms.Lab.y1 + 6, -4), "location_community_medical_01_78") -- processing table
+    BWOABuildTools.LampDeskYellowN(BWOARooms.Lab.x1 + 2, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z)
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "fixtures_sinks_01_17") -- sink
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 5, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_136")
+
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 4, BWOARooms.Lab.y1 + 6, BWOARooms.Lab.z, "location_community_medical_01_10") -- chair
+
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 9, BWOARooms.Lab.y1 + 5, BWOARooms.Lab.z, "location_community_medical_01_79") -- processing table
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 9, BWOARooms.Lab.y1 + 6, BWOARooms.Lab.z, "location_community_medical_01_78") -- processing table
     
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 9 , BWOARooms.Lab.y1, -4), "furniture_tables_high_01_56") -- plastic table
-    BWOABuildTools.Generic(cell:getGridSquare(BWOARooms.Lab.x1 + 10, BWOARooms.Lab.y1, -4), "furniture_tables_high_01_57") -- plastic table
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 9 , BWOARooms.Lab.y1, BWOARooms.Lab.z, "furniture_tables_high_01_56") -- plastic table
+    BWOABuildTools.Generic(BWOARooms.Lab.x1 + 10, BWOARooms.Lab.y1, BWOARooms.Lab.z, "furniture_tables_high_01_57") -- plastic table
 
-    BWOABuildTools.VentW(cell:getGridSquare(BWOARooms.Lab.x1 + 9 , BWOARooms.Lab.y1, -4)) --vent
+    BWOABuildTools.VentW(BWOARooms.Lab.x1 + 9 , BWOARooms.Lab.y1, BWOARooms.Lab.z) --vent
 
     return true
 end
@@ -99,7 +105,7 @@ end
 
 BWOARooms.Lab.GetLights = function ()
     local lights = {}
-    local z = -4
+    local z = BWOARooms.Lab.z
     for _, x in pairs({9964, 9966, 9968, 9970, 9972}) do
         for y = BWOARooms.Lab.y1 + 3, BWOARooms.Lab.y2 - 2 do
             table.insert(lights, {x=x, y=y, z=z})
