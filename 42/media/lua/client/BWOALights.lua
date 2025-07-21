@@ -15,6 +15,9 @@ local function onTick()
         BWOALights.tick = 0
     end
 
+    local power = BWOABaseControl.power
+    if not power then return end
+
     if BWOALights.tick > 1 then return end
 
     local function getLightSwitch(x, y, z)
@@ -23,7 +26,10 @@ local function onTick()
         for i=0, objects:size()-1 do
             local object = objects:get(i)
             if instanceof(object, "IsoLightSwitch") then
-                return object
+                local properties = object:getProperties()
+                if not properties:Is(IsoFlagType.WallOverlay) then
+                    return object
+                end
             end
         end
     end

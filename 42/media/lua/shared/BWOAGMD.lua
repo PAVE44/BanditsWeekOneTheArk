@@ -34,6 +34,8 @@ function InitBWOAModData(isNewGame)
     -- if not globalData.ventilation then 
         globalData.ventilation = {
             active = true,
+            co2 = 0.05,
+            filter = 88,
             heating = true,
             open = true,
             tempTarget = 21,

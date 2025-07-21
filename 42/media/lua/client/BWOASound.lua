@@ -125,6 +125,8 @@ local function onTick()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local maxDist = BWOASound.maxDist
     local volume = getSoundManager():getSoundVolume()
+    local gmd = GetBWOAModData()
+    local power = BWOABaseControl.power
 
     -- ambient looped emitter
     if pz > -2 then
@@ -194,7 +196,11 @@ local function onTick()
                     effect.emitter = getWorld():getFreeEmitter(effect.x, effect.y, effect.z)
                 end
 
-                effect.emitter:setVolumeAll(volume)
+                if not effect.elec or power then
+                    effect.emitter:setVolumeAll(volume)
+                else
+                    effect.emitter:setVolumeAll(0)
+                end
 
                 if not effect.emitter:isPlaying(effect.sound) then
                     effect.emitter:playAmbientLoopedImpl(effect.sound)

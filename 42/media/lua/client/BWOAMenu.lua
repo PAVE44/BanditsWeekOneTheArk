@@ -82,6 +82,9 @@ function BWOAMenu.AddOverlay(player, square)
     end
 end
 
+function BWOAMenu.NoahUI(player)
+    BWOANoah.Show()
+end
 
 local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
     local player = getSpecificPlayer(playerID)
@@ -90,6 +93,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     -- Debug options
     if isDebugEnabled() then
 
+        context:addOption("Noah", player, BWOAMenu.NoahUI)
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Test Emitter", player, BWOAMenu.TestEmmiter)
         context:addOption("Test Flickers", player, BWOAMenu.TestFlickers)

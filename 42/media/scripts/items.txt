@@ -1,0 +1,18 @@
+module Bandits
+{
+    item Note
+    {
+        DisplayCategory = Lore,
+        Weight	=	0.1,
+        Type	=	Literature,
+        DisplayName	=	Note,
+        IconsForTexture	=	Note1;Note2,
+        /*CanBeWrite  =   true,
+        PageToWrite =   1,*/
+        StaticModelsByIndex = Note1;Note2,
+        WorldStaticModelsByIndex = Note1;Note2,
+		ReadType = photo,
+		Tags = FastRead,
+		/*OnCreate = SpecialLootSpawns.OnCreateNote,*/
+    }
+}

@@ -174,34 +174,49 @@ local lamp = function(x, y, z, spriteName, data)
     ls:setPrimaryR(data.r / 255)
     ls:setPrimaryG(data.g / 255)
     ls:setPrimaryB(data.b / 255)
-    ls:setActive(true)
     square:AddSpecialObject(ls)
-    ls:setActive(data.active or true)
-    ls:transmitCompleteItemToServer()
+    if data.active == nil or data.active == true then
+        ls:setActive(true)
+    else
+        ls:setActive(false)
+    end
+    -- ls:transmitCompleteItemToServer()
     square:setSquareChanged()
 
 end
 
+BWOABuildTools.EmergencyExitN = function(x, y, z)
+    local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
+    local sprite = "lighting_indoor_01_2N"
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.EmergencyExitW = function(x, y, z)
+    local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
+    local sprite = "lighting_indoor_01_24"
+    lamp(x, y, z, sprite, data)
+end
+
 BWOABuildTools.EmergencyLightN = function(x, y, z)
-    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
     local sprite = "location_entertainment_theatre_01_138"
     lamp(x, y, z, sprite, data)
 end
 
 BWOABuildTools.EmergencyLightW = function(x, y, z)
-    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
     local sprite = "location_entertainment_theatre_01_136"
     lamp(x, y, z, sprite, data)
 end
 
 BWOABuildTools.EmergencyLightS = function(x, y, z)
-    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
     local sprite = "location_entertainment_theatre_01_142"
     lamp(x, y, z, sprite, data)
 end
 
 BWOABuildTools.EmergencyLightE = function(x, y, z)
-    local data = {r = 70, g = 0, b = 0, d=2, active=true, battery=true}
+    local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
     local sprite = "location_entertainment_theatre_01_140"
     lamp(x, y, z, sprite, data)
 end
@@ -280,5 +295,26 @@ BWOABuildTools.FarmPlot = function(x, y, z, seedType)
         SFarmingSystem.instance:growPlant(plant, nil, true)
         -- SFarmingSystem.instance:growPlant(plant, nil, true)
         -- SFarmingSystem.instance:growPlant(plant, nil, true)
+    end
+end
+
+
+-- batch building
+
+BWOABuildTools.ELS = function(tab)
+    for _, el in pairs(tab) do
+        if el.dir == "N" then
+            BWOABuildTools.EmergencyLightN(el.x, el.y, el.z)
+        elseif el.dir == "W" then
+            BWOABuildTools.EmergencyLightW(el.x, el.y, el.z)
+        elseif el.dir == "S" then
+            BWOABuildTools.EmergencyLightS(el.x, el.y, el.z)
+        elseif el.dir == "E" then
+            BWOABuildTools.EmergencyLightE(el.x, el.y, el.z)
+        elseif el.dir == "XW" then
+            BWOABuildTools.EmergencyExitW(el.x, el.y, el.z)
+        elseif el.dir == "XN" then
+            BWOABuildTools.EmergencyExitN(el.x, el.y, el.z)
+        end
     end
 end

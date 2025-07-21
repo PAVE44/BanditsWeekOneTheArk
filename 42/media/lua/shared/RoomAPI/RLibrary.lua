@@ -10,9 +10,25 @@ BWOARooms.Library.Init = function ()
     BWOARooms.Library.y2 = 12613
     BWOARooms.Library.z = -4
     BWOARooms.Library.ambience = ""
+
+    BWOARooms.Library.els = {}
+    for x=BWOARooms.Library.x1, BWOARooms.Library.x2 do
+        table.insert(BWOARooms.Library.els, {dir="N", x=x, y=BWOARooms.Library.y1, z=-4})
+        table.insert(BWOARooms.Library.els, {dir="S", x=x, y=BWOARooms.Library.y2, z=-4})
+    end
+
+    for y=BWOARooms.Library.y1, BWOARooms.Library.y2 do
+        if y ~= BWOARooms.Library.y1 + 2 then
+            table.insert(BWOARooms.Library.els, {dir="W", x=BWOARooms.Library.x1, y=y, z=-4})
+        end
+        
+        table.insert(BWOARooms.Library.els, {dir="E", x=BWOARooms.Library.x2, y=y, z=-4})
+    end
 end
 
 BWOARooms.Library.Build = function ()
+    BWOARooms.Library.Init()
+
     -- floors, walls, door
     local z = BWOARooms.Library.z
     for x = BWOARooms.Library.x1, BWOARooms.Library.x2 do
@@ -34,6 +50,8 @@ BWOARooms.Library.Build = function ()
 
     BWOABuildTools.DoorWConcrete(9973, 12610, -4)
 
+    BWOABuildTools.ELS(BWOARooms.Library.els)
+
     -- equipment
     BWOABuildTools.BookshelfW(9973, 12608, -4)
     BWOABuildTools.BookshelfW(9974, 12608, -4)
@@ -47,18 +65,18 @@ BWOARooms.Library.Build = function ()
     BWOABuildTools.Generic(9976, 12613, -4, "furniture_tables_low_01_17")
 
     -- lights
-    BWOABuildTools.Lamp(9973, 12613, -4, "lighting_indoor_01_32")
+    BWOABuildTools.LampDeskYellowN(9973, 12613, -4)
 
     return true
 end
 
 BWOARooms.Library.SetEmitters = function ()
-    BWOASound.AddToObject({x=9977.5, y=12610 + 0.5, z=-4, sound="AmbientVent"})
+    BWOARooms.Library.Init()
+    BWOASound.AddToObject({x=9977.5, y=12610 + 0.5, z=-4, elec=true, sound="AmbientVent"})
 end
 
 BWOARooms.Library.Prepare = function ()
+    BWOARooms.Library.Init()
 end
 
-BWOARooms.Library.LightToggle = function ()
-end
 

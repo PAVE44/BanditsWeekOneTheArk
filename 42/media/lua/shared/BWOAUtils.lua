@@ -17,3 +17,21 @@ BanditUtils.GetTime = function()
     -- the unit is arbitrary but it gives good resolution
     return getGameTime():getWorldAgeHours() * 2500000 / 24
 end
+
+BanditUtils.HasZoneType = function(x, y, z, zoneType)
+    local zones = getZones(x, y, z)
+    if zones then
+        for i=0, zones:size()-1 do
+            local zone = zones:get(i)
+            if zone:getType() == zoneType then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+BanditUtils.AddVehicle = function(btype, dir, square)
+    local vehicle = addVehicle(btype, square:getX(), square:getY(), square:getZ())
+    return vehicle
+end

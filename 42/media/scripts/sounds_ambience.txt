@@ -59,12 +59,36 @@ module Bandits {
         } 
     }
 
+    sound AmbientELS {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_els.ogg, 
+            distanceMin = 1,
+            distanceMax = 50,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound AmbientGenerator {
         category = Object, 
         loop = true,
         is3D = true,
         clip { 
             file = media/sound/ambient_generator2.ogg, 
+            distanceMin = 1,
+            distanceMax = 23,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientGeneratorStart {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_generator_start.ogg, 
             distanceMin = 1,
             distanceMax = 23,
             reverbFactor = 0.6, 

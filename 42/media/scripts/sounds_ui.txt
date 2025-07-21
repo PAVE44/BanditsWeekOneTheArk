@@ -1,0 +1,40 @@
+module Bandits {
+
+    sound UIKey {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/ui_key_1.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/ui_key_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/ui_key_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/ui_key_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/ui_key_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/ui_key_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/ui_key_7.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/ui_key_8.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+}

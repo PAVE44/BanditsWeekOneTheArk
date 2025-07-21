@@ -21,10 +21,10 @@ BWOAPrepareTools.DarkenLight = function(x, y, z)
     end
 end
 
-BWOAPrepareTools.AddWorldItem = function(x, y, z, itemType, data)
+local addWorldItem = function(x, y, z, item, data)
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)
-    local item = BanditCompatibility.InstanceItem(itemType)
+    
     item = square:AddWorldInventoryItem(item, data.x, data.y, data.z)
 
     if data.rx then
@@ -36,5 +36,13 @@ BWOAPrepareTools.AddWorldItem = function(x, y, z, itemType, data)
     if data.rz then
         item:setWorldZRotation(data.rz)
     end
+end
 
+BWOAPrepareTools.AddWorldItem = function(x, y, z, itemType, data)
+    local item = BanditCompatibility.InstanceItem(itemType)
+    addWorldItem(x, y, z, item, data)
+end 
+
+BWOAPrepareTools.AddWorldItemSpecial = function(x, y, z, item, data)
+    addWorldItem(x, y, z, item, data)
 end 

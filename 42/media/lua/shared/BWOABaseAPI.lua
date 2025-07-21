@@ -72,17 +72,33 @@ end
 
 BWOABaseAPI.EmergencyLights = function(roomName, active)
     local cell = getCell()
-    for _, el in pairs(BWOARooms[roomName].els) do
+    local room = BWOARooms[roomName]
+    local change = false
+    for _, el in pairs(room.els) do
         local square = cell:getGridSquare(el.x, el.y, el.z)
         if square then
             local objects = square:getObjects()
             for i=0, objects:size()-1 do
                 local object = objects:get(i)
-                if instanceof(object, "IsoLightSwitch") then
-                    object:setActive(active)
+                if instanceof(object, "IsoLightSwitch") and object:getUseBattery() and object:getHasBattery() then
+                    if object:isActivated() ~= active then
+                        object:setActive(active)
+                        if active then
+                            change = true
+                        end
+                    end
                 end
             end
         end 
+    end
+
+    if change then
+        local sound = {}
+        sound.x = math.floor(((room.x1 + room.x2) / 2) + 0.5)
+        sound.y = math.floor(((room.y1 + room.y2) / 2) + 0.5)
+        sound.z = room.z
+        sound.sound = "AmbientELS"
+        BWOASound.PlayLocation(sound)
     end
 end
 
@@ -95,6 +111,7 @@ BWOABaseAPI.GetGeneratorPowerUsing = function()
             if generator then
                 if generator:isActivated() then
                     powerUsing = powerUsing + generator:getTotalPowerUsing()
+                    local items = generator:getItemsPowered()
                 end
             end
         else
@@ -126,7 +143,7 @@ BWOABaseAPI.AlarmOff = function()
     BWOABaseAPI.alarm = false
 end
 
-BWOABaseAPI.VentilationOn = function(temp)
+BWOABaseAPI.VentilationUpdate = function(active, temp)
     local r = 1000
     local correction = 7
     local cell = getCell()
@@ -138,7 +155,12 @@ BWOABaseAPI.VentilationOn = function(temp)
                     local hid = coords.x .. "." .. coords.y  .. "." .. coords.z
                     if BWOABaseAPI.heatsources[hid] then
                         BWOABaseAPI.heatsources[hid]:setTemperature(temp + correction)
-                        BWOASound.AddToObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
+
+                        if active then
+                            BWOASound.AddToObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
+                        else
+                            BWOASound.RemoveFromObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
+                        end
                     else
                         local x, y, z = math.floor(coords.x), math.floor(coords.y), math.floor(coords.z)
                         BWOABaseAPI.heatsources[hid] = IsoHeatSource.new(x, y, z, r, temp + correction)
@@ -160,7 +182,7 @@ BWOABaseAPI.VentilationOff = function()
                     local hid = coords.x .. "." .. coords.y  .. "." .. coords.z
                     if BWOABaseAPI.heatsources[hid] then
                         cell:removeHeatSource(BWOABaseAPI.heatsources[hid])
-                        BWOASound.RemoveFromObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
+                        -- BWOASound.RemoveFromObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
                     end
                 end
             end

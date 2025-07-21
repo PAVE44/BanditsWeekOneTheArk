@@ -13,6 +13,9 @@ BWOARooms.Greenhouse.Init = function ()
 end
 
 BWOARooms.Greenhouse.Build = function ()
+    BWOARooms.Greenhouse.Init()
+
+    --[[
     local cell = getCell()
 
     -- floors, walls, door
@@ -75,7 +78,7 @@ BWOARooms.Greenhouse.Build = function ()
         end
     end
 
-    return true
+    ]]
 end
 
 BWOARooms.Greenhouse.SetEmitters = function ()
@@ -85,20 +88,7 @@ BWOARooms.Greenhouse.SetEmitters = function ()
     end
 end
 
-BWOARooms.Greenhouse.GetLights = function ()
-    local lights = {}
-    local z = -4
-    for _, x in pairs({9964, 9966, 9968, 9970, 9972}) do
-        for y = BWOARooms.Greenhouse.y1 + 3, BWOARooms.Greenhouse.y2 - 2 do
-            table.insert(lights, {x=x, y=y, z=z})
-        end
-    end
-    return lights
-end
-
 BWOARooms.Greenhouse.Prepare = function ()
 end
 
-BWOARooms.Greenhouse.LightToggle = function ()
-end
 

@@ -10,9 +10,27 @@ BWOARooms.BedroomMale.Init = function ()
     BWOARooms.BedroomMale.y2 = 12642
     BWOARooms.BedroomMale.z = -4
     BWOARooms.BedroomMale.ambience = ""
+
+    BWOARooms.BedroomMale.els = {}
+    for x=9944, 9956 do
+        table.insert(BWOARooms.BedroomMale.els, {dir="S", x=x, y=12642, z=-4})
+        table.insert(BWOARooms.BedroomMale.els, {dir="N", x=x, y=12636, z=-4})
+    end
+
+    for y=12636, 12642 do
+        table.insert(BWOARooms.BedroomMale.els, {dir="W", x=9944, y=y, z=-4})
+        table.insert(BWOARooms.BedroomMale.els, {dir="E", x=9956, y=y, z=-4})
+    end
 end
 
 BWOARooms.BedroomMale.Build = function ()
+
+    BWOARooms.BedroomMale.Init()
+
+    BWOAPrepareTools.DarkenLight(9956, 12640, -4)
+
+    BWOABuildTools.ELS(BWOARooms.BedroomMale.els)
+
     BWOABuildTools.LampOvalN(9945, 12636, -4)
     BWOABuildTools.LampOvalN(9952, 12636, -4)
     BWOABuildTools.LampOvalS(9945, 12642, -4)
@@ -35,19 +53,20 @@ BWOARooms.BedroomMale.Build = function ()
     BWOABuildTools.SmallTableS(9952, 12642, -4, {})
     BWOABuildTools.SmallTableS(9954, 12642, -4, {})
     BWOABuildTools.SmallTableS(9956, 12642, -4, {})
-
 end
 
 BWOARooms.BedroomMale.SetEmitters = function ()
+    BWOARooms.BedroomMale.Init()
     -- BWOASound.AddToObject({x=9948, y=12605, z=-4, sound="AmbientWaterDrops"})
 end
 
 BWOARooms.BedroomMale.SetFlickers = function ()
+    BWOARooms.BedroomMale.Init()
     BWOALights.AddFlicker({x=9945, y=12636, z=-4})
 end
 
 BWOARooms.BedroomMale.Prepare = function ()
-    BWOAPrepareTools.DarkenLight(9956, 12640, -4)
+    BWOARooms.BedroomMale.Init()
 
     -- pillows
     for _, y in pairs({12636, 12642}) do
@@ -113,6 +132,4 @@ BWOARooms.BedroomMale.Prepare = function ()
 
 end
 
-BWOARooms.BedroomMale.LightToggle = function ()
-end
 

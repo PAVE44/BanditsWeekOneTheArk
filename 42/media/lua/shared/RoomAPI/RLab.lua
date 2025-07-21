@@ -10,9 +10,24 @@ BWOARooms.Lab.Init = function ()
     BWOARooms.Lab.y2 = 12651
     BWOARooms.Lab.z = -4
     BWOARooms.Lab.ambience = ""
+
+    BWOARooms.Lab.els = {}
+    for x=BWOARooms.Lab.x1, BWOARooms.Lab.x2 - 1 do
+        if x ~= BWOARooms.Lab.x1 + 6 then
+            table.insert(BWOARooms.Lab.els, {dir="N", x=x, y=BWOARooms.Lab.y1, z=-4})
+        end
+        table.insert(BWOARooms.Lab.els, {dir="S", x=x, y=BWOARooms.Lab.y2, z=-4})
+    end
+
+    for y=BWOARooms.Lab.y1, BWOARooms.Lab.y2 - 1 do
+        table.insert(BWOARooms.Lab.els, {dir="W", x=BWOARooms.Lab.x1, y=y, z=-4})
+        table.insert(BWOARooms.Lab.els, {dir="E", x=BWOARooms.Lab.x2, y=y, z=-4})
+    end
 end
 
 BWOARooms.Lab.Build = function ()
+
+    BWOARooms.Lab.Init()
 
     -- floors, walls, door
     local z = BWOARooms.Lab.z
@@ -31,6 +46,8 @@ BWOARooms.Lab.Build = function ()
     end
 
     BWOABuildTools.DoorNConcrete(9968, 12643, z)
+
+    BWOABuildTools.ELS(BWOARooms.Lab.els)
 
     -- room lamps
     BWOABuildTools.LampOvalN(9964, 12643, -4)
@@ -100,23 +117,12 @@ BWOARooms.Lab.Build = function ()
 end
 
 BWOARooms.Lab.SetEmitters = function ()
-    BWOASound.AddToObject({x=BWOARooms.Lab.x1 + 9.5, y=BWOARooms.Lab.y1 + 0.5, z=-4, sound="AmbientVent"})
-end
-
-BWOARooms.Lab.GetLights = function ()
-    local lights = {}
-    local z = BWOARooms.Lab.z
-    for _, x in pairs({9964, 9966, 9968, 9970, 9972}) do
-        for y = BWOARooms.Lab.y1 + 3, BWOARooms.Lab.y2 - 2 do
-            table.insert(lights, {x=x, y=y, z=z})
-        end
-    end
-    return lights
+    BWOARooms.Lab.Init()
+    BWOASound.AddToObject({x=BWOARooms.Lab.x1 + 9.5, y=BWOARooms.Lab.y1 + 0.5, z=-4, elec=true, sound="AmbientVent"})
 end
 
 BWOARooms.Lab.Prepare = function ()
+    BWOARooms.Lab.Init()
 end
 
-BWOARooms.Lab.LightToggle = function ()
-end
 

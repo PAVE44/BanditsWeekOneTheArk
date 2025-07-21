@@ -1,9 +1,21 @@
+BWOABaseControl = {}
+
+BWOABaseControl.power = false
+BWOABaseControl.powerUsing = 0
+
 local function onGameStart()
     for room, _ in pairs(BWOARooms) do
         BWOARooms[room].Init()
     end
+end
 
-    BWOASequence.Start()
+local function onCreatePlayer(playerNum, player)
+    local hours = player:getHoursSurvived()
+    if hours < 0.1 then
+        BWOASequence.Start()
+    else
+        BWOASequence.Resume()
+    end
 end
 
 local function manageIntrusion()
@@ -35,13 +47,6 @@ end
 
 local function managePower()
 
-    -- power schedule
-    getSandboxOptions():set("ElecShut", 1)
-    getSandboxOptions():set("ElecShutModifier", 0)
-    if getWorld():isHydroPowerOn() then
-        getWorld():setHydroPowerOn(false)
-    end
-
     local gameTime = getGameTime()
     local hour = gameTime:getHour()
     local minute = gameTime:getMinutes()
@@ -51,11 +56,19 @@ local function managePower()
     local genCnt = 0
     for gtype, gen in pairs(gmd.generators) do
         if gen.active then
-            BWOASound.AddToObject({x=gen.x, y=gen.y, z=gen.z, sound="AmbientGenerator"})
+            BWOASound.AddToObject({x=gen.x, y=gen.y, z=gen.z, elec=true, sound="AmbientGenerator"})
             genCnt = genCnt + 1
         else
-            BWOASound.RemoveFromObject({x=gen.x, y=gen.y, z=gen.z, sound="AmbientGenerator"})
+            BWOASound.RemoveFromObject({x=gen.x, y=gen.y, z=gen.z, elec=true, sound="AmbientGenerator"})
         end
+    end
+
+    -- set global power var
+    BWOABaseControl.powerUsing = 0
+    if genCnt > 0 then
+        BWOABaseControl.power = true
+    else
+        BWOABaseControl.power = false
     end
 
     -- ensure presence of fake generators
@@ -84,12 +97,16 @@ local function managePower()
                         -- heating cost
                         local diff = gmd.ventilation.tempTarget - BWOAClimate.temp
                         if diff > 0 then
-                            ventPowerUsing = ventPowerUsing + (diff * 1)
+                            ventPowerUsing = ventPowerUsing + (diff * 0.1)
                         end
                     end
+                    ventPowerUsing = ventPowerUsing / genCnt
                 end
 
-                local fuelUsing = (powerUsing + ventPowerUsing) * 0.1
+                local totalPowerUsing = powerUsing + ventPowerUsing
+                BWOABaseControl.powerUsing = totalPowerUsing
+
+                local fuelUsing = totalPowerUsing * 0.1
                 gen.fuel = gen.fuel - fuelUsing
                 gen.condition = gen.condition - 0.01
                 gen.powerUsing = powerUsing
@@ -97,7 +114,7 @@ local function managePower()
                 if gen.fuel <= 0 then
                     gen.fuel = 0
                     gen.active = false
-                    genCnt = 0
+                    genCnt = genCnt - 1
                     BWOASound.PlayLocation({
                         sound = "AmbientPowerDown",
                         x = BWOARooms.Control.noah.x,
@@ -145,6 +162,7 @@ local function managePower()
     -- handle generator status
     if genCnt > 0 then
         BWOABaseAPI.GeneratorsOn()
+        BWOASequence.EmergencyLights({active=false})
     else
         BWOABaseAPI.GeneratorsOff()
 
@@ -153,11 +171,9 @@ local function managePower()
         -- force shutdown of other systems using power here:
         BWOABaseAPI.AlarmOff()
 
-
         gmd.ventilation.active = false
         gmd.waterpump.active = false
     end
-
 end
 
 local function manageVentilation()
@@ -167,13 +183,12 @@ local function manageVentilation()
         if ventilation.temp < ventilation.tempTarget then
             ventilation.temp = ventilation.temp + 0.1
         end
-        BWOABaseAPI.VentilationOn(ventilation.temp)
     else
         if ventilation.temp > BWOAClimate.temp then
             ventilation.temp = ventilation.temp - 0.1
         end
-        BWOABaseAPI.VentilationOff(ventilation.temp)
     end
+    BWOABaseAPI.VentilationUpdate(ventilation.active, ventilation.temp)
 end
 
 local function manageWater()
@@ -204,6 +219,9 @@ end
 
 Events.OnGameStart.Remove(onGameStart)
 Events.OnGameStart.Add(onGameStart)
+
+Events.OnCreatePlayer.Remove(onCreatePlayer)
+Events.OnCreatePlayer.Add(onCreatePlayer)
 
 Events.EveryOneMinute.Remove(manageIntrusion)
 Events.EveryOneMinute.Add(manageIntrusion)
