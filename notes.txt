@@ -76,24 +76,24 @@ all
 life support systems
 
 power
-    - can be turned on/off
-    - uses fuel
+    - X can be turned on/off
+    - X uses fuel
     - fuel may be added
-    - has condition
+    - X has condition
     - condition may be improved during repairs
 
 heating
     - make radiators
     - make heatpump?
-    - can be turned on/off
-    - uses electricity (pumping and heating is commbined)
-    - termostat - can adjust desired temp
+    - X can be turned on/off
+    - X uses electricity (pumping and heating is commbined)
+    - X termostat - can adjust desired temp
     - can become frozen, restart is not possible, water in sinks is unavailable, practically game over
     - has a sensor that needs to be maintained
 
 ventilation
-    - can be turned on/off
-    - uses electricity
+    - X can be turned on/off
+    - X uses electricity
     - the system has oxygen, co2 parameters coupled together
     - ventilation has filters
     - filters condition determine radiation increase if ventilation is on
@@ -120,3 +120,38 @@ noah alerting
     - oxygen and co2 levels
     - temperature warning
     - radiation warning
+
+
+things to do
+ - meet the people and chat with them
+ - listen to lore tapes
+
+
+special quests:
+
+ - [short] external air valve needs manual opening required player to go outside
+ - [short] expedition to neaby army quarters for ammo
+ - [short] marchridge - bring meds for sick companion expedition
+ - [short] know miltary appartments have a boiler room, it could be used to scrap parts
+ - [short] know miltary appartments have arcade game machines, it could be used for entertainment. Its heavy to carry
+
+- [medium] warehouses out of town - bring generator parts
+- [medium] warehouses out of town - there is a car for future long excursions
+- [medium] extraction, bring a hazmat suit and extract a vip from police basement in muldraugh
+- [medium] vip extration from rosewood basements
+
+- [long]fire extinguishers expediton to rosewood
+ 
+ - oxygen tanks expedition
+
+ - 
+
+ - door malfunction
+ - noah malfunction - bring a computer
+ - generator parts expedition
+ - generator fuel expedition
+ - stun the zombie and bring it to the lab
+
+  - bandits come to the base
+ - zombies come to the base
+ - traitor

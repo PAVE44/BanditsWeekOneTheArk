@@ -187,7 +187,7 @@ end
 
 BWOABuildTools.EmergencyExitN = function(x, y, z)
     local data = {r = 70, g = 0, b = 0, d=2, active=false, battery=true}
-    local sprite = "lighting_indoor_01_2N"
+    local sprite = "lighting_indoor_01_25"
     lamp(x, y, z, sprite, data)
 end
 
@@ -298,6 +298,25 @@ BWOABuildTools.FarmPlot = function(x, y, z, seedType)
     end
 end
 
+-- removal
+
+BWOABuildTools.RemoveObject = function(x, y, z, customName)
+    local square = getCell():getGridSquare(x, y, z)
+    if square then
+        local objects = square:getObjects()
+        for i=0, objects:size()-1 do
+            local object = objects:get(i)
+            local sprite = object:getSprite()
+            if sprite then
+                local props = sprite:getProperties()
+                if props:Is("CustomName") and props:Val("CustomName") == customName then
+                    square:transmitRemoveItemFromSquare(object)
+                    break
+                end
+            end
+        end
+    end
+end
 
 -- batch building
 

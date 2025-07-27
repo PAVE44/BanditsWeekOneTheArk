@@ -4,61 +4,56 @@ BWOARooms.Incinerator = {}
 
 BWOARooms.Incinerator.Init = function ()
     BWOARooms.Incinerator.name = "INCINERATOR_ROOM"
-    BWOARooms.Incinerator.x1 = 9973
-    BWOARooms.Incinerator.x2 = 9979
+    BWOARooms.Incinerator.x1 = 9966
+    BWOARooms.Incinerator.x2 = 9970
     BWOARooms.Incinerator.y1 = 12637
-    BWOARooms.Incinerator.y2 = 12643
+    BWOARooms.Incinerator.y2 = 12640
     BWOARooms.Incinerator.z = -4
     BWOARooms.Incinerator.ambience = ""
 
+    BWOARooms.Incinerator.vents = {
+        {x=9969, y=12637.5, z=-4},
+    }
+
     BWOARooms.Incinerator.els = {}
     for x=BWOARooms.Incinerator.x1, BWOARooms.Incinerator.x2 do
-        table.insert(BWOARooms.Incinerator.els, {dir="S", x=x, y=BWOARooms.Incinerator.y1, z=-4})
-        table.insert(BWOARooms.Incinerator.els, {dir="N", x=x, y=BWOARooms.Incinerator.y2, z=-4})
+        table.insert(BWOARooms.Incinerator.els, {dir="N", x=x, y=BWOARooms.Incinerator.y1, z=-4})
+        if x ~= 9968 then
+            table.insert(BWOARooms.Incinerator.els, {dir="S", x=x, y=BWOARooms.Incinerator.y2, z=-4})
+        end
     end
 
     for y=BWOARooms.Incinerator.y1, BWOARooms.Incinerator.y2 do
         table.insert(BWOARooms.Incinerator.els, {dir="W", x=BWOARooms.Incinerator.x1, y=y, z=-4})
-        if y ~= BWOARooms.Incinerator.y1 + 4 then
-            table.insert(BWOARooms.Incinerator.els, {dir="E", x=BWOARooms.Incinerator.x2, y=y, z=-4})
-        end
+        table.insert(BWOARooms.Incinerator.els, {dir="E", x=BWOARooms.Incinerator.x2, y=y, z=-4})
     end
 end
 
 BWOARooms.Incinerator.Build = function ()
     BWOARooms.Incinerator.Init()
 
-    -- floors, walls, door
-    local z = BWOARooms.Incinerator.z
-    for x = BWOARooms.Incinerator.x1, BWOARooms.Incinerator.x2 do
-        for y = BWOARooms.Incinerator.y1, BWOARooms.Incinerator.y2 do
-            BWOABuildTools.FloorConcrete(x, y, z)
+    BWOAPrepareTools.DarkenLight(9969, 12640, -4)
 
-            if x == BWOARooms.Incinerator.x2 then
-                BWOABuildTools.WallWConcrete(x, y, z)
-            end
+    BWOABuildTools.ELS(BWOARooms.Incinerator.els)
 
-            if y == BWOARooms.Incinerator.y2 then 
-                BWOABuildTools.WallNConcrete(x, y, z)
-            end
-        end
-    end
+    BWOABuildTools.LampOvalN(9967, 12637, -4)
 
-    BWOABuildTools.DoorWConcrete(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z)
-    BWOABuildTools.VentN(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 5, BWOARooms.Incinerator.z)
+    BWOABuildTools.VentW(9969, 12637, -4)
 
-    -- incinerator
-    BWOABuildTools.Generic(BWOARooms.Incinerator.x1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_56")
-    BWOABuildTools.Generic(BWOARooms.Incinerator.x1 + 1, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_55")
-    BWOABuildTools.Generic(BWOARooms.Incinerator.x1 + 2, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_56")
-    BWOABuildTools.Generic(BWOARooms.Incinerator.x1 + 3, BWOARooms.Incinerator.y1 + 4, BWOARooms.Incinerator.z, "industry_02_238")
+    BWOABuildTools.RemoveObject(9966, 12637, -4, "Shelves")
+    BWOABuildTools.RemoveObject(9966, 12638, -4, "Shelves")
+    BWOABuildTools.RemoveObject(9966, 12639, -4, "Shelves")
+    BWOABuildTools.RemoveObject(9966, 12640, -4, "Shelves")
 
-    return true
+    BWOABuildTools.Generic(9966, 12637, -4, "industry_02_55")
+    BWOABuildTools.Generic(9966, 12638, -4, "industry_02_54")
+    BWOABuildTools.Generic(9966, 12639, -4, "industry_02_62")
+    BWOABuildTools.Generic(9966, 12640, -4, "industry_02_16")
+
 end
 
 BWOARooms.Incinerator.SetEmitters = function ()
     BWOARooms.Incinerator.Init()
-    BWOASound.AddToObject({x=BWOARooms.Incinerator.x1, y=BWOARooms.Incinerator.y1 + 5.5, z=-4, elec=true, sound="AmbientVent"})
 end
 
 BWOARooms.Incinerator.Prepare = function ()

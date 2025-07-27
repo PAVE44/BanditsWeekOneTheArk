@@ -1,0 +1,115 @@
+[3db12353-9801-447c-a88c-a5903ae9c370]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
+	general: name = Engineer_1_Work
+	general: female = false
+	general: skin = 2
+	general: hairType = 32
+	general: beardType = 7
+	general: hairColor = 13
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_HardHat_Miner
+	clothing: Eyes = Base.Glasses_SafetyGoggles
+	clothing: Boilersuit = Base.Boilersuit
+	clothing: TankTop = Base.Vest_DefaultTEXTURE_TINT
+	clothing: UnderwearBottom = Base.Boxers_White
+	clothing: Socks = Base.Socks_Ankle_White
+	clothing: Shoes = Base.Shoes_WorkBoots
+	tint: Boilersuit = 15911987
+	tint: TankTop = 16777215
+	tint: UnderwearBottom = 16777215
+	weapons: melee = Base.Wrench
+	bag: name = Base.Bag_Satchel
+
+[79ef6247-1dd0-462e-bcae-a876750adaed]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
+	general: name = Engineer_1_Sleep
+	general: female = false
+	general: skin = 2
+	general: hairType = 32
+	general: beardType = 7
+	general: hairColor = 13
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: TankTop = Base.Vest_DefaultTEXTURE_TINT
+	clothing: UnderwearBottom = Base.Boxers_White
+	tint: TankTop = 16777215
+	tint: UnderwearBottom = 16777215
+
+[2235cc48-c977-4cd4-a94a-fb144a4ba618]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
+	general: name = Engineer_1_Ext
+	general: female = false
+	general: skin = 2
+	general: hairType = 32
+	general: beardType = 7
+	general: hairColor = 13
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: FullSuitHead = Base.HazmatSuit
+	clothing: TankTop = Base.Vest_DefaultTEXTURE_TINT
+	clothing: UnderwearBottom = Base.Boxers_White
+	clothing: Socks = Base.Socks_Ankle_White
+	tint: TankTop = 16777215
+	tint: UnderwearBottom = 16777215
+
+[b2dc4719-b0c0-42ea-bb95-4830be33d22d]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
+	general: name = Engineer_1_Wash
+	general: female = false
+	general: skin = 2
+	general: hairType = 32
+	general: beardType = 7
+	general: hairColor = 13
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+
+[5c54815b-ab2a-47af-b238-ec39c5353bf0]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
+	general: name = Engineer_1_Rest
+	general: female = false
+	general: skin = 2
+	general: hairType = 32
+	general: beardType = 7
+	general: hairColor = 13
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Boilersuit = Base.Boilersuit
+	clothing: TankTop = Base.Vest_DefaultTEXTURE_TINT
+	clothing: UnderwearBottom = Base.Boxers_White
+	clothing: Socks = Base.Socks_Ankle_White
+	clothing: Shoes = Base.Shoes_WorkBoots
+	tint: Boilersuit = 15911987
+	tint: TankTop = 16777215
+	tint: UnderwearBottom = 16777215
+

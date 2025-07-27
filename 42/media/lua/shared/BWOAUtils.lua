@@ -35,3 +35,15 @@ BanditUtils.AddVehicle = function(btype, dir, square)
     local vehicle = addVehicle(btype, square:getX(), square:getY(), square:getZ())
     return vehicle
 end
+
+BanditUtils.GetScheduledActivity = function(schedule)
+    local gameTime = getGameTime()
+    local hour = gameTime:getHour()
+    local minute = gameTime:getMinutes()
+
+    for activity, boundary in pairs(schedule) do
+        if hour >= boundary.hourMin and hour <= boundary.hourMax and minute >= boundary.minuteMin and minute <= boundary.minuteMax then
+            return activity
+        end
+    end
+end

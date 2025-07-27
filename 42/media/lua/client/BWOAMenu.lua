@@ -17,28 +17,16 @@ function BWOAMenu.Teleport(player)
     player:setLastZ(-4)
 end
 
-function BWOAMenu.TestEmmiter(player)
-    for room, _ in pairs(BWOARooms) do
-        BWOARooms[room].Init()
-        BWOARooms[room].SetEmitters()
-    end
-end
-
-function BWOAMenu.TestPrepare(player)
-    for room, _ in pairs(BWOARooms) do
-        BWOARooms[room].Init()
-        BWOARooms[room].Prepare()
-    end
-end
-
-function BWOAMenu.TestFlickers(player)
-    for room, _ in pairs(BWOARooms) do
-        BWOARooms[room].Init()
-
-        if BWOARooms[room].SetFlickers then
-            BWOARooms[room].SetFlickers()
-        end
-    end
+function BWOAMenu.Spawn(player, square)
+    local args = {}
+    args.cid = "3211e65f-36f9-4514-b856-038534931c9c"
+    args.x = square:getX()
+    args.y = square:getY()
+    args.z = square:getZ()
+    args.program = "Engineer1"
+    args.size = 1
+    -- args.permanent = true
+    sendClientCommand(player, 'Spawner', 'Clan', args)
 end
 
 function BWOAMenu.ArkAlarm(player, state)
@@ -65,23 +53,6 @@ function BWOAMenu.MakeRoom(player, roomName)
 
 end
 
-function BWOAMenu.AddOverlay(player, square)
-
-    local objects = square:getObjects()
-    for i=0, objects:size()-1 do
-        local object = objects:get(i)
-        local sprite = object:getSprite()
-        if sprite:getName() == "industry_02_163" then
-            local test1 = object:getOnOverlay()
-            local overlaySprite = getSprite("ark_01_0")
-            local test2 = overlaySprite:getName()
-            local spriteInstance = IsoSpriteInstance.get(overlaySprite)
-            object:setOnOverlay(spriteInstance) 
-            local test3 = object:getOnOverlay()
-        end
-    end
-end
-
 function BWOAMenu.NoahUI(player)
     BWOANoah.Show()
 end
@@ -90,27 +61,22 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local player = getSpecificPlayer(playerID)
     local square = BanditCompatibility.GetClickedSquare()
 
+    print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
     if isDebugEnabled() then
 
         context:addOption("Noah", player, BWOAMenu.NoahUI)
         context:addOption("Teleport", player, BWOAMenu.Teleport)
-        context:addOption("Test Emitter", player, BWOAMenu.TestEmmiter)
-        context:addOption("Test Flickers", player, BWOAMenu.TestFlickers)
-        context:addOption("Test Prepare", player, BWOAMenu.TestPrepare)
-        context:addOption("Add Overlay", player, BWOAMenu.AddOverlay, square)
+        context:addOption("Spawn", player, BWOAMenu.Spawn, square)
 
         context:addOption("Ark Alarm On", player, BWOAMenu.ArkAlarm, true)
         context:addOption("Ark Alarm Off", player, BWOAMenu.ArkAlarm, false)
-
-        context:addOption("Ark Power On", player, BWOAMenu.ArkPower, true)
-        context:addOption("Ark Power Off", player, BWOAMenu.ArkPower, false)
 
         local roomOption = context:addOption("Spawn Room")
         local roomMenu = context:getNew(context)
         context:addSubMenu(roomOption, roomMenu)
 
-        local roomNames = {"BathroomFemale", "BathroomMale", "BedroomMale", "Control", "Farm", "Infirmary", "Library", "Lab", "Incinerator", "Generator"}
+        local roomNames = {"BathroomFemale", "BathroomMale", "BedroomMale", "Control", "Chapel", "Farm", "Infirmary", "InterrogationRoom", "Library", "Lab", "Incinerator", "Generator", "MainStorage", "Messhall"}
 
         for i=1, #roomNames do
             local roomName = roomNames[i]

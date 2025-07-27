@@ -1,0 +1,16 @@
+[3211e65f-36f9-4514-b856-038534931c9c]
+	general: name = W1A_Engineer_1
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
