@@ -113,3 +113,28 @@
 	tint: TankTop = 16777215
 	tint: UnderwearBottom = 16777215
 
+[d944d8a7-9ad6-4f65-87e6-0a2d55eac4cb]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_01
+	general: female = true
+	general: skin = 2
+	general: hairType = 20
+	general: beardType = 1
+	general: hairColor = 8
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Cosmetic_Normal
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Boilersuit = Base.Boilersuit_Flying
+	clothing: BeltExtra = Base.HolsterSimple_Brown
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	weapons: melee = Base.Pencil
+

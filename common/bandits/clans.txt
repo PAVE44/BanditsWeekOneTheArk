@@ -14,3 +14,19 @@
 	spawn: groupMax = 1
 	spawn: zone = 0
 
+[0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce]
+	general: name = W1A_Emma
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0.1
+	spawn: groupMin = 1
+	spawn: groupMax = 32
+	spawn: zone = 0
+
