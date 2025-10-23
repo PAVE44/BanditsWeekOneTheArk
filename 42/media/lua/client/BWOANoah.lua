@@ -51,6 +51,7 @@ local function onKeyPressed(keynum)
         elseif keynum == Keyboard.KEY_2 then
             BWOANoah.screen = "Atmospheric"
         elseif keynum == Keyboard.KEY_3 then
+            BWOANoah.screen = "Hydraulics"
         elseif keynum == Keyboard.KEY_4 then
         elseif keynum == Keyboard.KEY_9 then
             close()
@@ -116,6 +117,16 @@ local function onKeyPressed(keynum)
         elseif keynum == Keyboard.KEY_9 then
             BWOANoah.screen = "Atmospheric"
         end
+    elseif BWOANoah.screen == "Hydraulics" then
+        if keynum == Keyboard.KEY_1 then
+            BWOANoah.screen = "PumpManual"
+        elseif keynum == Keyboard.KEY_9 then
+            BWOANoah.screen = "Main"
+        end
+    elseif BWOANoah.screen == "PumpManual" then
+        if keynum == Keyboard.KEY_9 then
+            BWOANoah.screen = "Generator"
+        end
     end
     loadScreen()
 end
@@ -165,8 +176,8 @@ BWOANoah.Screens.Power = function()
     local text = BWOANoah.ScreenTemplate()
     text[5]  = "POWER CONTROL"
 
-    text[7]  = "> GRID: ACTIVE"
-    text[8]  = "> LOAD: " .. string.format("%.1f", BWOABaseControl.powerUsing) .. "W"
+    text[7]  = "> GRID:  ACTIVE"
+    text[8]  = "> USAGE: " .. string.format("%.2f", BWOABaseControl.powerUsing) .. "L/h"
 
     text[11]  = "SELECT UNIT:"
     text[12]  = "1. MAIN: Voltek GX-9"
@@ -228,8 +239,8 @@ BWOANoah.Screens.GeneratorManual = function(data)
     text[11]  = "gasoline-powered generator designed   "
     text[12]  = "for isolated / underground facilities."
     text[13]  = "It provides continuous AC output to   "
-    text[13]  = "bunker grid systems and auxiliary     "
-    text[14]  = "modules."
+    text[14]  = "bunker grid systems and auxiliary     "
+    text[15]  = "modules."
     text[16]  = "Warning: failure to maintain the GX-9 "
     text[17]  = "may result in sudden shutdowns, power "
     text[18]  = "loss. In severe cases, neglect may    "
@@ -375,6 +386,46 @@ BWOANoah.Screens.Heating = function()
 end
 
 -- WATER SCREENS -- 
+
+BWOANoah.Screens.Hydraulics = function(data)
+    local gmd = GetBWOAModData()
+
+    local text = BWOANoah.ScreenTemplate()
+
+    text[5]  = "MAIN: HydroCore DeepDraw 1200"
+    text[7]  = "> STATUS:    CONNECTION TIMEOUT"
+
+    text[8]  = "> CONDITION: ERROR"
+    text[9]  = "> FUEL:      ERROR"
+
+    text[11]  = "OPTIONS:"
+    text[12]  = "1. INSTRUCTION MANUAL"
+
+    text[25] = "9. RETURN"
+
+    return text
+end
+
+BWOANoah.Screens.PumpManual = function(data)
+    local text = BWOANoah.ScreenTemplate()
+    text[5]   = "HYDROCORE WATER PUMP                  "
+    text[6]   = "MODEL: DEEPDRAW-1200                  "
+    text[7]   = "MANUFACTURER: HYDROCORE LIMITED       "
+    text[8]   = "VERSION: SUBTERRANEAN                 "
+    text[10]  = "The DeepDraw-1200 is a heavy-duty,    "
+    text[11]  = "externally powered water pump designed"
+    text[12]  = "for isolated / underground facilities."
+    text[13]  = "Engineered to access deep Oligocene   "
+    text[14]  = "aquifer reserves. Integrated treatment"
+    text[15]  = "and fiiltration system available.     "
+    text[16]  = "Warning: failure to maintain the pump "
+    text[17]  = "may result in efficiency loss, sudden "
+    text[18]  = "shutdowns. In severe cases, neglect   "
+    text[19]  = "may cause the water pump to ignite!   "
+    text[23]  = "OPTIONS:        "
+    text[25]  = "9. RETURN"
+    return text
+end
 
 -- CLIMATE SCREENS -- 
 

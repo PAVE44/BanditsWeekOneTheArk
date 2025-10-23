@@ -1,7 +1,7 @@
 
 local FALLOUT_START = -2160   -- WorldAge when fallout begins
 local FALLOUT_END = 8640      -- WorldAge when fallout ends
-local TEMP_LERP = 100          -- Maximum temperature drop
+local TEMP_LERP = 70          -- Maximum temperature drop
 local TEMP_STEP = 0.5         -- Rate of temperature change per day
 
 BWOAClimate = BWOAClimate or {}

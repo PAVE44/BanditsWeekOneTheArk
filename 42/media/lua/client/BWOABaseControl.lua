@@ -9,6 +9,11 @@ local function onGameStart()
     end
 end
 
+local function onPreMapLoad()
+    BWOAMusic.Play("MusicEndure", 1, 1)
+end
+
+
 local function onCreatePlayer(playerNum, player)
     local hours = player:getHoursSurvived()
     if hours < 0.1 then
@@ -47,6 +52,7 @@ end
 
 local function managePower()
 
+    local cm = getClimateManager()
     local gameTime = getGameTime()
     local hour = gameTime:getHour()
     local minute = gameTime:getMinutes()
@@ -92,12 +98,22 @@ local function managePower()
 
                 ventPowerUsing = 0
                 if gmd.ventilation.active then
-                    ventPowerUsing = 2 -- mechanical ventilation cost
+                    ventPowerUsing = 0.01 -- mechanical ventilation cost
                     if gmd.ventilation.heating then
                         -- heating cost
+
                         local diff = gmd.ventilation.tempTarget - BWOAClimate.temp
                         if diff > 0 then
-                            ventPowerUsing = ventPowerUsing + (diff * 0.1)
+                            
+                            if diff > 80 then
+                                diff = 80
+                            end
+
+                            -- Quadratic growth: (diff / 80)^2 scaled to max 0.1
+                            local normalized = diff / 80.0
+                            local cost = (normalized ^ 2) * 0.1
+
+                            ventPowerUsing = ventPowerUsing + cost
                         end
                     end
                     ventPowerUsing = ventPowerUsing / genCnt
@@ -108,7 +124,7 @@ local function managePower()
 
                 local fuelUsing = totalPowerUsing * 0.1
                 gen.fuel = gen.fuel - fuelUsing
-                gen.condition = gen.condition - 0.01
+                gen.condition = gen.condition - 0.001
                 gen.powerUsing = powerUsing
 
                 if gen.fuel <= 0 then
@@ -154,7 +170,7 @@ local function managePower()
                     end
                 end
 
-                print ("GEN: type: " .. gtype .. " F: " .. gen.fuel .. " C: " .. gen.condition .. " P: " .. gen.powerUsing .. " VP: " .. ventPowerUsing)
+                -- print ("GEN: type: " .. gtype .. " F: " .. gen.fuel .. " C: " .. gen.condition .. " P: " .. gen.powerUsing .. " VP: " .. ventPowerUsing)
             end
         end
     end
@@ -182,6 +198,8 @@ local function manageVentilation()
     if ventilation.active and ventilation.heating then
         if ventilation.temp < ventilation.tempTarget then
             ventilation.temp = ventilation.temp + 0.1
+        else
+            ventilation.temp = ventilation.temp - 0.05
         end
     else
         if ventilation.temp > BWOAClimate.temp then
@@ -219,6 +237,9 @@ end
 
 Events.OnGameStart.Remove(onGameStart)
 Events.OnGameStart.Add(onGameStart)
+
+Events.OnPreMapLoad.Remove(onPreMapLoad)
+Events.OnPreMapLoad.Add(onPreMapLoad)
 
 Events.OnCreatePlayer.Remove(onCreatePlayer)
 Events.OnCreatePlayer.Add(onCreatePlayer)

@@ -17,13 +17,19 @@ function BWOAMenu.Teleport(player)
     player:setLastZ(-4)
 end
 
+function BWOAMenu.PrintMedia(player)
+    local ui = UIPrintMedia:new("book_dacr_research", getSpecificPlayer(0))
+    ui:initialise()
+    ui:addToUIManager()
+end
+
 function BWOAMenu.Spawn(player, square)
     local args = {}
-    args.cid = "3211e65f-36f9-4514-b856-038534931c9c"
+    args.cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
     args.x = square:getX()
     args.y = square:getY()
     args.z = square:getZ()
-    args.program = "Engineer1"
+    args.program = "Emma"
     args.size = 1
     -- args.permanent = true
     sendClientCommand(player, 'Spawner', 'Clan', args)
@@ -34,6 +40,7 @@ function BWOAMenu.ArkAlarm(player, state)
         BWOABaseAPI.AlarmOn()
     else
         BWOABaseAPI.AlarmOff()
+        BWOARooms.MainStorage.Prepare()
     end
 end
 
@@ -60,14 +67,14 @@ end
 local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
     local player = getSpecificPlayer(playerID)
     local square = BanditCompatibility.GetClickedSquare()
-
-    print ("FREE: " .. tostring(square:isFree(false)))
+    -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
     if isDebugEnabled() then
 
         context:addOption("Noah", player, BWOAMenu.NoahUI)
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)
+        context:addOption("Print Media", player, BWOAMenu.PrintMedia, square)
 
         context:addOption("Ark Alarm On", player, BWOAMenu.ArkAlarm, true)
         context:addOption("Ark Alarm Off", player, BWOAMenu.ArkAlarm, false)
@@ -76,7 +83,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local roomMenu = context:getNew(context)
         context:addSubMenu(roomOption, roomMenu)
 
-        local roomNames = {"BathroomFemale", "BathroomMale", "BedroomMale", "Control", "Chapel", "Farm", "Infirmary", "InterrogationRoom", "Library", "Lab", "Incinerator", "Generator", "MainStorage", "Messhall"}
+        local roomNames = {"AirIntake", "BathroomFemale", "BathroomMale", "BedroomMale", "Control", "Corridor", "Chapel", "Hydroponics", "Infirmary", "InterrogationRoom", "Library", "Lab", "Incinerator", "Generator", "MainStorage", "Messhall"}
 
         for i=1, #roomNames do
             local roomName = roomNames[i]
@@ -88,3 +95,8 @@ end
 Events.OnPreFillWorldObjectContextMenu.Remove(onPreFillWorldObjectContextMenu)
 Events.OnPreFillWorldObjectContextMenu.Add(onPreFillWorldObjectContextMenu)
 
+local function onFillInventoryObjectContextMenu(playerNum, context, items)
+    print ("test")
+end
+
+Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryObjectContextMenu)

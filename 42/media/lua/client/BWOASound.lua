@@ -97,7 +97,9 @@ end
 BWOASound.RemoveFromObject = function(tab)
     for i, effect in ipairs(BWOASound.objects) do
         if effect.x == tab.x and effect.y == tab.y and effect.z == tab.z and (tab.sound == effect.sound or not tab.sound) then
-            effect.emitter:stopAll()
+            if effect.emitter then
+                effect.emitter:stopAll()
+            end
             table.remove(BWOASound.objects, i)
             break
         end
@@ -120,6 +122,7 @@ end
 local function onTick()
     if isServer() then return end
 
+    local world = getWorld()
     local player = getSpecificPlayer(0)
     local pemitter = player:getEmitter()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
@@ -144,7 +147,7 @@ local function onTick()
     for _, effect in ipairs(BWOASound.global) do
         for _, megaphone in ipairs(BWOASound.megaphones.global) do
             if not megaphone.emitter then
-                megaphone.emitter = getWorld():getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
+                megaphone.emitter = world:getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
             end
 
             if not megaphone.emitter:isPlaying(effect.sound) then
@@ -161,7 +164,7 @@ local function onTick()
             event.started = true
             for _, megaphone in ipairs(BWOASound.megaphones.noah) do
 
-                megaphone.emitter = getWorld():getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
+                megaphone.emitter = world:getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
 
                 print ("start: " .. event.sound)
                 megaphone.emitter:playSound(event.sound)
@@ -172,11 +175,13 @@ local function onTick()
         else
             local allFinished = true
             for _, megaphone in ipairs(BWOASound.megaphones.noah) do
-                if megaphone.emitter:isPlaying(event.sound) then
-                    allFinished = false
-                else
-                    megaphone.emitter:stopAll()
-                    megaphone.emitter = nil
+                if megaphone.emitter then
+                    if megaphone.emitter:isPlaying(event.sound) then
+                        allFinished = false
+                    else
+                        megaphone.emitter:stopAll()
+                        megaphone.emitter = nil
+                    end
                 end
             end
             if allFinished then
@@ -193,18 +198,22 @@ local function onTick()
             if math.abs(effect.x - px) < maxDist and math.abs(effect.y - py) < maxDist and math.abs(effect.z - pz) < 1 then
 
                 if not effect.emitter then
-                    effect.emitter = getWorld():getFreeEmitter(effect.x, effect.y, effect.z)
+                    effect.emitter = world:getFreeEmitter(effect.x, effect.y, effect.z)
+                    break -- generating too many emitters at once leads to distruption of player emitter
                 end
 
-                if not effect.elec or power then
-                    effect.emitter:setVolumeAll(volume)
-                else
-                    effect.emitter:setVolumeAll(0)
-                end
+                if effect.emitter then
+                    if  not effect.emitter:isPlaying(effect.sound) then
+                        effect.emitter:playSound(effect.sound)
+                        break
+                        -- effect.emitter:tick()
+                    end
 
-                if not effect.emitter:isPlaying(effect.sound) then
-                    effect.emitter:playAmbientLoopedImpl(effect.sound)
-                    effect.emitter:tick()
+                    if not effect.elec or power then
+                        effect.emitter:setVolumeAll(volume)
+                    else
+                        effect.emitter:setVolumeAll(0)
+                    end
                 end
             end
         end
