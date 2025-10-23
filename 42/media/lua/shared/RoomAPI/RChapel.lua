@@ -50,8 +50,8 @@ BWOARooms.Chapel.Build = function ()
     end
 
     BWOABuildTools.Generic(9965, 12630, -4, "location_community_church_small_01_22") -- cross
-    BWOABuildTools.Generic(9966, 12628, -4, "location_community_church_small_01_42") -- altar
-    BWOABuildTools.Generic(9966, 12629, -4, "location_community_church_small_01_43") -- stand
+    BWOABuildTools.Generic(9966, 12630, -4, "location_community_church_small_01_42") -- altar
+    BWOABuildTools.Generic(9966, 12629, -4, "location_community_church_small_01_43") -- altar
     BWOABuildTools.Generic(9968, 12632, -4, "location_community_church_small_01_59") -- pews
     BWOABuildTools.Generic(9968, 12631, -4, "location_community_church_small_01_61")
     BWOABuildTools.Generic(9968, 12629, -4, "location_community_church_small_01_59")

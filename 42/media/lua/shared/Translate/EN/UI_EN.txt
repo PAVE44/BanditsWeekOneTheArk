@@ -3,9 +3,8 @@ UI_EN = {
     UI_Intro2 = "ABOVE, THE DEAD COLLECT WHAT'S OWED..",
     UI_Intro3 = "BETWEEN, THE FAITHFUL GUARD THE DOVE.",
 
-    UI_optionscreen_BWO_WeekOne = "Week One",
-    UI_optionscreen_BWO_Talk = "Talk to NPC",
-    UI_optionscreen_BWO_IntroMusic = "Main Screen Music",
+    UI_optionscreen_BWOA_WeekOne = "Week One",
+    UI_optionscreen_BWOA_Talk = "Talk to NPC",
 
     UI_News_Anim3 = UI_News_Anim3 = "<LINE> <LINE> <H1> Support the Modders Who Keep Project Zomboid Alive! <LINE> <TEXT> <LINE> <LINE> <LINE>" ..
                     "<SIZE:large> <RGB:0.8,0.8,0.0> Project Zomboid thrives thanks to its incredible modding community, with some of the creators spending hundreds — if not thousands — of personal life hours crafting various experiences for you. Yet, despite their efforts, there's no system ensuring sustainable profits for them. <LINE><LINE> " ..

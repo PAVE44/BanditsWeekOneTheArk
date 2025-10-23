@@ -3,7 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.Library = {}
 
 BWOARooms.Library.Init = function ()
-    BWOARooms.Library.name = "Library"
+    BWOARooms.Library.name = "LIBRARY"
     BWOARooms.Library.x1 = 9959
     BWOARooms.Library.x2 = 9961
     BWOARooms.Library.y1 = 12605
@@ -48,13 +48,20 @@ BWOARooms.Library.Build = function ()
 
     BWOABuildTools.RemoveObject(9959, 12607, -4, "Shelves")
     BWOABuildTools.Generic(9959, 12607, -4, "furniture_seating_indoor_03_7")
-    BWOABuildTools.RemoveObject(9960, 12607, -4, "Washine Machine")
+    BWOABuildTools.RemoveObject(9960, 12607, -4, "Washing Machine")
     BWOABuildTools.Generic(9960, 12607, -4, "furniture_tables_low_01_17")
     BWOABuildTools.LampDeskYellowS(9960, 12607, -4)
-    BWOABuildTools.RemoveObject(9961, 12607, -4, "Washine Machine")
+    BWOABuildTools.RemoveObject(9961, 12607, -4, "Washing Machine")
     BWOABuildTools.Generic(9961, 12607, -4, "furniture_seating_indoor_03_7")
 
     BWOABuildTools.LampDeskYellowN(9973, 12613, -4)
+
+    local oasis = BanditCompatibility.InstanceItem("Base.Book")
+    oasis:setCanBeWrite(false)
+    oasis:setName("Project OASIS by Noah Whitlock")
+    local md = oasis:getModData()
+    md.printContent = "book_dacr_research"
+    BWOAPrepareTools.AddWorldItemSpecial(9960, 12607, -4, oasis, {x=0.35, y=0.45, z=0.19})
 
     return true
 end

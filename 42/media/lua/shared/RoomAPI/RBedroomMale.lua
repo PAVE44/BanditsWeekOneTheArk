@@ -11,6 +11,10 @@ BWOARooms.BedroomMale.Init = function ()
     BWOARooms.BedroomMale.z = -4
     BWOARooms.BedroomMale.ambience = ""
 
+    BWOARooms.BedroomMale.vents = {
+        {x=9944, y=12636.5, z=-4},
+    }
+
     BWOARooms.BedroomMale.els = {}
     for x=9944, 9956 do
         table.insert(BWOARooms.BedroomMale.els, {dir="S", x=x, y=12642, z=-4})
@@ -19,7 +23,9 @@ BWOARooms.BedroomMale.Init = function ()
 
     for y=12636, 12642 do
         table.insert(BWOARooms.BedroomMale.els, {dir="W", x=9944, y=y, z=-4})
-        table.insert(BWOARooms.BedroomMale.els, {dir="E", x=9956, y=y, z=-4})
+        if y ~= 12639 then
+            table.insert(BWOARooms.BedroomMale.els, {dir="E", x=9956, y=y, z=-4})
+        end
     end
 end
 
@@ -36,23 +42,34 @@ BWOARooms.BedroomMale.Build = function ()
     BWOABuildTools.LampOvalS(9945, 12642, -4)
     BWOABuildTools.LampOvalS(9952, 12642, -4)
 
+    for x=BWOARooms.BedroomMale.x1, BWOARooms.BedroomMale.x2 do
+        for y=BWOARooms.BedroomMale.y1, BWOARooms.BedroomMale.y2 do
+            BWOABuildTools.RemoveObject(x, y, -4, "Beds")
+        end
+    end
+
+    BWOABuildTools.VentN(9944, 12636, -4)
+
+    for x = 9947, 9955, 2 do
+        BWOABuildTools.Generic(x, 12636, -4, "furniture_bedding_01_1")
+        BWOABuildTools.Generic(x, 12637, -4, "furniture_bedding_01_0")
+
+        BWOABuildTools.Generic(x, 12641, -4, "furniture_bedding_01_69")
+        BWOABuildTools.Generic(x, 12642, -4, "furniture_bedding_01_68")
+    end
+
+    for x = 9948, 9956, 2 do
+        BWOABuildTools.Generic(x, 12636, -4, "furniture_storage_01_33")
+        BWOABuildTools.Generic(x, 12642, -4, "furniture_storage_01_35")
+    end
+    BWOABuildTools.Generic(9956, 12636, -4, "vegetation_indoor_01_1")
+
     BWOABuildTools.Generic(9946, 12636, -4, "walls_decoration_02_23")
     BWOABuildTools.Generic(9948, 12636, -4, "walls_decoration_02_70")
     BWOABuildTools.Generic(9950, 12636, -4, "walls_decoration_02_67")
     BWOABuildTools.Generic(9954, 12636, -4, "walls_decoration_02_86")
     BWOABuildTools.Generic(9956, 12636, -4, "walls_decoration_01_48")
 
-    BWOABuildTools.SmallTableN(9948, 12636, -4, {})
-    BWOABuildTools.SmallTableN(9950, 12636, -4, {})
-    BWOABuildTools.SmallTableN(9952, 12636, -4, {})
-    BWOABuildTools.SmallTableN(9954, 12636, -4, {})
-    BWOABuildTools.SmallTableN(9956, 12636, -4, {})
-
-    BWOABuildTools.SmallTableS(9948, 12642, -4, {})
-    BWOABuildTools.SmallTableS(9950, 12642, -4, {})
-    BWOABuildTools.SmallTableS(9952, 12642, -4, {})
-    BWOABuildTools.SmallTableS(9954, 12642, -4, {})
-    BWOABuildTools.SmallTableS(9956, 12642, -4, {})
 end
 
 BWOARooms.BedroomMale.SetEmitters = function ()
@@ -68,11 +85,28 @@ end
 BWOARooms.BedroomMale.Prepare = function ()
     BWOARooms.BedroomMale.Init()
 
+    -- lockers
+    local items
+
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12609, -4, items, "Shelves")
+
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12610, -4, items, "Shelves")
+
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12611, -4, items, "Shelves")
+
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12612, -4, items, "Shelves")
+
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12613, -4, items, "Shelves")
+
     -- pillows
     for _, y in pairs({12636, 12642}) do
         for _, x in pairs({9947, 9949, 9951, 9952, 9955}) do 
             BWOAPrepareTools.AddWorldItem(x, y, -4, "Base.Pillow", {x=0.5, y=0.5, z=0.3})
-            BWOAPrepareTools.AddWorldItem(x, y, -4, "Base.Pillow", {x=0.5, y=0.5, z=0.8})
         end
     end
 
@@ -80,10 +114,10 @@ BWOARooms.BedroomMale.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9947, 12637, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.3})
     BWOAPrepareTools.AddWorldItem(9947, 12637, -4, "Base.Pencil", {x=0.5, y=0.5, z=0.3})
 
-    BWOAPrepareTools.AddWorldItem(9947, 12637, -4, "Base.SheetPaper2", {x=0.5, y=0.5, z=0.8})
-    BWOAPrepareTools.AddWorldItem(9947, 12637, -4, "Base.Crayons", {x=0.5, y=0.5, z=0.8})
+    BWOAPrepareTools.AddWorldItem(9947, 12637, -4, "Base.SheetPaper2", {x=0.5, y=0.5, z=0.3})
+    BWOAPrepareTools.AddWorldItem(9947, 12637, -4, "Base.Crayons", {x=0.5, y=0.5, z=0.3})
 
-    BWOAPrepareTools.AddWorldItem(9951, 12637, -4, "Base.HottieZ_New", {x=0.5, y=0.5, z=0.8})
+    BWOAPrepareTools.AddWorldItem(9951, 12637, -4, "Base.HottieZ_New", {x=0.5, y=0.5, z=0.3})
 
     BWOAPrepareTools.AddWorldItem(9951, 12637, -4, "Base.Notebook", {x=0.5, y=0.5, z=0.3})
     BWOAPrepareTools.AddWorldItem(9951, 12637, -4, "Base.Pencil", {x=0.5, y=0.5, z=0.3})
@@ -92,36 +126,36 @@ BWOARooms.BedroomMale.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9955, 12637, -4, "Base.Magazine", {x=0.5, y=0.5, z=0.3})
 
     -- table items
-    BWOAPrepareTools.AddWorldItem(9948, 12636, -4, "Base.MugWhite", {x=0.4, y=0.7, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9948, 12636, -4, "Base.CaseyPic", {x=0.5, y=0.4, z=0.24, rz=0})
+    BWOAPrepareTools.AddWorldItem(9948, 12636, -4, "Base.MugWhite", {x=0.4, y=0.7, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9948, 12636, -4, "Base.CaseyPic", {x=0.5, y=0.4, z=0.36, rz=0})
 
-    BWOAPrepareTools.AddWorldItem(9950, 12636, -4, "Base.ChessWhite", {x=0.4, y=0.4, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9950, 12636, -4, "Base.ChessBlack", {x=0.6, y=0.6, z=0.24})
+    BWOAPrepareTools.AddWorldItem(9950, 12636, -4, "Base.ChessWhite", {x=0.4, y=0.4, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9950, 12636, -4, "Base.ChessBlack", {x=0.6, y=0.6, z=0.36})
 
-    BWOAPrepareTools.AddWorldItem(9952, 12636, -4, "Base.Book", {x=0.5, y=0.6, z=0.24})
+    BWOAPrepareTools.AddWorldItem(9952, 12636, -4, "Base.Book", {x=0.5, y=0.6, z=0.36})
 
-    BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.MugWhite", {x=0.4, y=0.4, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.Pen", {x=0.6, y=0.6, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.3})
+    BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.MugWhite", {x=0.4, y=0.4, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.Pen", {x=0.6, y=0.6, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.36})
 
-    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.62, y=0.55, z=0.3})
-    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.74, y=0.59, z=0.3})
-    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Pills", {x=0.66, y=0.64, z=0.3})
+    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.62, y=0.55, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.74, y=0.59, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Pills", {x=0.66, y=0.64, z=0.36})
 
     
-    BWOAPrepareTools.AddWorldItem(9948, 12642, -4, "Base.MugWhite", {x=0.4, y=0.7, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9948, 12642, -4, "Base.PillsSleepingTablets", {x=0.5, y=0.4, z=0.24, rz=0})
+    BWOAPrepareTools.AddWorldItem(9948, 12642, -4, "Base.MugWhite", {x=0.4, y=0.7, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9948, 12642, -4, "Base.PillsSleepingTablets", {x=0.5, y=0.4, z=0.36, rz=0})
 
-    BWOAPrepareTools.AddWorldItem(9950, 12642, -4, "Base.Glasses_Normal", {x=0.4, y=0.4, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9950, 12642, -4, "Base.Book", {x=0.6, y=0.6, z=0.24})
+    BWOAPrepareTools.AddWorldItem(9950, 12642, -4, "Base.Glasses_Normal", {x=0.4, y=0.4, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9950, 12642, -4, "Base.Book", {x=0.6, y=0.6, z=0.36})
 
-    BWOAPrepareTools.AddWorldItem(9952, 12642, -4, "Base.ToyCar", {x=0.4, y=0.5, z=0.24, rz = 60})
-    BWOAPrepareTools.AddWorldItem(9952, 12642, -4, "Base.ToyCar", {x=0.5, y=0.5, z=0.24, rz = 60})
-    BWOAPrepareTools.AddWorldItem(9952, 12642, -4, "Base.ToyCar", {x=0.6, y=0.5, z=0.24, rz = 60})
+    BWOAPrepareTools.AddWorldItem(9952, 12642, -4, "Base.ToyCar", {x=0.4, y=0.5, z=0.36, rz = 60})
+    BWOAPrepareTools.AddWorldItem(9952, 12642, -4, "Base.ToyCar", {x=0.5, y=0.5, z=0.36, rz = 60})
+    BWOAPrepareTools.AddWorldItem(9952, 12642, -4, "Base.ToyCar", {x=0.6, y=0.5, z=0.36, rz = 60})
 
-    BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.Pencil", {x=0.4, y=0.4, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.MagazineWordsearch", {x=0.6, y=0.6, z=0.24})
-    BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.3})
+    BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.Pencil", {x=0.4, y=0.4, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.MagazineWordsearch", {x=0.6, y=0.6, z=0.36})
+    BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.36})
 
     BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.Pencil", {x=0.62, y=0.55, z=0.3})
     BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.TissueBox", {x=0.74, y=0.59, z=0.3})

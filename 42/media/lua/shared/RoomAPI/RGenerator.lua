@@ -11,6 +11,10 @@ BWOARooms.Generator.Init = function ()
     BWOARooms.Generator.z = -4
     BWOARooms.Generator.ambience = ""
 
+    BWOARooms.Generator.vents = {
+        {x=9948, y=12621, z=-4},
+    }
+
     BWOARooms.Generator.els = {}
     for x=9944, 9956 do
         table.insert(BWOARooms.Generator.els, {dir="N", x=x, y=12615, z=-4})
@@ -58,6 +62,8 @@ BWOARooms.Generator.Build = function ()
     BWOABuildTools.Generic(9944, 12618, -4, "theark_01_0")
     BWOABuildTools.Generic(9950, 12623, -4, "theark_01_0")
     BWOABuildTools.Generic(9950, 12622, -4, "theark_01_1")
+
+    BWOABuildTools.WaterPump(9949, 12615, -4)
 end
 
 BWOARooms.Generator.SetEmitters = function ()

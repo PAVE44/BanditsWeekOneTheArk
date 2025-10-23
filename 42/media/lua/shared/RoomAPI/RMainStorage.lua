@@ -78,7 +78,68 @@ end
 
 BWOARooms.MainStorage.Prepare = function ()
     BWOARooms.MainStorage.Init()
+    local items
 
+    items = {["Base.CannedBolognese"] = 11, ["Base.TinnedBeans"] = 14, ["Base.CannedCorn"] = 6}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12627, -4, items, "Shelves")
+
+    items = {["Base.CannedMushroomSoup"] = 18, ["Base.TinnedSoup"] = 8}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12628, -4, items, "Shelves")
+
+    items = {["Base.CannedCornedBeef"] = 11, ["Base.CannedChili"] = 18}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12629, -4, items, "Shelves")
+
+    items = {["Base.TunaTin"] = 23, ["Base.CannedSardines"] = 17}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12630, -4, items, "Shelves")
+
+    items = {["Base.CannedPineapple"] = 14, ["Base.CannedFruitCocktail"] = 17}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12631, -4, items, "Shelves")
+
+    items = {["Base.CannedPotato2"] = 20, ["Base.CannedCarrots2"] = 12}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12632, -4, items, "Shelves")
+
+
+    items = {["Base.Pasta"] = 18}
+    BWOAPrepareTools.AddItemsToContainer(9953, 12630, -4, items, "Shelves")
+
+    items = {["Base.Rice"] = 17}
+    BWOAPrepareTools.AddItemsToContainer(9953, 12631, -4, items, "Shelves")
+
+    items = {["Base.OatsRaw"] = 12, ["Base.Cereal"] = 13}
+    BWOAPrepareTools.AddItemsToContainer(9953, 12632, -4, items, "Shelves")
+
+    items = {["Base.Flour2"] = 20}
+    BWOAPrepareTools.AddItemsToContainer(9953, 12633, -4, items, "Shelves")
+
+    items = {["Base.Sugar"] = 20, ["Base.CocoaPowder"] = 6, ["Base.BakingSoda"] = 8, ["Base.Yeast"] = 12, ["Base.Salt"] = 7}
+    BWOAPrepareTools.AddItemsToContainer(9953, 12634, -4, items, "Shelves")
+
+    items = {["Base.JamFruit"] = 33, ["Base.JamMarmalade"] = 41}
+    BWOAPrepareTools.AddItemsToContainer(9953, 12635, -4, items, "Shelves")
+
+
+    items = {["Base.Vinegar2"] = 10, ["Base.OilVegetable"] = 17}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12627, -4, items, "Shelves")
+
+    items = {["Base.DriedApricots"] = 12, ["Base.DriedChickpeas"] = 4}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12628, -4, items, "Shelves")
+
+    items = {["Base.MacandcheesePowder"] = 11, ["Base.DriedWhiteBeans"] = 9}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12629, -4, items, "Shelves")
+
+    items = {["Base.DriedLentils"] = 7, ["Base.DehydratedMeatStick"] = 9}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12630, -4, items, "Shelves")
+
+    items = {["Base.WaterRationCan"] = 60}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12630, -4, items, "Shelves")
+
+    items = {["Base.WaterRationCan"] = 60}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12631, -4, items, "Shelves")
+
+    items = {["Base.Vodka"] = 20}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12632, -4, items, "Shelves")
+
+    
 end
 
 

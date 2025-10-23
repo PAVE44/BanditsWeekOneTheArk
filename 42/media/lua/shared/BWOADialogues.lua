@@ -1,0 +1,396 @@
+BWOADialogues = BWOADialogues or {}
+
+BWOADialogues["Emma Robinson"] = {
+    ["1"] = {
+        qst = "Who are you?",
+        ans = "My name is Emma. I'm a survivor, just like you. I'm a doctor.",
+        anim = "WaveHi",
+        req = {},
+    },
+    ["1.1"] = {
+        qst = "How did you get in here?",
+        ans = "It's a long story. I was rescued, just like you.",
+        anim = "Talk3",
+        req = {"1"},
+    },
+    ["1.2"] = {
+        qst = "Are there any other people here?",
+        ans = "Yes, but they had to leave for various reasons.",
+        anim = "Yes",
+        req = {"1"},
+    },
+    ["1.2.1"] = {
+        qst = "Why did the others have to leave?",
+        ans = "This place requires maintenance, and we needed supplies. They went out to get them, but don't worry, things are under control.",
+        anim = "Talk3",
+        req = {"1.2", "2"},
+    },
+    ["1.2.1.1"] = {
+        qst = "Can I help with any of the issues here?",
+        ans = "Take your time and rest first. When you're ready, feel free to look around. We'll talk about the details later.",
+        anim = "Talk3",
+        req = {"1.2.1", "3.1"},
+    },
+    ["1.2.2"] = {
+        qst = "When will the others come back?",
+        ans = "Soon, I hope. Don't worry, we're in regular radio contact.",
+        anim = "Talk3",
+        req = {"1.2"},
+    },
+    ["1.2.3"] = {
+        qst = "How many of us live here?",
+        ans = "It's you, me, and four others.",
+        anim = "Talk3",
+        req = {"1.2", "2"},
+    },
+    ["1.2.3.1"] = {
+        qst = "Who are the others living here?",
+        ans = "There's David, Luke, Martha, and Eli.",
+        anim = "Talk3",
+        req = {"1.2.3", "2", "3"},
+    },
+    ["1.2.3.1.1"] = {
+        qst = "Who's David?",
+        ans = "David is our leader, ex-military.",
+        anim = "Talk3",
+        req = {"1.2.3.1"},
+    },
+    ["1.2.3.1.2"] = {
+        qst = "Who's Luke?",
+        ans = "Luke is our scientist. He works in the lab.",
+        anim = "Talk3",
+        req = {"1.2.3.1"},
+    },
+    ["1.2.3.1.3"] = {
+        qst = "Who's Martha?",
+        ans = "Martha takes care of our crops and food supplies.",
+        anim = "Talk3",
+        req = {"1.2.3.1"},
+    },
+    ["1.2.3.1.4"] = {
+        qst = "Who's Eli?",
+        ans = "Eli's our mechanic. He keeps this place running.",
+        anim = "Talk3",
+        req = {"1.2.3.1"},
+    },
+    ["1.2.3.2"] = {
+        qst = "Do we have enough supplies for everyone?",
+        ans = "We have some scarce food reserves, but we also grow crops locally. It's not much, but we're managing.",
+        anim = "Talk3",
+        req = {"1.2.3"},
+    },
+    ["1.2.3.2.1"] = {
+        qst = "What about water supplies?",
+        ans = "An Oligocene aquifer provides us with a steady water supply.",
+        anim = "Talk3",
+        req = {"1.2.3.1"},
+    },
+    ["2"] = {
+        qst = "Where am I?",
+        ans = "You're safe. Don't worry. You're in a shelter.",
+        anim = "Talk3",
+        req = {},
+    },
+    ["2.1"] = {
+        qst = "Are we really safe here?",
+        ans = "Yes, as safe as we can be, given the circumstances, for now at least.",
+        anim = "Yes",
+        req = {"2"},
+    },
+    ["2.2"] = {
+        qst = "What is this place exactly?",
+        ans = "We're not entirely sure. It's some kind of military bunker we were lucky to find. It seems to have been built by a strange organization for long-term survival.",
+        anim = "Talk2",
+        req = {"2"},
+    },
+    ["2.2.1"] = {
+        qst = "Tell me more about the organization that built this place.",
+        ans = "We have an archive with tapes you can listen to. They tell the history of this place.",
+        anim = "Talk2",
+        req = {"2.2", "1"},
+    },
+    ["3"] = {
+        qst = "What happened to me?",
+        ans = "We found you unconscious and brought you here. Relax, you're safe now.",
+        anim = "Talk3",
+        req = {},
+    },
+    ["3.1"] = {
+        qst = "How long was I unconscious?",
+        ans = "This may be a shock to you... You were in a coma for a couple of months.",
+        anim = "Talk3",
+        req = {"3"},
+    },
+    ["3.1.1"] = {
+        qst = "Where did you find me?",
+        ans = "In the chaos of the last days. You were lucky we were there too.",
+        anim = "Talk3",
+        req = {"3.1"},
+    },
+    ["3.1.1.1"] = {
+        qst = "How did you know you could trust me, that I wasn't dangerous?",
+        ans = "We've all done things, but we all deserved a second chance.",
+        anim = "Talk3",
+        req = {"3.1.1", "1", "2"},
+    },
+    ["3.1.1.1.1"] = {
+        qst = "So, you're not afraid of me?",
+        ans = "No. I know Kung Fu!",
+        anim = "Talk3",
+        req = {"3.1.1.1"},
+    },
+    ["3.1.1.1.1.1"] = {
+        qst = "Show me!",
+        ans = "Nah... I might still need you.",
+        anim = "Talk3",
+        req = {"3.1.1.1.1"},
+    },
+    ["3.2"] = {
+        qst = "Am I alright?",
+        ans = "You had a head injury when we found you. You're lucky we had the equipment and the people to help. Your head may still ache, and your body might feel weak.",
+        anim = "Yes",
+        req = {"3"},
+    },
+    ["3.2.1"] = {
+        qst = "What exactly did you do to my head?",
+        ans = "We had to perform a craniotomy to treat internal bleeding.",
+        anim = "Talk3",
+        req = {"3.2"},
+    },
+    ["3.2.1.1"] = {
+        qst = "I still have a terrible headache.",
+        ans = "I was worried your motor and speech functions might be affected, but you're fine. The headache will pass. Here, take some pills.",
+        anim = "Talk3",
+        req = {"3.2.1"},
+        func = "Give",
+        funcParams = {item = "Base.Pills", sound="FirstAidTakePills"},
+    },
+    ["3.2.1.1.1"] = {
+        qst = "I need more supplies.",
+        ans = "Get some rest first. When you're ready, you can look around and take what you need.",
+        anim = "Talk3",
+        req = {"3.2.1.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 1},
+    },
+    ["3.2.2"] = {
+        qst = "Am I infected?",
+        ans = "According to your blood tests, you're not. You're also immune to the airborne strain of the virus.",
+        anim = "No",
+        req = {"3.2"},
+    },
+    ["3.2.2.1"] = {
+        qst = "How were you able to test my blood?",
+        ans = "We have a lab here. And I'm a doctor, remember?",
+        anim = "Talk3",
+        req = {"3.2.2"},
+    },
+    ["3.2.2.1"] = {
+        qst = "Are you immune too?",
+        ans = "Yeah. At this point, everyone who's still human is considered immune.",
+        anim = "Yes",
+        req = {"3.2.2"},
+    },
+    -- room reveal
+    ["100.1"] = {
+        qst = "I noticed a water pump in one of the rooms.",
+        ans = "Yes. We use it to water the crops.",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["100.1.1"] = {
+        qst = "How do I use the water pump?",
+        ans = "It's not connected to the central computer, so it has to be turned on and off manually.",
+        anim = "Talk3",
+        req = {"100.1"},
+    },
+    ["100.2"] = {
+        qst = "I found Noah, a computer of some kind.",
+        ans = "Great find! Noah controls and monitors many systems in the base. I'd advise caution before changing anything.",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["100.3"] = {
+        qst = "I found a garden.",
+        ans = "Perfect! Enjoy the food, but also take care of the plants, Martha's gone now.",
+        anim = "Talk3",
+        req = {"1.2.4.3"},
+        hidden = true
+    },
+    ["100.4"] = {
+        qst = "I found a library.",
+        ans = "Nice! Did you find anything interesting?",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["100.4.1"] = {
+        qst = "What's your favorite book?",
+        ans = "I like crime novels in general.",
+        anim = "Talk3",
+        req = {"100.4"},
+    },
+    ["100.5"] = {
+        qst = "I found a chapel.",
+        ans = "Yep. It's been here since before us.",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["100.5.1"] = {
+        qst = "How can you still believe after all of this?",
+        ans = "To be honest, faith is all I have left.",
+        anim = "Talk3",
+        req = {"100.5"},
+    },
+    ["100.6"] = {
+        qst = "I think I found a laboratory.",
+        ans = "Yes! It's where we conduct our research.",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["100.6.1"] = {
+        qst = "What kind of research are you conducting?.",
+        ans = "Well. We are trying to understand the virus so maybe we can do something about it.",
+        anim = "Talk3",
+        req = {"100.6"},
+    },
+    ["100.6.1.1"] = {
+        qst = "Are you saying you are looking for a cure?",
+        ans = "I don't know, but we have to start somewhere.",
+        anim = "Talk3",
+        req = {"100.6.1"},
+    },
+    ["100.6.1.1.1"] = {
+        qst = "What are your virus research results so far?",
+        ans = "It's best if you review the documents in the lab yourself.",
+        anim = "Talk3",
+        req = {"100.6.1.1"},
+    },
+    -- trait reveal
+    ["200.1"] = {
+        qst = "Do you have a cigarette?",
+        ans = "I quit. But I do carry one last with me. Here, enjoy.",
+        anim = "Yes",
+        req = {},
+        hidden = true,
+        func = "Give",
+        funcParams = {item = "Base.CigaretteSingle"},
+    },
+    ["200.1.1"] = {
+        qst = "Do you have a light?",
+        ans = "Yes, here you go.",
+        anim = "Yes",
+        req = {"200.1"},
+        func = "Give",
+        funcParams = {item = "Base.Lighter"},
+    },
+    ["200.1.2"] = {
+        qst = "Why did you carry a cigarrete if you quit?",
+        ans = "I guess I would smoke it if I was bit, but let's hope the never happens.",
+        anim = "Yes",
+        req = {"200.1"},
+        func = "Give",
+        funcParams = {item = "Base.Lighter"},
+    },
+
+    -- base condition dependent
+    ["1000.1"] = {
+        qst = "Why is it so cold?",
+        ans = "The central heating must be off. We should fix it before we freeze to death!",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["1000.2"] = {
+        qst = "Is the power out?",
+        ans = "Yes. We need to check the generator and fuel levels.",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["1000.3"] = {
+        qst = "I feel sick. What's going on?",
+        ans = "I think the radiation levels are above safe thresholds!",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+    ["1000.3.1"] = {
+        qst = "How can we lower the radiation levels?",
+        ans = "It's probably related to the ventilation system!",
+        anim = "Talk3",
+        req = {"1000.3"},
+    },
+    ["1000.3.2"] = {
+        qst = "How can we recover from radiation poisoning?",
+        ans = "Take a shower and some iodine pills, quickly!",
+        anim = "Talk3",
+        req = {"1000.3"},
+    },
+    ["1000.4"] = {
+        qst = "I feel dizzy. What's happening?",
+        ans = "Check the CO2 levels and make sure the ventilation is working!",
+        anim = "Talk3",
+        req = {},
+        hidden = true
+    },
+}
+
+BWOADialogues.GetQuestions = function(person)
+    local dialogues = BWOADialogues[person]
+    local ret = {}
+
+    if dialogues then
+        for id, dialogue in pairs(dialogues) do
+            if not dialogue.asked and not dialogue.hidden then
+                local add = true
+                for _, r in pairs(dialogue.req) do
+                    if not dialogues[r].asked then
+                        add = false
+                        break
+                    end
+                end
+                if add then
+                    ret[id] = dialogue
+                end
+            end 
+        end
+    end
+    return ret
+end
+
+BWOADialogues.GetAnswer = function(person, question)
+    local dialogues = BWOADialogues[person]
+    if dialogues then
+        for id, dialogue in pairs(dialogues) do
+            if dialogue.qst == question and not dialogue.asked and not dialogue.hidden then
+                return dialogue
+            end
+        end
+    end
+end
+
+BWOADialogues.MarkAsked = function(person, question)
+    local dialogues = BWOADialogues[person]
+    if dialogues then
+        for id, dialogue in pairs(dialogues) do
+            if dialogue.qst == question then
+                dialogue.asked = true
+                return
+            end
+        end
+    end
+end
+
+BWOADialogues.Reveal = function(person, key)
+    local dialogues = BWOADialogues[person]
+    if dialogues then
+        if dialogues[key] then
+            dialogues[key].hidden = nil
+        end
+    end
+end

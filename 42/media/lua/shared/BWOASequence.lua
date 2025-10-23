@@ -3,7 +3,7 @@ BWOASequence = BWOASequence or {}
 -- when player starts the game
 BWOASequence.Start = function(params)
     -- fade out
-    -- BWOAEventControl.Add("FadeOut", {time=0}, 0)
+    BWOAEventControl.Add("FadeOut", {time=0}, 0)
 
     -- player start coords
     local px = 9966
@@ -27,9 +27,15 @@ BWOASequence.Start = function(params)
         if BWOARooms[roomName].SetFlickers then
             BWOAEventControl.Add("SetRoomFlickers", {roomName=roomName}, 800)
         end
+        if BWOARooms[roomName].SetAnims then
+            BWOAEventControl.Add("SetRoomAnims", {roomName=roomName}, 900)
+        end
     end
 
-    BWOAEventControl.Add("ElecShut", {}, 1000)
+    BWOAEventControl.Add("ClearBaseFromZombies", {}, 1000)
+    BWOAEventControl.Add("ClearBaseFromZombies", {}, 2000)
+
+    BWOAEventControl.Add("ElecShut", {}, 1100)
     
     -- fade in
     BWOAEventControl.Add("FadeIn", {time=4}, 3000)
@@ -43,6 +49,9 @@ BWOASequence.Resume = function(params)
         end
         if BWOARooms[roomName].SetFlickers then
             BWOAEventControl.Add("SetRoomFlickers", {roomName=roomName}, 100)
+        end
+        if BWOARooms[roomName].SetAnims then
+            BWOAEventControl.Add("SetRoomAnims", {roomName=roomName}, 200)
         end
     end
 end

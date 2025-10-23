@@ -8,6 +8,46 @@ BWOABuildTools.Generic = function(x, y, z, spriteName)
     square:setSquareChanged()
 end
 
+BWOABuildTools.WaterPump = function(x, y, z)
+    local sprite = getSprite(WPIso.pumpSprites.ns)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local object = IsoClothingDryer.new(square:getCell(), square, sprite)
+    object:setActivated(false)
+    object:setMovedThumpable(true)
+    object:createContainersFromSpriteProperties()
+    object:transmitCompleteItemToServer()
+    square:AddSpecialObject(object)
+    WPVirtual.PumpAdd(x, y, z)
+end
+
+BWOABuildTools.WaterPipe = function(x, y, z)
+    local sprite = getSprite(WPIso.pipeSprites.ns)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local object = IsoObject.new(square:getCell(), square, sprite)
+    square:AddSpecialObject(object)
+    object:transmitCompleteItemToServer()
+    WPIso.BuildPipe(square)
+end
+
+BWOABuildTools.WaterValve = function(x, y, z)
+    local sprite = getSprite(WPIso.valveSprites.ns)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local object = IsoObject.new(square:getCell(), square, sprite)
+    square:AddSpecialObject(object)
+    object:transmitCompleteItemToServer()
+    WPVirtual.ValveAdd(x, y, z, 200)
+end
+
+BWOABuildTools.WaterSprinkler = function(x, y, z)
+    local sprite = getSprite(WPIso.waterSprinklersSprites[1])
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local object = IsoObject.new(square:getCell(), square, sprite)
+    square:AddSpecialObject(object)
+    object:transmitCompleteItemToServer()
+    WPVirtual.SprinklerAdd(x, y, z, 200)
+end
+
+
 BWOABuildTools.FloorConcrete = function(x, y, z)
     local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, "floors_exterior_street_01_0", "")
@@ -274,6 +314,22 @@ BWOABuildTools.LampCeilingNS = function(x, y, z)
     local sprite = "lighting_indoor_03_21"
     lamp(x, y, z, sprite, data)
 end
+
+BWOABuildTools.LampCustom = function(x, y, z, sprite)
+    local data = {r = 255, g = 240, b = 180, d=7}
+    lamp(x, y, z, sprite, data)
+end
+
+BWOABuildTools.TV = function(x, y, z, spriteName)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoTelevision.new(getCell(), square, getSprite(spriteName))
+    obj:getDeviceData():getDevicePresets():clearPresets()
+    
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+end
+
 
 BWOABuildTools.FarmPlot = function(x, y, z, seedType)
     local square = getCell():getOrCreateGridSquare(x, y, z)

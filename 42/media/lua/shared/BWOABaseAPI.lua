@@ -158,8 +158,10 @@ BWOABaseAPI.VentilationUpdate = function(active, temp)
 
                         if active then
                             BWOASound.AddToObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
+                            BWOABaseAPI.AirIntakeStart()
                         else
                             BWOASound.RemoveFromObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
+                            BWOABaseAPI.AirIntakeStop()
                         end
                     else
                         local x, y, z = math.floor(coords.x), math.floor(coords.y), math.floor(coords.z)
@@ -170,6 +172,82 @@ BWOABaseAPI.VentilationUpdate = function(active, temp)
             end
         end
     end
+end
+
+BWOABaseAPI.AirIntakeStart = function()
+    BWOASound.AddToObject({x=9940.5, y=12633.5, z=0, sound="AmbientVent"})
+
+    BWOAAnims.Add({
+        x = 9940, 
+        y = 12633, 
+        z = 0, 
+        objName = "AirVent",
+        frameList = {
+            "theark_01_5",
+            "theark_01_6"
+        }
+    })
+
+    BWOAAnims.Add({
+        x = 9940, 
+        y = 12634, 
+        z = 0, 
+        objName = "AirVent",
+        frameList = {
+            "theark_01_5",
+            "theark_01_6"
+        }
+    })
+
+    BWOAAnims.Add({
+        x = 9941, 
+        y = 12633, 
+        z = 0, 
+        objName = "AirVent",
+        frameList = {
+            "theark_01_5",
+            "theark_01_6"
+        }
+    })
+
+    BWOAAnims.Add({
+        x = 9941, 
+        y = 12634, 
+        z = 0, 
+        objName = "AirVent",
+        frameList = {
+            "theark_01_5",
+            "theark_01_6"
+        }
+    })
+end
+
+BWOABaseAPI.AirIntakeStop = function()
+    BWOASound.RemoveFromObject({x=9940.5, y=12633.5, z=0, sound="AmbientVent"})
+
+    BWOAAnims.Remove({
+        x = 9940, 
+        y = 12633, 
+        z = 0, 
+    })
+
+    BWOAAnims.Remove({
+        x = 9940, 
+        y = 12634, 
+        z = 0, 
+    })
+
+    BWOAAnims.Remove({
+        x = 9941, 
+        y = 12633, 
+        z = 0, 
+    })
+
+    BWOAAnims.Remove({
+        x = 9941, 
+        y = 12634, 
+        z = 0, 
+    })
 end
 
 BWOABaseAPI.VentilationOff = function()

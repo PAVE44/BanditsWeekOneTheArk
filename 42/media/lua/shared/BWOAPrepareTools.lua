@@ -46,3 +46,45 @@ end
 BWOAPrepareTools.AddWorldItemSpecial = function(x, y, z, item, data)
     addWorldItem(x, y, z, item, data)
 end 
+
+BWOAPrepareTools.AddItemsToContainer = function(x, y, z, items, customName, preserveCurrent)
+    local square = getCell():getGridSquare(x, y, z)
+    local container
+    if square then
+        local objects = square:getObjects()
+        for i=0, objects:size()-1 do
+            local object = objects:get(i)                
+            local sprite = object:getSprite()
+            if sprite then
+                local props = sprite:getProperties()
+                if props:Is("CustomName") then
+                    local cn = props:Val("CustomName")
+                    if cn == customName then
+                        container = object:getContainer()
+                    end
+                end
+            end
+        end
+    end
+
+    if container then
+        if not preserveCurrent then
+            container:clear()
+        end
+        for itemType, itemCnt in pairs(items) do
+            for i=1, itemCnt do
+                local item = container:AddItem(itemType)
+                if item then
+                    container:addItemOnServer(item)
+                end
+            end
+
+            if not isClient() then
+                -- if container:getParent() and container:getParent():getOverlaySprite() then
+                    ItemPicker.updateOverlaySprite(container:getParent())
+                -- end
+            end
+        end
+        container:setDrawDirty(true)
+    end
+end

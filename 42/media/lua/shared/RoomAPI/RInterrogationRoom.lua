@@ -44,6 +44,10 @@ BWOARooms.InterrogationRoom.Build = function ()
     BWOABuildTools.RemoveObject(9964, 12633, -4, "Chair")
     BWOABuildTools.Generic(9964, 12633, -4, "appliances_com_01_46")
 
+    BWOABuildTools.Generic(9959, 12632, -4, "furniture_tables_low_01_18")
+    BWOABuildTools.TV(9959, 12632, -4, "appliances_television_01_5")
+
+
 
 end
 
@@ -57,6 +61,12 @@ end
 
 BWOARooms.InterrogationRoom.Prepare = function ()
     BWOARooms.InterrogationRoom.Init()
+
+    local item = BanditCompatibility.InstanceItem("Base.VHS_Home")
+    local mediaRecorder = ZomboidRadio.getInstance():getRecordedMedia()
+    local mediaData = mediaRecorder:getMediaData("d5fe3df0-5e3b-0146-0001-000000000000")
+    item:setRecordedMediaData(mediaData)
+    BWOAPrepareTools.AddWorldItemSpecial(9959, 12634, -4, item, {x=0.6, y=0.6, z=0})
 
 end
 

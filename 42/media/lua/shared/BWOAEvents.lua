@@ -74,6 +74,17 @@ BWOAEvents.PlayerSetup = function(params)
     end
 end
 
+-- params: id, txt, anim
+BWOAEvents.SayBandit = function(params)
+    local player = getSpecificPlayer(0)
+    local speaker = BanditZombie.GetInstanceById(params.id)
+    if speaker then
+        Bandit.ClearTasks(speaker)
+        local task = {action="Talk", anim=params.anim, txt=params.txt, x=player:getX(), y=player:getY(), time=2000}
+        Bandit.AddTask(speaker, task)
+    end
+end
+
 BWOAEvents.ElecShut = function(params)
     getSandboxOptions():set("ElecShut", 1)
     getSandboxOptions():set("ElecShutModifier", 0)
@@ -104,6 +115,9 @@ BWOAEvents.PrepareRoom = function(params)
         if BWOARooms[params.roomName].SetFlickers then
             BWOARooms[params.roomName].SetFlickers()
         end
+        if BWOARooms[params.roomName].SetAnims then
+            BWOARooms[params.roomName].SetAnims()
+        end
     end
 end
 
@@ -116,5 +130,26 @@ end
 BWOAEvents.SetRoomFlickers = function(params)
     if params.roomName then
         BWOARooms[params.roomName].SetFlickers()
+    end
+end
+
+BWOAEvents.SetRoomAnims = function(params)
+    if params.roomName then
+        BWOARooms[params.roomName].SetAnims()
+    end
+end
+
+BWOAEvents.ClearBaseFromZombies = function(params)
+    local zombieList = BanditZombie.CacheLightZ
+    for id, z in pairs(zombieList) do
+        if z.z < 0 then
+            local zombie = BanditZombie.GetInstanceById(z.id)
+            -- local id = BanditUtils.GetCharacterID(zombie)
+            if zombie and zombie:isAlive() then
+                -- fixme: zombie:canBeDeletedUnnoticed(float)
+                zombie:removeFromSquare()
+                zombie:removeFromWorld()
+            end
+        end
     end
 end
