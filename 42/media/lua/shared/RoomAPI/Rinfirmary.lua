@@ -55,19 +55,53 @@ BWOARooms.Infirmary.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9969, 12622, -4, "Base.BluePen", {x=0.4, y=0.5, z=0.35})
     BWOAPrepareTools.AddWorldItem(9969, 12622, -4, "Base.Stethoscope", {x=0.8, y=0.2, z=0.35})
     
-    local note1 = BanditCompatibility.InstanceItem("Bandits.Note")
-    note1:setCanBeWrite(false)
-    note1:setName("Doctor's note")
-    local md = note1:getModData()
-    md.printMedia = "Medical1"
-    BWOAPrepareTools.AddWorldItemSpecial(9969, 12622, -4, note1, {x=0.6, y=0.6, z=0.35})
+    local items
+    items = {
+        ["Base.Bandage"] = 3, 
+        ["Base.AlcoholWipes"] = 2, 
+        ["Base.CottonBalls"] = 4, 
+        ["Base.Pills"] = 2, 
+        ["Base.Disinfectant"] = 1, 
+        ["Base.ScissorsBluntMedical"] = 1,
+        ["Base.Scalpel"] = 1,
+        ["Base.SutureNeedleHolder"] = 1,
+        ["Base.Tweezers"] = 1,
+        ["Base.Gloves_Surgical"] = 2,
+    }
+    BWOAPrepareTools.AddItemsToContainer(9969, 12625, -4, items, "Cabinet")
 
-    local note2 = BanditCompatibility.InstanceItem("Bandits.Note")
-    note2:setCanBeWrite(false)
-    note2:setName("Doctor's note")
-    local md = note2:getModData()
-    md.printMedia = "Medical2"
-    BWOAPrepareTools.AddWorldItemSpecial(9970, 12622, -4, note2, {x=0.2, y=0.62, z=0.35})
+    items = {
+        ["Base.AntibioticsBox"] = 2, 
+        ["Base.AdhesiveBandageBox"] = 2, 
+        ["Base.BandageBox"] = 3,
+        ["Base.ColdpackBox"] = 1,
+        ["Base.CottonBallsBox"] = 2, 
+        ["Base.SutureNeedleBox"] = 2,
+        ["Base.TongueDepressorBox"] = 2,
+    }
+    BWOAPrepareTools.AddItemsToContainer(9969, 12626, -4, items, "Shelves")
+
+    items = {
+        ["Base.PillsBeta"] = 5, 
+        ["Base.PillsVitamins"] = 6, 
+        ["Base.Pills"] = 7,
+        ["Base.PillsSleepingTablets"] = 3,
+        ["Base.Gloves_Surgical"] = 24, 
+        ["Base.PillsAntiDep"] = 2, 
+        ["Base.Hat_SurgicalCap"] = 24, 
+        ["Base.Hat_SurgicalMask"] = 24, 
+        ["Base.Shoes_FlipFlop"] = 3, 
+        ["Base.Pillow"] = 3, 
+    }
+    BWOAPrepareTools.AddItemsToContainer(9970, 12626, -4, items, "Shelves")
+
+    local medical = BanditCompatibility.InstanceItem("Bandits.Note")
+    medical:setCanBeWrite(false)
+    medical:setName("Medical report")
+    local md = medical:getModData()
+    md.printContent = "medical"
+    BWOAPrepareTools.AddWorldItemSpecial(9969, 12622, -4, medical, {x=0.6, y=0.6, z=0.35})
+
 end
 
 

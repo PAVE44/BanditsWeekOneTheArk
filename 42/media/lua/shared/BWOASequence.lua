@@ -32,10 +32,21 @@ BWOASequence.Start = function(params)
         end
     end
 
+    BWOAEventControl.Add("ElecShut", {}, 900)
+
     BWOAEventControl.Add("ClearBaseFromZombies", {}, 1000)
     BWOAEventControl.Add("ClearBaseFromZombies", {}, 2000)
 
-    BWOAEventControl.Add("ElecShut", {}, 1100)
+    local emma = {
+        cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce",
+        x = px + 2,
+        y = py + 2,
+        z = z,
+        program = "Emma",
+        size = 1,
+    }
+
+    BWOAEventControl.Add("SpawnGroup", emma, 2100)
     
     -- fade in
     BWOAEventControl.Add("FadeIn", {time=4}, 3000)
@@ -68,5 +79,29 @@ BWOASequence.EmergencyLights = function(params)
     end
 end
 
+BWOASequence.Earthquake = function(params)
 
+    local d = 1
+    BWOAEventControl.Add("PlayPlayer", {sound = "AmbientRumble"}, d)
+
+    d = 2000
+    BWOAEventControl.Add("AlarmOn", {}, d)
+    
+    d = 1000
+    for j = 1, params.duration do
+        local x = params.x1 + ZombRand(params.x2 - params.x1)
+        local y = params.y1 + ZombRand(params.y2 - params.y1)
+        local z = params.z
+
+        for i = 1, params.intensity do
+            d = d + 20 + ZombRand(35)
+            local params = {
+                x = x,
+                y = y,
+                z = z,
+            }
+            BWOAEventControl.Add("WallCrack", params, d)
+        end
+    end
+end
 

@@ -19,6 +19,15 @@ BWOAChat.Give = function(params)
     end
 end
 
+BWOAChat.AccomplishMission = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if not params.missionId then return end
+
+    BWOAMissions.Accomplish(params.missionId)
+end
+
 BWOAChat.RevealMission = function(params)
     local player = getSpecificPlayer(0)
     if not player then return end
@@ -66,13 +75,22 @@ BWOAChat.Say = function(question, quiet)
 end
 
 local function onKeyPressed(keynum)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
     local options = PZAPI.ModOptions:getOptions("BanditsWeekOneTheArk")
     local key = options:getOption("TALK"):getValue()
 
     if keynum == key then
-        local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0))
-        ui:initialise()
-        ui:addToUIManager()
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+        if target.dist < BWOAChat.talkDist then
+            local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0))
+            ui:initialise()
+            ui:addToUIManager()
+        else
+            local color = player:getSpeakColour()
+            player:addLineChatElement("There is nobody around to speak to.", color:getR(), color:getG(), color:getB())
+        end
     end
 end
 

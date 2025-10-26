@@ -53,6 +53,9 @@ local function onKeyPressed(keynum)
         elseif keynum == Keyboard.KEY_3 then
             BWOANoah.screen = "Hydraulics"
         elseif keynum == Keyboard.KEY_4 then
+        elseif keynum == Keyboard.KEY_5 then
+        elseif keynum == Keyboard.KEY_6 then
+            BWOANoah.screen = "Alarms"
         elseif keynum == Keyboard.KEY_9 then
             close()
             return
@@ -127,6 +130,22 @@ local function onKeyPressed(keynum)
         if keynum == Keyboard.KEY_9 then
             BWOANoah.screen = "Generator"
         end
+    elseif BWOANoah.screen == "Alarms" then
+        if keynum == Keyboard.KEY_1 then
+            if BWOABaseAPI.alarm then
+                BWOABaseAPI.AlarmOff()
+            else
+                BWOABaseAPI.AlarmOn()
+            end
+        elseif keynum == Keyboard.KEY_2 then
+            BWOANoah.screen = "AlarmsManual"
+        elseif keynum == Keyboard.KEY_9 then
+            BWOANoah.screen = "Main"
+        end
+    elseif BWOANoah.screen == "AlarmsManual" then
+        if keynum == Keyboard.KEY_9 then
+            BWOANoah.screen = "Alarms"
+        end
     end
     loadScreen()
 end
@@ -165,7 +184,8 @@ BWOANoah.Screens.Main = function()
     text[9] = "2. ATMOSPHERIC REGULATION"
     text[11] = "3. HYDRAULICS"
     text[13] = "4. ENVIRONMENTAL REPORT"
-    text[13] = "5. ACCESS CONTROL"
+    text[15] = "5. ACCESS CONTROL"
+    text[17] = "6. ALARMS"
     text[25] = "9. EXIT"
     return text
 end
@@ -422,6 +442,48 @@ BWOANoah.Screens.PumpManual = function(data)
     text[17]  = "may result in efficiency loss, sudden "
     text[18]  = "shutdowns. In severe cases, neglect   "
     text[19]  = "may cause the water pump to ignite!   "
+    text[23]  = "OPTIONS:        "
+    text[25]  = "9. RETURN"
+    return text
+end
+
+BWOANoah.Screens.Alarms = function()
+    local text = BWOANoah.ScreenTemplate()
+    text[5]  = "ALARMS"
+
+    if BWOABaseAPI.alarm then
+        text[7]  = "STATUS: ON"
+    else
+        text[7]  = "STATUS: OFF"
+    end
+
+    text[8]  = "HAZARD SENSORS: FIRE, BIO"
+    text[10]  = "OPTIONS:"
+
+    if BWOABaseAPI.alarm then
+        text[11]  = "1. CANCEL ALARM"
+    else
+        text[11]  = "1. SOUND ALARM"
+    end
+    text[12]  = "2. INSTRUCTION MANUAL"
+
+    text[25] = "9. RETURN"
+    return text
+end
+
+BWOANoah.Screens.AlarmsManual = function(data)
+    local text = BWOANoah.ScreenTemplate()
+    text[5]   = "AUTOMATIC ALARM MODULE                "
+    text[7]   = "Central alerting module is aggregating"
+    text[8]  = "multiple sensors data for anomaly     "
+    text[9]  = "detection. In case of anomaly audiable"
+    text[10]  = "alarm is activated to alert the       "
+    text[11]  = "inhabitants and voice messaging system"
+    text[12]  = "informs about the nature of the       "
+    text[13]  = "threat. Should the alarm get          "
+    text[14]  = "activated, use central console for    "
+    text[15]  = "manual deactivation only if the threat"
+    text[16]  = "has been averted. "
     text[23]  = "OPTIONS:        "
     text[25]  = "9. RETURN"
     return text

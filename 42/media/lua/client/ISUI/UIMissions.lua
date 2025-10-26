@@ -1,58 +1,63 @@
 require "ISUI/ISPanelJoypad"
-require "BWOADialogues"
-require "BWOAChat"
+require "BWOAMissions"
 
-UIDialogue = ISPanelJoypad:derive("UIDialogue");
+UIMissions = ISPanelJoypad:derive("UIMissions");
 
 local FONT_HGT_SMALL = getTextManager():getFontHeight(UIFont.Small)
 local FONT_HGT_MEDIUM = getTextManager():getFontHeight(UIFont.Medium)
 local PADDING = 12
-local DIAL_LIST_HGT = 320
-function UIDialogue:initialise()
+local MISSION_LIST_HGT = 320
+function UIMissions:initialise()
     ISPanelJoypad.initialise(self);
 
-    self.dialListBox = ISScrollingListBox:new(PADDING, PADDING + FONT_HGT_MEDIUM + PADDING, self:getWidth() - (2 * PADDING), DIAL_LIST_HGT)
-    self.dialListBox.itemheight = FONT_HGT_MEDIUM + PADDING
-    self.dialListBox.backgroundColor.a = 0
-    self:addChild(self.dialListBox)
-    self.dialListBox:clear()
+    ISEquippedItem.instance.missionBtn:setImage(ISEquippedItem.instance.missionIconOn);
 
-    local person = "Emma Robinson"
-    local dialogues = BWOADialogues.GetQuestions(person)
+    BWOAMissions.new = false
 
-    if BWOAChat.last[person] then
-        self.dialListBox:addItem(id, { index = 0, qst = "Can you repeat that?"})
-    end
+    self.missionListBox = ISScrollingListBox:new(PADDING, PADDING + FONT_HGT_MEDIUM + PADDING, self:getWidth() - (2 * PADDING), MISSION_LIST_HGT)
+    self.missionListBox.itemheight = FONT_HGT_MEDIUM + PADDING + FONT_HGT_SMALL + PADDING
+    self.missionListBox.backgroundColor.a = 0
+    self:addChild(self.missionListBox)
+    self.missionListBox:clear()
 
-    for id, dialogue in pairs(dialogues) do
-        self.dialListBox:addItem(id, { index = id, qst = dialogue.qst})
+    local missions = BWOAMissions.GetRevealed()
+
+    for id, mission in pairs(missions) do
+        self.missionListBox:addItem(id, { index = id, name = mission.name, desc = mission.desc, accomplished = mission.accomplished})
     end
 
     self.maxWidth = 0
-    self.dialListBox.doDrawItem = function(list, y, item, alt)
+    self.missionListBox.doDrawItem = function(list, y, item, alt)
         local h = list.itemheight
 
         if (list.mouseoverselected == item.index) and list:isMouseOver() and not list:isMouseOverScrollBar() then
             list:drawMouseOverHighlight(0, y, list:getWidth(), item.height-1);
         end
         
-        local width = getTextManager():MeasureStringX(UIFont.Medium, item.item.qst)
+        local width1 = getTextManager():MeasureStringX(UIFont.Medium, item.item.name)
+        local width2 = getTextManager():MeasureStringX(UIFont.Small, item.item.desc)
+        local width =  math.max(width1, width2)
         self.maxWidth = math.max(width, self.maxWidth)
 
-        list:drawText(item.item.qst, 4, y + 6, 1, 1, 1, 1, UIFont.Medium)
+        local alpha = 1
+        if item.item.accomplished then
+            alpha = 0.4
+        end
+
+        list:drawText(item.item.name, 4, y + 6, alpha, alpha, alpha, 1, UIFont.Medium)
+        list:drawText(item.item.desc, 4, y + 6 + FONT_HGT_MEDIUM, alpha, alpha, alpha, 1, UIFont.FONT_HGT_SMALL)
+
         list:drawRect(0, y + h - 1, list:getWidth(), 1, 1, 0.4, 0.4, 0.4)
         
         return y + h
     end
 
-    self.dialListBox.onMouseUp = function(listBox, x, y)
-        local itemText = listBox.items[listBox.selected].item.qst
-        BWOAChat.Say(itemText)
-        self:destroy()
+    self.missionListBox.onMouseUp = function(listBox, x, y)
+
     end
     
-    self.cancel = ISButton:new((self:getWidth() - 100) / 2, PADDING + FONT_HGT_MEDIUM + PADDING + DIAL_LIST_HGT + PADDING, 100, 24, getText("UI_Cancel"), self, UIDialogue.onClick)
-    self.cancel.internal = "CANCEL"
+    self.cancel = ISButton:new((self:getWidth() - 100) / 2, PADDING + FONT_HGT_MEDIUM + PADDING + MISSION_LIST_HGT + PADDING, 100, 24, getText("UI_Close"), self, UIMissions.onClick)
+    self.cancel.internal = "CLOSE"
     self.cancel:initialise()
     self.cancel:instantiate()
     self.cancel.borderColor = {r=1, g=1, b=1, a=0.1}
@@ -65,51 +70,43 @@ function UIDialogue:initialise()
 
 end
 
-function UIDialogue:destroy()
+function UIMissions:destroy()
     UIManager.setShowPausedMessage(true);
     self:setVisible(false);
     self:removeFromUIManager();
 end
 
-function UIDialogue:sendMessage()
-    local txt = self:getText()
-    self:unfocus()
-    UIManager.setShowPausedMessage(true);
-    self.parent:setVisible(false);
-    self.parent:removeFromUIManager();
-    BWOChat.Say(txt)
-end
+function UIMissions:onClick(button)
 
-function UIDialogue:onClick(button)
-
-    if button.internal == "CANCEL" then
+    if button.internal == "CLOSE" then
+        ISEquippedItem.instance.missionBtn:setImage(ISEquippedItem.instance.missionIconOff);
         self:destroy();
     end
 
     self:updateNow()
 end
 
-function UIDialogue:prerender()
+function UIMissions:prerender()
     self:setWidth(self.maxWidth + (PADDING * 5))
-    self.dialListBox:setWidth(self.maxWidth + (PADDING * 3))
+    self.missionListBox:setWidth(self.maxWidth + (PADDING * 3))
     self.cancel:setX((self:getWidth() - 100) / 2)
     self.backgroundColor.a = 0.5
     self:drawRect(0, 0, self.width, self.height, self.backgroundColor.a, self.backgroundColor.r, self.backgroundColor.g, self.backgroundColor.b);
     self:drawRectBorder(0, 0, self.width, self.height, self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b);
 
-    self:drawTextCentre("Say", self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
+    self:drawTextCentre("Missions", self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
 end
 
-function UIDialogue:render()
+function UIMissions:render()
 end
 
-function UIDialogue:update()
+function UIMissions:update()
 end
 
-function UIDialogue:updateNow()
+function UIMissions:updateNow()
 end
 
-function UIDialogue:new(x, y, width, height, character)
+function UIMissions:new(x, y, width, height, character)
     local o = {}
     o = ISPanelJoypad:new(x, y, width, height);
     setmetatable(o, self)

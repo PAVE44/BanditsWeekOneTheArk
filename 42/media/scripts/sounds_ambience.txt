@@ -42,7 +42,7 @@ module Bandits {
         clip { 
             file = media/sound/ambient_computer.ogg, 
             distanceMin = 1,
-            distanceMax = 6,
+            distanceMax = 12,
             reverbFactor = 0.6, 
         } 
     }
@@ -78,7 +78,7 @@ module Bandits {
         clip { 
             file = media/sound/ambient_generator2.ogg, 
             distanceMin = 1,
-            distanceMax = 23,
+            distanceMax = 12,
             reverbFactor = 0.6, 
         } 
     }
@@ -141,5 +141,64 @@ module Bandits {
             distanceMax = 7,
             reverbFactor = 0.6, 
         } 
+    }
+
+    sound AmbientRumble {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_rumble.ogg, 
+            reverbFactor = 0.8, 
+        } 
+    }
+
+    sound AmbientWallcrack {
+        category = Object,
+        loop = false
+        is3D = true,
+        clip
+        {
+            file = media/sound/wallcrack_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_4.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_5.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_6.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_7.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
     }
 }

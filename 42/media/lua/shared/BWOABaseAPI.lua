@@ -93,12 +93,14 @@ BWOABaseAPI.EmergencyLights = function(roomName, active)
     end
 
     if change then
-        local sound = {}
-        sound.x = math.floor(((room.x1 + room.x2) / 2) + 0.5)
-        sound.y = math.floor(((room.y1 + room.y2) / 2) + 0.5)
-        sound.z = room.z
-        sound.sound = "AmbientELS"
-        BWOASound.PlayLocation(sound)
+        if room.x1 and room.x2 and room.y1 and room.y2 then
+            local sound = {}
+            sound.x = math.floor(((room.x1 + room.x2) / 2) + 0.5)
+            sound.y = math.floor(((room.y1 + room.y2) / 2) + 0.5)
+            sound.z = room.z
+            sound.sound = "AmbientELS"
+            BWOASound.PlayLocation(sound)
+        end
     end
 end
 

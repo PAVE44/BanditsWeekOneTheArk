@@ -5,7 +5,7 @@ BWOASound.objects = {}
 BWOASound.noah = {}
 BWOASound.noahMax = 12
 BWOASound.tick = 0
-BWOASound.maxDist = 50
+BWOASound.maxDist = 12
 BWOASound.ambientArkSound = "AmbientArk"
 
 BWOASound.megaphones = {}
@@ -51,6 +51,11 @@ BWOASound.noahSounds = {
     ["STORAGEAREAFOUR"] = "NoahStorageAreaFour",
     ["STORAGEAREAFIVE"] = "NoahStorageAreaFive",
 }
+
+BWOASound.PlayPlayer = function(tab)
+    local player = getSpecificPlayer(0)
+    player:playSound(tab.sound)
+end
 
 BWOASound.PlayLocation = function(tab)
     local square = getCell():getGridSquare(tab.x, tab.y, tab.z)
@@ -121,6 +126,7 @@ end
 
 local function onTick()
     if isServer() then return end
+    if not isIngameState() then return end
 
     local world = getWorld()
     local player = getSpecificPlayer(0)
@@ -132,6 +138,7 @@ local function onTick()
     local power = BWOABaseControl.power
 
     -- ambient looped emitter
+
     if pz > -2 then
         if pemitter:isPlaying(BWOASound.ambientArkSound) then
             pemitter:stopSoundByName(BWOASound.ambientArkSound)
@@ -186,12 +193,12 @@ local function onTick()
             end
             if allFinished then
                 table.remove(BWOASound.noah, 1)
-                print ("stop: " .. event.sound)
             end
         end
     end
 
     -- object looped emitters
+
     for _, effect in ipairs(BWOASound.objects) do
         if effect.x and effect.y and effect.z then
 
@@ -199,14 +206,14 @@ local function onTick()
 
                 if not effect.emitter then
                     effect.emitter = world:getFreeEmitter(effect.x, effect.y, effect.z)
-                    break -- generating too many emitters at once leads to distruption of player emitter
                 end
 
                 if effect.emitter then
-                    if  not effect.emitter:isPlaying(effect.sound) then
-                        effect.emitter:playSound(effect.sound)
-                        break
-                        -- effect.emitter:tick()
+                    effect.emitter:setPos(effect.x, effect.y, effect.z)
+                    if not effect.emitter:isPlaying(effect.sound) then
+                        local sid = effect.emitter:playSound(effect.sound)
+                        effect.sid = sid
+                        -- print (effect.sound .. " x: " .. effect.x .. " y: " .. effect.y .. " z: " .. effect.z)
                     end
 
                     if not effect.elec or power then
@@ -214,6 +221,12 @@ local function onTick()
                     else
                         effect.emitter:setVolumeAll(0)
                     end
+                end
+            else
+                if effect.emitter then
+                    effect.emitter:stopAll()
+                    effect.emitter:tick()
+                    effect.emitter = nil
                 end
             end
         end

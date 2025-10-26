@@ -68,7 +68,7 @@ end
 
 BWOARooms.Generator.SetEmitters = function ()
     BWOARooms.Generator.Init()
-    BWOASound.AddToObject({x=9945, y=12620, z=-4, elec=true, sound="AmbientGenerator"})
+    -- BWOASound.AddToObject({x=9945, y=12620, z=-4, elec=true, sound="AmbientGenerator"})
     BWOASound.AddToObject({x=9944, y=12618, z=-4, elec=true, sound="AmbientElectricity"})
     BWOASound.AddToObject({x=9950, y=12622, z=-4, elec=true, sound="AmbientElectricity"})
 end

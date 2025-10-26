@@ -10,10 +10,13 @@ BWOAClimate.temp = 0
 function onClimateTick()
     local world = getWorld()
     local cm = world:getClimateManager()
+    local wfx = getCell():getWeatherFX()
     local temp = cm:getClimateFloat(4)  -- Temperature controller
+    local snow = cm:getClimateBool(0)
 
     -- Reset to default climate behavior
     temp:setEnableOverride(false)
+    snow:setEnableOverride(false)
 
     local wa = getGameTime():getWorldAgeHours()
     local overrideTemp
@@ -37,6 +40,44 @@ function onClimateTick()
 
     BWOAClimate.temp = newTemp
 
+    if newTemp < 0 then
+        snow:setEnableOverride(true)
+        snow:setOverride(true)
+    end
+
+    if isClient() then
+        getClimateManager():transmitTriggerStorm(10)
+    else
+        getClimateManager():triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
+    end
+
+
+    local ambient = cm:getClimateFloat(ClimateManager.FLOAT_AMBIENT);
+    ambient:setEnableOverride(true)
+    ambient:setOverride(0.1, 1)
+
+    local desaturation = cm:getClimateFloat(ClimateManager.FLOAT_DESATURATION);
+    desaturation:setEnableOverride(true)
+    desaturation:setOverride(0.5, 1)
+
+    local fogIntensity = cm:getClimateFloat(ClimateManager.FLOAT_FOG_INTENSITY);
+    fogIntensity:setEnableOverride(true)
+    fogIntensity:setOverride(1, 1)
+
+    local windIntensity = cm:getClimateFloat(ClimateManager.FLOAT_WIND_INTENSITY);
+    windIntensity:setEnableOverride(true)
+    windIntensity:setOverride(1, 1)
+
+    ImprovedFog.setEnableEditing(true)
+    ImprovedFog.setBaseAlpha(1)
+    ImprovedFog.setSecondLayerAlpha(0.4)
+    ImprovedFog.setTopAlphaHeight(0.24)
+    ImprovedFog.setBottomAlphaHeight(0.5)
+    ImprovedFog.setAlphaCircleAlpha(0.8)
+    ImprovedFog.setAlphaCircleRad(2)
+    ImprovedFog.setColorR(0.1)
+    ImprovedFog.setColorG(0.15)
+    ImprovedFog.setColorB(0.05)
 end
 
 Events.OnClimateTick.Add(onClimateTick)

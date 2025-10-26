@@ -85,14 +85,23 @@ end
 function UIPrintMedia:new(tex, character)
     local o = {}
 
+    local player = character:getPlayerNum()
+    local screenWidth = getPlayerScreenWidth(player)
+    local screenHeight = getPlayerScreenHeight(player)
     local page = 1
+
     local texture = UIPrintMedia:getTexture(tex, page)
     local width = texture:getWidth();
     local height = texture:getHeight();
+
+    if width >= screenWidth or height >= screenHeight then
+        width = 0.8 * width
+        height = 0.8 * height
+    end
     
-    local player = character:getPlayerNum()
-    local x = (getPlayerScreenWidth(player) - width) / 2
-    local y = (getPlayerScreenHeight(player) - height) / 2
+    
+    local x = (screenWidth - width) / 2
+    local y = (screenHeight - height) / 2
     
     o = ISPanelJoypad:new(x, y, width, height);
     setmetatable(o, self)
@@ -108,8 +117,8 @@ function UIPrintMedia:new(tex, character)
     o.anchorTop = true;
     o.anchorBottom = true;
     o.texture = texture;
-    o.width = texture:getWidth();
-    o.height = texture:getHeight();
+    o.width = width
+    o.height = height
     o:setY(o.y)
     o:setX(o.x)
     o:setWidth(o.width)

@@ -20,24 +20,10 @@ local function onTick()
 
     if BWOALights.tick > 1 then return end
 
-    local function getLightSwitch(x, y, z)
-        local square = getCell():getOrCreateGridSquare(x, y, z)
-        local objects = square:getObjects()
-        for i=0, objects:size()-1 do
-            local object = objects:get(i)
-            if instanceof(object, "IsoLightSwitch") then
-                local properties = object:getProperties()
-                if not properties:Is(IsoFlagType.WallOverlay) then
-                    return object
-                end
-            end
-        end
-    end
-
     local volume = getSoundManager():getSoundVolume()
 
     for _, effect in ipairs(BWOALights.flicker) do
-        local lightSwitch = getLightSwitch(effect.x, effect.y, effect.z)
+        local lightSwitch = BanditUtils.GetLightSwitch(effect.x, effect.y, effect.z)
         if lightSwitch then
             local activated = lightSwitch:isActivated()
             local rnd = activated and 64 or 3

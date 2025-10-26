@@ -88,20 +88,20 @@ BWOARooms.BedroomMale.Prepare = function ()
     -- lockers
     local items
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
-    BWOAPrepareTools.AddItemsToContainer(9944, 12609, -4, items, "Shelves")
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 5, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12637, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
-    BWOAPrepareTools.AddItemsToContainer(9944, 12610, -4, items, "Shelves")
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 5, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12638, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
-    BWOAPrepareTools.AddItemsToContainer(9944, 12611, -4, items, "Shelves")
+    items = {["Base.Underpants_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12639, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
-    BWOAPrepareTools.AddItemsToContainer(9944, 12612, -4, items, "Shelves")
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Tshirt_WhiteTINT"] = 2, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12640, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Shoes_Black"] = 1}
-    BWOAPrepareTools.AddItemsToContainer(9944, 12613, -4, items, "Shelves")
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 2, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12641, -4, items, "Locker")
 
     -- pillows
     for _, y in pairs({12636, 12642}) do

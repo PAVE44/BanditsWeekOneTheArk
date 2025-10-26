@@ -6,6 +6,8 @@ BWOADialogues["Emma Robinson"] = {
         ans = "My name is Emma. I'm a survivor, just like you. I'm a doctor.",
         anim = "WaveHi",
         req = {},
+        func = "AccomplishMission",
+        funcParams = {missionId = 1},
     },
     ["1.1"] = {
         qst = "How did you get in here?",
@@ -171,7 +173,19 @@ BWOADialogues["Emma Robinson"] = {
         anim = "Talk3",
         req = {"3.2.1.1"},
         func = "RevealMission",
-        funcParams = {missionId = 1},
+        funcParams = {missionId = 2},
+    },
+    ["3.2.1.2"] = {
+        qst = "I don't remember who I was.",
+        ans = "That's normal in your situation. It will take time before memories come back to you.",
+        anim = "Talk3",
+        req = {"3.2.1"},
+    },
+    ["3.2.1.2.1"] = {
+        qst = "Did I have anything with me that would help me remember who I was?",
+        ans = "Nothing unique. We had to burn everything for safety reasons.",
+        anim = "Talk3",
+        req = {"3.2.1.2", "3.1.1"},
     },
     ["3.2.2"] = {
         qst = "Am I infected?",
@@ -216,7 +230,7 @@ BWOADialogues["Emma Robinson"] = {
         qst = "I found a garden.",
         ans = "Perfect! Enjoy the food, but also take care of the plants, Martha's gone now.",
         anim = "Talk3",
-        req = {"1.2.4.3"},
+        req = {"1.2.3.1.3"},
         hidden = true
     },
     ["100.4"] = {
@@ -290,11 +304,9 @@ BWOADialogues["Emma Robinson"] = {
     },
     ["200.1.2"] = {
         qst = "Why did you carry a cigarrete if you quit?",
-        ans = "I guess I would smoke it if I was bit, but let's hope the never happens.",
+        ans = "I planned to smoke it after getting bit, but it never happened.",
         anim = "Yes",
         req = {"200.1"},
-        func = "Give",
-        funcParams = {item = "Base.Lighter"},
     },
 
     -- base condition dependent

@@ -18,6 +18,20 @@ BanditUtils.GetTime = function()
     return getGameTime():getWorldAgeHours() * 2500000 / 24
 end
 
+BanditUtils.GetLightSwitch = function(x, y, z)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local objects = square:getObjects()
+    for i=0, objects:size()-1 do
+        local object = objects:get(i)
+        if instanceof(object, "IsoLightSwitch") then
+            local properties = object:getProperties()
+            if not properties:Is(IsoFlagType.WallOverlay) then
+                return object
+            end
+        end
+    end
+end
+
 BanditUtils.HasZoneType = function(x, y, z, zoneType)
     local zones = getZones(x, y, z)
     if zones then

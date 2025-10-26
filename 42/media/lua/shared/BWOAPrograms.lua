@@ -1,5 +1,40 @@
 BWOAPrograms = BWOAPrograms or {}
 
+BWOAPrograms.IdleEmma = function(bandit)
+    local tasks = {}
+    local action = ZombRand(100)
+
+    if action == 0 then
+        local task = {action="Time", anim="ShiftWeight", time=200}
+        table.insert(tasks, task)
+    elseif action == 1 then
+        local task = {action="Time", anim="Cough", time=200}
+        table.insert(tasks, task)
+    elseif action == 2 then
+        local task = {action="Time", anim="ChewNails", time=200}
+        table.insert(tasks, task)
+    elseif action == 3 then
+        local task = {action="Time", anim="PullAtCollar", time=200}
+        table.insert(tasks, task)
+    elseif action == 4 then
+        local task = {action="Time", anim="Sneeze", time=200}
+        table.insert(tasks, task)
+    elseif action == 5 then
+        local task = {action="Time", anim="WipeBrow", time=200}
+        table.insert(tasks, task)
+    elseif action == 6 then
+        local task = {action="Time", anim="WipeHead", time=200}
+        table.insert(tasks, task)
+    elseif action == 7 then
+        local task = {action="Time", anim="ChewNails", time=200}
+        table.insert(tasks, task)
+    else
+        local task = {action="Time", anim="IdleFemale", time=200}
+        table.insert(tasks, task)
+    end
+    return tasks
+end
+
 BWOAPrograms.GoAndDo = function(bandit, point, task)
     local tasks = {}
 
