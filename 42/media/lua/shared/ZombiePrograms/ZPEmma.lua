@@ -2,6 +2,7 @@ ZombiePrograms = ZombiePrograms or {}
 
 ZombiePrograms.Emma = {}
 
+ZombiePrograms.name = "Emma Robinson"
 ZombiePrograms.Emma.Prepare = function(bandit)
     local tasks = {}
 
@@ -39,7 +40,7 @@ ZombiePrograms.Emma.Main = function(bandit)
     local brain = BanditBrain.Get(bandit)
     local bx, by = bandit:getX(), bandit:getY()
 
-    if brain.bladder > 20 then
+    if brain.bladder and brain.bladder > 20 then
         bandit:addLineChatElement("ACTIVITY: TOILET", 0, 0, 1)
         local obj, dist = BWOABaseObjects.FindClosestObject({"Toilet"}, {x=bx, y=by})
         if obj then
@@ -88,6 +89,20 @@ ZombiePrograms.Emma.Main = function(bandit)
         end
     end
 
+    local config = {}
+    config.mustSee = false
+    config.hearDist = 50
+
+    if not BWOAMissions.IsAccomplished(1) then
+        local closestPlayer = BanditUtils.GetClosestPlayerLocation(bandit, config)
+
+        if closestPlayer.dist > 4 then
+            Bandit.Say(bandit, "WAITTALK")
+            BWOADialogues.Reveal(ZombiePrograms.name, "4")
+            table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Run", closestPlayer.dist, false))
+            return {status=true, next="Main", tasks=tasks}
+        end
+    end
 
     local subTasks = BWOAPrograms.IdleEmma(bandit)
     if #subTasks > 0 then

@@ -3,6 +3,9 @@ BWOASequence = BWOASequence or {}
 -- when player starts the game
 BWOASequence.Start = function(params)
     -- fade out
+
+    local volume = getSoundManager():getSoundVolume()
+
     BWOAEventControl.Add("FadeOut", {time=0}, 0)
 
     -- player start coords
@@ -44,12 +47,13 @@ BWOASequence.Start = function(params)
         z = z,
         program = "Emma",
         size = 1,
+        voice = 1,
     }
 
     BWOAEventControl.Add("SpawnGroup", emma, 2100)
     
     -- fade in
-    BWOAEventControl.Add("FadeIn", {time=4}, 3000)
+    BWOAEventControl.Add("FadeIn", {time = 6, volume = volume}, 2700)
 end
 
 -- when players loads a previous game

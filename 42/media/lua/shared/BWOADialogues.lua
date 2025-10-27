@@ -6,8 +6,6 @@ BWOADialogues["Emma Robinson"] = {
         ans = "My name is Emma. I'm a survivor, just like you. I'm a doctor.",
         anim = "WaveHi",
         req = {},
-        func = "AccomplishMission",
-        funcParams = {missionId = 1},
     },
     ["1.1"] = {
         qst = "How did you get in here?",
@@ -172,8 +170,8 @@ BWOADialogues["Emma Robinson"] = {
         ans = "Get some rest first. When you're ready, you can look around and take what you need.",
         anim = "Talk3",
         req = {"3.2.1.1"},
-        func = "RevealMission",
-        funcParams = {missionId = 2},
+        func = "SwitchMission",
+        funcParams = {missionAccomplishId = 1, missionRevelaId = 2},
     },
     ["3.2.1.2"] = {
         qst = "I don't remember who I was.",
@@ -205,12 +203,19 @@ BWOADialogues["Emma Robinson"] = {
         anim = "Yes",
         req = {"3.2.2"},
     },
-    -- room reveal
-    ["100.1"] = {
-        qst = "I noticed a water pump in one of the rooms.",
-        ans = "Yes. We use it to water the crops.",
+    ["4"] = {
+        qst = "Why are you following me?",
+        ans = "Relax. You are in shock. Let's talk more and I'll leave you alone. ",
         anim = "Talk3",
         req = {},
+        hidden = true,
+    },
+    -- room reveal
+    ["100.1"] = {
+        qst = "I nfound a room with loud machinery.",
+        ans = "Engineering rooms. That's where power generators and water pump is located.",
+        anim = "Talk3",
+        req = {"3.2.1.2"},
         hidden = true
     },
     ["100.1.1"] = {
@@ -219,11 +224,35 @@ BWOADialogues["Emma Robinson"] = {
         anim = "Talk3",
         req = {"100.1"},
     },
+    ["100.1.2"] = {
+        qst = "How do I use the power generators?",
+        ans = "Generators are operated by Noah, a central computer. However fuel is added manually through an inlet on the surface.",
+        anim = "Talk3",
+        req = {"100.1"},
+    },
+    ["100.1.2.1"] = {
+        qst = "Why do we have two generators?",
+        ans = "Redundancy for safety reasons. But also we switch to backup one, when we need to fix the main one.",
+        anim = "Talk3",
+        req = {"100.1.2"},
+    },
+    ["100.1.2.2"] = {
+        qst = "How much fuel do we have left?",
+        ans = "The only way to check is to use Noah, the central computer.",
+        anim = "Talk3",
+        req = {"100.1.2"},
+    },
+    ["100.1.2.2.1"] = {
+        qst = "What happens if we run out of fuel?",
+        ans = "That would be a disaster. Central heating would shut down and we would freeze to death within hours.",
+        anim = "Talk3",
+        req = {"100.1.2.2"},
+    },
     ["100.2"] = {
         qst = "I found Noah, a computer of some kind.",
         ans = "Great find! Noah controls and monitors many systems in the base. I'd advise caution before changing anything.",
         anim = "Talk3",
-        req = {},
+        req = {"3.2.1.2"},
         hidden = true
     },
     ["100.3"] = {
@@ -237,7 +266,7 @@ BWOADialogues["Emma Robinson"] = {
         qst = "I found a library.",
         ans = "Nice! Did you find anything interesting?",
         anim = "Talk3",
-        req = {},
+        req = {"3.2.1.2"},
         hidden = true
     },
     ["100.4.1"] = {
@@ -250,7 +279,7 @@ BWOADialogues["Emma Robinson"] = {
         qst = "I found a chapel.",
         ans = "Yep. It's been here since before us.",
         anim = "Talk3",
-        req = {},
+        req = {"3.2.1.2"},
         hidden = true
     },
     ["100.5.1"] = {
@@ -263,7 +292,7 @@ BWOADialogues["Emma Robinson"] = {
         qst = "I think I found a laboratory.",
         ans = "Yes! It's where we conduct our research.",
         anim = "Talk3",
-        req = {},
+        req = {"3.2.1.2"},
         hidden = true
     },
     ["100.6.1"] = {
@@ -284,6 +313,7 @@ BWOADialogues["Emma Robinson"] = {
         anim = "Talk3",
         req = {"100.6.1.1"},
     },
+
     -- trait reveal
     ["200.1"] = {
         qst = "Do you have a cigarette?",

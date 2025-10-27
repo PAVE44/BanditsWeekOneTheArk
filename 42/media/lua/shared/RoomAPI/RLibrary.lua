@@ -63,6 +63,13 @@ BWOARooms.Library.Build = function ()
     md.printContent = "book_dacr_research"
     BWOAPrepareTools.AddWorldItemSpecial(9960, 12607, -4, oasis, {x=0.35, y=0.45, z=0.19})
 
+    local nuclearWinter = BanditCompatibility.InstanceItem("Base.Book")
+    nuclearWinter:setCanBeWrite(false)
+    nuclearWinter:setName("Nuclear Winter by Carl Sagan")
+    local md = nuclearWinter:getModData()
+    md.printContent = "book_nuclear_winter"
+    BWOAPrepareTools.AddItemsToContainer(9959, 12605, -4, {nuclearWinter}, "Shelves")
+
     return true
 end
 

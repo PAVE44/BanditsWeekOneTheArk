@@ -71,19 +71,27 @@ BWOAPrepareTools.AddItemsToContainer = function(x, y, z, items, customName, pres
         if not preserveCurrent then
             container:clear()
         end
-        for itemType, itemCnt in pairs(items) do
-            for i=1, itemCnt do
-                local item = container:AddItem(itemType)
+        if items[1] then
+            for _, item in ipairs(items) do
+                local item2 = container:AddItem(item)
                 if item then
-                    container:addItemOnServer(item)
+                    container:addItemOnServer(item2)
                 end
             end
-
-            if not isClient() then
-                -- if container:getParent() and container:getParent():getOverlaySprite() then
-                    ItemPicker.updateOverlaySprite(container:getParent())
-                -- end
+        else
+            for itemType, itemCnt in pairs(items) do
+                for i=1, itemCnt do
+                    local item = container:AddItem(itemType)
+                    if item then
+                        container:addItemOnServer(item)
+                    end
+                end 
             end
+        end
+        if not isClient() then
+            -- if container:getParent() and container:getParent():getOverlaySprite() then
+                ItemPicker.updateOverlaySprite(container:getParent())
+            -- end
         end
         container:setDrawDirty(true)
     end

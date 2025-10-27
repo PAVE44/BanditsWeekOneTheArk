@@ -1,5 +1,10 @@
 BWOAUtils = BWOAUtils or {}
 
+BWOAUtils.CelsiusToFahrenheit = function(celsius)
+    local fahrenheit = (celsius * 9 / 5) + 32
+    return fahrenheit
+end
+
 BWOAUtils.GetRoom = function(x, y, z)
     local roomList = BWOARooms
     for _, room in pairs(roomList) do

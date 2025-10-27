@@ -32,6 +32,7 @@ BWOAMissions.Reveal = function(missionId)
     if mission and not mission.accomplished then
         mission.revealed = true
         BWOAMissions.new = true
+        BWOASound.PlayPlayer({sound="AmbientHorn"})
     end
     -- todo: launch reveal mission popup
 end
@@ -50,6 +51,14 @@ BWOAMissions.Accomplish = function(missionId)
         BWOAMissions.onAccomplish[missionId]()
     end
     -- todo: launch completion mission popup
+end
+
+BWOAMissions.IsAccomplished = function(missionId)
+    local mission = BWOAMissions.missions[missionId]
+    if mission and mission.accomplished then
+        return true
+    end
+    return false
 end
 
 BWOAMissions.onAccomplish = {}

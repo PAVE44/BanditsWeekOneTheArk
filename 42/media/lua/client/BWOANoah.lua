@@ -53,6 +53,7 @@ local function onKeyPressed(keynum)
         elseif keynum == Keyboard.KEY_3 then
             BWOANoah.screen = "Hydraulics"
         elseif keynum == Keyboard.KEY_4 then
+            BWOANoah.screen = "Environmental"
         elseif keynum == Keyboard.KEY_5 then
         elseif keynum == Keyboard.KEY_6 then
             BWOANoah.screen = "Alarms"
@@ -129,6 +130,10 @@ local function onKeyPressed(keynum)
     elseif BWOANoah.screen == "PumpManual" then
         if keynum == Keyboard.KEY_9 then
             BWOANoah.screen = "Generator"
+        end
+    elseif BWOANoah.screen == "Environmental" then
+        if keynum == Keyboard.KEY_9 then
+            BWOANoah.screen = "Main"
         end
     elseif BWOANoah.screen == "Alarms" then
         if keynum == Keyboard.KEY_1 then
@@ -387,8 +392,17 @@ BWOANoah.Screens.Heating = function()
         text[6] = "> STATUS:             OFF"
     end
 
-    text[7] = "> TEMPERATURE SENSOR: " .. string.format("%.1f", ventilation.temp) .. "C"
-    text[8] = "> TEMPERATURE TARGET: " .. string.format("%.1f", ventilation.tempTarget) .. "C"
+    local temp = ventilation.temp
+    local tempTarget = ventilation.tempTarget
+    local tempSuffix = "C"
+    if not getCore():getOptionDisplayAsCelsius() then
+        temp = Temperature.CelsiusToFahrenheit(temp)
+        tempTarget = Temperature.CelsiusToFahrenheit(tempTarget)
+        tempSuffix = "F"
+    end
+
+    text[7] = "> TEMPERATURE SENSOR: " .. string.format("%.1f", temp) .. tempSuffix
+    text[8] = "> TEMPERATURE TARGET: " .. string.format("%.1f", tempTarget) .. tempSuffix
 
     text[10]  = "OPTIONS:"
 
@@ -402,6 +416,11 @@ BWOANoah.Screens.Heating = function()
 
     text[25] = "9. RETURN"
 
+    return text
+end
+
+BWOANoah.Screens.Probes = function()
+    local text = BWOANoah.ScreenTemplate()
     return text
 end
 
@@ -443,6 +462,38 @@ BWOANoah.Screens.PumpManual = function(data)
     text[18]  = "shutdowns. In severe cases, neglect   "
     text[19]  = "may cause the water pump to ignite!   "
     text[23]  = "OPTIONS:        "
+    text[25]  = "9. RETURN"
+    return text
+end
+
+BWOANoah.Screens.Environmental = function()
+    local text = BWOANoah.ScreenTemplate()
+    local gmd = GetBWOAModData()
+    local ventilation = gmd.ventilation
+    local cm = getClimateManager()
+
+    local temp = cm:getClimateFloat(4):getOverride()
+    local tempSuffix = "C"
+
+    local windSpeed = cm:getMaxWindspeedKph()
+    local windSpeedSuffix = "km/h"
+
+    local fogIntensity = cm:getFogIntensity() * 100
+
+    local radiation = BWOAClimate.radiation
+    
+    if not getCore():getOptionDisplayAsCelsius() then
+        temp = Temperature.CelsiusToFahrenheit(temp)
+        tempSuffix = "F"
+        windSpeed = cm:getMaxWindspeedMph()
+        windSpeedSuffix = "m/h"
+    end
+
+    text[5]   = "SURFACE CONDITION REPORT              "
+    text[7]   = "TEMPERATURE:   " .. string.format("%.1f", temp) .. tempSuffix
+    text[8]   = "WIND SPEED:    " .. string.format("%.1f", windSpeed) .. windSpeedSuffix
+    text[9]   = "FOG INTENSITY: " .. string.format("%.1f", fogIntensity) .. "%"
+    text[10]   = "RADIATION:     " .. string.format("%.1f", radiation) .. "mR/h"
     text[25]  = "9. RETURN"
     return text
 end

@@ -1,5 +1,15 @@
 module Bandits {
 
+    sound AmbientHorn {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/horn.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound AmbientAlarmGlobal {
         category = Object, 
         loop = true,

@@ -10,6 +10,7 @@ BWOAEvents.FadeOut = function(params)
             player:setBannedAttacking(true)
             UIManager.setFadeBeforeUI(playerNum, false)
             UIManager.FadeOut(playerNum, params.time)
+            getSoundManager():setSoundVolume(0)
         end
     end
 end
@@ -24,6 +25,8 @@ BWOAEvents.FadeIn = function(params)
             player:setBannedAttacking(false)
             UIManager.FadeIn(playerNum, params.time)
             UIManager.setFadeBeforeUI(playerNum, false)
+            getSoundManager():setSoundVolume(params.volume)
+            BWOASound.PlayPlayer({sound="AmbientHorn"})
         end
     end
 end
@@ -156,10 +159,9 @@ BWOAEvents.ClearBaseFromZombies = function(params)
     local cell = getCell()
     local zombieList = cell:getZombieList()
     local zombieListSize = zombieList:size()
-    for i = 0, zombieListSize - 1 do
+    for i = zombieListSize - 1, 0, -1 do
         local zombie = zombieList:get(i)
-        if zombie and zombie:isAlive() then
-            -- fixme: zombie:canBeDeletedUnnoticed(float)
+        if zombie then
             zombie:removeFromSquare()
             zombie:removeFromWorld()
         end

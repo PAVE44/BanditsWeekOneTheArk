@@ -37,6 +37,17 @@ BWOAChat.RevealMission = function(params)
     BWOAMissions.Reveal(params.missionId)
 end
 
+BWOAChat.SwitchMission = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if not params.missionAccomplishId then return end
+    if not params.missionRevelaId then return end
+
+    BWOAMissions.Accomplish(params.missionAccomplishId)
+    BWOAMissions.Reveal(params.missionRevelaId)
+end
+
 BWOAChat.Say = function(question, quiet)
     local player = getSpecificPlayer(0)
     if not player then return end

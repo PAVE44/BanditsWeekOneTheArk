@@ -3,10 +3,12 @@ BWOAPlayer = BWOPlayer or {}
 BWOAPlayer.tick = 0
 
 local roomRevealMap = {
-    ["HYDROPONICS"] = {person = "Emma Robinson", qid = "100.3"},
-    ["LIBRARY"]     = {person = "Emma Robinson", qid = "100.4"},
-    ["CHAPEL"]      = {person = "Emma Robinson", qid = "100.5"},
-    ["LABORATORY"]  = {person = "Emma Robinson", qid = "100.6"},
+    ["GENERATOR_ROOM"] = {person = "Emma Robinson", qid = "100.1"},
+    ["HYDROPONICS"]    = {person = "Emma Robinson", qid = "100.3"},
+    ["LIBRARY"]        = {person = "Emma Robinson", qid = "100.4"},
+    ["CHAPEL"]         = {person = "Emma Robinson", qid = "100.5"},
+    ["LABORATORY"]     = {person = "Emma Robinson", qid = "100.6"},
+    
 }
 
 local traitRevealMap = {
