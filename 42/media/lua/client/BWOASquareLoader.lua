@@ -64,17 +64,22 @@ local burnSquare = function(square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
     if z < 0 then return end
 
-    square:BurnWalls(false)
+    
     local md = square:getModData()
     if not md.BWO then md.BWO = {} end
     md.BWO.burnt = true
 
+    local addNavDestruction = false
     if BanditUtils.HasZoneType(x, y, z, "Nav") then
-        local objects = square:getObjects()
-        for i=0, objects:size()-1 do
-            local object = objects:get(i)
-            local sprite = object:getSprite()
-            if sprite then
+        addNavDestruction = true
+    end
+
+    local objects = square:getObjects()
+    for i=objects:size()-1, 0, -1 do
+        local object = objects:get(i)
+        local sprite = object:getSprite()
+        if sprite then
+            if addNavDestruction then
                 local spriteName = sprite:getName()
                 if spriteName and spriteName:embodies("street") then
                     local rn = ZombRand(8)
@@ -91,11 +96,26 @@ local burnSquare = function(square)
                         end
                         object:getAttachedAnimSprite():add(getSprite(overlaySprite):newInstance())
                     end
-                    break
                 end
             end
+
+            -- curtains need to manually removed before burning the square to avoid errors
+            
         end
-    elseif BanditUtils.HasZoneType(x, y, z, "TownZone") then
+        if instanceof(object, "IsoLightSwitch") then
+            square:transmitRemoveItemFromSquare(object)
+        end
+        if instanceof(object, "IsoCurtain") then
+            square:transmitRemoveItemFromSquare(object)
+        end
+        if instanceof(object, "IsoWindow") then
+            square:transmitRemoveItemFromSquare(object)
+        end
+    end
+
+    square:BurnWalls(false)
+
+    if BanditUtils.HasZoneType(x, y, z, "TownZone") then
         local rnd = ZombRand(10)
         if rnd == 1 then
             local obj = IsoObject.new(square, "floors_burnt_01_1", "")

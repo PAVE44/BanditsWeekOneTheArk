@@ -161,6 +161,17 @@ BWOARooms.BedroomMale.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.TissueBox", {x=0.74, y=0.59, z=0.3})
     BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.Pills", {x=0.66, y=0.64, z=0.3})
 
+    -- drawers
+
+    local healthEffectsRadiation = BanditCompatibility.InstanceItem("Base.Book")
+    healthEffectsRadiation:setCanBeWrite(false)
+    healthEffectsRadiation:setName("Summary of Health Effects of Ionizing Radiation by ATSDR")
+    local md = healthEffectsRadiation:getModData()
+    md.printContent = "health_effects_radiation"
+    local x = BanditUtils.Choice({9948, 9950, 9952, 9954, 9956})
+    local y = BanditUtils.Choice({12642, 12636})
+    BWOAPrepareTools.AddItemsToContainer(9948, 12642, -4, {healthEffectsRadiation}, "Drawers")
+
     -- others
     BWOAPrepareTools.AddWorldItem(9945, 12636, -4, "Base.GuitarAcoustic", {x=0.5, y=0.27, z=0.18, rx=0, ry=295, rz=90})
 

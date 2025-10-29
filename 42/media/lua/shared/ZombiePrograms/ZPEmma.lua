@@ -96,7 +96,7 @@ ZombiePrograms.Emma.Main = function(bandit)
     if not BWOAMissions.IsAccomplished(1) then
         local closestPlayer = BanditUtils.GetClosestPlayerLocation(bandit, config)
 
-        if closestPlayer.dist > 4 then
+        if closestPlayer.x and closestPlayer.y and closestPlayer.z and closestPlayer.dist > 4 then
             Bandit.Say(bandit, "WAITTALK")
             BWOADialogues.Reveal(ZombiePrograms.name, "4")
             table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Run", closestPlayer.dist, false))

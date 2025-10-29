@@ -2,7 +2,7 @@ require "ISInventoryPaneContextMenu"
 
 local func = ISInventoryPaneContextMenu.readItem
 
-ISInventoryPaneContextMenu.readItem = function(item, player)
+function ISInventoryPaneContextMenu.readItem(item, player)
 
 	local md = item:getModData()
 
@@ -13,7 +13,7 @@ ISInventoryPaneContextMenu.readItem = function(item, player)
 		ui:initialise()
 		ui:addToUIManager()
 	else
-		func(self, item, player)
+		func(item, player)
 	end
 
 end

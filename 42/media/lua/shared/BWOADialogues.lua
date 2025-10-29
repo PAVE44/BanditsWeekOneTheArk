@@ -313,6 +313,19 @@ BWOADialogues["Emma Robinson"] = {
         anim = "Talk3",
         req = {"100.6.1.1"},
     },
+    ["100.7"] = {
+        qst = "I found the bedroom. Can I sleep there?",
+        ans = "Yes, choose the bed you want.",
+        anim = "Talk3",
+        req = {"3.2.1.2"},
+        hidden = true
+    },
+    ["100.7.1"] = {
+        qst = "There are beds with personal items of more than 5 people in bedroom.",
+        ans = "I knew you would notice that at some point. Yes, there were more of us. But they are dead, ok?",
+        anim = "Talk3",
+        req = {"100.7", "1.2.3"},
+    },
 
     -- trait reveal
     ["200.1"] = {
@@ -356,20 +369,14 @@ BWOADialogues["Emma Robinson"] = {
     },
     ["1000.3"] = {
         qst = "I feel sick. What's going on?",
-        ans = "I think the radiation levels are above safe thresholds!",
+        ans = "Gosh! It seems like radiation poisoning.",
         anim = "Talk3",
         req = {},
         hidden = true
     },
     ["1000.3.1"] = {
-        qst = "How can we lower the radiation levels?",
-        ans = "It's probably related to the ventilation system!",
-        anim = "Talk3",
-        req = {"1000.3"},
-    },
-    ["1000.3.2"] = {
         qst = "How can we recover from radiation poisoning?",
-        ans = "Take a shower and some iodine pills, quickly!",
+        ans = "Take a shower and some potassioum yodine pills immediately!",
         anim = "Talk3",
         req = {"1000.3"},
     },

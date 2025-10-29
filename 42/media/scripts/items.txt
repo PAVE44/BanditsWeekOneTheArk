@@ -15,4 +15,19 @@ module Bandits
 		Tags = FastRead,
 		/*OnCreate = SpecialLootSpawns.OnCreateNote,*/
     }
+
+    item PillsPotassiumYodine
+    {
+        DisplayCategory = FirstAid,
+        Type = Drainable,
+        Weight = 0.2,
+        Icon = PillsAntidepressant,
+        Medical = true,
+        Tooltip = Tooltip_PillsPotassiumYodine,
+        UseDelta = 0.1,
+        UseWhileEquipped = false,
+        StaticModel = PillBottle,
+        WorldStaticModel = PillBottleGround,
+        Tags = Pills,
+    }
 }
