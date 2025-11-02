@@ -62,12 +62,36 @@ end
 BWOARooms.InterrogationRoom.Prepare = function ()
     BWOARooms.InterrogationRoom.Init()
 
+
+
+    BWOAPrepareTools.AddWorldItem(9961, 12633, -4, "Base.CameraExpensive", {x=0.64, y=0.80, z=0.33, rx=0, ry=0, rz=340})
+    BWOAPrepareTools.AddWorldItem(9961, 12633, -4, "Base.CameraFilm", {x=0.82, y=0.80, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9961, 12633, -4, "Base.CameraFilm", {x=0.80, y=0.70, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9961, 12633, -4, "Base.Paperwork", {x=0.47, y=0.31, z=0.33, rx=0, ry=0, rz=340})
+    BWOAPrepareTools.AddWorldItem(9961, 12633, -4, "Base.Paperwork", {x=0.59, y=0.29, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9961, 12633, -4, "Base.Pencil", {x=0.73, y=0.37, z=0.33, rx=0, ry=0, rz=240})
+
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.SheetPaper2", {x=0.44, y=0.69, z=0.33, rx=0, ry=0, rz=30})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Pen", {x=0.38, y=0.22, z=0.33, rx=0, ry=0, rz=285})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.RedPen", {x=0.42, y=0.27, z=0.33, rx=0, ry=0, rz=275})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Pencil", {x=0.76, y=0.80, z=0.33, rx=0, ry=0, rz=85})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Pencil", {x=0.78, y=0.78, z=0.33, rx=0, ry=0, rz=85})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.PaperclipBox", {x=0.80, y=0.55, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Paperwork", {x=0.77, y=0.29, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Paperwork", {x=0.21, y=0.54, z=0.33, rx=0, ry=0, rz=130})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Paperwork", {x=0.31, y=0.38, z=0.33, rx=0, ry=0, rz=355})
+    BWOAPrepareTools.AddWorldItem(9962, 12633, -4, "Base.Paperwork", {x=0.82, y=0.30, z=0.33, rx=0, ry=0, rz=345})
+
+    BWOAPrepareTools.AddWorldItem(9963, 12633, -4, "Base.Clipboard", {x=0.42, y=0.33, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9963, 12633, -4, "Base.Mugl", {x=0.14, y=0.45, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9963, 12633, -4, "Base.TissueBox", {x=0.62, y=0.69, z=0.33, rx=0, ry=0, rz=90})
+
     local item = BanditCompatibility.InstanceItem("Base.VHS_Home")
     local mediaRecorder = ZomboidRadio.getInstance():getRecordedMedia()
     local mediaData = mediaRecorder:getMediaData("d5fe3df0-5e3b-0146-0001-000000000000")
     item:setRecordedMediaData(mediaData)
-    BWOAPrepareTools.AddWorldItemSpecial(9959, 12634, -4, item, {x=0.6, y=0.6, z=0})
-
+    item:setName("Survivor ID #146 – Recording 1")
+    BWOAPrepareTools.AddWorldItemSpecial(9963, 12633, -4, item, {x=0.34, y=0.79, z=0.33, rx=0, ry=0, rz=230})
 end
 
 

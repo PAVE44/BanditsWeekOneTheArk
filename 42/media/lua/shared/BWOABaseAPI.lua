@@ -145,7 +145,7 @@ BWOABaseAPI.AlarmOff = function()
     BWOABaseAPI.alarm = false
 end
 
-BWOABaseAPI.VentilationUpdate = function(active, temp)
+BWOABaseAPI.HeatingUpdate = function(active, temp)
     local r = 1000
     local correction = 7
     local cell = getCell()
@@ -160,10 +160,8 @@ BWOABaseAPI.VentilationUpdate = function(active, temp)
 
                         if active then
                             BWOASound.AddToObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
-                            BWOABaseAPI.AirIntakeStart()
                         else
                             BWOASound.RemoveFromObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
-                            BWOABaseAPI.AirIntakeStop()
                         end
                     else
                         local x, y, z = math.floor(coords.x), math.floor(coords.y), math.floor(coords.z)
@@ -176,96 +174,25 @@ BWOABaseAPI.VentilationUpdate = function(active, temp)
     end
 end
 
-BWOABaseAPI.AirIntakeStart = function()
-    BWOASound.AddToObject({x=9940.5, y=12633.5, z=0, sound="AmbientVent"})
-
-    BWOAAnims.Add({
-        x = 9940, 
-        y = 12633, 
-        z = 0, 
-        objName = "AirVent",
-        frameList = {
-            "theark_01_5",
-            "theark_01_6"
-        }
-    })
-
-    BWOAAnims.Add({
-        x = 9940, 
-        y = 12634, 
-        z = 0, 
-        objName = "AirVent",
-        frameList = {
-            "theark_01_5",
-            "theark_01_6"
-        }
-    })
-
-    BWOAAnims.Add({
-        x = 9941, 
-        y = 12633, 
-        z = 0, 
-        objName = "AirVent",
-        frameList = {
-            "theark_01_5",
-            "theark_01_6"
-        }
-    })
-
-    BWOAAnims.Add({
-        x = 9941, 
-        y = 12634, 
-        z = 0, 
-        objName = "AirVent",
-        frameList = {
-            "theark_01_5",
-            "theark_01_6"
-        }
-    })
-end
-
-BWOABaseAPI.AirIntakeStop = function()
-    BWOASound.RemoveFromObject({x=9940.5, y=12633.5, z=0, sound="AmbientVent"})
-
-    BWOAAnims.Remove({
-        x = 9940, 
-        y = 12633, 
-        z = 0, 
-    })
-
-    BWOAAnims.Remove({
-        x = 9940, 
-        y = 12634, 
-        z = 0, 
-    })
-
-    BWOAAnims.Remove({
-        x = 9941, 
-        y = 12633, 
-        z = 0, 
-    })
-
-    BWOAAnims.Remove({
-        x = 9941, 
-        y = 12634, 
-        z = 0, 
-    })
-end
-
-BWOABaseAPI.VentilationOff = function()
-    local cell = getCell()
-    for roomName, _ in pairs(BWOARooms) do
-        if BWOARooms[roomName].vents then 
-            for _, coords in pairs(BWOARooms[roomName].vents) do
-                local square = getCell():getGridSquare(coords.x, coords.y, coords.z)
-                if square then
-                    local hid = coords.x .. "." .. coords.y  .. "." .. coords.z
-                    if BWOABaseAPI.heatsources[hid] then
-                        cell:removeHeatSource(BWOABaseAPI.heatsources[hid])
-                        -- BWOASound.RemoveFromObject({x=coords.x, y=coords.y, z=coords.z, sound="AmbientVent"})
-                    end
-                end
-            end
+BWOABaseAPI.AirIntakeUpdate = function(active, airintakes)
+    for _, airintake in pairs(airintakes) do
+        if active and not airintake.broken then
+            BWOAAnims.Add({
+                x = airintake.x, 
+                y = airintake.y, 
+                z = airintake.z, 
+                objName = "AirVent",
+                frameList = {
+                    "theark_01_5",
+                    "theark_01_6"
+                }
+            })
+        else
+            BWOAAnims.Remove({
+                x = airintake.x, 
+                y = airintake.y, 
+                z = airintake.z, 
+            })
         end
     end
 end

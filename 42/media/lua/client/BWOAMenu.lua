@@ -6,11 +6,46 @@
 -- ********************************
 --
 
+local TAFixIntake = require("Actions/TAFixIntake")
+
 BWOAMenu = BWOAMenu or {}
+
+BWOAMenu.specialObjectsCanHighlight = {}
+
+BWOAMenu.specialObjectsCanHighlight.Noah = function()
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.Vent = function()
+    -- return true
+    return BWOAMissions.IsActive(3)
+end
+
+BWOAMenu.specialObjectsAction = {}
+
+BWOAMenu.specialObjectsAction.Noah = function(player, square)
+    if luautils.walkAdj(player, square) then
+        BWOANoah.Show()
+    end    
+end
+
+BWOAMenu.specialObjectsAction.Vent = function(player, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(TAFixIntake:new(player, square))
+    end    
+end
 
 BWOAMenu.specialObjectsHighlight = {
     ["Noah"] = {
-        x = 9961, y = 12621, z = -4, spriteName = "theark_01_4", option = "Use Noah"
+        x = 9961, y = 12621, z = -4, spriteName = "theark_01_4", option = "Use Noah",
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Noah,
+        actionFunc = BWOAMenu.specialObjectsAction.Noah,
+
+    },
+    ["Vent"] = {
+        x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", option = "Fix Vent", 
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Vent,
+        actionFunc = BWOAMenu.specialObjectsAction.Vent
     }
 }
 
@@ -70,10 +105,46 @@ function BWOAMenu.MakeRoom(player, roomName)
 
 end
 
-function BWOAMenu.NoahUI(player, square)
-    if luautils.walkAdj(player, square) then
-        BWOANoah.Show()
-    end    
+local saveItems = function(square)
+
+    local sx = square:getX()
+    local sy = square:getY()
+    local sz = square:getZ()
+    
+    local lines = {}
+
+    local wobs = square:getWorldObjects()
+    for i = 0, wobs:size()-1 do
+        local o = wobs:get(i)
+        local item = o:getItem()
+        local itemType = item:getFullType()
+
+        local x = o:getOffX()
+        local y = o:getOffY()
+        local z = o:getOffZ()
+        local rx = item:getWorldXRotation()
+        local ry = item:getWorldYRotation()
+        local rz = item:getWorldZRotation()
+
+        local line = ""
+        line = line .. "BWOAPrepareTools.AddWorldItem(" .. tostring(sx) .. ", " .. tostring(sy) .. ", " .. tostring(sz) .. ", "
+        line = line .. "\"" .. itemType .. "\", "
+        line = line .. "{x=" .. string.format("%.2f", x) .. ", y=" .. string.format("%.2f", y) .. ", z=" .. string.format("%.2f", z) .. ", rx=" .. tostring(rx) ..", ry=" .. tostring(ry) .. ", rz=" .. tostring(rz) .. "})\n"
+        table.insert(lines, line)
+    end
+
+    local fileWriter = getFileWriter("items-" .. sx .. "-" .. sy .. ".txt", true, true)
+    table.insert(lines, "\n")
+
+    local output = ""
+    for k, v in pairs(lines) do
+        output = output .. v
+    end
+    print (output)
+    fileWriter:write(output)
+    fileWriter:close()
+                                
+
 end
 
 local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
@@ -87,13 +158,15 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
     for sname, sobject in pairs(specialObjectsHighlight) do
         if sobject.x == sx and sobject.y == sy and sobject.z == sz then
-            context:addOption(sobject.option, player, BWOAMenu.NoahUI, square)
+            if sobject.highLightFunc() then
+                context:addOption(sobject.option, player, sobject.actionFunc, square)
+            end
         end
     end 
 
-    
-
     if isDebugEnabled() then
+
+        saveItems(square)
         
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)
@@ -136,9 +209,11 @@ local onPlayerUpdate = function(player)
                     if sprite then
                         spriteName = sprite:getName()
                         if spriteName == sobject.spriteName then
-                            object:setHighlighted(0, true)
-                            object:setHighlightColor(1, 0.5, 0, 1)
-                            object:setBlink(true)
+                            if sobject.highLightFunc() then
+                                object:setHighlighted(0, true)
+                                object:setHighlightColor(1, 0.5, 0, 1)
+                                object:setBlink(true)
+                            end
                         end
                     end
                 end

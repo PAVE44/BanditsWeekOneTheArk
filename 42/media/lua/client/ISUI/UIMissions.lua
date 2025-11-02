@@ -15,7 +15,7 @@ function UIMissions:initialise()
     BWOAMissions.new = false
 
     self.missionListBox = ISScrollingListBox:new(PADDING, PADDING + FONT_HGT_MEDIUM + PADDING, self:getWidth() - (2 * PADDING), MISSION_LIST_HGT)
-    self.missionListBox.itemheight = FONT_HGT_MEDIUM + PADDING + FONT_HGT_SMALL + PADDING
+    self.missionListBox.itemheight = FONT_HGT_MEDIUM + PADDING + (FONT_HGT_SMALL * 2) + PADDING
     self.missionListBox.backgroundColor.a = 0
     self:addChild(self.missionListBox)
     self.missionListBox:clear()

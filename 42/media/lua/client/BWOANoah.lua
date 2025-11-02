@@ -205,8 +205,8 @@ BWOANoah.Screens.Power = function()
     text[8]  = "> USAGE: " .. string.format("%.2f", BWOABaseControl.powerUsing) .. "L/h"
 
     text[11]  = "SELECT UNIT:"
-    text[12]  = "1. MAIN: Voltek GX-9"
-    text[13]  = "2. BCKP: Voltek GX-9"
+    text[12]  = "1. MAIN: MASS-GENFAC GX-9"
+    text[13]  = "2. BCKP: MASS-GENFAC GX-9"
 
     text[25] = "9. RETURN"
 
@@ -220,10 +220,10 @@ BWOANoah.Screens.Generator = function(data)
 
     local key
     if data.id == 1 then
-        text[5]  = "MAIN: Voltek GX-9"
+        text[5]  = "MAIN: MASS-GENFAC GX-9"
         key = "main"
     else
-        text[5]  = "BCKP: Voltek GX-9"
+        text[5]  = "BCKP: MASS-GENFAC GX-9"
         key = "backup"
     end
 
@@ -256,11 +256,11 @@ end
 
 BWOANoah.Screens.GeneratorManual = function(data)
     local text = BWOANoah.ScreenTemplate()
-    text[5]   = "VOLTEK INTERNAL COMBUSTION GENERATOR  "
+    text[5]   = "MASS-GENFAC COMBUSTION GENERATOR      "
     text[6]   = "MODEL: GX-9 TYPE: UNLEADED GASOLINE   "
-    text[7]   = "MANUFACTURER: VOLTEK SYSTEMS INC      "
+    text[7]   = "MANUFACTURER: MASS-GENFAC CO.         "
     text[8]   = "VERSION: FIELD EDITION V1.4           "
-    text[10]  = "The Voltek GX-9 is a heavy-duty,      "
+    text[10]  = "The GX-9 is a heavy-duty,             "
     text[11]  = "gasoline-powered generator designed   "
     text[12]  = "for isolated / underground facilities."
     text[13]  = "It provides continuous AC output to   "
@@ -282,10 +282,10 @@ BWOANoah.Screens.GeneratorToggle = function(data)
 
     local key
     if data.id == 1 then
-        text[5]  = "MAIN: Voltek GX-9"
+        text[5]  = "MAIN: MASS-GENFAC GX-9"
         key = "main"
     else
-        text[5]  = "BCKP: Voltek GX-9"
+        text[5]  = "BCKP: MASS-GENFAC GX-9"
         key = "backup"
     end
 
@@ -338,6 +338,9 @@ BWOANoah.Screens.Atmospheric = function()
 end
 
 BWOANoah.Screens.Ventilation = function()
+
+    BWOADialogues.Reveal("Emma Robinson", "100.2")
+
     local gmd = GetBWOAModData()
 
     local ventilation = gmd.ventilation
@@ -357,7 +360,7 @@ BWOANoah.Screens.Ventilation = function()
         text[7] = "> EXTERNAL AIR VALVE:   CLOSED"
     end
 
-    text[8] = "> CO2:                  " .. string.format("%05.3f", ventilation.co2) .. "%"
+    text[8] = "> CO2:                  " .. string.format("%05.0f", ventilation.co2) .. " ppm"
     text[9] = "> FILTER:              " .. string.format("%04.1f", ventilation.filter) .. "%"
 
     text[11] = "OPTIONS:"
@@ -493,7 +496,7 @@ BWOANoah.Screens.Environmental = function()
     text[7]   = "TEMPERATURE:   " .. string.format("%.1f", temp) .. tempSuffix
     text[8]   = "WIND SPEED:    " .. string.format("%.1f", windSpeed) .. windSpeedSuffix
     text[9]   = "FOG INTENSITY: " .. string.format("%.1f", fogIntensity) .. "%"
-    text[10]   = "RADIATION:     " .. string.format("%.1f", radiation) .. "mR/h"
+    text[10]   = "RADIATION:     " .. string.format("%.1f", radiation) .. "mR"
     text[25]  = "9. RETURN"
     return text
 end

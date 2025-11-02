@@ -185,6 +185,12 @@ BWOADialogues["Emma Robinson"] = {
         anim = "Talk3",
         req = {"3.2.1.2", "3.1.1"},
     },
+    ["3.2.1.2.2"] = {
+        qst = "I don't know what my name is.",
+        ans = "Well, you look like Bob to me.",
+        anim = "Talk3",
+        req = {"3.2.1.2"},
+    },
     ["3.2.2"] = {
         qst = "Am I infected?",
         ans = "According to your blood tests, you're not. You're also immune to the airborne strain of the virus.",
@@ -212,7 +218,7 @@ BWOADialogues["Emma Robinson"] = {
     },
     -- room reveal
     ["100.1"] = {
-        qst = "I nfound a room with loud machinery.",
+        qst = "I found a room with loud machinery.",
         ans = "Engineering rooms. That's where power generators and water pump is located.",
         anim = "Talk3",
         req = {"3.2.1.2"},
@@ -385,7 +391,16 @@ BWOADialogues["Emma Robinson"] = {
         ans = "Check the CO2 levels and make sure the ventilation is working!",
         anim = "Talk3",
         req = {},
-        hidden = true
+        hidden = true,
+    },
+    ["1000.5"] = {
+        qst = "I've noticed CO2 levels are rising despite ventilation being turn on!",
+        ans = "We need to check the air intake on the surface!",
+        anim = "Talk3",
+        req = {"100.2"},
+        hidden = true,
+        func = "RevealMission",
+        funcParams = {missionId = 3},
     },
 }
 
@@ -440,6 +455,15 @@ BWOADialogues.Reveal = function(person, key)
     if dialogues then
         if dialogues[key] then
             dialogues[key].hidden = nil
+        end
+    end
+end
+
+BWOADialogues.Hide = function(person, key)
+    local dialogues = BWOADialogues[person]
+    if dialogues then
+        if dialogues[key] then
+            dialogues[key].hidden = true
         end
     end
 end

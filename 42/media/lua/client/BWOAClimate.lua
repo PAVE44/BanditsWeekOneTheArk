@@ -84,17 +84,17 @@ function onClimateTick()
 
 
     -- renderer not ready for this updates right after game start
-    if BWOAClimate.tick > 4 then
+    if BWOAClimate.tick > 3 then
         ImprovedFog.setEnableEditing(true)
         ImprovedFog.setBaseAlpha(1)
         ImprovedFog.setSecondLayerAlpha(0.4)
         ImprovedFog.setTopAlphaHeight(0.25)
         ImprovedFog.setBottomAlphaHeight(0.5)
-        ImprovedFog.setAlphaCircleAlpha(0.5)
+        ImprovedFog.setAlphaCircleAlpha(0.3)
         ImprovedFog.setAlphaCircleRad(3)
-        ImprovedFog.setColorR(0.1)
-        ImprovedFog.setColorG(0.15)
-        ImprovedFog.setColorB(0.05)
+        ImprovedFog.setColorR(0.15)
+        ImprovedFog.setColorG(0.25)
+        ImprovedFog.setColorB(0.20)
     end
 
     BWOAClimate.tick = BWOAClimate.tick + 1

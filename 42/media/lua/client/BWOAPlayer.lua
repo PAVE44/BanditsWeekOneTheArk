@@ -17,7 +17,6 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_
 
 local roomRevealMap = {
     ["GENERATOR_ROOM"] = {person = "Emma Robinson", qid = "100.1"},
-   
     ["HYDROPONICS"]    = {person = "Emma Robinson", qid = "100.3"},
     ["LIBRARY"]        = {person = "Emma Robinson", qid = "100.4"},
     ["CHAPEL"]         = {person = "Emma Robinson", qid = "100.5"},
@@ -62,7 +61,7 @@ end
 
 local function everyOneMinute()
 
-    -- radiation effect simulation
+    
     local player = getSpecificPlayer(0)
     if not player then return end
 
@@ -70,50 +69,69 @@ local function everyOneMinute()
 
     local bodyDamage = player:getBodyDamage()
     local stats = player:getStats()
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    local gmd = GetBWOAModData()
 
     local md = player:getModData()
     if not md.bwoa then md.bwoa = {} end
+
+    local hasSuit
+    local hasMask
+    
+    local suit = player:getWornItem("Boilersuit")
+    if suit then
+        if suit:hasTag(ItemTag.HAZMAT_SUIT) then 
+            hasSuit = true
+        end
+    end
+
+    local mask = player:getWornItem("MaskEyes")
+    if mask then
+        if mask:hasTag(ItemTag.GAS_MASK) then
+            hasMask = true
+            local filter = mask:getUsedDelta()
+            filter = filter - 0.001
+            if filter < 0 then 
+                filter = 0 
+                hasMask = false
+            end
+            mask:setUsedDelta(filter)
+        end
+    end
+
+    local suitFull = player:getWornItem("FullSuitHead")
+    if suitFull then
+        if suitFull:hasTag(ItemTag.HAZMAT_SUIT) then 
+            hasSuit = true
+            hasMask = true
+        end
+    end
+
+    -- radiation effect simulation
     if not md.bwoa.radiation then md.bwoa.radiation = 0 end
     if not md.bwoa.timeRadiatedHematopoietic then md.bwoa.timeRadiatedHematopoietic = 0 end
     if not md.bwoa.timeRadiatedGastrointernal then md.bwoa.timeRadiatedGastrointernal = 0 end
 
-    local immune = false
-    local suit = player:getWornItem("Boilersuit")
-    if suit then
-        if suit:hasTag(ItemTag.HAZMAT_SUIT) then 
-            local mask = player:getWornItem("MaskEyes")
-            if mask then
-                if mask:hasTag(ItemTag.GAS_MASK) then
-                    immune = true
-                end
-            end
-        end
-    end
-    local suit = player:getWornItem("FullSuitHead")
-    if suit then
-        if suit:hasTag(ItemTag.HAZMAT_SUIT) then 
-            immune = true
-        end
-    end
+    local immuneRadiation = false
+    if hasSuit and hasMask then immuneRadiation = true end
 
     local radiation = BWOAClimate.radiation
     if radiation > 0 then
         local multiplayer = 1
-        local z = player:getZ()
-        if z <= -1 then 
+        if pz <= -2 then 
             multiplayer = 0
-        elseif z > -1 and z < 0 then
-            multiplayer = -z
+        elseif pz > -2 and pz < 0 then
+            multiplayer = 0.2
         end
         if not player:isOutside() then multiplayer = multiplayer * 0.8 end
         if multiplayer > 0 then
-            if not immune then
+            if not immuneRadiation then
                 md.bwoa.radiation = md.bwoa.radiation + math.floor(radiation / 60)
             end
         end
     end
 
-    if not immune and md.bwoa.radiation >= 100 and md.bwoa.radiation < 3000 then
+    if not immuneRadiation and md.bwoa.radiation >= 100 and md.bwoa.radiation < 3000 then
         md.bwoa.timeRadiatedHematopoietic = md.bwoa.timeRadiatedHematopoietic + 1
     end
 
@@ -193,8 +211,98 @@ local function everyOneMinute()
         md.bwoa.timeRadiatedGastrointernal = 0
     end
 
-    print ("RAD: " .. md.bwoa.radiation)
-    print ("TIME: " .. md.bwoa.timeRadiatedHematopoietic)
+    -- co2 intoxication simlation
+    if pz < -2 and px >= 9900 and py >= 12590 and px < 9990 and py < 12660 and not hasMask then
+        local ventilation = gmd.ventilation
+        local health = bodyDamage:getOverallBodyHealth()
+        local sick = bodyDamage:getFoodSicknessLevel()
+        local head = bodyDamage:getBodyPart(BodyPartType.Head)
+        local headAche = head:getAdditionalPain()
+        local fatigue = stats:getFatigue()
+        local drunk = stats:getDrunkenness()
+        local endurance = stats:getEndurance()
+        local panic = stats:getPanic()
+
+        local healthExpected
+        local sickExpected
+        local headAcheExpected
+        local fatigueExpected
+        local drunkExpected
+        local enduranceExpected
+        local panicExpected
+        
+        if ventilation.co2 > 60000 then
+            healthExpected = 0
+            sickExpected = 55
+            headAcheExpected = 80
+            fatigueExpected = 0.9
+            drunkExpected = 100
+            enduranceExpected = 0.3
+            panicExpected = 0.6
+        elseif ventilation.co2 > 30000 then
+            healthExpected = 50
+            sickExpected = 55
+            headAcheExpected = 80
+            fatigueExpected = 0.9
+            drunkExpected = 80
+            enduranceExpected = 0.3
+            panicExpected = 0.4
+        elseif ventilation.co2 > 10000 then
+            sickExpected = 55
+            headAcheExpected = 60
+            fatigueExpected = 0.85
+            enduranceExpected = 0.3
+            panicExpected = 0.2
+        elseif ventilation.co2 > 5000 then
+            BWOADialogues.Reveal("Emma Robinson", "1000.4")
+            sickExpected = 55
+            headAcheExpected = 55
+            fatigueExpected = 0.80
+            enduranceExpected = 0.3
+        elseif ventilation.co2 > 2000 then
+            headAcheExpected = 50
+            fatigueExpected = 0.75
+        elseif ventilation.co2 > 1000 then
+            fatigueExpected = 0.65
+        end
+
+        if healthExpected then
+            if health < healthExpected then 
+                bodyDamage:getOverallBodyHealth(health - 1)
+            end
+        end
+        if sickExpected then
+            if sick < sickExpected then 
+                bodyDamage:setFoodSicknessLevel(sick + 5)
+            end
+        end
+        if headAcheExpected then
+            if headAche < headAcheExpected then 
+                head:setAdditionalPain(headAche + 2)
+            end
+        end
+        if fatigueExpected then
+            if fatigue < fatigueExpected then 
+                stats:setFatigue(fatigue + 0.05) 
+            end
+        end
+        if drunkExpected then
+            if drunk < drunkExpected then 
+                stats:setDrunkenness(drunk + 1)
+            end
+        end
+        if enduranceExpected then
+            if endurance < enduranceExpected then 
+                stats:setEndurance(endurance + 0.05)
+            end
+        end
+        if panicExpected then
+            if panic < panicExpected then 
+                stats:setPanic(panic + 0.05)
+            end
+        end
+    end
+
 end
 
 Events.OnPlayerUpdate.Remove(onPlayerUpdate)

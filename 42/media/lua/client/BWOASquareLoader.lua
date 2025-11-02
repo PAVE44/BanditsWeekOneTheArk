@@ -64,7 +64,8 @@ local burnSquare = function(square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
     if z < 0 then return end
 
-    
+    if x >= 9910 and y >= 12611 and x <= 9942 and y <= 12645 then return end
+
     local md = square:getModData()
     if not md.BWO then md.BWO = {} end
     md.BWO.burnt = true

@@ -72,6 +72,13 @@ end
 
 BWOARooms.Control.Prepare = function ()
     BWOARooms.Control.Init()
+
+    local report = BanditCompatibility.InstanceItem("Bandits.Note")
+    report:setCanBeWrite(false)
+    report:setName("Scavenge report")
+    local md = report:getModData()
+    md.printContent = "scavenge_report_1"
+    BWOAPrepareTools.AddItemsToContainer(9959, 12627, -4, {report}, "Cabinet")
 end
 
 

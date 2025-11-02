@@ -11,6 +11,10 @@ BWOAMissions.missions = {
     [2] = {
         name = "Change",
         desc = "Find and wear a bunker suit.",
+    },
+    [3] = {
+        name = "Fix air vent",
+        desc = "Find an air vent located on the surface\nand fix it using a wrench.",
     }
 }
 
@@ -37,6 +41,14 @@ BWOAMissions.Reveal = function(missionId)
     -- todo: launch reveal mission popup
 end
 
+BWOAMissions.IsRevealed = function(missionId)
+    local mission = BWOAMissions.missions[missionId]
+    if mission and mission.revealed then
+        return true
+    end
+    return false
+end
+
 BWOAMissions.Hide = function(missionId)
     local mission = BWOAMissions.missions[missionId]
     if mission then
@@ -56,6 +68,14 @@ end
 BWOAMissions.IsAccomplished = function(missionId)
     local mission = BWOAMissions.missions[missionId]
     if mission and mission.accomplished then
+        return true
+    end
+    return false
+end
+
+BWOAMissions.IsActive = function(missionId)
+    local mission = BWOAMissions.missions[missionId]
+    if mission and mission.revealed and not mission.accomplished then
         return true
     end
     return false

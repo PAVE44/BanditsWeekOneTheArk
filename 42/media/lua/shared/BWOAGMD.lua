@@ -34,7 +34,7 @@ function InitBWOAModData(isNewGame)
     -- if not globalData.ventilation then 
         globalData.ventilation = {
             active = true,
-            co2 = 0.05,
+            co2 = 884,
             filter = 88,
             heating = true,
             open = true,
@@ -42,6 +42,35 @@ function InitBWOAModData(isNewGame)
             temp = 21,
         }
     -- end
+
+    -- if not globalData.airintakes then 
+    globalData.airintakes = {
+        [1] = {
+            x = 9940, 
+            y = 12633, 
+            z = 0,
+            broken = true,
+        },
+        [2] = {
+            x = 9940, 
+            y = 12634, 
+            z = 0, 
+            broken = false,
+        },
+        [3] = {
+            x = 9941, 
+            y = 12633, 
+            z = 0, 
+            broken = false,
+        },
+        [4] = {
+            x = 9941, 
+            y = 12634, 
+            z = 0, 
+            broken = false,
+        }
+    }
+-- end
 
     -- if not globalData.waterpump then 
     globalData.waterpump = {
