@@ -75,5 +75,12 @@ end
 
 BWOARooms.Generator.Prepare = function ()
     BWOARooms.Generator.Init()
+
+    local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet:setCanBeWrite(false)
+    leaflet:setName("MASS-GENFAC CO. Voltek GX-9 Diesel Generator")
+    local md = leaflet:getModData()
+    md.printContent = "leaflet_gx9"
+    BWOAPrepareTools.AddWorldItemSpecial(9947, 12617, -4, leaflet, {x=0.05, y=0.05, z=0})
 end
 

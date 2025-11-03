@@ -1,5 +1,75 @@
 BWOABuildTools = BWOABuildTools or {}
 
+BWOABuildTools.Floor = function(x, y, z, spriteName)
+    local cell = getCell()
+    local square = cell:getGridSquare(x, y, z)
+    if square == nil and getWorld():isValidSquare(x, y, z) then
+        square = cell:createNewGridSquare(x, y, z, true)
+        local obj = IsoObject.new(square, spriteName, "")
+        
+        local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
+        obj:setAttachedAnimSprite(ArrayList.new())
+        obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
+
+        square:AddSpecialObject(obj)
+        obj:transmitCompleteItemToServer()
+        square:setSquareChanged()
+    end
+end
+
+BWOABuildTools.Wall = function(x, y, z, spriteName)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoObject.new(square, spriteName, "")
+    if not obj then return end
+
+    obj:setType(IsoObjectType.wall)
+
+    local sprite = obj:getSprite()
+    local props = sprite:getProperties()
+    obj:setAttachedAnimSprite(ArrayList.new())
+    if props:Is(IsoFlagType.WallW) then
+        obj:getAttachedAnimSprite():add(getSprite("overlay_grime_wall_01_0"):newInstance())
+
+        local rnd = 10
+        if rnd == 1 then
+            obj:getAttachedAnimSprite():add(getSprite("overlay_graffiti_wall_01_10"):newInstance())
+        end
+    elseif props:Is(IsoFlagType.WallN) then
+        obj:getAttachedAnimSprite():add(getSprite("overlay_grime_wall_01_1"):newInstance())
+    elseif props:Is(IsoFlagType.WallNW) then
+        obj:getAttachedAnimSprite():add(getSprite("overlay_grime_wall_01_2"):newInstance())
+    end
+
+    local crackSprite = "d_wallcracks_1_" .. tostring(1 + ZombRand(70))
+    obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
+
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    buildUtil.setHaveConstruction(square, true)
+    square:setSquareChanged()
+end
+
+BWOABuildTools.Door = function(x, y, z, north, sprite)
+    local cell = getCell()
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    
+    for s, number in string.gmatch(sprite, "(.+)_(%d+)") do
+
+        if not north then
+            north = true
+            if (number % 2 == 0) then
+                north = false
+            end
+        end
+
+        obj = IsoDoor.new(cell, square, sprite, north)
+        square:AddSpecialObject(obj)
+        obj:transmitCompleteItemToServer()
+        buildUtil.setHaveConstruction(square, true)
+        square:setSquareChanged()
+    end
+end
+
 BWOABuildTools.Generic = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoObject.new(square, spriteName, "")
@@ -45,90 +115,6 @@ BWOABuildTools.WaterSprinkler = function(x, y, z)
     square:AddSpecialObject(object)
     object:transmitCompleteItemToServer()
     WPVirtual.SprinklerAdd(x, y, z, 200)
-end
-
-
-BWOABuildTools.FloorConcrete = function(x, y, z)
-    local square = getCell():getOrCreateGridSquare(x, y, z)
-    local obj = IsoObject.new(square, "floors_exterior_street_01_0", "")
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-    buildUtil.setHaveConstruction(square, true)
-    square:setSquareChanged()
-end
-
-BWOABuildTools.WallWConcrete = function(x, y, z)
-    local square = getCell():getOrCreateGridSquare(x, y, z)
-    local obj = IsoObject.new(square, "walls_garage_01_36", "")
-    obj:setType(IsoObjectType.wall)
-    obj:setAttachedAnimSprite(ArrayList.new())
-    obj:getAttachedAnimSprite():add(getSprite("walls_commercial_02_32"):newInstance())
-    obj:getAttachedAnimSprite():add(getSprite("overlay_grime_wall_01_0"):newInstance())
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-    buildUtil.setHaveConstruction(square, true)
-    square:setSquareChanged()
-end
-
-BWOABuildTools.WallNConcrete = function(x, y, z)
-    local square = getCell():getOrCreateGridSquare(x, y, z)
-    local obj = IsoObject.new(square, "walls_garage_01_37", "")
-    obj:setType(IsoObjectType.wall)
-    obj:setAttachedAnimSprite(ArrayList.new())
-    obj:getAttachedAnimSprite():add(getSprite("walls_commercial_02_33"):newInstance())
-    obj:getAttachedAnimSprite():add(getSprite("overlay_grime_wall_01_1"):newInstance())
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-    buildUtil.setHaveConstruction(square, true)
-    square:setSquareChanged()
-end
-
-BWOABuildTools.DoorNConcrete = function(x, y, z)
-    local square = getCell():getOrCreateGridSquare(x, y, z)
-    local objects = square:getObjects()
-    for i=0, objects:size()-1 do
-        local object = objects:get(i)
-        local spriteName = object:getSprite():getName()
-        if spriteName == "walls_garage_01_37" then
-            square:transmitRemoveItemFromSquare(object)
-            break
-        end
-    end
-
-    local obj = IsoObject.new(square, "walls_garage_01_47", "")
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-
-    local obj = IsoDoor.new(cell, square, getSprite("fixtures_doors_01_21"), true)
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-
-    buildUtil.setHaveConstruction(square, true)
-    square:setSquareChanged()
-end
-
-BWOABuildTools.DoorWConcrete = function(x, y, z)
-    local square = getCell():getOrCreateGridSquare(x, y, z)
-    local objects = square:getObjects()
-    for i=0, objects:size()-1 do
-        local object = objects:get(i)
-        local spriteName = object:getSprite():getName()
-        if spriteName == "walls_garage_01_36" then
-            square:transmitRemoveItemFromSquare(object)
-            break
-        end
-    end
-
-    local obj = IsoObject.new(square, "walls_garage_01_46", "")
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-
-    local obj = IsoDoor.new(getCell(), square, getSprite("fixtures_doors_01_20"), true)
-    square:AddSpecialObject(obj)
-    obj:transmitCompleteItemToServer()
-
-    buildUtil.setHaveConstruction(square, true)
-    square:setSquareChanged()
 end
 
 BWOABuildTools.VentN = function(x, y, z)

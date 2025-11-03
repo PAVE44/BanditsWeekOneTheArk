@@ -57,9 +57,19 @@ end
 BWOARooms.Armoury.Prepare = function ()
     BWOARooms.Armoury.Init()
 
+    BWOAPrepareTools.AddWorldItem(9973, 12614, -4, "Base.Shotgun", {x=0.49, y=0.26, z=0.21, rx=21, ry=90, rz=93})
+    BWOAPrepareTools.AddWorldItem(9973, 12614, -4, "Base.ShotgunShellsCarton", {x=0.68, y=0.29, z=0.00, rx=0, ry=0, rz=0})
+
     local items
     items = {["Base.HazmatSuitCamo"] = 7, ["Base.Hat_GasMask"] = 7}
     BWOAPrepareTools.AddItemsToContainer(9974, 12614, -4, items, "Locker")
+
+    local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet:setCanBeWrite(false)
+    leaflet:setName("Level C Hazmat Suit")
+    local md = leaflet:getModData()
+    md.printContent = "leaflet_hazmat"
+    BWOAPrepareTools.AddItemsToContainer(9974, 12614, -4, {leaflet}, "Locker", true)
 
     items = {["Base.Pistol"] = 2, ["Base.9mmClip"] = 4, ["Base.Bullets9mmBox"] = 5}
     BWOAPrepareTools.AddItemsToContainer(9975, 12614, -4, items, "Locker")
@@ -96,6 +106,7 @@ BWOARooms.Armoury.Prepare = function ()
 
     items = {["Base.Trousers_CamoGreen"] = 4, ["Base.Shirt_CamoGreen"] = 6, ["Base.Tshirt_CamoGreen"] = 6, ["Base.Jacket_ArmyCamoGreen"] = 6 }
     BWOAPrepareTools.AddItemsToContainer(9976, 12617, -4, items, "Locker")
+
 end
 
 

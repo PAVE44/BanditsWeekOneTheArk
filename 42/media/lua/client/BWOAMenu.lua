@@ -53,6 +53,13 @@ function BWOAMenu.EventCracks(player)
     BWOASequence.Earthquake({intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4})
 end
 
+function BWOAMenu.MakeBasement(player, square)
+
+    local basement = BWOABasements.Generic:new(square:getX(), square:getY())
+    basement:build()
+
+end
+
 function BWOAMenu.Teleport(player)
     player:setX(9962)
     player:setY(12609)
@@ -143,8 +150,6 @@ local saveItems = function(square)
     print (output)
     fileWriter:write(output)
     fileWriter:close()
-                                
-
 end
 
 local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
@@ -170,7 +175,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)
-        context:addOption("Print Media", player, BWOAMenu.PrintMedia, square)
+        context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
 
         context:addOption("Event Cracks", player, BWOAMenu.EventCracks)
 
