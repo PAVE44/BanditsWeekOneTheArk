@@ -10,6 +10,8 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
+BWOAMenu.blinking = {}
+
 BWOAMenu.specialObjectsCanHighlight = {}
 
 BWOAMenu.specialObjectsCanHighlight.Noah = function()
@@ -19,6 +21,10 @@ end
 BWOAMenu.specialObjectsCanHighlight.Vent = function()
     -- return true
     return BWOAMissions.IsActive(3)
+end
+
+BWOAMenu.specialObjectsCanHighlight.Hatch = function()
+    return true
 end
 
 BWOAMenu.specialObjectsAction = {}
@@ -32,6 +38,12 @@ end
 BWOAMenu.specialObjectsAction.Vent = function(player, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(TAFixIntake:new(player, square))
+    end    
+end
+
+BWOAMenu.specialObjectsAction.Hatch = function(player, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(TAOpenHatch:new(player, square))
     end    
 end
 
@@ -69,10 +81,8 @@ function BWOAMenu.Teleport(player)
     player:setLastZ(-4)
 end
 
-function BWOAMenu.PrintMedia(player)
-    local ui = UIPrintMedia:new("book_dacr_research", getSpecificPlayer(0))
-    ui:initialise()
-    ui:addToUIManager()
+function BWOAMenu.LoadHatches(player)
+    BWOABuildings.LoadHatches()
 end
 
 function BWOAMenu.Spawn(player, square)
@@ -171,12 +181,11 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
-        saveItems(square)
-        
+        -- saveItems(square)        
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
-
+        context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         context:addOption("Event Cracks", player, BWOAMenu.EventCracks)
 
         context:addOption("Ark Alarm On", player, BWOAMenu.ArkAlarm, true)
@@ -199,25 +208,37 @@ local function onFillInventoryObjectContextMenu(playerNum, context, items)
     print ("test")
 end
 
-local onPlayerUpdate = function(player)
-    local px, py, pz = player:getX(), player:getY(), player:getZ()
+local updateHighlight = function()
+    BWOAMenu.blinking = {}
+
     local cell = getCell()
+    local playerList = BanditPlayer.GetPlayers()
+
     local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
     for sname, sobject in pairs(specialObjectsHighlight) do
-        local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
-        if square then
-            if BanditUtils.DistToManhattan(px, py, sobject.x, sobject.y) < 3 then
-                local objects = square:getObjects()
-                for i=objects:size()-1, 0, -1 do
-                    local object = objects:get(i)
-                    local sprite = object:getSprite()
-                    if sprite then
-                        spriteName = sprite:getName()
-                        if spriteName == sobject.spriteName then
-                            if sobject.highLightFunc() then
-                                object:setHighlighted(0, true)
-                                object:setHighlightColor(1, 0.5, 0, 1)
-                                object:setBlink(true)
+        for i=0, playerList:size()-1 do
+            local player = playerList:get(i)
+            if player then
+                local px, py, pz = player:getX(), player:getY(), player:getZ()
+                if math.abs(px - sobject.x) < 6 and math.abs(py - sobject.y) < 6 then 
+                    local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
+                    if square then
+                        local objects = square:getObjects()
+                        for i=objects:size()-1, 0, -1 do
+                            local object = objects:get(i)
+                            local sprite = object:getSprite()
+                            if sprite then
+                                spriteName = sprite:getName()
+                                if spriteName == sobject.spriteName then
+                                    if sobject.highLightFunc() then
+                                        table.insert(BWOAMenu.blinking, object)
+                                    end
+                                    if sobject.highLightFunc() then
+                                        object:setHighlighted(0, true)
+                                        object:setHighlightColor(1, 0.5, 0, 1)
+                                        object:setBlink(true)
+                                    end
+                                end
                             end
                         end
                     end
@@ -227,11 +248,24 @@ local onPlayerUpdate = function(player)
     end
 end
 
+local blink = function(player)
+    local blinking = BWOAMenu.blinking
+
+    for _, object in ipairs(blinking) do
+        object:setHighlighted(0, true)
+        object:setHighlightColor(1, 0.5, 0, 1)
+        object:setBlink(true)
+    end
+end
+
 Events.OnPreFillWorldObjectContextMenu.Remove(onPreFillWorldObjectContextMenu)
 Events.OnPreFillWorldObjectContextMenu.Add(onPreFillWorldObjectContextMenu)
 
 Events.OnFillInventoryObjectContextMenu.Remove(onFillInventoryObjectContextMenu)
 Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryObjectContextMenu)
 
-Events.OnPlayerUpdate.Remove(onPlayerUpdate)
-Events.OnPlayerUpdate.Add(onPlayerUpdate)
+Events.EveryOneMinute.Remove(updateHighlight)
+Events.EveryOneMinute.Add(updateHighlight)
+
+Events.OnPlayerUpdate.Remove(blink)
+Events.OnPlayerUpdate.Add(blink)

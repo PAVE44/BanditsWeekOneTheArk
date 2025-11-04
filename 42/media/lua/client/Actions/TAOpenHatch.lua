@@ -1,35 +1,37 @@
 require "TimedActions/ISBaseTimedAction"
 
-TAFixIntake = ISBaseTimedAction:derive("TAFixIntake");
+TAOpenHatch = ISBaseTimedAction:derive("TAOpenHatch");
 
-function TAFixIntake:isValid()
+function TAOpenHatch:isValid()
     return true
 end
 
-function TAFixIntake:update()
+function TAOpenHatch:update()
     
 end
 
-function TAFixIntake:start()
+function TAOpenHatch:start()
     self.character:faceLocationF(self.square:getX() + 0.5, self.square:getY() + 0.5)
     self:setActionAnim("Loot")
     self:setAnimVariable("LootPosition", "Low")
 end
 
-function TAFixIntake:stop()
+function TAOpenHatch:stop()
     ISBaseTimedAction.stop(self)
 end
 
-function TAFixIntake:perform()
-    local gmd = GetBWOAModData()
-    local airintakes = gmd.airintakes
-    airintakes[1].broken = false
-    BWOAMissions.Accomplish(3)
+function TAOpenHatch:perform()
+    self.character:playSound("BreakBarricadePlank")
+    local x, y = self.square:getX(), self.square:getY()
+    local basement = BWOABasements.Generic:new(x, y)
+    basement:build()
+
+    BWOABuildings.RemoveHatch(x, y)
 
     ISBaseTimedAction.perform(self)
 end
 
-function TAFixIntake:new(character, square)
+function TAOpenHatch:new(character, square)
     local o = {}
     setmetatable(o, self)
     self.__index = self
@@ -45,4 +47,4 @@ function TAFixIntake:new(character, square)
     return o
 end
 
-return TAFixIntake;
+return TAOpenHatch;

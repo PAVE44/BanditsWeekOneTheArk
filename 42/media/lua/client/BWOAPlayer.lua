@@ -22,7 +22,6 @@ local roomRevealMap = {
     ["CHAPEL"]         = {person = "Emma Robinson", qid = "100.5"},
     ["LABORATORY"]     = {person = "Emma Robinson", qid = "100.6"},
     ["BEDROOM_ONE"]    = {person = "Emma Robinson", qid = "100.7"},
-    
 }
 
 local traitRevealMap = {
@@ -60,8 +59,6 @@ local onPlayerUpdate = function(player)
 end
 
 local function everyOneMinute()
-
-    
     local player = getSpecificPlayer(0)
     if not player then return end
 

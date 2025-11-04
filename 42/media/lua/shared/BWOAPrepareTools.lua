@@ -1,5 +1,28 @@
 BWOAPrepareTools = BWOAPrepareTools or {}
 
+BWOAPrepareTools.GetSurfaceOffset = function(x, y, z)
+
+    local cell = getCell()
+    local square = cell:getGridSquare(x, y, z)
+    local tileObjects = square:getLuaTileObjectList()
+    local squareSurfaceOffset = 0
+
+    -- get the object with the highest offset
+    for k, object in pairs(tileObjects) do
+        local surfaceOffsetNoTable = object:getSurfaceOffsetNoTable()
+        if surfaceOffsetNoTable > squareSurfaceOffset then
+            squareSurfaceOffset = surfaceOffsetNoTable
+        end
+
+        local surfaceOffset = object:getSurfaceOffset()
+        if surfaceOffset > squareSurfaceOffset then
+            squareSurfaceOffset = surfaceOffset
+        end
+    end
+
+    return squareSurfaceOffset / 96
+end
+
 BWOAPrepareTools.DarkenLight = function(x, y, z)
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)

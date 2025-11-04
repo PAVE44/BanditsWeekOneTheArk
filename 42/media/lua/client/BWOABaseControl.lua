@@ -7,6 +7,8 @@ local function onGameStart()
     for room, _ in pairs(BWOARooms) do
         BWOARooms[room].Init()
     end
+
+    BWOABuildings.LoadHatches()
 end
 
 local function onPreMapLoad()

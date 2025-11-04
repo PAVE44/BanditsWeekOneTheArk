@@ -14,6 +14,7 @@ BWOASequence.Start = function(params)
     local pz = -4
     BWOAEventControl.Add("Teleport", {x = px, y = py, z = pz}, 0)
 
+    BWOAEventControl.Add("WorldSetup", {}, 0)
     BWOAEventControl.Add("PlayerSetup", {x = px, y = py, z = pz}, 0)
 
     -- build

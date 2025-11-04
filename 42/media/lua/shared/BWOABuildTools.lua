@@ -78,6 +78,16 @@ BWOABuildTools.Generic = function(x, y, z, spriteName)
     square:setSquareChanged()
 end
 
+BWOABuildTools.Fireplace = function(x, y, z, spriteName)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoFireplace.new(getCell(), square, getSprite(spriteName))
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    obj:addFuel(100)
+    obj:setLit(true)
+    square:setSquareChanged()
+end
+
 BWOABuildTools.WaterPump = function(x, y, z)
     local sprite = getSprite(WPIso.pumpSprites.ns)
     local square = getCell():getOrCreateGridSquare(x, y, z)
@@ -209,6 +219,11 @@ local lamp = function(x, y, z, spriteName, data)
     -- ls:transmitCompleteItemToServer()
     square:setSquareChanged()
 
+end
+
+BWOABuildTools.LampBattery = function(x, y, z, spriteName)
+    local data = {r = 255, g = 240, b = 88, d=4, active=true, battery=true}
+    lamp(x, y, z, spriteName, data)
 end
 
 BWOABuildTools.EmergencyExitN = function(x, y, z)

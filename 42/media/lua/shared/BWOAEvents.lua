@@ -47,6 +47,10 @@ BWOAEvents.Teleport = function(params)
     getWorld():update()
 end
 
+BWOAEvents.WorldSetup = function(params)
+    BWOABuildings.CreateHatches()
+end
+
 BWOAEvents.PlayerSetup = function(params)
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do

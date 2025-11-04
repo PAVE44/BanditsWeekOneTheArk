@@ -20,24 +20,27 @@ function BWOABasements.Generic:buildWalls()
     local sx, sy = self.x, self.y
     local dx, dy = self.dx, self.dy
 
-    BWOABuildTools.Wall (sx, sy, -1, self.sprites.wallNW)
-    for x = sx + 1, sx + dx do
-        BWOABuildTools.Wall (x, sy, -1, self.sprites.wallN)
+    local wallSprites = BanditUtils.Choice(self.sprites.wallOptions)
+    BWOABuildTools.Wall (sx, sy, -1, wallSprites.wallNW)
+    for x = sx, sx + dx do
+        BWOABuildTools.Wall (x, sy, -1, wallSprites.wallN)
+        BWOABuildTools.Wall (x, sy + dy + 1, -1, wallSprites.wallN)
     end
-    for y = sy + 1, sy + dy do
-        BWOABuildTools.Wall (sx, y, -1, self.sprites.wallW)
+    for y = sy, sy + dy do
+        BWOABuildTools.Wall (sx, y, -1, wallSprites.wallW)
+        BWOABuildTools.Wall (sx + dx + 1, y, -1, wallSprites.wallW)
     end
 
-    BWOABuildTools.Wall (sx, sy + 1, -1, self.sprites.wallNW)
-    BWOABuildTools.Wall (sx + 1, sy + 1, -1, self.sprites.wallN)
-    BWOABuildTools.Wall (sx + 2, sy + 1, -1, self.sprites.wallN)
-    BWOABuildTools.Wall (sx + 3, sy + 1, -1, self.sprites.wallN)
-    BWOABuildTools.Generic (sx + 4, sy + 1, -1, self.sprites.doorframeN)
+    BWOABuildTools.Wall (sx, sy + 1, -1, wallSprites.wallNW)
+    BWOABuildTools.Wall (sx + 1, sy + 1, -1, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 2, sy + 1, -1, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 3, sy + 1, -1, wallSprites.wallN)
+    BWOABuildTools.Generic (sx + 4, sy + 1, -1, wallSprites.doorframeN)
     BWOABuildTools.Door (sx + 4, sy + 1, -1, true, self.sprites.doorN)
-    BWOABuildTools.Wall (sx + 5, sy + 1, -1, self.sprites.wallN)
-    BWOABuildTools.Wall (sx + 5, sy + 1, -1, self.sprites.wallN)
-    BWOABuildTools.Wall (sx + 6, sy, -1, self.sprites.wallNW)
-    BWOABuildTools.Wall (sx + 6, sy + 1, -1, self.sprites.wallSE)
+    BWOABuildTools.Wall (sx + 5, sy + 1, -1, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 5, sy + 1, -1, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 6, sy, -1, wallSprites.wallNW)
+    BWOABuildTools.Wall (sx + 6, sy + 1, -1, wallSprites.wallSE)
 end
 
 function BWOABasements.Generic:buildStairs()
@@ -109,7 +112,7 @@ function BWOABasements.Generic:placeFurniture()
     local sx, sy = self.x, self.y
     local dx, dy = self.dx, self.dy
 
-    self:recalcFurnitureArea()
+    
 
     for fname, fconfig in pairs(self.furniture) do
         if fconfig.chance > ZombRand(100) then
@@ -129,8 +132,20 @@ function BWOABasements.Generic:placeFurniture()
 
                             if allGood then
                                 for _, sconfig in ipairs(dirs) do
-                                    BWOABuildTools.Generic (fmap.x + sconfig.x, fmap.y + sconfig.y, -1, sconfig.name)
-                                    fmap.taken = true
+                                    local bx, by = fmap.x + sconfig.x, fmap.y + sconfig.y
+                                    if fconfig.fireplace then
+                                        BWOABuildTools.Fireplace (bx, by, -1, sconfig.name)
+                                    else
+                                        BWOABuildTools.Generic (bx, by, -1, sconfig.name)
+                                    end
+
+                                    for _, f in ipairs(self.furnitureMap) do 
+                                        if f.x == bx and f.y == by then
+                                            f.taken = true
+                                            f.surface = fconfig.surface
+                                            f.items = fconfig.items
+                                        end
+                                    end
                                 end
                                 done = true
                                 break
@@ -143,12 +158,82 @@ function BWOABasements.Generic:placeFurniture()
     end
 end
 
+function BWOABasements.Generic:placeLights()
+    for _, fmap in ipairs(self.furnitureMap) do
+        if fmap.surface then
+            local rndOpts = {8, 9, 10, 11, 12, 13, 32, 33, 34, 35, 36, 37, 40, 41, 42, 43, 44, 45, 48, 49, 50, 51, 52, 53}
+            local rnd = BanditUtils.Choice(rndOpts)
+            BWOABuildTools.LampBattery(fmap.x, fmap.y, -1, "lighting_indoor_01_" .. rnd)
+        end
+    end
+end
+
+function BWOABasements.Generic:placeItems()
+    local cell = getCell()
+
+    -- containers
+    for _, fmap in ipairs(self.furnitureMap) do
+        if fmap.items then
+            local square = cell:getGridSquare(fmap.x, fmap.y, -1)
+            if square then
+                local objects = square:getObjects()
+                for i=0, objects:size()-1 do
+                    local object = objects:get(i)
+                    local container = object:getContainer()
+                    if container then
+                        -- container:clear()
+
+                        for _, iconfig in ipairs(fmap.items) do
+                            for itemType, cntMax in pairs(iconfig) do
+                                local cnt = ZombRand(cntMax + 1)
+                                for i=1, cnt do
+                                    local item = container:AddItem(itemType)
+                                    if item then
+                                        container:addItemOnServer(item)
+                                    end
+                                end
+                            end
+                        end
+                        ItemPicker.updateOverlaySprite(container:getParent())
+                        break
+                    end
+                end
+            end
+        end
+    end
+
+    -- floor
+    local items = self.items
+    local j = 1
+    for _, fmap in ipairs(self.furnitureMap) do
+        if items[j] then
+            local surfaceOffset = BWOAPrepareTools.GetSurfaceOffset(fmap.x, fmap.y, -1)
+            local itemConf = items[j]
+            for itemType, itemCntMax in pairs(itemConf) do
+                local cnt = ZombRand(itemCntMax + 1)
+                for i=1, cnt do
+                    local data = {
+                        x = ZombRandFloat(0.2, 0.8),
+                        y = ZombRandFloat(0.2, 0.8),
+                        z = surfaceOffset
+                    }
+                    BWOAPrepareTools.AddWorldItem(fmap.x, fmap.y, -1, itemType, data)
+                end
+            end
+            j = j + 1
+        else
+            break
+        end
+    end
+end
+
 function BWOABasements.Generic:build()
     self:buildFloors()
     self:buildWalls()
     self:buildStairs()
     self:placeFurniture()
-
+    self:placeLights()
+    self:placeItems()
 end
 
 function BWOABasements.Generic:new(x, y)
@@ -156,19 +241,54 @@ function BWOABasements.Generic:new(x, y)
 
     -- const
     self.name = "Generic"
-    self.dx = 8
-    self.dy = 6
+    self.dx = 6 + ZombRand(4)
+    self.dy = 4 + ZombRand(3)
 
     self.sprites = {}
     self.sprites.stairs1 = "fixtures_stairs_01_64"
     self.sprites.stairs2 = "fixtures_stairs_01_65"
     self.sprites.stairs3 = "fixtures_stairs_01_66"
     self.sprites.floor = "floors_exterior_street_01_0"
-    self.sprites.wallW = "walls_exterior_house_02_16"
-    self.sprites.wallN = "walls_exterior_house_02_17"
-    self.sprites.wallNW = "walls_exterior_house_02_18"
-    self.sprites.wallSE = "walls_exterior_house_02_19"
-    self.sprites.doorframeN = "walls_exterior_house_02_27"
+
+    self.sprites.wallOptions = {
+        [1] = { -- small brick grayish
+            wallW = "walls_exterior_house_02_16",
+            wallN = "walls_exterior_house_02_17",
+            wallNW = "walls_exterior_house_02_18",
+            wallSE = "walls_exterior_house_02_19",
+            doorframeN = "walls_exterior_house_02_27",
+        },
+        [2] = { -- small brick orange
+            wallW = "walls_exterior_house_02_36",
+            wallN = "walls_exterior_house_02_37",
+            wallNW = "walls_exterior_house_02_38",
+            wallSE = "walls_exterior_house_02_39",
+            doorframeN = "walls_exterior_house_02_47",
+        },
+        [3] = { -- small brick orange
+            wallW = "walls_exterior_house_01_16",
+            wallN = "walls_exterior_house_01_17",
+            wallNW = "walls_exterior_house_01_18",
+            wallSE = "walls_exterior_house_01_19",
+            doorframeN = "walls_exterior_house_01_27",
+        },
+        [4] = { -- small brick red
+            wallW = "walls_exterior_house_01_52",
+            wallN = "walls_exterior_house_01_53",
+            wallNW = "walls_exterior_house_01_54",
+            wallSE = "walls_exterior_house_01_55",
+            doorframeN = "walls_exterior_house_01_27",
+        },
+        [5] = { -- large brick
+            wallW = "location_community_school_01_0",
+            wallN = "location_community_school_01_1",
+            wallNW = "location_community_school_01_2",
+            wallSE = "location_community_school_01_3",
+            doorframeW = "location_community_school_01_10",
+            doorframeN = "location_community_school_01_11",
+        }
+    }
+    
     self.sprites.doorN = "fixtures_doors_01_57"
 
     self.deco1 = "location_business_office_generic_01_36"
@@ -182,10 +302,15 @@ function BWOABasements.Generic:new(x, y)
     }
 
     self.furnitureMap = {}
+    self:recalcFurnitureArea()
 
     self.furniture = {
         ["logs"] = {
             chance = 100,
+            items = {
+                {["Base.Log"] = 2},
+                {["Base.Firewood"] = 8},
+            },
             dirs = {
                 n = {
                     [1] = {x=0, y=0, name="camping_01_28"},
@@ -199,6 +324,11 @@ function BWOABasements.Generic:new(x, y)
         },
         ["stove"] = {
             chance = 100,
+            items = {
+                {["Base.Pot"] = 1},
+                {["Base.Firewood"] = 3},
+            },
+            fireplace = 1,
             dirs = {
                 n = {[1] = {x=0, y=0, name="appliances_cooking_01_18"}},
                 s = {[1] = {x=0, y=0, name="appliances_cooking_01_17"}},
@@ -224,8 +354,72 @@ function BWOABasements.Generic:new(x, y)
                 e = {[1] = {x=0, y=0, name="furniture_seating_indoor_01_8"}},
             }
         },
+        ["water"] = {
+            chance = 100,
+            dirs = {
+                n = {[1] = {x=0, y=0, name="location_business_office_generic_01_57"}},
+                s = {[1] = {x=0, y=0, name="location_business_office_generic_01_49"}},
+                w = {[1] = {x=0, y=0, name="location_business_office_generic_01_56"}},
+                e = {[1] = {x=0, y=0, name="location_business_office_generic_01_48"}},
+            }
+        },
+        ["shelves"] = {
+            chance = 100,
+            items = {
+                {["Base.CannedBolognese"] = 1},
+                {["Base.TinnedSoup"] = 1},
+                {["Base.CannedSardines"] = 1},
+                {["Base.CannedCorn"] = 1},
+                {["Base.CannedMushroomSoup"] = 1},
+                {["Base.CannedCornedBeef"] = 1},
+                {["Base.TunaTin"] = 1},
+                {["Base.CannedFruitCocktail"] = 1},
+                {["Base.CannedPotato2"] = 1},
+                {["Base.CannedCarrots2"] = 1},
+                {["Base.Pasta"] = 1},
+                {["Base.Rice"] = 2},
+                {["Base.OatsRaw"] = 1},
+                {["Base.DriedLentils"] = 1},
+                {["Base.Vodka"] = 1},
+                {["Base.JerryCan"] = 4},
+                {["Base.Battery"] = 4},
+                {["Base.Book"] = 3},
+                {["Base.CandleBox"] = 1},
+                {["Base.Matches"] = 3},
+                {["Base.CigaretteSingle"] = 7},
+                {["Base.BeefJerky"] = 1},
+                {["Base.Pop2"] = 2},
+                {["Base.FirstAidKit"] = 1},
+                {["Base.Garbagebag"] = 3},
+                {["Base.Handtorch"] = 1},
+                {["Base.PistolCase1"] = 1},
+                {["Base.RevolverCase1"] = 1},
+                {["Base.Handaxe"] = 1},
+                {["Base.HazmatSuitBlack"] = 1},
+                {["Base.GasmaskFilter"] = 7},
+            },
+            dirs = {
+                n = {
+                    [1] = {x=0, y=0, name="furniture_shelving_01_26"},
+                    [2] = {x=1, y=0, name="furniture_shelving_01_27"},
+                },
+                s = {
+                    [1] = {x=0, y=0, name="furniture_shelving_01_26"},
+                    [2] = {x=1, y=0, name="furniture_shelving_01_27"},
+                },
+                w = {
+                    [1] = {x=0, y=0, name="furniture_shelving_01_25"},
+                    [2] = {x=0, y=1, name="furniture_shelving_01_24"},
+                },
+                e = {
+                    [1] = {x=0, y=0, name="furniture_shelving_01_25"},
+                    [2] = {x=0, y=1, name="furniture_shelving_01_24"},
+                },
+            }
+        },
         ["table"] = {
             chance = 100,
+            surface = true,
             dirs = {
                 n = {
                     [1] = {x=0, y=0, name="carpentry_01_28"},
@@ -325,19 +519,43 @@ function BWOABasements.Generic:new(x, y)
 
     }
 
-    self.container1 = "trashcontainers_01_27"
-    self.container2 = "furniture_storage_02_16"
-    self.shelf = "carpentry_02_68"
-    self.oxygen = "industry_03_7"
-    self.barrel1 = "crafted_01_32"
-    self.barrel2 = "industry_01_23"
-
-    self.matress1 = "carpentry_02_78" --76
-    self.matress2 = "carpentry_02_79" -- 77
-
-    self.armchair1 = "furniture_seating_01_44" -- 45
-
-    self.armchair2 = "furniture_seating_indoor_01_8" -- 8=E, 9=S, 10=W, 11=N
+    self.items = {
+        {["Base.Shoes_BlackBoots"] = 1},
+        {["Base.Book"] = 2},
+        {["Base.TinCanEmpty"] = 3},
+        {["Base.TinCanEmpty"] = 3},
+        {["Base.ToiletPaper"] = 3},
+        {["Base.Bucket"] = 1},
+        {["Base.SmashedBottle"] = 1},
+        {["Base.SmashedBottle"] = 1},
+        {["Base.WaterDispenserBottle"] = 1},
+        {["Base.WaterBottle"] = 2},
+        {["Base.Lantern_Hurricane"] = 1},
+        {["Base.Bag_WeaponBag"] = 1},
+        {["Base.FirewoodBundle"] = 1},
+        {["Base.Bag_TrashBag"] = 1},
+        {["Base.Gin"] = 1},
+        {["Base.CardDeck"] = 1},
+        {["Base.CheckerBoard"] = 1},
+        {["Base.PhotoAlbum"] = 1},
+        {["Base.PropaneTank"] = 1},
+        {["Base.RippedSheets"] = 1},
+        {["Base.RippedSheets"] = 3},
+        {["Base.RippedSheets"] = 1},
+        {["Base.Wine2Open"] = 1},
+        {["Base.SoupBowl"] = 1},
+        {["Base.Bowl"] = 2},
+        {["Base.Yoyo"] = 1},
+        {["Base.WoodAxe"] = 1},
+        {["Base.Toolbox_Mechanic"] = 1},
+        {["Base.Briefs_SmallTrunks_WhiteTINT"] = 1},
+        {["Base.Vest_DefaultTEXTURE_TINT"] = 1},
+        {["Base.Tshirt_WhiteTINT"] = 1},
+        {["Base.Jumper_RoundNeck"] = 1},
+        {["Base.Jumper_VNeck"] = 1},
+        {["Base.Socks"] = 3},
+        {["Base.Pillow"] = 1},
+    }
 
     -- vars
     self.x = x

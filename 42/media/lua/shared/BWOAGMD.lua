@@ -90,6 +90,10 @@ function InitBWOAModData(isNewGame)
     }
 -- end
 
+    if not globalData.hatches then 
+        globalData.hatches = {}
+    end
+
     BWOAGlobalData = globalData
 
 end
