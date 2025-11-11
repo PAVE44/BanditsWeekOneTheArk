@@ -26,7 +26,7 @@ BWOABuildings.CreateHatches = function()
 
     for i=0, defs:size()-1 do
         local def = defs:get(i)
-        if ZombRand(6) == 0 then
+        if ZombRand(4) == 0 then
             local x1 = def:getX()
             local x2 = def:getX2()
             local y1 = def:getY()

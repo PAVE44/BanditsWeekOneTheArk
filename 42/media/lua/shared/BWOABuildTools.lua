@@ -357,7 +357,7 @@ end
 
 -- removal
 
-BWOABuildTools.RemoveObject = function(x, y, z, customName)
+BWOABuildTools.RemoveObject = function(x, y, z, name)
     local square = getCell():getGridSquare(x, y, z)
     if square then
         local objects = square:getObjects()
@@ -365,8 +365,9 @@ BWOABuildTools.RemoveObject = function(x, y, z, customName)
             local object = objects:get(i)
             local sprite = object:getSprite()
             if sprite then
+                local spriteName = sprite:getName()
                 local props = sprite:getProperties()
-                if props:Is("CustomName") and props:Val("CustomName") == customName then
+                if name == spriteName or (props:Is("CustomName") and props:Val("CustomName") == name) then
                     square:transmitRemoveItemFromSquare(object)
                     break
                 end

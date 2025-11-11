@@ -26,7 +26,7 @@ BWOAEvents.FadeIn = function(params)
             UIManager.FadeIn(playerNum, params.time)
             UIManager.setFadeBeforeUI(playerNum, false)
             getSoundManager():setSoundVolume(params.volume)
-            BWOASound.PlayPlayer({sound="AmbientHorn"})
+            -- BWOASound.PlayPlayer({sound="AmbientHorn"})
         end
     end
 end

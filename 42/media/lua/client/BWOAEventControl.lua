@@ -18,9 +18,10 @@ function onTick()
     if not player then return end
 
     local ct = BanditUtils.GetTime()
-    for i, event in pairs(BWOAEventControl.Events) do
+    for i, event in ipairs(BWOAEventControl.Events) do
         if event.start < ct then
             if BWOAEvents[event.name] then
+                -- print ("EVENT:" .. event.name)
                 BWOAEvents[event.name](event.params)
             end
             table.remove(BWOAEventControl.Events, i)

@@ -1,3 +1,6 @@
+require "BWOADialogues"
+require "BWOAMissions"
+
 BWOAGlobalData = {}
 
 function InitBWOAModData(isNewGame)
@@ -92,6 +95,15 @@ function InitBWOAModData(isNewGame)
 
     if not globalData.hatches then 
         globalData.hatches = {}
+    end
+
+    if not globalData.dialogues then 
+        globalData.dialogues = BWOADialogues.dialogues
+    end
+
+    if not globalData.missions then 
+        globalData.missions = BWOAMissions.missions
+        
     end
 
     BWOAGlobalData = globalData

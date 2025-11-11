@@ -15,12 +15,11 @@ BWOABaseAPI.generators = {
 BWOABaseAPI.heatsources = {}
 
 BWOABaseAPI.GeneratorsUpdate = function()
-
     local cell = getCell()
 
     -- ensure fake generator presence
     for _, coords in pairs(BWOABaseAPI.generators) do
-        local square = cell:getGridSquare(coords.x, coords.y, coords.z)
+        local square = cell:getOrCreateGridSquare(coords.x, coords.y, coords.z)
         if square then
             local generator = square:getGenerator()
             if not generator then
@@ -32,6 +31,7 @@ BWOABaseAPI.GeneratorsUpdate = function()
                 generator:setFuel(100)
                 generator:setConnected(true)
                 cell:addToProcessIsoObjectRemove(generator)
+                square:setSquareChanged()
             else
                 generator:setCondition(100)
                 generator:setFuel(100)

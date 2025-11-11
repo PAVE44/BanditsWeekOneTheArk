@@ -50,7 +50,7 @@ module Bandits {
         loop = true,
         is3D = true,
         clip { 
-            file = media/sound/ambient_computer.ogg, 
+            file = media/sound/ambient_computer2.ogg, 
             distanceMin = 1,
             distanceMax = 12,
             reverbFactor = 0.6, 

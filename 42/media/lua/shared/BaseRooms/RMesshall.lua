@@ -3,7 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.Messhall = {}
 
 BWOARooms.Messhall.Init = function ()
-    BWOARooms.Messhall.name = "Messhall"
+    BWOARooms.Messhall.name = "MESSHALL"
     BWOARooms.Messhall.x1 = 9959
     BWOARooms.Messhall.x2 = 9970
     BWOARooms.Messhall.y1 = 12610

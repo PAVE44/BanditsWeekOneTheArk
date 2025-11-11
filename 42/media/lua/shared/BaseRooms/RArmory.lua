@@ -1,40 +1,40 @@
 BWOARooms = BWOARooms or {}
 
-BWOARooms.Armoury = {}
+BWOARooms.Armory = {}
 
-BWOARooms.Armoury.Init = function ()
-    BWOARooms.Armoury.name = "Armoury"
-    BWOARooms.Armoury.x1 = 9973
-    BWOARooms.Armoury.x2 = 9978
-    BWOARooms.Armoury.y1 = 12614
-    BWOARooms.Armoury.y2 = 12617
-    BWOARooms.Armoury.z = -4
-    BWOARooms.Armoury.ambience = ""
+BWOARooms.Armory.Init = function ()
+    BWOARooms.Armory.name = "ARMORY"
+    BWOARooms.Armory.x1 = 9973
+    BWOARooms.Armory.x2 = 9978
+    BWOARooms.Armory.y1 = 12614
+    BWOARooms.Armory.y2 = 12617
+    BWOARooms.Armory.z = -4
+    BWOARooms.Armory.ambience = ""
 
-    BWOARooms.Armoury.vents = {
+    BWOARooms.Armory.vents = {
         {x=9973, y=12616.5, z=-4},
     }
 
-    BWOARooms.Armoury.els = {}
-    for x=BWOARooms.Armoury.x1, BWOARooms.Armoury.x2 do
-        table.insert(BWOARooms.Armoury.els, {dir="N", x=x, y=BWOARooms.Armoury.y1, z=-4})
-        table.insert(BWOARooms.Armoury.els, {dir="S", x=x, y=BWOARooms.Armoury.y2, z=-4})
+    BWOARooms.Armory.els = {}
+    for x=BWOARooms.Armory.x1, BWOARooms.Armory.x2 do
+        table.insert(BWOARooms.Armory.els, {dir="N", x=x, y=BWOARooms.Armory.y1, z=-4})
+        table.insert(BWOARooms.Armory.els, {dir="S", x=x, y=BWOARooms.Armory.y2, z=-4})
     end
 
-    for y=BWOARooms.Armoury.y1, BWOARooms.Armoury.y2 do
+    for y=BWOARooms.Armory.y1, BWOARooms.Armory.y2 do
         if y ~= 12615 then
-            table.insert(BWOARooms.Armoury.els, {dir="W", x=BWOARooms.Armoury.x1, y=y, z=-4})
+            table.insert(BWOARooms.Armory.els, {dir="W", x=BWOARooms.Armory.x1, y=y, z=-4})
         end
-        table.insert(BWOARooms.Armoury.els, {dir="E", x=BWOARooms.Armoury.x2, y=y, z=-4})
+        table.insert(BWOARooms.Armory.els, {dir="E", x=BWOARooms.Armory.x2, y=y, z=-4})
     end
     
 end
 
-BWOARooms.Armoury.Build = function ()
-    BWOARooms.Armoury.Init()
+BWOARooms.Armory.Build = function ()
+    BWOARooms.Armory.Init()
     BWOAPrepareTools.DarkenLight(9973, 12614, -4)
 
-    BWOABuildTools.ELS(BWOARooms.Armoury.els)
+    BWOABuildTools.ELS(BWOARooms.Armory.els)
 
     BWOABuildTools.EmergencyExitW(9973, 12615, -4)
 
@@ -43,19 +43,19 @@ BWOARooms.Armoury.Build = function ()
 
 end
 
-BWOARooms.Armoury.SetEmitters = function ()
-    BWOARooms.Armoury.Init()
+BWOARooms.Armory.SetEmitters = function ()
+    BWOARooms.Armory.Init()
 end
 
-BWOARooms.Armoury.SetFlickers = function ()
-    BWOARooms.Armoury.Init()
+BWOARooms.Armory.SetFlickers = function ()
+    BWOARooms.Armory.Init()
 
     BWOALights.AddFlicker({x=9976, y=12614, z=-4})
     BWOALights.AddFlicker({x=9976, y=12617, z=-4})
 end
 
-BWOARooms.Armoury.Prepare = function ()
-    BWOARooms.Armoury.Init()
+BWOARooms.Armory.Prepare = function ()
+    BWOARooms.Armory.Init()
 
     BWOAPrepareTools.AddWorldItem(9973, 12614, -4, "Base.Shotgun", {x=0.49, y=0.26, z=0.21, rx=21, ry=90, rz=93})
     BWOAPrepareTools.AddWorldItem(9973, 12614, -4, "Base.ShotgunShellsCarton", {x=0.68, y=0.29, z=0.00, rx=0, ry=0, rz=0})

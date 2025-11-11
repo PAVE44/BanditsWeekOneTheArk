@@ -9,6 +9,6 @@ description=<RED>Always make sure that you have the newest version of Bandits mo
 author=Slayer
 tiledef=theark 2281
 pack=theark
-require=\Bandits2
+require=\Bandits2,\Waterpipes
 incompatible=\BanditsDayOne,\BanditsWeekOne
 

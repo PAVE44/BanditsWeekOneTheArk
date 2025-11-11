@@ -22,34 +22,36 @@ BWOASound.megaphones.noah = {
 
 BWOASound.noahSounds = {
     ["ATTENTION"] = "NoahAttention",
+    ["POWERUP"] = "NoahPowerUp",
+    ["POWERDOWN"] = "NoahPowerDown",
     ["BIO"] = "NoahBio",
     ["GENERATORFAILURE"] = "NoahGeneratorFailure",
     ["GENERATORFUELLOW"] = "NoahGeneratorFuelLow",
     ["RADIATION"] = "NoahRadiation",
     ["CO2"] = "NoahCO2",
+    ["STRUCTURAL"] = "NoahStructural",
     ["WATERFAILURE"] = "NoahWaterFailure",
     ["HEATINGFAILURE"] = "NoahHeatingFailure",
     ["FIRE"] = "NoahFire",
-    ["BATHROOM_ONE"] = "NoahBathroomOne",
-    ["BATHROOM_TWO"] = "NoahBathroomTwo",
-    ["BEDROOM_ONE"] = "NoahBedroomOne",
-    ["BEDROOM_TWO"] = "NoahBedroomTwo",
+    ["AIRVENTROOM"] = "NoahAirVentRoom",
+    ["ARMORY"] = "NoahArmory",
+    ["BATHROOM"] = "NoahBathroom",
+    ["BEDROOM"] = "NoahBedroom",
+    ["CHAPEL"] = "NoahChapel",
     ["CONTROL_ROOM"] = "NoahControlRoom",
     ["GENERATOR_ROOM"] = "NoahGeneratorRoom",
-    ["GYM"] = "NoahGym",
-    ["HYDROPONICS"] = "NoahHydroponics",
+    ["FOODGARDEN"] = "NoahFoodGarden",
     ["INCINERATOR_ROOM"] = "NoahIncineratorRoom",
     ["INFIRMARY"] = "NoahInfirmary",
+    ["MEETING_ROOM"] = "NoahMeetingRoom",
     ["LABORATORY"] = "NoahLaboratory",
     ["LIBRARY"] = "NoahLibrary",
-    ["MECHANICAL"] = "NoahMechanical",
     ["MESSHALL"] = "NoahMesshall",
-    ["RECROOM"] = "NoahRecRoom",
+    ["LIVINGROOM"] = "NoahLivingRoom",
     ["STORAGEAREAONE"] = "NoahStorageAreaOne",
     ["STORAGEAREATWO"] = "NoahStorageAreaTwo",
     ["STORAGEAREATHREE"] = "NoahStorageAreaThree",
     ["STORAGEAREAFOUR"] = "NoahStorageAreaFour",
-    ["STORAGEAREAFIVE"] = "NoahStorageAreaFive",
 }
 
 BWOASound.PlayPlayer = function(tab)
@@ -175,7 +177,7 @@ local function onTick()
 
                 print ("start: " .. event.sound)
                 megaphone.emitter:playSound(event.sound)
-                megaphone.emitter:setVolumeAll(volume / 1.5)
+                megaphone.emitter:setVolumeAll(volume)
                 megaphone.emitter:tick()
 
             end

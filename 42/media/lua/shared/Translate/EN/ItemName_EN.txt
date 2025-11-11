@@ -1,0 +1,7 @@
+ItemName_EN = {
+    ItemName_Base.Pills = "Bayer Aspirine",
+    ItemName_Bandits.PillsPotassiumYodine = "Potassium Yodine",
+    ItemName_Bandits.PillsPentoxifylline = "Pentoxifylline",
+    ItemName_Bandits.PillsPrussianBlue = "Prussian Blue",
+    ItemName_Bandits.PillsNikethamide = "Nikethamide",
+}

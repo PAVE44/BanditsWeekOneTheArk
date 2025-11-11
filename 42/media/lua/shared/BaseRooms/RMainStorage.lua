@@ -3,7 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.MainStorage = {}
 
 BWOARooms.MainStorage.Init = function ()
-    BWOARooms.MainStorage.name = "MainStorage"
+    BWOARooms.MainStorage.name = "STORAGEAREAONE"
     BWOARooms.MainStorage.x1 = 9944
     BWOARooms.MainStorage.x2 = 9956
     BWOARooms.MainStorage.y1 = 12627

@@ -21,9 +21,54 @@ module Bandits
         DisplayCategory = FirstAid,
         Type = Drainable,
         Weight = 0.2,
-        Icon = PillsAntidepressant,
+        Icon = PillsPotassiumYodine,
         Medical = true,
         Tooltip = Tooltip_PillsPotassiumYodine,
+        UseDelta = 0.1,
+        UseWhileEquipped = false,
+        StaticModel = PillBottle,
+        WorldStaticModel = PillBottleGround,
+        Tags = Pills,
+    }
+
+    item PillsPentoxifylline
+    {
+        DisplayCategory = FirstAid,
+        Type = Drainable,
+        Weight = 0.2,
+        Icon = PillsAntidepressant,
+        Medical = true,
+        Tooltip = Tooltip_PillsPentoxifylline,
+        UseDelta = 0.1,
+        UseWhileEquipped = false,
+        StaticModel = PillBottle,
+        WorldStaticModel = PillBottleGround,
+        Tags = Pills,
+    }
+
+    item PillsPrussianBlue
+    {
+        DisplayCategory = FirstAid,
+        Type = Drainable,
+        Weight = 0.2,
+        Icon = PillsAntidepressant,
+        Medical = true,
+        Tooltip = Tooltip_PillsPrussianBlue,
+        UseDelta = 0.1,
+        UseWhileEquipped = false,
+        StaticModel = PillBottle,
+        WorldStaticModel = PillBottleGround,
+        Tags = Pills,
+    }
+
+    item PillsNikethamide
+    {
+        DisplayCategory = FirstAid,
+        Type = Drainable,
+        Weight = 0.2,
+        Icon = PillsAntidepressant,
+        Medical = true,
+        Tooltip = Tooltip_PillsNikethamide,
         UseDelta = 0.1,
         UseWhileEquipped = false,
         StaticModel = PillBottle,

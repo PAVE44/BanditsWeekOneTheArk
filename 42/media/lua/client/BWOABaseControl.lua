@@ -9,6 +9,30 @@ local function onGameStart()
     end
 
     BWOABuildings.LoadHatches()
+
+    local radio = getZomboidRadio()
+    local rsm = radio:getScriptManager()
+    rsm:RemoveChannel(93200)
+    rsm:RemoveChannel(94200)
+    rsm:RemoveChannel(98000)
+    rsm:RemoveChannel(101200)
+    rsm:RemoveChannel(89400)
+    rsm:RemoveChannel(200)
+    rsm:RemoveChannel(201)
+    rsm:RemoveChannel(203)
+    rsm:RemoveChannel(204)
+    rsm:RemoveChannel(205)
+    rsm:RemoveChannel(91200)
+    rsm:RemoveChannel(107600)
+    rsm:RemoveChannel(95000)
+    rsm:RemoveChannel(206)
+    rsm:RemoveChannel(207)
+    rsm:RemoveChannel(208)
+    rsm:RemoveChannel(209)
+    rsm:RemoveChannel(210)
+    rsm:reset()
+    
+
 end
 
 local function onPreMapLoad()
@@ -18,7 +42,7 @@ end
 
 local function onCreatePlayer(playerNum, player)
     local hours = player:getHoursSurvived()
-    if hours < 0.1 then
+    if hours < 0.02 then
         BWOASequence.Start()
     else
         BWOASequence.Resume()
@@ -29,7 +53,7 @@ local function manageIntrusion()
 
     local gametime = getGameTime()
     local minute = gametime:getMinutes()
-    if minute % 2 == 0 then return end
+    if minute % 4 > 0 then return end
 
     local zombieList = BanditZombie.CacheLightZ
     local roomNames = {}
@@ -73,15 +97,33 @@ local function managePower()
 
     -- set global power var
     BWOABaseControl.powerUsing = 0
+    local newPower
     if genCnt > 0 then
-        BWOABaseControl.power = true
-    else
-        BWOABaseControl.power = false
-    end
-
-    -- ensure presence of fake generators
-    if genCnt > 0 then
+        -- ensure presence of fake generators
         BWOABaseAPI.GeneratorsUpdate()
+        newPower = true
+    else
+        newPower = false
+    end
+    
+    if newPower ~= BWOABaseControl.power then
+        BWOABaseControl.power = newPower
+        BWOASound.ClearNoah()
+        if BWOABaseControl.power then
+            BWOABaseAPI.GeneratorsOn()
+            BWOASequence.EmergencyLights({active=false})
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERUP})
+        else
+            BWOABaseAPI.GeneratorsOff()
+            BWOASequence.EmergencyLights({active=true})
+
+            -- force shutdown of other systems using power here:
+            BWOABaseAPI.AlarmOff()
+
+            gmd.ventilation.active = false
+            gmd.waterpump.active = false
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERDOWN})
+        end
     end
 
     -- generator fuel usage
@@ -148,7 +190,7 @@ local function managePower()
                 end
 
                 -- alerting
-                if minute % 5 == 0 then
+                if minute % 10 == 1 then
                     local fuelAlert = false
                     local conditionAlert = false
                     if gen.fuel < gmd.alerting.generatorFuelAlert then
@@ -176,26 +218,14 @@ local function managePower()
             end
         end
     end
-
-    -- handle generator status
-    if genCnt > 0 then
-        BWOABaseAPI.GeneratorsOn()
-        BWOASequence.EmergencyLights({active=false})
-    else
-        BWOABaseAPI.GeneratorsOff()
-
-        BWOASequence.EmergencyLights({active=true})
-
-        -- force shutdown of other systems using power here:
-        BWOABaseAPI.AlarmOff()
-
-        gmd.ventilation.active = false
-        gmd.waterpump.active = false
-    end
 end
 
 local function manageVentilation()
     local gmd = GetBWOAModData()
+    local gameTime = getGameTime()
+    local hour = gameTime:getHour()
+    local minute = gameTime:getMinutes()
+
     local ventilation = gmd.ventilation
     if ventilation.active and ventilation.heating then
         if ventilation.temp < ventilation.tempTarget then
@@ -235,6 +265,20 @@ local function manageVentilation()
     if ventilation.co2 > 100000 then ventilation.co2 = 100000 end
 
     BWOABaseAPI.AirIntakeUpdate(ventilation.active, airintakes)
+
+    -- alerting
+    if minute % 30 == 2 then
+        if ventilation.co2 > 6000 then
+            BWOASound.ClearNoah()
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.CO2})
+
+            if ventilation.co2 > 60000 then
+                BWOABaseAPI.AlarmOn()
+            end
+        end
+    end
+
 end
 
 local function manageWater()

@@ -17,11 +17,11 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_
 
 local roomRevealMap = {
     ["GENERATOR_ROOM"] = {person = "Emma Robinson", qid = "100.1"},
-    ["HYDROPONICS"]    = {person = "Emma Robinson", qid = "100.3"},
+    ["FOODGARDEN"]     = {person = "Emma Robinson", qid = "100.3"},
     ["LIBRARY"]        = {person = "Emma Robinson", qid = "100.4"},
     ["CHAPEL"]         = {person = "Emma Robinson", qid = "100.5"},
     ["LABORATORY"]     = {person = "Emma Robinson", qid = "100.6"},
-    ["BEDROOM_ONE"]    = {person = "Emma Robinson", qid = "100.7"},
+    ["BEDROOM"]        = {person = "Emma Robinson", qid = "100.7"},
 }
 
 local traitRevealMap = {
@@ -55,6 +55,14 @@ local onPlayerUpdate = function(player)
         end
     end
 
+    -- player clothing discovery
+    if BWOAPlayer.tick == 2 then 
+        local suit = player:getWornItem("Boilersuit")
+        if suit then
+            BWOAMissions.Accomplish(2)
+        end
+    end
+
     BWOAPlayer.tick = BWOAPlayer.tick + 1
 end
 
@@ -71,6 +79,7 @@ local function everyOneMinute()
 
     local md = player:getModData()
     if not md.bwoa then md.bwoa = {} end
+    if not md.bwoa.drug then md.bwoa.drug = {} end
 
     local hasSuit
     local hasMask
@@ -202,6 +211,10 @@ local function everyOneMinute()
     end
 
     md.bwoa.radiation = md.bwoa.radiation - 0.5
+    if md.bwoa.drug.PotassiumYodine and md.bwoa.drug.PotassiumYodine > 0 then
+        md.bwoa.radiation = md.bwoa.radiation - 1
+    end
+
     if md.bwoa.radiation < 0 then 
         md.bwoa.radiation = 0
         md.bwoa.timeRadiatedHematopoietic = 0
@@ -263,6 +276,15 @@ local function everyOneMinute()
             fatigueExpected = 0.65
         end
 
+        if md.bwoa.drug.Aspirine and md.bwoa.drug.Aspirine > 0 then
+            headAcheExpected = headAcheExpected / 2
+        end
+
+        if md.bwoa.drug.Pentoxifylline and md.bwoa.drug.Pentoxifylline > 0 then
+            fatigueExpected = fatigueExpected / 3
+            enduranceExpected = enduranceExpected / 3
+        end
+
         if healthExpected then
             if health < healthExpected then 
                 bodyDamage:getOverallBodyHealth(health - 1)
@@ -300,8 +322,75 @@ local function everyOneMinute()
         end
     end
 
+    if md.bwoa.drug.Aspirine and md.bwoa.drug.Aspirine > 0 then
+        local cs = bodyDamage:getColdStrength()
+        cs = cs - 0.8
+        if cs < 0 then cs = 0 end
+        bodyDamage:setColdStrength(cs)
+    end
+
+    -- drug in organism depletion
+    for drug, dose in pairs(md.bwoa.drug) do
+        dose = dose - 1
+        if dose < 0 then dose = 0 end
+        md.bwoa.drug[drug] = dose
+    end
+
+end
+
+local onTimedActionPerform = function(data)
+   
+    local character = data.character
+    if not character then return end
+
+    local action = data.action:getMetaType()
+    if not action then return end
+
+    local md = character:getModData()
+    if not md.bwoa then md.bwoa = {} end
+
+    if action == "ISTakePillAction" then
+        if not md.bwoa.drug then md.bwoa.drug = {} end
+
+        local drugMap ={
+            ["Pills"] = { -- heals cold
+                name = "Aspirine",
+                dose = 120
+            },
+            ["PillsPotassiumYodine"] = { -- accumulated radiation will wear off quicker
+                name = "PotassiumYodine",
+                dose = 480
+            },
+            ["PillsPentoxifylline"] = { -- minimizes effects of high co2 
+                name = "Pentoxifylline",
+                dose = 240
+            },
+            ["PillsPrussianBlue"] = {
+                name = "PrussianBlue",
+                dose = 480
+            },
+            ["PillsNikethamide"] = { -- helps in hypotermia
+                name = "Nikethamide",
+                dose = 480
+            },
+        }
+
+        local item = data.item
+        local itemType = item:getType()
+        if drugMap[itemType] then
+            local drug = drugMap[itemType]
+            if not md.bwoa.drug[drug.name] then md.bwoa.drug[drug.name] = 0 end
+            md.bwoa.drug[drug.name] = md.bwoa.drug[drug.name] + drug.dose
+        end
+    end
 end
 
 Events.OnPlayerUpdate.Remove(onPlayerUpdate)
 Events.OnPlayerUpdate.Add(onPlayerUpdate)
+
+Events.EveryOneMinute.Remove(everyOneMinute)
 Events.EveryOneMinute.Add(everyOneMinute)
+
+Events.OnTimedActionPerform.Remove(onTimedActionPerform)
+Events.OnTimedActionPerform.Add(onTimedActionPerform)
+

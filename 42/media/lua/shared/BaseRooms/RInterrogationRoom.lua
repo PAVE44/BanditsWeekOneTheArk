@@ -3,7 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.InterrogationRoom = {}
 
 BWOARooms.InterrogationRoom.Init = function ()
-    BWOARooms.InterrogationRoom.name = "InterrogationRoom"
+    BWOARooms.InterrogationRoom.name = "MEETING_ROOM"
     BWOARooms.InterrogationRoom.x1 = 9959
     BWOARooms.InterrogationRoom.x2 = 9965
     BWOARooms.InterrogationRoom.y1 = 12631

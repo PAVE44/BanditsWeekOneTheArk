@@ -3,7 +3,7 @@ BWOARooms = BWOARooms or {}
 BWOARooms.BathroomFemale = {}
 
 BWOARooms.BathroomFemale.Init = function ()
-    BWOARooms.BathroomFemale.name = "BATHROOM_ONE"
+    BWOARooms.BathroomFemale.name = "BATHROOM"
     BWOARooms.BathroomFemale.x1 = 9948
     BWOARooms.BathroomFemale.x2 = 9956
     BWOARooms.BathroomFemale.y1 = 12600

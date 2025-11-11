@@ -4,10 +4,10 @@ BWOARooms.Control = {}
 
 BWOARooms.Control.Init = function ()
     BWOARooms.Control.name = "CONTROL_ROOM"
-    BWOARooms.Control.x1 = 9948
-    BWOARooms.Control.x2 = 9956
-    BWOARooms.Control.y1 = 12600
-    BWOARooms.Control.y2 = 12608
+    BWOARooms.Control.x1 = 9959
+    BWOARooms.Control.x2 = 9964
+    BWOARooms.Control.y1 = 12621
+    BWOARooms.Control.y2 = 12630
     BWOARooms.Control.z = -4
     BWOARooms.Control.ambience = ""
 
@@ -52,6 +52,7 @@ BWOARooms.Control.Build = function ()
     BWOABuildTools.LampDeskYellowN(9963, 12626, -4)
     BWOABuildTools.LampDeskYellowS(9964, 12625, -4)
 
+    BWOABuildTools.RemoveObject(9966, 12637, -4, "industry_02_169")
     BWOABuildTools.Generic(9960, 12621, -4, "theark_01_2")
     BWOABuildTools.Generic(9961, 12621, -4, "theark_01_4")
     BWOABuildTools.Generic(9962, 12621, -4, "theark_01_3")
@@ -61,9 +62,9 @@ end
 
 BWOARooms.Control.SetEmitters = function ()
     BWOARooms.Control.Init()
-    BWOASound.AddToObject({x=9959.5, y=12621, z=-4, elec=true, sound="AmbientElectricity"})
-    BWOASound.AddToObject({x=9961.5, y=12620, z=-4, elec=true, sound="AmbientComputer"})
-    BWOASound.AddToObject({x=9963.5, y=12621, z=-4, elec=true, sound="AmbientElectricity"})
+    BWOASound.AddToObject({x=9959.5, y=12621, z=-4, sound="AmbientElectricity"})
+    BWOASound.AddToObject({x=9961.5, y=12620, z=-4, sound="AmbientComputer"})
+    BWOASound.AddToObject({x=9963.5, y=12621, z=-4, sound="AmbientElectricity"})
 end
 
 BWOARooms.Control.SetFlickers = function ()

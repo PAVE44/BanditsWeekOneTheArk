@@ -10,6 +10,8 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
+BWOAMenu.version = "0.19"
+
 BWOAMenu.blinking = {}
 
 BWOAMenu.specialObjectsCanHighlight = {}
@@ -191,16 +193,6 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Ark Alarm On", player, BWOAMenu.ArkAlarm, true)
         context:addOption("Ark Alarm Off", player, BWOAMenu.ArkAlarm, false)
 
-        local roomOption = context:addOption("Spawn Room")
-        local roomMenu = context:getNew(context)
-        context:addSubMenu(roomOption, roomMenu)
-
-        local roomNames = {"AirIntake", "BathroomFemale", "BathroomMale", "BedroomMale", "Control", "Corridor", "Chapel", "Hydroponics", "Infirmary", "InterrogationRoom", "Library", "Lab", "Incinerator", "Generator", "MainStorage", "Messhall"}
-
-        for i=1, #roomNames do
-            local roomName = roomNames[i]
-            roomMenu:addOption(roomName, player, BWOAMenu.MakeRoom, roomName)
-        end
     end
 end
 

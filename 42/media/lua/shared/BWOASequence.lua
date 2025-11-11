@@ -1,7 +1,10 @@
+require "BWOABandit"
+
 BWOASequence = BWOASequence or {}
 
 -- when player starts the game
 BWOASequence.Start = function(params)
+
     -- fade out
 
     local volume = getSoundManager():getSoundVolume()
@@ -9,13 +12,14 @@ BWOASequence.Start = function(params)
     BWOAEventControl.Add("FadeOut", {time=0}, 0)
 
     -- player start coords
-    local px = 9966
-    local py = 12622
-    local pz = -4
-    BWOAEventControl.Add("Teleport", {x = px, y = py, z = pz}, 0)
+    local px = Bandit.playerStart.x
+    local py = Bandit.playerStart.y
+    local pz = Bandit.playerStart.y
 
-    BWOAEventControl.Add("WorldSetup", {}, 0)
-    BWOAEventControl.Add("PlayerSetup", {x = px, y = py, z = pz}, 0)
+    -- BWOAEventControl.Add("Teleport", {x = px, y = py, z = pz}, 0)
+
+    BWOAEventControl.Add("WorldSetup", {}, 1)
+    BWOAEventControl.Add("PlayerSetup", {x = px, y = py, z = pz}, 2)
 
     -- build
     for roomName, _ in pairs(BWOARooms) do
@@ -43,9 +47,9 @@ BWOASequence.Start = function(params)
 
     local emma = {
         cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce",
-        x = px + 2,
-        y = py + 2,
-        z = z,
+        x = Bandit.emmaStart.x,
+        y = Bandit.emmaStart.y,
+        z = Bandit.emmaStart.z,
         program = "Emma",
         size = 1,
         voice = 1,
@@ -85,12 +89,25 @@ BWOASequence.EmergencyLights = function(params)
 end
 
 BWOASequence.Earthquake = function(params)
+    local player = getSpecificPlayer(0)
 
     local d = 1
     BWOAEventControl.Add("PlayPlayer", {sound = "AmbientRumble"}, d)
 
+    d = 800
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+    if target.dist < BWOAChat.talkDist then
+        local anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
+        local tab = {id=target.id, txt="Earthquake!", anim=anim}
+        BWOAEventControl.Add("SayBandit", tab, d)
+    end
+
     d = 2000
     BWOAEventControl.Add("AlarmOn", {}, d)
+
+    BWOASound.ClearNoah()
+    BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+    BWOASound.AddNoah({sound = BWOASound.noahSounds.STRUCTURAL})
     
     d = 1000
     for j = 1, params.duration do

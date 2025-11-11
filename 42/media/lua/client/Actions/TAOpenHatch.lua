@@ -28,6 +28,8 @@ function TAOpenHatch:perform()
 
     BWOABuildings.RemoveHatch(x, y)
 
+    BWOAMissions.Accomplish(4)
+
     ISBaseTimedAction.perform(self)
 end
 

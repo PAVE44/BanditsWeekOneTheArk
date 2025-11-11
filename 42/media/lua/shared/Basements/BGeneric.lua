@@ -227,6 +227,21 @@ function BWOABasements.Generic:placeItems()
     end
 end
 
+function BWOABasements.Generic:populate()
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local args = {}
+    args.cid = Bandit.clanMap.BasementWeak
+    args.x = self.x + 5
+    args.y = self.y + 3
+    args.z = -1
+    args.program = "Basement"
+    args.size = 4
+    -- args.permanent = true
+    sendClientCommand(player, 'Spawner', 'Clan', args)
+end
+
 function BWOABasements.Generic:build()
     self:buildFloors()
     self:buildWalls()
@@ -234,6 +249,7 @@ function BWOABasements.Generic:build()
     self:placeFurniture()
     self:placeLights()
     self:placeItems()
+    self:populate()
 end
 
 function BWOABasements.Generic:new(x, y)
@@ -553,7 +569,7 @@ function BWOABasements.Generic:new(x, y)
         {["Base.Tshirt_WhiteTINT"] = 1},
         {["Base.Jumper_RoundNeck"] = 1},
         {["Base.Jumper_VNeck"] = 1},
-        {["Base.Socks"] = 3},
+        {["Base.Socks_Long"] = 3},
         {["Base.Pillow"] = 1},
     }
 

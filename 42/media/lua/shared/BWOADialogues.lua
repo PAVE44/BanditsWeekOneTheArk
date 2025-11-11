@@ -1,6 +1,8 @@
 BWOADialogues = BWOADialogues or {}
 
-BWOADialogues["Emma Robinson"] = {
+BWOADialogues.dialogues = {}
+
+BWOADialogues.dialogues["Emma Robinson"] = {
     ["1"] = {
         qst = "Who are you?",
         ans = "My name is Emma. I'm a survivor, just like you. I'm a doctor.",
@@ -216,6 +218,33 @@ BWOADialogues["Emma Robinson"] = {
         req = {},
         hidden = true,
     },
+    ["5"] = {
+        qst = "Are there any other survivors outside the base?",
+        ans = "Yes, there are some living underground. ",
+        anim = "Talk3",
+        req = {"2.2.1", "1.2.3.1", "3.1.1", "3.2.1.1.1"},
+    },
+    ["5.1"] = {
+        qst = "Can we help other the people living outside?",
+        ans = "We tried that, it's risky. It's been a long time since the event and most of them became very hostile.",
+        anim = "Talk3",
+        req = {"5"},
+    },
+    ["5.1.1"] = {
+        qst = "Are those living outside a threat to us?",
+        ans = "In fact they are. It's either us or them now, you know.",
+        anim = "Talk3",
+        req = {"5.1"},
+    },
+    ["5.1.1.1"] = {
+        qst = "I want to go out and find other people. Where exactly should I go?",
+        ans = "Okay, but be careful. You can check the surrounding houses. Some of them has hidden entrances in the floor to the basements.",
+        anim = "Talk3",
+        req = {"5.1.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 4},
+    },
+
     -- room reveal
     ["100.1"] = {
         qst = "I found a room with loud machinery.",
@@ -404,8 +433,14 @@ BWOADialogues["Emma Robinson"] = {
     },
 }
 
+BWOADialogues.LoadDialogues = function()
+    local gmd = GetBWOAModData()
+    gmd.dialogues = BWOADialogues.dialogues
+end
+
 BWOADialogues.GetQuestions = function(person)
-    local dialogues = BWOADialogues[person]
+    local gmd = GetBWOAModData()
+    local dialogues = gmd.dialogues[person]
     local ret = {}
 
     if dialogues then
@@ -428,7 +463,8 @@ BWOADialogues.GetQuestions = function(person)
 end
 
 BWOADialogues.GetAnswer = function(person, question)
-    local dialogues = BWOADialogues[person]
+    local gmd = GetBWOAModData()
+    local dialogues = gmd.dialogues[person]
     if dialogues then
         for id, dialogue in pairs(dialogues) do
             if dialogue.qst == question and not dialogue.asked and not dialogue.hidden then
@@ -439,7 +475,8 @@ BWOADialogues.GetAnswer = function(person, question)
 end
 
 BWOADialogues.MarkAsked = function(person, question)
-    local dialogues = BWOADialogues[person]
+    local gmd = GetBWOAModData()
+    local dialogues = gmd.dialogues[person]
     if dialogues then
         for id, dialogue in pairs(dialogues) do
             if dialogue.qst == question then
@@ -451,7 +488,8 @@ BWOADialogues.MarkAsked = function(person, question)
 end
 
 BWOADialogues.Reveal = function(person, key)
-    local dialogues = BWOADialogues[person]
+    local gmd = GetBWOAModData()
+    local dialogues = gmd.dialogues[person]
     if dialogues then
         if dialogues[key] then
             dialogues[key].hidden = nil
@@ -460,7 +498,8 @@ BWOADialogues.Reveal = function(person, key)
 end
 
 BWOADialogues.Hide = function(person, key)
-    local dialogues = BWOADialogues[person]
+    local gmd = GetBWOAModData()
+    local dialogues = gmd.dialogues[person]
     if dialogues then
         if dialogues[key] then
             dialogues[key].hidden = true

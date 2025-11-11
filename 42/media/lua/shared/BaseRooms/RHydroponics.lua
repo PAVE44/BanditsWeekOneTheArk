@@ -1,48 +1,48 @@
 BWOARooms = BWOARooms or {}
 
-BWOARooms.Hydroponics = {}
+BWOARooms.FoodGarden = {}
 
-BWOARooms.Hydroponics.Init = function ()
-    BWOARooms.Hydroponics.name = "HYDROPONICS"
-    BWOARooms.Hydroponics.x1 = 9944
-    BWOARooms.Hydroponics.x2 = 9956
-    BWOARooms.Hydroponics.y1 = 12608
-    BWOARooms.Hydroponics.y2 = 12614
-    BWOARooms.Hydroponics.z = -4
-    BWOARooms.Hydroponics.ambience = ""
+BWOARooms.FoodGarden.Init = function ()
+    BWOARooms.FoodGarden.name = "FOODGARDEN"
+    BWOARooms.FoodGarden.x1 = 9944
+    BWOARooms.FoodGarden.x2 = 9956
+    BWOARooms.FoodGarden.y1 = 12608
+    BWOARooms.FoodGarden.y2 = 12614
+    BWOARooms.FoodGarden.z = -4
+    BWOARooms.FoodGarden.ambience = ""
 
-    BWOARooms.Hydroponics.vents = {
+    BWOARooms.FoodGarden.vents = {
         {x=9944, y=12611.5, z=-4},
     }
 
-    BWOARooms.Hydroponics.els = {}
+    BWOARooms.FoodGarden.els = {}
     for x=9944, 9956 do
-        table.insert(BWOARooms.Hydroponics.els, {dir="S", x=x, y=12614, z=-4})
-        table.insert(BWOARooms.Hydroponics.els, {dir="N", x=x, y=12608, z=-4})
+        table.insert(BWOARooms.FoodGarden.els, {dir="S", x=x, y=12614, z=-4})
+        table.insert(BWOARooms.FoodGarden.els, {dir="N", x=x, y=12608, z=-4})
     end
 
     for y=12608, 12614 do
-        table.insert(BWOARooms.Hydroponics.els, {dir="W", x=9944, y=y, z=-4})
+        table.insert(BWOARooms.FoodGarden.els, {dir="W", x=9944, y=y, z=-4})
         if y ~= 12611 then
-            table.insert(BWOARooms.Hydroponics.els, {dir="E", x=9956, y=y, z=-4})
+            table.insert(BWOARooms.FoodGarden.els, {dir="E", x=9956, y=y, z=-4})
         end
     end
 end
 
-BWOARooms.Hydroponics.Build = function ()
-    BWOARooms.Hydroponics.Init()
+BWOARooms.FoodGarden.Build = function ()
+    BWOARooms.FoodGarden.Init()
 
     BWOAPrepareTools.DarkenLight(9956, 12612, -4)
 
-    BWOABuildTools.ELS(BWOARooms.Hydroponics.els)
+    BWOABuildTools.ELS(BWOARooms.FoodGarden.els)
 
-    for x=BWOARooms.Hydroponics.x1, BWOARooms.Hydroponics.x2 do
-        for y=BWOARooms.Hydroponics.y1, BWOARooms.Hydroponics.y2 do
+    for x=BWOARooms.FoodGarden.x1, BWOARooms.FoodGarden.x2 do
+        for y=BWOARooms.FoodGarden.y1, BWOARooms.FoodGarden.y2 do
             BWOABuildTools.RemoveObject(x, y, -4, "Beds")
         end
     end
 
-    for y=BWOARooms.Hydroponics.y1, BWOARooms.Hydroponics.y2 do
+    for y=BWOARooms.FoodGarden.y1, BWOARooms.FoodGarden.y2 do
         BWOABuildTools.RemoveObject(9944, y, -4, "Locker")
     end
 
@@ -127,14 +127,14 @@ BWOARooms.Hydroponics.Build = function ()
 
 end
 
-BWOARooms.Hydroponics.SetEmitters = function ()
+BWOARooms.FoodGarden.SetEmitters = function ()
     for y=12580, 12605, 5 do
         BWOASound.AddToObject({x=9961.5, y=y + 0.5, z=-4, sound="AmbientVent"})
         BWOASound.AddToObject({x=9973.5, y=y + 0.5, z=-4, sound="AmbientVent"})
     end
 end
 
-BWOARooms.Hydroponics.Prepare = function ()
+BWOARooms.FoodGarden.Prepare = function ()
 end
 
 

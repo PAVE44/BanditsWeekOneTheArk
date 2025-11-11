@@ -15,11 +15,21 @@ BWOAMissions.missions = {
     [3] = {
         name = "Fix air vent",
         desc = "Find an air vent located on the surface\nand fix it using a wrench.",
+    },
+    [4] = {
+        name = "Find a hidden basement",
+        desc = "Go outside and find at least one basement with a hidden entrance in the floor.",
     }
 }
 
+BWOAMissions.LoadMissions = function()
+    local gmd = GetBWOAModData()
+    gmd.missions = BWOAMissions.missions
+end
+
 BWOAMissions.GetRevealed = function()
-    local missions = BWOAMissions.missions
+    local gmd = GetBWOAModData()
+    local missions = gmd.missions
     local missionsRevealed = {}
 
     for i, mission in pairs(missions) do
@@ -32,7 +42,8 @@ BWOAMissions.GetRevealed = function()
 end
 
 BWOAMissions.Reveal = function(missionId)
-    local mission = BWOAMissions.missions[missionId]
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
     if mission and not mission.accomplished then
         mission.revealed = true
         BWOAMissions.new = true
@@ -42,7 +53,8 @@ BWOAMissions.Reveal = function(missionId)
 end
 
 BWOAMissions.IsRevealed = function(missionId)
-    local mission = BWOAMissions.missions[missionId]
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
     if mission and mission.revealed then
         return true
     end
@@ -50,14 +62,17 @@ BWOAMissions.IsRevealed = function(missionId)
 end
 
 BWOAMissions.Hide = function(missionId)
-    local mission = BWOAMissions.missions[missionId]
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
     if mission then
         mission.revealed = nil
     end
 end
 
 BWOAMissions.Accomplish = function(missionId)
-    BWOAMissions.missions[missionId].accomplished = true
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    mission.accomplished = true
     BWOAMissions.new = true
     if BWOAMissions.onAccomplish[missionId] then
         BWOAMissions.onAccomplish[missionId]()
@@ -66,7 +81,8 @@ BWOAMissions.Accomplish = function(missionId)
 end
 
 BWOAMissions.IsAccomplished = function(missionId)
-    local mission = BWOAMissions.missions[missionId]
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
     if mission and mission.accomplished then
         return true
     end
@@ -74,7 +90,8 @@ BWOAMissions.IsAccomplished = function(missionId)
 end
 
 BWOAMissions.IsActive = function(missionId)
-    local mission = BWOAMissions.missions[missionId]
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
     if mission and mission.revealed and not mission.accomplished then
         return true
     end

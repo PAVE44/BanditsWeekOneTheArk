@@ -1,49 +1,49 @@
 BWOARooms = BWOARooms or {}
 
-BWOARooms.BedroomMale = {}
+BWOARooms.Bedroom = {}
 
-BWOARooms.BedroomMale.Init = function ()
-    BWOARooms.BedroomMale.name = "BEDROOM_ONE"
-    BWOARooms.BedroomMale.x1 = 9944
-    BWOARooms.BedroomMale.x2 = 9956
-    BWOARooms.BedroomMale.y1 = 12636
-    BWOARooms.BedroomMale.y2 = 12642
-    BWOARooms.BedroomMale.z = -4
-    BWOARooms.BedroomMale.ambience = ""
+BWOARooms.Bedroom.Init = function ()
+    BWOARooms.Bedroom.name = "BEDROOM"
+    BWOARooms.Bedroom.x1 = 9944
+    BWOARooms.Bedroom.x2 = 9956
+    BWOARooms.Bedroom.y1 = 12636
+    BWOARooms.Bedroom.y2 = 12642
+    BWOARooms.Bedroom.z = -4
+    BWOARooms.Bedroom.ambience = ""
 
-    BWOARooms.BedroomMale.vents = {
+    BWOARooms.Bedroom.vents = {
         {x=9944, y=12636.5, z=-4},
     }
 
-    BWOARooms.BedroomMale.els = {}
+    BWOARooms.Bedroom.els = {}
     for x=9944, 9956 do
-        table.insert(BWOARooms.BedroomMale.els, {dir="S", x=x, y=12642, z=-4})
-        table.insert(BWOARooms.BedroomMale.els, {dir="N", x=x, y=12636, z=-4})
+        table.insert(BWOARooms.Bedroom.els, {dir="S", x=x, y=12642, z=-4})
+        table.insert(BWOARooms.Bedroom.els, {dir="N", x=x, y=12636, z=-4})
     end
 
     for y=12636, 12642 do
-        table.insert(BWOARooms.BedroomMale.els, {dir="W", x=9944, y=y, z=-4})
+        table.insert(BWOARooms.Bedroom.els, {dir="W", x=9944, y=y, z=-4})
         if y ~= 12639 then
-            table.insert(BWOARooms.BedroomMale.els, {dir="E", x=9956, y=y, z=-4})
+            table.insert(BWOARooms.Bedroom.els, {dir="E", x=9956, y=y, z=-4})
         end
     end
 end
 
-BWOARooms.BedroomMale.Build = function ()
+BWOARooms.Bedroom.Build = function ()
 
-    BWOARooms.BedroomMale.Init()
+    BWOARooms.Bedroom.Init()
 
     BWOAPrepareTools.DarkenLight(9956, 12640, -4)
 
-    BWOABuildTools.ELS(BWOARooms.BedroomMale.els)
+    BWOABuildTools.ELS(BWOARooms.Bedroom.els)
 
     BWOABuildTools.LampOvalN(9945, 12636, -4)
     BWOABuildTools.LampOvalN(9952, 12636, -4)
     BWOABuildTools.LampOvalS(9945, 12642, -4)
     BWOABuildTools.LampOvalS(9952, 12642, -4)
 
-    for x=BWOARooms.BedroomMale.x1, BWOARooms.BedroomMale.x2 do
-        for y=BWOARooms.BedroomMale.y1, BWOARooms.BedroomMale.y2 do
+    for x=BWOARooms.Bedroom.x1, BWOARooms.Bedroom.x2 do
+        for y=BWOARooms.Bedroom.y1, BWOARooms.Bedroom.y2 do
             BWOABuildTools.RemoveObject(x, y, -4, "Beds")
         end
     end
@@ -72,18 +72,18 @@ BWOARooms.BedroomMale.Build = function ()
 
 end
 
-BWOARooms.BedroomMale.SetEmitters = function ()
-    BWOARooms.BedroomMale.Init()
+BWOARooms.Bedroom.SetEmitters = function ()
+    BWOARooms.Bedroom.Init()
     -- BWOASound.AddToObject({x=9948, y=12605, z=-4, sound="AmbientWaterDrops"})
 end
 
-BWOARooms.BedroomMale.SetFlickers = function ()
-    BWOARooms.BedroomMale.Init()
+BWOARooms.Bedroom.SetFlickers = function ()
+    BWOARooms.Bedroom.Init()
     BWOALights.AddFlicker({x=9945, y=12636, z=-4})
 end
 
-BWOARooms.BedroomMale.Prepare = function ()
-    BWOARooms.BedroomMale.Init()
+BWOARooms.Bedroom.Prepare = function ()
+    BWOARooms.Bedroom.Init()
 
     -- lockers
     local items
@@ -91,16 +91,16 @@ BWOARooms.BedroomMale.Prepare = function ()
     items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 5, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12637, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 5, ["Base.Shoes_Black"] = 1}
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.LongJohns"] = 1, ["Base.Shirt_Denim"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 5, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12638, -4, items, "Locker")
 
-    items = {["Base.Underpants_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1}
+    items = {["Base.Underpants_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Tshirt_WhiteLongSleeveTINT"] = 2, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12639, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Tshirt_WhiteTINT"] = 2, ["Base.Shoes_Black"] = 1}
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.LongJohns"] = 1, ["Base.Shirt_Denim"] = 1, ["Base.Scarf_StripeBlackWhite"] = 2, ["Base.White_LongSleeveTINT"] = 2, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Tshirt_WhiteTINT"] = 2, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12640, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 2, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1}
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Jumper_DiamondPatternTINT"] = 2, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 2, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12641, -4, items, "Locker")
 
     -- pillows

@@ -63,7 +63,11 @@ end
 
 BWOAPrepareTools.AddWorldItem = function(x, y, z, itemType, data)
     local item = BanditCompatibility.InstanceItem(itemType)
-    addWorldItem(x, y, z, item, data)
+    if item then
+        addWorldItem(x, y, z, item, data)
+    else
+        print ("ERROR: problem with item: " .. itemType)
+    end
 end 
 
 BWOAPrepareTools.AddWorldItemSpecial = function(x, y, z, item, data)

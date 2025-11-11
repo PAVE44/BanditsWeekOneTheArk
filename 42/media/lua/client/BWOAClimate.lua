@@ -1,5 +1,5 @@
 
-local FALLOUT_START = -100   -- WorldAge when fallout begins
+local FALLOUT_START = -90   -- WorldAge when fallout begins
 local FALLOUT_END = 8760      -- WorldAge when fallout ends
 local TEMP_LERP = 70          -- Maximum temperature drop
 local TEMP_STEP = 0.5         -- Rate of temperature change per day
@@ -10,6 +10,8 @@ BWOAClimate = BWOAClimate or {}
 BWOAClimate.temp = 0
 BWOAClimate.radiation = 0
 BWOAClimate.tick = 0
+
+BWOAClimate.lastQuake = 0
 
 function onClimateTick()
     local world = getWorld()
@@ -65,7 +67,6 @@ function onClimateTick()
         getClimateManager():triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
     end
 
-
     local ambient = cm:getClimateFloat(ClimateManager.FLOAT_AMBIENT)
     ambient:setEnableOverride(true)
     ambient:setOverride(0.1, 1)
@@ -82,7 +83,6 @@ function onClimateTick()
     windIntensity:setEnableOverride(true)
     windIntensity:setOverride(1, 1)
 
-
     -- renderer not ready for this updates right after game start
     if BWOAClimate.tick > 3 then
         ImprovedFog.setEnableEditing(true)
@@ -98,6 +98,20 @@ function onClimateTick()
     end
 
     BWOAClimate.tick = BWOAClimate.tick + 1
+
+    if BWOAClimate.lastQuake > 200 then
+        if ZombRand(250) == 0 then
+            local playerList = BanditPlayer.GetPlayers()
+            for i=0, playerList:size()-1 do
+                local player = playerList:get(i)
+                if player then
+                    BWOASequence.Earthquake({intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4})
+                end
+            end
+            BWOAClimate.lastQuake = 0
+        end
+    end
+    BWOAClimate.lastQuake = BWOAClimate.lastQuake + 1
 end
 
 Events.OnClimateTick.Add(onClimateTick)
