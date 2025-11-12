@@ -67,6 +67,14 @@ function BWOAMenu.EventCracks(player)
     BWOASequence.Earthquake({intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4})
 end
 
+function BWOAMenu.EventHorde(player)
+    BWOASequence.Horde({intensity = 30})
+end
+
+function BWOAMenu.EventAssault(player)
+    BWOASequence.Assault({intensity = 6})
+end
+
 function BWOAMenu.MakeBasement(player, square)
 
     local basement = BWOABasements.Generic:new(square:getX(), square:getY())
@@ -97,31 +105,6 @@ function BWOAMenu.Spawn(player, square)
     args.size = 1
     -- args.permanent = true
     sendClientCommand(player, 'Spawner', 'Clan', args)
-end
-
-function BWOAMenu.ArkAlarm(player, state)
-    if state then
-        BWOABaseAPI.AlarmOn()
-    else
-        BWOABaseAPI.AlarmOff()
-        BWOARooms.MainStorage.Prepare()
-    end
-end
-
-function BWOAMenu.ArkPower(player, state)
-    if state then
-        BWOABaseAPI.PowerOn()
-    else
-        BWOABaseAPI.PowerOff()
-    end
-end
-
-function BWOAMenu.MakeRoom(player, roomName)
-    BWOARooms[roomName].Init()
-    BWOARooms[roomName].Build()
-    BWOARooms[roomName].Prepare()
-    BWOARooms[roomName].SetEmitters()
-
 end
 
 local saveItems = function(square)
@@ -189,9 +172,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
         context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         context:addOption("Event Cracks", player, BWOAMenu.EventCracks)
-
-        context:addOption("Ark Alarm On", player, BWOAMenu.ArkAlarm, true)
-        context:addOption("Ark Alarm Off", player, BWOAMenu.ArkAlarm, false)
+        context:addOption("Event Horde", player, BWOAMenu.EventHorde)
+        context:addOption("Event Assault", player, BWOAMenu.EventAssault)
 
     end
 end

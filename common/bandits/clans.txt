@@ -46,3 +46,19 @@
 	spawn: groupMax = 10
 	spawn: zone = 0
 
+[2464da7c-5a04-4739-8237-e7b23f5ffa4a]
+	general: name = W1A_Surf_1
+	spawn: friendly = false
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = true
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 10
+	spawn: zone = 0
+

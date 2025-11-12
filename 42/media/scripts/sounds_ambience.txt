@@ -10,6 +10,71 @@ module Bandits {
         } 
     }
 
+    sound AmbientHornLong {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_horn.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientGeiger1 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_1.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger2 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger3 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger4 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger5 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger6 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound AmbientAlarmGlobal {
         category = Object, 
         loop = true,
@@ -160,6 +225,19 @@ module Bandits {
         clip { 
             file = media/sound/ambient_rumble.ogg, 
             reverbFactor = 0.8, 
+        } 
+    }
+
+    sound AmbientMist {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_mist.ogg, 
+            distanceMin = 1,
+            distanceMax = 8,
+            reverbFactor = 0.1, 
+            volume = 0.8, 
         } 
     }
 

@@ -25,6 +25,8 @@ BWOASound.noahSounds = {
     ["POWERUP"] = "NoahPowerUp",
     ["POWERDOWN"] = "NoahPowerDown",
     ["BIO"] = "NoahBio",
+    ["UNAUTHORIZED"] = "NoahUnauthorized",
+    ["DECONTAMINATION"] = "NoahDecontamination",
     ["GENERATORFAILURE"] = "NoahGeneratorFailure",
     ["GENERATORFUELLOW"] = "NoahGeneratorFuelLow",
     ["RADIATION"] = "NoahRadiation",
@@ -34,6 +36,8 @@ BWOASound.noahSounds = {
     ["HEATINGFAILURE"] = "NoahHeatingFailure",
     ["FIRE"] = "NoahFire",
     ["AIRVENTROOM"] = "NoahAirVentRoom",
+    ["ENTRANCE"] = "NoahEntrance",
+    ["DECONTAMINATION_CHAMBER"] = "NoahDecontaminationChamber",
     ["ARMORY"] = "NoahArmory",
     ["BATHROOM"] = "NoahBathroom",
     ["BEDROOM"] = "NoahBedroom",
@@ -135,9 +139,12 @@ local function onTick()
     local pemitter = player:getEmitter()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local maxDist = BWOASound.maxDist
-    local volume = getSoundManager():getSoundVolume()
+    
     local gmd = GetBWOAModData()
     local power = BWOABaseControl.power
+
+    local volume = getSoundManager():getSoundVolume()
+    local volumeNoah = volume * 1.5
 
     -- ambient looped emitter
 
@@ -177,7 +184,7 @@ local function onTick()
 
                 print ("start: " .. event.sound)
                 megaphone.emitter:playSound(event.sound)
-                megaphone.emitter:setVolumeAll(volume)
+                megaphone.emitter:setVolumeAll(volumeNoah)
                 megaphone.emitter:tick()
 
             end

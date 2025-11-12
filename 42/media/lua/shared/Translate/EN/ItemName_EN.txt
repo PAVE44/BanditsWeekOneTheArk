@@ -4,4 +4,5 @@ ItemName_EN = {
     ItemName_Bandits.PillsPentoxifylline = "Pentoxifylline",
     ItemName_Bandits.PillsPrussianBlue = "Prussian Blue",
     ItemName_Bandits.PillsNikethamide = "Nikethamide",
+    ItemName_Bandits.GeigerCounter = "Geiger Counter",
 }

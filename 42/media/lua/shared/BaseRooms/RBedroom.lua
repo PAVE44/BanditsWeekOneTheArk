@@ -94,13 +94,13 @@ BWOARooms.Bedroom.Prepare = function ()
     items = {["Base.Boilersuit_Flying"] = 1, ["Base.LongJohns"] = 1, ["Base.Shirt_Denim"] = 1, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 5, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12638, -4, items, "Locker")
 
-    items = {["Base.Underpants_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Tshirt_WhiteLongSleeveTINT"] = 2, ["Base.Shoes_Black"] = 1}
+    items = {["Base.Underpants_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 4, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Tshirt_WhiteLongSleeveTINT"] = 2, ["Base.Shoes_Black"] = 1, ["Base.Belt2"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12639, -4, items, "Locker")
 
     items = {["Base.Boilersuit_Flying"] = 1, ["Base.LongJohns"] = 1, ["Base.Shirt_Denim"] = 1, ["Base.Scarf_StripeBlackWhite"] = 2, ["Base.White_LongSleeveTINT"] = 2, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 3, ["Base.Tshirt_WhiteTINT"] = 2, ["Base.Shoes_Black"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12640, -4, items, "Locker")
 
-    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Jumper_DiamondPatternTINT"] = 2, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 2, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1}
+    items = {["Base.Boilersuit_Flying"] = 1, ["Base.Jumper_DiamondPatternTINT"] = 2, ["Base.Briefs_White"] = 6, ["Base.Vest_DefaultTEXTURE"] = 2, ["Base.Tshirt_WhiteTINT"] = 4, ["Base.Shoes_Black"] = 1, ["Base.Belt2"] = 1}
     BWOAPrepareTools.AddItemsToContainer(9944, 12641, -4, items, "Locker")
 
     -- pillows

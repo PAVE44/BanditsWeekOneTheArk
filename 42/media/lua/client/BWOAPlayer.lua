@@ -28,6 +28,11 @@ local traitRevealMap = {
     ["Smoker"]      = {person = "Emma Robinson", qid = "200.1"},
 }
 
+local function predicateAll(item)
+    -- item:getType()
+	return true
+end
+
 local onPlayerUpdate = function(player)
     if BWOAPlayer.tick >= 64 then
         BWOAPlayer.tick = 0
@@ -113,6 +118,22 @@ local function everyOneMinute()
         end
     end
 
+    --[[
+    local attachedItems = player:getAttachedItems()
+    for i=0, attachedItems:size()-1 do
+        local attachedItem = attachedItems:get(i)
+        local location = attachedItem:getLocation()
+        local item = attachedItem:getItem()
+    end]]
+
+    local hasGeiger = false
+    local item = player:getAttachedItem("Walkie Belt Left") or player:getAttachedItem("Walkie Belt Right") or player:getPrimaryHandItem() or player:getSecondaryHandItem()
+    if item then
+        if item:hasTag(ItemTag.MISC_ELECTRONIC) then
+            hasGeiger = true
+        end
+    end
+
     -- radiation effect simulation
     if not md.bwoa.radiation then md.bwoa.radiation = 0 end
     if not md.bwoa.timeRadiatedHematopoietic then md.bwoa.timeRadiatedHematopoietic = 0 end
@@ -132,7 +153,33 @@ local function everyOneMinute()
         if not player:isOutside() then multiplayer = multiplayer * 0.8 end
         if multiplayer > 0 then
             if not immuneRadiation then
-                md.bwoa.radiation = md.bwoa.radiation + math.floor(radiation / 60)
+                local dose = math.floor(radiation * multiplayer / 60)
+                md.bwoa.radiation = md.bwoa.radiation + dose
+            end
+
+            -- geiger effect
+            local intensity = BanditUtils.Lerp(radiation * multiplayer, 0, 4000, 0, 6)
+            intensity = math.floor(intensity + 0.5)
+            BWOAEventControl.Add("PlayPlayer", {sound = "AmbientGeiger" .. intensity}, 1)
+
+            -- item contamination
+            local items = ArrayList.new()
+            local inventory = player:getInventory()
+            inventory:getAllEvalRecurse(predicateAll, items)
+            for i=0, items:size()-1 do
+                local item = items:get(i)
+                local ftype = item:getFullType()
+                if suit then
+                    if instanceof(item, "Clothing") then
+                        if item:hasTag(ItemTag.HAZMAT_SUIT) then
+                            item:getModData().radiated = true
+                        end
+                    else
+                        item:getModData().radiated = true
+                    end
+                else
+                    item:getModData().radiated = true
+                end
             end
         end
     end

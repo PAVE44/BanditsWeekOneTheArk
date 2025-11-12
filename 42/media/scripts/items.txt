@@ -75,4 +75,19 @@ module Bandits
         WorldStaticModel = PillBottleGround,
         Tags = Pills,
     }
+
+    item GeigerCounter
+    {
+        DisplayCategory = Accessory,
+        Type = Normal,
+        Weight = 0.3,
+        Icon = WalkieTalkiePolice,
+        AttachmentType = Walkie,
+        Tooltip = Tooltip_GeigerCounter,
+        UsesBattery = true,
+        WorldObjectSprite = appliances_com_01_40,
+        StaticModel = WalkieTalkieTactical,
+        WorldStaticModel = WalkieTalkieTactical,
+        Tags = MiscElectronic,
+    }
 }

@@ -1,5 +1,10 @@
 BWOAEvents = BWOAEvents or {}
 
+local function predicateAll(item)
+    -- item:getType()
+	return true
+end
+
 BWOAEvents.FadeOut = function(params)
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do
@@ -176,9 +181,48 @@ BWOAEvents.PlayPlayer = function(params)
     BWOASound.PlayPlayer(params)
 end
 
+BWOAEvents.PlayLocation = function(params)
+    BWOASound.PlayLocation(params)
+end
+
 BWOAEvents.AlarmOn = function(params)
     BWOABaseAPI.AlarmOn()
 end
+
+BWOAEvents.Effect = function(params)
+    local effect = params
+    BWOAEffects.Add(effect)
+end
+
+BWOAEvents.Decontaminate = function(params)
+    local cell = getCell()
+    for y = params.y1, params.y2 do
+        for x = params.x1, params.x2 do
+            local square = cell:getGridSquare(x, y, params.z)
+            if square then
+                local player = square:getPlayer()
+                if player then
+                    local items = ArrayList.new()
+                    local inventory = player:getInventory()
+                    inventory:getAllEvalRecurse(predicateAll, items)
+                    for i=0, items:size()-1 do
+                        local item = items:get(i)
+                        item:getModData().radiated = false
+                    end
+                end
+
+                local wobs = square:getWorldObjects()
+                for i = 0, wobs:size()-1 do
+                    local o = wobs:get(i)
+                    local item = o:getItem()
+                    item:getModData().radiated = false
+                end
+            end
+        end
+    end
+end
+
+-- events
 
 BWOAEvents.WallCrack = function(params)
     local player = getSpecificPlayer(0)
@@ -254,5 +298,22 @@ BWOAEvents.SpawnGroup = function(params)
     local args = params
 
     sendClientCommand(player, 'Spawner', 'Clan', args)
+end
+
+-- params: size, x, y, z, outfit, femaleChance
+BWOAEvents.HordeAt = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    for j=1, params.size do
+        local zombieList = BanditCompatibility.AddZombiesInOutfit(params.x, params.y, params.z, params.outfit, params.femaleChance, false, false, false, false, false, false, 1)
+        for i=0, zombieList:size()-1 do
+            local zombie = zombieList:get(i)
+            zombie:spotted(player, true)
+            zombie:setTarget(player)
+            zombie:setAttackedBy(player)
+            zombie:pathToLocationF(player:getX(), player:getY(), player:getZ())
+        end
+    end
 end
 

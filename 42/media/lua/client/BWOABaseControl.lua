@@ -57,16 +57,16 @@ local function manageIntrusion()
 
     local zombieList = BanditZombie.CacheLightZ
     local roomNames = {}
-    local alarm = false
+    local alarmZombie = false
     for _, zombie in pairs(zombieList) do
         local room = BWOAUtils.GetRoom(zombie.x, zombie.y, zombie.z)
         if room then
-            alarm = true
+            alarmZombie = true
             roomNames[room.name] = true
         end
     end
 
-    if alarm then
+    if alarmZombie then
         BWOABaseAPI.AlarmOn()
         BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
         BWOASound.AddNoah({sound = BWOASound.noahSounds.BIO})
@@ -74,6 +74,28 @@ local function manageIntrusion()
             BWOASound.AddNoah({sound = BWOASound.noahSounds[roomName]})
         end
     end
+
+    local banditList = BanditZombie.CacheLightB
+    local roomNames = {}
+    local alarmBandit = false
+    for _, bandit in pairs(banditList) do
+        if bandit.brain and bandit.brain.hostile then
+            local room = BWOAUtils.GetRoom(bandit.x, bandit.y, bandit.z)
+            if room then
+                alarmBandit = true
+                roomNames[room.name] = true
+            end
+        end
+    end
+
+    if alarmBandit then
+        BWOABaseAPI.AlarmOn()
+        BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+        BWOASound.AddNoah({sound = BWOASound.noahSounds.UNAUTHORIZED})
+        for roomName, _ in pairs(roomNames) do
+            BWOASound.AddNoah({sound = BWOASound.noahSounds[roomName]})
+        end
+    end    
 end
 
 local function managePower()
@@ -295,6 +317,15 @@ local function manageWater()
     end
 end
 
+local function manageRoomLogic()
+    for room, _ in pairs(BWOARooms) do
+        BWOARooms[room].Init()
+        if BWOARooms[room].Logic then
+            BWOARooms[room].Logic()
+        end
+    end
+end
+
 local function manageFire(fire)
     local x, y, z = fire:getX(), fire:getY(), fire:getZ()
     local room = BWOAUtils.GetRoom(x, y, z)
@@ -325,8 +356,11 @@ Events.EveryOneMinute.Add(managePower)
 Events.EveryOneMinute.Remove(manageVentilation)
 Events.EveryOneMinute.Add(manageVentilation)
 
-Events.OnNewFire.Remove(manageWater)
-Events.OnNewFire.Add(manageWater)
+Events.EveryOneMinute.Remove(manageRoomLogic)
+Events.EveryOneMinute.Add(manageRoomLogic)
+
+Events.OnNewFire.Remove(manageFire)
+Events.OnNewFire.Add(manageFire)
 
 Events.OnNewFire.Remove(manageFire)
 Events.OnNewFire.Add(manageFire)

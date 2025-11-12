@@ -72,6 +72,30 @@ module Bandits {
         } 
     }
 
+    sound NoahUnauthorized {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_unauthorized.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahDecontamination {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_decontamination.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound NoahGeneratorFailure {
         category = Object, 
         loop = false,
@@ -269,7 +293,19 @@ module Bandits {
         loop = false,
         is3D = true,
         clip { 
-            file = media/sound/noah_main_entrance.ogg, 
+            file = media/sound/noah_entrance.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahDecontaminationChamber {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_decontamination_chamber.ogg, 
             distanceMax = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 

@@ -136,6 +136,7 @@ BWOABaseAPI.AlarmOn = function()
         BWOABaseAPI.alarm = true
         BWOASound.AddGlobal({sound="AmbientAlarmGlobal"})
         BWOASound.AddToObject({x=9961, y=12622, z=-4, sound="AmbientAlarmLocal"})
+        BanditPlayer.WakeEveryone()
     end
 end
 

@@ -148,6 +148,13 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.MaximumFireFuelHours = 24
         SandboxVars.BloodLevel = 5
 
+        SandboxVars.ZombieLore.Memory = 1
+        SandboxVars.ZombieLore.Sight = 1
+        SandboxVars.ZombieLore.Hearing = 1
+        SandboxVars.ZombieLore.Cognition = 1
+        SandboxVars.ZombieLore.CrawlUnderVehicle = 7
+       
+
         MainScreen.instance.charCreationMain:setVisible(false)
 
         -- set up the world

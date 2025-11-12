@@ -61,7 +61,7 @@ BWOARooms.Armory.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9973, 12614, -4, "Base.ShotgunShellsCarton", {x=0.68, y=0.29, z=0.00, rx=0, ry=0, rz=0})
 
     local items
-    items = {["Base.HazmatSuitCamo"] = 7, ["Base.Hat_GasMask"] = 7}
+    items = {["Base.HazmatSuitCamo"] = 7, ["Base.Hat_GasMask"] = 7, ["Bandits.GeigerCounter"] = 2}
     BWOAPrepareTools.AddItemsToContainer(9974, 12614, -4, items, "Locker")
 
     local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
