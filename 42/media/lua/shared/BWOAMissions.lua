@@ -44,7 +44,7 @@ end
 BWOAMissions.Reveal = function(missionId)
     local gmd = GetBWOAModData()
     local mission = gmd.missions[missionId]
-    if mission and not mission.accomplished then
+    if mission and not mission.revealed and not mission.accomplished then
         mission.revealed = true
         BWOAMissions.new = true
         BWOASound.PlayPlayer({sound="AmbientHorn"})
@@ -72,10 +72,12 @@ end
 BWOAMissions.Accomplish = function(missionId)
     local gmd = GetBWOAModData()
     local mission = gmd.missions[missionId]
-    mission.accomplished = true
-    BWOAMissions.new = true
-    if BWOAMissions.onAccomplish[missionId] then
-        BWOAMissions.onAccomplish[missionId]()
+    if mission and not mission.accomplished then
+        mission.accomplished = true
+        BWOAMissions.new = true
+        if BWOAMissions.onAccomplish[missionId] then
+            BWOAMissions.onAccomplish[missionId]()
+        end
     end
     -- todo: launch completion mission popup
 end

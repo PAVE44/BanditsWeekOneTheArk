@@ -157,17 +157,16 @@ BWOASequence.Decontamination = function(params)
     local player = getSpecificPlayer(0)
     local px, py, pz = player:getX(), player:getY(), player:getZ()
 
-    BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION})
-
     local mx = math.ceil((params.x1 + params.x2) / 2)
     local my = math.ceil((params.y1 + params.y2) / 2)
     local mz = params.z
     if pz == mz and math.abs(mx - px) < 20 and math.abs(my - py) < 20 then
 
-        local sx, sy, sz = 9947, 12624, -4
+        BWOAEventControl.Add("DecontaminatePre", params, 10)
+
         local soundParams = {x = mx, y = my, z = mz, sound="AmbientMist"}
         BWOAEventControl.Add("PlayLocation", soundParams, 1600)
-
+                    
         local offset = -3 * mz
         for i = 1, 20 do
             local effect = {}
@@ -182,7 +181,7 @@ BWOASequence.Decontamination = function(params)
             effect.colors = {r=0.9, g=0.9, b=1.0, a=0.2}
             BWOAEventControl.Add("Effect", effect, 1600 + (i * 10) + ZombRand(10))
         end
-    end
 
-    BWOAEventControl.Add("Decontaminate", params, 2600)
+        BWOAEventControl.Add("DecontaminatePost", params, 6000)
+    end
 end

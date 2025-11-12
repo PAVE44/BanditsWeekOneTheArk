@@ -73,7 +73,7 @@ function onClimateTick()
 
     local desaturation = cm:getClimateFloat(ClimateManager.FLOAT_DESATURATION)
     desaturation:setEnableOverride(true)
-    desaturation:setOverride(0.5, 1)
+    desaturation:setOverride(0.7, 1)
 
     local fogIntensity = cm:getClimateFloat(ClimateManager.FLOAT_FOG_INTENSITY)
     fogIntensity:setEnableOverride(true)

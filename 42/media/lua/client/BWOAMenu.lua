@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.19"
+BWOAMenu.version = "0.21"
 
 BWOAMenu.blinking = {}
 
@@ -77,7 +77,7 @@ end
 
 function BWOAMenu.MakeBasement(player, square)
 
-    local basement = BWOABasements.Generic:new(square:getX(), square:getY())
+    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom())
     basement:build()
 
 end
@@ -152,6 +152,11 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local square = BanditCompatibility.GetClickedSquare()
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
+    local room = square:getRoom()
+    if room then 
+        local roomName = room:getName()
+    end
+    local playerRoom = square:getIsoWorldRegion()
     -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
 

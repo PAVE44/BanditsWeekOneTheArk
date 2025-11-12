@@ -31,7 +31,8 @@ local function onGameStart()
     rsm:RemoveChannel(209)
     rsm:RemoveChannel(210)
     rsm:reset()
-    
+
+    getCore():setOptionUIRenderFPS(60)
 
 end
 

@@ -5,63 +5,94 @@ BWOABasements.Generic.__index = BWOABasements.Generic
 
 function BWOABasements.Generic:buildFloors()
     local cell = getCell()
-    local sx, sy = self.x, self.y
+    local sx, sy, sz = self.x, self.y, self.z
     local dx, dy = self.dx, self.dy
 
     for x = sx, sx + dx do
         for y = sy, sy + dy do
-            BWOABuildTools.Floor(x, y, -1, self.sprites.floor)
+            BWOABuildTools.Floor(x, y, sz, self.sprites.floor)
+        end
+    end
+end
+
+function BWOABasements.Generic:makeRoom()
+    local cell = getCell()
+    local sx, sy, sz = self.x, self.y, self.z
+    local dx, dy = self.dx, self.dy
+
+    for x = sx, sx + dx do
+        for y = sy + 1, sy + dy do
+            local square = getCell():getGridSquare(x, y, sz)
+            square:getProperties():UnSet(IsoFlagType.exterior)
+            square:setRoom(self.room)
+            square:setRoomID(self.room:getRoomDef():getID())
+            self.room:addSquare(square)
+        end
+    end
+end
+
+function BWOABasements.Generic:buildCeiling()
+    local cell = getCell()
+    local sx, sy, sz = self.x, self.y, self.z
+    local dx, dy = self.dx, self.dy
+
+    for x = sx, sx + dx do
+        for y = sy + 1, sy + dy do
+            BWOABuildTools.Floor(x, y, sz + 1, self.sprites.ceiling)
         end
     end
 end
 
 function BWOABasements.Generic:buildWalls()
     local cell = getCell()
-    local sx, sy = self.x, self.y
+    local sx, sy, sz = self.x, self.y, self.z
     local dx, dy = self.dx, self.dy
 
     local wallSprites = BanditUtils.Choice(self.sprites.wallOptions)
-    BWOABuildTools.Wall (sx, sy, -1, wallSprites.wallNW)
+    BWOABuildTools.Wall (sx, sy, sz, wallSprites.wallNW)
     for x = sx, sx + dx do
-        BWOABuildTools.Wall (x, sy, -1, wallSprites.wallN)
-        BWOABuildTools.Wall (x, sy + dy + 1, -1, wallSprites.wallN)
+        BWOABuildTools.Wall (x, sy, sz, wallSprites.wallN)
+        BWOABuildTools.Wall (x, sy + dy + 1, sz, wallSprites.wallN)
     end
     for y = sy, sy + dy do
-        BWOABuildTools.Wall (sx, y, -1, wallSprites.wallW)
-        BWOABuildTools.Wall (sx + dx + 1, y, -1, wallSprites.wallW)
+        BWOABuildTools.Wall (sx, y, sz, wallSprites.wallW)
+        BWOABuildTools.Wall (sx + dx + 1, y, sz, wallSprites.wallW)
     end
 
-    BWOABuildTools.Wall (sx, sy + 1, -1, wallSprites.wallNW)
-    BWOABuildTools.Wall (sx + 1, sy + 1, -1, wallSprites.wallN)
-    BWOABuildTools.Wall (sx + 2, sy + 1, -1, wallSprites.wallN)
-    BWOABuildTools.Wall (sx + 3, sy + 1, -1, wallSprites.wallN)
-    BWOABuildTools.Generic (sx + 4, sy + 1, -1, wallSprites.doorframeN)
-    BWOABuildTools.Door (sx + 4, sy + 1, -1, true, self.sprites.doorN)
-    BWOABuildTools.Wall (sx + 5, sy + 1, -1, wallSprites.wallN)
-    BWOABuildTools.Wall (sx + 5, sy + 1, -1, wallSprites.wallN)
-    BWOABuildTools.Wall (sx + 6, sy, -1, wallSprites.wallNW)
-    BWOABuildTools.Wall (sx + 6, sy + 1, -1, wallSprites.wallSE)
+    BWOABuildTools.Wall (sx, sy + 1, sz, wallSprites.wallNW)
+    BWOABuildTools.Wall (sx + 1, sy + 1, sz, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 2, sy + 1, sz, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 3, sy + 1, sz, wallSprites.wallN)
+    BWOABuildTools.Generic (sx + 4, sy + 1, sz, wallSprites.doorframeN)
+    BWOABuildTools.Door (sx + 4, sy + 1, sz, true, self.sprites.doorN)
+    BWOABuildTools.Wall (sx + 5, sy + 1, sz, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 5, sy + 1, sz, wallSprites.wallN)
+    BWOABuildTools.Wall (sx + 6, sy, sz, wallSprites.wallNW)
+    BWOABuildTools.Wall (sx + 6, sy + 1, sz, wallSprites.wallSE)
 end
 
 function BWOABasements.Generic:buildStairs()
     local cell = getCell()
-    local sx, sy = self.x, self.y
+    local sx, sy, sz = self.x, self.y, self.z
     local dx, dy = self.dx, self.dy
 
     local stairs = {
         [1] = {
             x = sx,
             y = sy,
+            z = sz,
             spriteName = self.sprites.stairs3
         },
         [2] = {
             x = sx + 1,
             y = sy,
+            z = sz,
             spriteName = self.sprites.stairs2
         },
         [3] = {
             x = sx + 2,
             y = sy,
+            z = sz,
             spriteName = self.sprites.stairs1
         }
     }
@@ -75,7 +106,7 @@ function BWOABasements.Generic:buildStairs()
         end
         squareUp:setSquareChanged()
 
-        BWOABuildTools.Generic (stair.x, stair.y, -1, stair.spriteName)
+        BWOABuildTools.Generic (stair.x, stair.y, stair.z, stair.spriteName)
     end
 end
 
@@ -109,10 +140,8 @@ end
 
 function BWOABasements.Generic:placeFurniture()
     local cell = getCell()
-    local sx, sy = self.x, self.y
+    local sx, sy, sz = self.x, self.y, self.z
     local dx, dy = self.dx, self.dy
-
-    
 
     for fname, fconfig in pairs(self.furniture) do
         if fconfig.chance > ZombRand(100) then
@@ -123,7 +152,7 @@ function BWOABasements.Generic:placeFurniture()
                         if dir == fmap.dir then
                             local allGood = true
                             for _, sconfig in ipairs(dirs) do
-                                local square = cell:getGridSquare(fmap.x + sconfig.x, fmap.y + sconfig.y, -1)
+                                local square = cell:getGridSquare(fmap.x + sconfig.x, fmap.y + sconfig.y, sz)
                                 if not square or not square:isFree(false) then
                                     allGood = false
                                     break
@@ -132,11 +161,11 @@ function BWOABasements.Generic:placeFurniture()
 
                             if allGood then
                                 for _, sconfig in ipairs(dirs) do
-                                    local bx, by = fmap.x + sconfig.x, fmap.y + sconfig.y
+                                    local bx, by, bz = fmap.x + sconfig.x, fmap.y + sconfig.y, sz
                                     if fconfig.fireplace then
-                                        BWOABuildTools.Fireplace (bx, by, -1, sconfig.name)
+                                        BWOABuildTools.Fireplace (bx, by, bz, sconfig.name)
                                     else
-                                        BWOABuildTools.Generic (bx, by, -1, sconfig.name)
+                                        BWOABuildTools.Generic (bx, by, bz, sconfig.name)
                                     end
 
                                     for _, f in ipairs(self.furnitureMap) do 
@@ -163,7 +192,7 @@ function BWOABasements.Generic:placeLights()
         if fmap.surface then
             local rndOpts = {8, 9, 10, 11, 12, 13, 32, 33, 34, 35, 36, 37, 40, 41, 42, 43, 44, 45, 48, 49, 50, 51, 52, 53}
             local rnd = BanditUtils.Choice(rndOpts)
-            BWOABuildTools.LampBattery(fmap.x, fmap.y, -1, "lighting_indoor_01_" .. rnd)
+            BWOABuildTools.LampBattery(fmap.x, fmap.y, self.z, "lighting_indoor_01_" .. rnd)
         end
     end
 end
@@ -174,7 +203,7 @@ function BWOABasements.Generic:placeItems()
     -- containers
     for _, fmap in ipairs(self.furnitureMap) do
         if fmap.items then
-            local square = cell:getGridSquare(fmap.x, fmap.y, -1)
+            local square = cell:getGridSquare(fmap.x, fmap.y, self.z)
             if square then
                 local objects = square:getObjects()
                 for i=0, objects:size()-1 do
@@ -207,7 +236,7 @@ function BWOABasements.Generic:placeItems()
     local j = 1
     for _, fmap in ipairs(self.furnitureMap) do
         if items[j] then
-            local surfaceOffset = BWOAPrepareTools.GetSurfaceOffset(fmap.x, fmap.y, -1)
+            local surfaceOffset = BWOAPrepareTools.GetSurfaceOffset(fmap.x, fmap.y, self.z)
             local itemConf = items[j]
             for itemType, itemCntMax in pairs(itemConf) do
                 local cnt = ZombRand(itemCntMax + 1)
@@ -217,7 +246,7 @@ function BWOABasements.Generic:placeItems()
                         y = ZombRandFloat(0.2, 0.8),
                         z = surfaceOffset
                     }
-                    BWOAPrepareTools.AddWorldItem(fmap.x, fmap.y, -1, itemType, data)
+                    BWOAPrepareTools.AddWorldItem(fmap.x, fmap.y, self.z, itemType, data)
                 end
             end
             j = j + 1
@@ -235,7 +264,7 @@ function BWOABasements.Generic:populate()
     args.cid = Bandit.clanMap.BasementWeak
     args.x = self.x + 5
     args.y = self.y + 3
-    args.z = -1
+    args.z = self.z
     args.program = "Basement"
     args.size = 4
     -- args.permanent = true
@@ -244,15 +273,17 @@ end
 
 function BWOABasements.Generic:build()
     self:buildFloors()
+    self:buildCeiling()
     self:buildWalls()
     self:buildStairs()
+    self:makeRoom()
     self:placeFurniture()
     self:placeLights()
     self:placeItems()
     self:populate()
 end
 
-function BWOABasements.Generic:new(x, y)
+function BWOABasements.Generic:new(x, y, room)
     local self = setmetatable({}, BWOABasements.Generic)
 
     -- const
@@ -265,6 +296,7 @@ function BWOABasements.Generic:new(x, y)
     self.sprites.stairs2 = "fixtures_stairs_01_65"
     self.sprites.stairs3 = "fixtures_stairs_01_66"
     self.sprites.floor = "floors_exterior_street_01_0"
+    self.sprites.ceiling = "carpentry_02_58"
 
     self.sprites.wallOptions = {
         [1] = { -- small brick grayish
@@ -574,8 +606,10 @@ function BWOABasements.Generic:new(x, y)
     }
 
     -- vars
+    self.room = room
     self.x = x
     self.y = y
+    self.z = -1
 
     return self
 end

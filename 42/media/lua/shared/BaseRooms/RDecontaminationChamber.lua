@@ -80,6 +80,10 @@ BWOARooms.DecontaminationChamber.Logic = function ()
             y1 = BWOARooms.DecontaminationChamber.y1,
             y2 = BWOARooms.DecontaminationChamber.y2,
             z = BWOARooms.DecontaminationChamber.z,
+            lamps = {
+                [1] = {x = 9948, y = 12625, z = -4},
+                [2] = {x = 9945, y = 12625, z = -4}
+            }
         }
         BWOASequence.Decontamination(params)
     end

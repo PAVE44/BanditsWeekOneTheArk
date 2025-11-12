@@ -20,7 +20,7 @@ BWOABaseAPI.GeneratorsUpdate = function()
     -- ensure fake generator presence
     for _, coords in pairs(BWOABaseAPI.generators) do
         local square = cell:getOrCreateGridSquare(coords.x, coords.y, coords.z)
-        if square then
+        if square and square:getChunk() then
             local generator = square:getGenerator()
             if not generator then
                 local genItem = BanditCompatibility.InstanceItem("Base.Generator")
@@ -108,7 +108,7 @@ BWOABaseAPI.GetGeneratorPowerUsing = function()
     local powerUsing = 0
     for _, coords in pairs(BWOABaseAPI.generators) do
         local square = getCell():getGridSquare(coords.x, coords.y, coords.z)
-        if square then
+        if square and square:getChunk() then
             local generator = square:getGenerator()
             if generator then
                 if generator:isActivated() then

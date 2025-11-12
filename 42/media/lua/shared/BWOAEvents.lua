@@ -194,7 +194,31 @@ BWOAEvents.Effect = function(params)
     BWOAEffects.Add(effect)
 end
 
-BWOAEvents.Decontaminate = function(params)
+BWOAEvents.DecontaminatePre = function(params)
+    BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION})
+
+    local mx = math.ceil((params.x1 + params.x2) / 2)
+    local my = math.ceil((params.y1 + params.y2) / 2)
+    local mz = params.z
+
+    for _, lcoords in ipairs(params.lamps) do
+        local square = getCell():getGridSquare(lcoords.x, lcoords.y, lcoords.z)
+        if square then
+            local objects = square:getObjects()
+            for i=0, objects:size()-1 do
+                local object = objects:get(i)
+                if instanceof(object, "IsoLightSwitch") then
+                    object:setActive(false)
+                    local ls = IsoLightSource.new(lcoords.x, lcoords.y, lcoords.z, 1, 0, 0, 12, 700)
+                    getCell():addLamppost(ls)
+                end
+            end
+        end
+    end
+end
+
+BWOAEvents.DecontaminatePost = function(params)
+    BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION_COMPLETE})
     local cell = getCell()
     for y = params.y1, params.y2 do
         for x = params.x1, params.x2 do
@@ -216,6 +240,20 @@ BWOAEvents.Decontaminate = function(params)
                     local o = wobs:get(i)
                     local item = o:getItem()
                     item:getModData().radiated = false
+                end
+            end
+        end
+    end
+
+    for _, lcoords in ipairs(params.lamps) do
+        local square = getCell():getGridSquare(lcoords.x, lcoords.y, lcoords.z)
+        if square then
+            local objects = square:getObjects()
+            for i=0, objects:size()-1 do
+                local object = objects:get(i)
+                if instanceof(object, "IsoLightSwitch") then
+                    object:setActive(true)
+                    -- getCell():removeLamppost(lcoords.x, lcoords.y, lcoords.z)
                 end
             end
         end

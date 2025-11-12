@@ -122,10 +122,12 @@ noah alerting
     - radiation warning
 
 
+
+
 things to do
  - meet the people and chat with them
  - listen to lore tapes
-
+ - read books
 
 special quests:
 
@@ -155,3 +157,47 @@ special quests:
   - bandits come to the base
  - zombies come to the base
  - traitor
+
+
+
+ -- chat
+
+ Emma:
+
+ - who are you?
+    - my name is Emma Robinson. I'm a survivor just like you.
+        - how did you get in here?
+            - its a long story, and you won't believe it anyway
+
+    - where are the others?
+        - they had to go out for multiple reasons
+            - why did the others had to leave?
+                - we are having multiple issues with this place here but dont worry, things are getting handled, they will be coming home soon.
+
+            - when will the other come back
+                - soon I hope, don't worry we maintain radio contact
+
+ - where am I?
+    - you're safe, don't worry. You are in a shelter bunker
+        - tell me more about this place?
+            - ...
+
+ - what happened to me?
+    - how long was I in coma?
+        - it's been a couple of weeks, 
+    - am I alright?
+        - you had a head trauma when we found you, you're lucky we have a surgeon here, your head may still ache a little
+            - what did you do to my head?
+                - you had internal bleeding under your skull, [fixme]
+    
+
+
+overall storyline
+
+ - player meets Emma
+ - player learns surroundings
+
+ task system:
+  mission 1: get dressed
+  mission 2: have breakfast
+

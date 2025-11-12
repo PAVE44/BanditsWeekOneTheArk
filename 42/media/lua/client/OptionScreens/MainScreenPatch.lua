@@ -64,7 +64,9 @@ function MainScreen:initialise()
     self.titleTextureLight = getTexture("media/textures/title_light.png")
     self.titleTextureDark = getTexture("media/textures/title_dark.png")
     self.alphaBG = 0
-    BWOAMusic.Play("AmbientHornLong", 1, 1)
+    if not self.inGame and not isDemo() then
+        BWOAMusic.Play("MusicIntro", 1, 1)
+    end
 end
 
 MainScreenPrerender = MainScreen.prerender

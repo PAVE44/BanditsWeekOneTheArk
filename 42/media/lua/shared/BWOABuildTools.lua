@@ -5,16 +5,17 @@ BWOABuildTools.Floor = function(x, y, z, spriteName)
     local square = cell:getGridSquare(x, y, z)
     if square == nil and getWorld():isValidSquare(x, y, z) then
         square = cell:createNewGridSquare(x, y, z, true)
-        local obj = IsoObject.new(square, spriteName, "")
-        
-        local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
-        obj:setAttachedAnimSprite(ArrayList.new())
-        obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
-
-        square:AddSpecialObject(obj)
-        obj:transmitCompleteItemToServer()
-        square:setSquareChanged()
     end
+    local obj = IsoObject.new(square, spriteName, "")
+    
+    local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
+    obj:setAttachedAnimSprite(ArrayList.new())
+    obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
+
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+
 end
 
 BWOABuildTools.Wall = function(x, y, z, spriteName)

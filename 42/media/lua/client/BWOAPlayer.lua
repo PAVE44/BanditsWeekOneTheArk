@@ -75,8 +75,11 @@ local function everyOneMinute()
     local player = getSpecificPlayer(0)
     if not player then return end
 
+    if not player:isAlive() then return end
+
     if player:isGodMod() then return end
 
+    local cell = getCell()
     local bodyDamage = player:getBodyDamage()
     local stats = player:getStats()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
@@ -102,6 +105,10 @@ local function everyOneMinute()
             hasMask = true
             local filter = mask:getUsedDelta()
             filter = filter - 0.001
+            if filter < 0.1 and ZombRand(5) == 1 then
+                local sound = player:getDescriptor():getVoicePrefix() .. "Cough"
+                player:getEmitter():playVocals(sound)
+            end
             if filter < 0 then 
                 filter = 0 
                 hasMask = false
@@ -118,14 +125,6 @@ local function everyOneMinute()
         end
     end
 
-    --[[
-    local attachedItems = player:getAttachedItems()
-    for i=0, attachedItems:size()-1 do
-        local attachedItem = attachedItems:get(i)
-        local location = attachedItem:getLocation()
-        local item = attachedItem:getItem()
-    end]]
-
     local hasGeiger = false
     local item = player:getAttachedItem("Walkie Belt Left") or player:getAttachedItem("Walkie Belt Right") or player:getPrimaryHandItem() or player:getSecondaryHandItem()
     if item then
@@ -139,48 +138,86 @@ local function everyOneMinute()
     if not md.bwoa.timeRadiatedHematopoietic then md.bwoa.timeRadiatedHematopoietic = 0 end
     if not md.bwoa.timeRadiatedGastrointernal then md.bwoa.timeRadiatedGastrointernal = 0 end
 
+    print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO HEMA: " .. md.bwoa.timeRadiatedHematopoietic .. " EXPO GAST: " .. md.bwoa.timeRadiatedGastrointernal)
+
     local immuneRadiation = false
     if hasSuit and hasMask then immuneRadiation = true end
 
     local radiation = BWOAClimate.radiation
-    if radiation > 0 then
-        local multiplayer = 1
-        if pz <= -2 then 
-            multiplayer = 0
-        elseif pz > -2 and pz < 0 then
-            multiplayer = 0.2
+    local multiplayer = 1
+    if pz <= -2 then 
+        multiplayer = 0
+    elseif pz > -2 and pz < 0 then
+        multiplayer = 0.2
+    end
+    if not player:isOutside() then multiplayer = multiplayer * 0.8 end
+    radiation = radiation * multiplayer
+
+    -- radiation from items
+    local items = ArrayList.new()
+    local inventory = player:getInventory()
+    inventory:getAllEvalRecurse(predicateAll, items)
+    for i=0, items:size()-1 do
+        local item = items:get(i)
+        if item:getModData().radiated then
+            radiation = radiation + 100
         end
-        if not player:isOutside() then multiplayer = multiplayer * 0.8 end
-        if multiplayer > 0 then
-            if not immuneRadiation then
-                local dose = math.floor(radiation * multiplayer / 60)
-                md.bwoa.radiation = md.bwoa.radiation + dose
+    end
+
+    local groundItems = {}
+    for y = py - 1, py + 1 do
+        for x = px - 1, px + 1 do
+            local square = cell:getGridSquare(x, y, pz)
+            if square then
+                local wobs = square:getWorldObjects()
+                for i = 0, wobs:size()-1 do
+                    local o = wobs:get(i)
+                    local groundItem = o:getItem()
+                    table.insert(groundItems, groundItem)
+                    
+                end
             end
+        end
+    end
+    for _, groundItem in ipairs(groundItems) do
+        if groundItem:getModData().radiated then
+            radiation = radiation + 50
+        end
+    end
 
-            -- geiger effect
-            local intensity = BanditUtils.Lerp(radiation * multiplayer, 0, 4000, 0, 6)
+    if radiation > 0 then
+        if not immuneRadiation then
+            local dose = math.floor(radiation / 60)
+            md.bwoa.radiation = md.bwoa.radiation + dose
+        end
+
+        -- geiger effect
+        if hasGeiger then
+            local intensity = BanditUtils.Lerp(radiation, 0, 4000, 0, 6)
             intensity = math.floor(intensity + 0.5)
+            if intensity > 6 then intensity = 6 end
             BWOAEventControl.Add("PlayPlayer", {sound = "AmbientGeiger" .. intensity}, 1)
+        end
 
-            -- item contamination
-            local items = ArrayList.new()
-            local inventory = player:getInventory()
-            inventory:getAllEvalRecurse(predicateAll, items)
-            for i=0, items:size()-1 do
-                local item = items:get(i)
-                local ftype = item:getFullType()
-                if suit then
-                    if instanceof(item, "Clothing") then
-                        if item:hasTag(ItemTag.HAZMAT_SUIT) then
-                            item:getModData().radiated = true
-                        end
-                    else
+        -- item contamination
+        for i=0, items:size()-1 do
+            local item = items:get(i)
+            local ftype = item:getFullType()
+            if suit then
+                if instanceof(item, "Clothing") then
+                    if item:hasTag(ItemTag.HAZMAT_SUIT) then
                         item:getModData().radiated = true
                     end
                 else
                     item:getModData().radiated = true
                 end
+            else
+                item:getModData().radiated = true
             end
+        end
+
+        for _, groundItem in ipairs(groundItems) do
+            groundItem:getModData().radiated = true
         end
     end
 
@@ -191,12 +228,16 @@ local function everyOneMinute()
     -- md.bwoa.radiation = 700
 
     if md.bwoa.radiation >= 3000 then -- Central nervous system syndrome
-        local sound = player:getDescriptor():getVoicePrefix() .. "DeathFall" -- "DeathAlone" or "DeathEaten"
-        player:getEmitter():playVocals(sound)
+        local scream = false
         for _, sbp in ipairs(bodyParts) do
             local burnBodyPart = bodyDamage:getBodyPart(sbp.name)
-            if ZombRand(6) == 1 and not burnBodyPart:isBurnt() then
+            if ZombRand(16) == 1 and not burnBodyPart:isBurnt() then
                 burnBodyPart:setBurned()
+                if not scream then
+                    local sound = player:getDescriptor():getVoicePrefix() .. "DeathFall" -- "DeathAlone" or "DeathEaten"
+                    player:getEmitter():playVocals(sound)
+                    scream = true
+                end
             end
         end
     elseif md.bwoa.radiation >= 100 and md.bwoa.radiation < 3000 then  -- Hematopoietic syndrome phase

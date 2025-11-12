@@ -27,6 +27,7 @@ BWOASound.noahSounds = {
     ["BIO"] = "NoahBio",
     ["UNAUTHORIZED"] = "NoahUnauthorized",
     ["DECONTAMINATION"] = "NoahDecontamination",
+    ["DECONTAMINATION_COMPLETE"] = "NoahDecontaminationComplete",
     ["GENERATORFAILURE"] = "NoahGeneratorFailure",
     ["GENERATORFUELLOW"] = "NoahGeneratorFuelLow",
     ["RADIATION"] = "NoahRadiation",
