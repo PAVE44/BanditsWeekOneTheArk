@@ -1,8 +1,11 @@
 ItemName_EN = {
     ItemName_Base.Pills = "Bayer Aspirine",
+    ItemName_Bandits.Book2 = "Book",
     ItemName_Bandits.PillsPotassiumYodine = "Potassium Yodine",
     ItemName_Bandits.PillsPentoxifylline = "Pentoxifylline",
     ItemName_Bandits.PillsPrussianBlue = "Prussian Blue",
     ItemName_Bandits.PillsNikethamide = "Nikethamide",
     ItemName_Bandits.GeigerCounter = "Geiger Counter",
+    ItemName_Bandits.HumanMeat = "Human Meat",
+    ItemName_Bandits.MincedHumanMeat = "Minced Human Meat",
 }

@@ -71,6 +71,7 @@ BWOARooms.Lab.Build = function ()
 
 
     -- desk
+    BWOABuildTools.Mannequin(9960, 12636, -4, "MannequinSkeleton01", IsoDirections.S)
     BWOABuildTools.Generic(9961, 12636, -4, "location_community_medical_01_107")
     BWOABuildTools.Generic(9962, 12636, -4, "location_community_medical_01_108")
     BWOABuildTools.Generic(9963, 12636, -4, "location_community_medical_01_108")
@@ -94,6 +95,9 @@ BWOARooms.Lab.Build = function ()
 
     BWOABuildTools.Generic(9961, 12639, -4, "location_community_medical_01_78") -- processing table
     BWOABuildTools.Generic(9961, 12638, -4, "location_community_medical_01_79") -- processing table
+
+    -- metal cabinet
+    BWOABuildTools.Generic(9965, 12636, -4, "furniture_storage_02_0")
     
     BWOABuildTools.VentW(9963, 12636, -4) --vent
 end
@@ -104,6 +108,58 @@ end
 
 BWOARooms.Lab.Prepare = function ()
     BWOARooms.Lab.Init()
+
+    BWOAPrepareTools.AddWorldItem(9961, 12636, -4, "Base.Hominid_Skull", {x=0.91, y=0.34, z=0.38, rx=0, ry=0, rz=85})
+    BWOAPrepareTools.AddWorldItem(9961, 12636, -4, "Base.Specimen_Beetles", {x=0.95, y=0.70, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Butterflies", {x=0.29, y=0.52, z=0.38, rx=0, ry=0, rz=90})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Insects", {x=0.33, y=0.83, z=0.38, rx=0, ry=0, rz=265})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Brain", {x=0.16, y=0.24, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Brain", {x=0.31, y=0.22, z=0.38, rx=0, ry=0, rz=70})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Brain", {x=0.46, y=0.20, z=0.38, rx=0, ry=0, rz=70})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Centipedes", {x=0.56, y=0.38, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_FetalCalf", {x=0.62, y=0.25, z=0.38, rx=0, ry=0, rz=35})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_MonkeyHead", {x=0.77, y=0.20, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Octopus", {x=0.77, y=0.36, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.Specimen_Tapeworm", {x=0.91, y=0.27, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9962, 12636, -4, "Base.MagnifyingGlass", {x=0.66, y=0.68, z=0.38, rx=0, ry=0, rz=150})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.MugSpiffo", {x=0.08, y=0.73, z=0.38, rx=0, ry=0, rz=35})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.PencilCase", {x=0.14, y=0.39, z=0.38, rx=0, ry=0, rz=30})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.Notebook", {x=0.32, y=0.71, z=0.38, rx=0, ry=0, rz=5})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.Pencil", {x=0.39, y=0.58, z=0.38, rx=0, ry=0, rz=70})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.BookFirstAid4", {x=0.44, y=0.31, z=0.38, rx=0, ry=0, rz=60})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.Eraser", {x=0.26, y=0.46, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9964, 12636, -4, "Base.Calculator", {x=0.62, y=0.62, z=0.38, rx=0, ry=0, rz=85})
+
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.Hominid_Skull_Partial", {x=0.45, y=0.55, z=0.33, rx=0, ry=0, rz=50})
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.BoneBead_Large", {x=0.36, y=0.67, z=0.33, rx=0, ry=0, rz=40})
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.BoneBead_Large", {x=0.26, y=0.59, z=0.33, rx=0, ry=0, rz=70})
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.Hominid_Skull_Fragment", {x=0.57, y=0.43, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.SharpBoneFragment", {x=0.66, y=0.69, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.SharpBoneFragment", {x=0.45, y=0.39, z=0.33, rx=0, ry=0, rz=65})
+    BWOAPrepareTools.AddWorldItem(9961, 12638, -4, "Base.AnimalBone", {x=0.30, y=0.76, z=0.33, rx=0, ry=0, rz=45})
+
+    BWOAPrepareTools.AddWorldItem(9963, 12639, -4, "Base.Stethoscope", {x=0.26, y=0.43, z=0.38, rx=0, ry=0, rz=30})
+    BWOAPrepareTools.AddWorldItem(9965, 12639, -4, "Base.Soap2", {x=0.84, y=0.32, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9965, 12639, -4, "Base.Disinfectant", {x=0.78, y=0.16, z=0.38, rx=0, ry=0, rz=350})
+
+    items = {
+        ["Base.JacketLong_Doctor"] = 4, 
+        ["Base.Gloves_Surgical"] = 40, 
+        ["Base.Hat_SurgicalCap"] = 14, 
+        ["Base.Hat_SurgicalMask"] = 46, 
+    }
+    BWOAPrepareTools.AddItemsToContainer(9965, 12636, -4, items, "Locker")
+
+    items = {
+        ["Base.ScissorsBluntMedical"] = 4, 
+        ["Base.Gloves_Surgical"] = 4, 
+        ["Base.Hat_SurgicalCap"] = 1, 
+        ["Base.Hat_SurgicalMask"] = 5, 
+        ["Base.Disinfectant"] = 2, 
+        ["Base.Scalpel"] = 3, 
+        ["Base.SmallSaw"] = 1, 
+    }
+    BWOAPrepareTools.AddItemsToContainer(9963, 12639, -4, items, "Desk")
 end
 
 

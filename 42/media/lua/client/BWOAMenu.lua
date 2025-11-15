@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.21"
+BWOAMenu.version = "0.24"
 
 BWOAMenu.blinking = {}
 
@@ -77,7 +77,7 @@ end
 
 function BWOAMenu.MakeBasement(player, square)
 
-    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom())
+    local basement = BWOABasements.Double:new(square:getX(), square:getY(), square:getRoom(), "preppers")
     basement:build()
 
 end
@@ -153,10 +153,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local room = square:getRoom()
-    if room then 
-        local roomName = room:getName()
-    end
-    local playerRoom = square:getIsoWorldRegion()
+
     -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
 
@@ -171,7 +168,9 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
-        -- saveItems(square)        
+        -- BWOABuildTools.Mannequin(sx, sy, sz, "CommandoJohn", IsoDirections.S)
+
+        saveItems(square)
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
@@ -184,7 +183,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 end
 
 local function onFillInventoryObjectContextMenu(playerNum, context, items)
-    print ("test")
+    -- print ("test")
 end
 
 local updateHighlight = function()

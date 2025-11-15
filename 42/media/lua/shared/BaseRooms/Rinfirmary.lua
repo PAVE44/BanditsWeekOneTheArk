@@ -54,6 +54,8 @@ BWOARooms.Infirmary.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9969, 12622, -4, "Base.Paperwork", {x=0.5, y=0.5, z=0.35})
     BWOAPrepareTools.AddWorldItem(9969, 12622, -4, "Base.BluePen", {x=0.4, y=0.5, z=0.35})
     BWOAPrepareTools.AddWorldItem(9969, 12622, -4, "Base.Stethoscope", {x=0.8, y=0.2, z=0.35})
+    BWOAPrepareTools.AddWorldItem(9970, 12621, -4, "Base.Extinguisher", {x=0.67, y=0.23, z=0.00, rx=0, ry=0, rz=0})
+
     
     local items
     items = {

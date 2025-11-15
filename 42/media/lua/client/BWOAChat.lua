@@ -1,5 +1,16 @@
 BWOAChat = BWOAChat or {}
 
+function splitSentences(text)
+    local sentences = {}
+
+    for sentence, ending in text:gmatch("([^%.%!%?]+)([%.%!%?])") do
+        local s = (sentence .. ending):gsub("^%s+", ""):gsub("%s+$", "")
+        table.insert(sentences, s)
+    end
+
+    return sentences
+end
+
 BWOAChat.last = {}
 
 BWOAChat.talkDist = 5
@@ -81,7 +92,20 @@ BWOAChat.Say = function(question, quiet)
     end
 
     if tab then
-        BWOAEventControl.Add("SayBandit", tab, 400)
+        local perLetter = 25 -- time per letter
+        local minimal = 1000 -- minimal time per sentence
+        local counter = 400 -- initial response delay
+        local sentences = splitSentences(tab.txt)
+        for i, sentence in ipairs(sentences) do
+            local newtab = {}
+            newtab.id = tab.id
+            newtab.anim = tab.anim
+            newtab.txt = sentence
+            local responseTime = perLetter * #sentence
+            if responseTime < minimal then responseTime = minimal end
+            BWOAEventControl.Add("SayBandit", newtab, counter)
+            counter = counter + responseTime
+        end
     end
 end
 

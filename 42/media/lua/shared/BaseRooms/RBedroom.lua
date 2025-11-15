@@ -163,7 +163,7 @@ BWOARooms.Bedroom.Prepare = function ()
 
     -- drawers
 
-    local healthEffectsRadiation = BanditCompatibility.InstanceItem("Base.Book")
+    local healthEffectsRadiation = BanditCompatibility.InstanceItem("Bandits.Book2")
     healthEffectsRadiation:setCanBeWrite(false)
     healthEffectsRadiation:setName("Summary of Health Effects of Ionizing Radiation by ATSDR")
     local md = healthEffectsRadiation:getModData()

@@ -19,6 +19,10 @@ BWOAMissions.missions = {
     [4] = {
         name = "Find a hidden basement",
         desc = "Go outside and find at least one basement with a hidden entrance in the floor.",
+    },
+    [5] = {
+        name = "Obtain zombie specimen",
+        desc = "Bring a zombie corpse to the laboratory.",
     }
 }
 

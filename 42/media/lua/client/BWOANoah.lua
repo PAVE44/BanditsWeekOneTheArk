@@ -92,8 +92,6 @@ local function onKeyPressed(keynum)
             BWOANoah.screen = "Ventilation"
         elseif keynum == Keyboard.KEY_2 then
             BWOANoah.screen = "Heating"
-        elseif keynum == Keyboard.KEY_3 then
-            BWOANoah.screen = "Probes"
         elseif keynum == Keyboard.KEY_9 then
             BWOANoah.screen = "Main"
         end
@@ -331,7 +329,6 @@ BWOANoah.Screens.Atmospheric = function()
     text[7]  = "SELECT UNIT:"
     text[8]  = "1. CIRCUAIR HE-3 Module Ventilation"
     text[9]  = "2. CIRCUAIR HE-3 Module Heating"
-    text[10]  = "3. Exterior probe"
 
     text[25] = "9. RETURN"
     return text

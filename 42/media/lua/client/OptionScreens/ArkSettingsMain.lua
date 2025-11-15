@@ -144,7 +144,7 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.Helicopter = 1
         SandboxVars.Alarm = 1   
         SandboxVars.ErosionDays = 1000
-        SandboxVars.EnableSnowOnGround = true
+        SandboxVars.EnableSnowOnGround = false
         SandboxVars.MaximumFireFuelHours = 24
         SandboxVars.BloodLevel = 5
 

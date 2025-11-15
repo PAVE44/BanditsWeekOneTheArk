@@ -56,14 +56,14 @@ BWOARooms.Library.Build = function ()
 
     BWOABuildTools.LampDeskYellowN(9973, 12613, -4)
 
-    local oasis = BanditCompatibility.InstanceItem("Base.Book")
+    local oasis = BanditCompatibility.InstanceItem("Bandits.Book2")
     oasis:setCanBeWrite(false)
     oasis:setName("Project OASIS by Noah Whitlock")
     local md = oasis:getModData()
     md.printContent = "book_dacr_research"
     BWOAPrepareTools.AddWorldItemSpecial(9960, 12607, -4, oasis, {x=0.35, y=0.45, z=0.19})
 
-    local nuclearWinter = BanditCompatibility.InstanceItem("Base.Book")
+    local nuclearWinter = BanditCompatibility.InstanceItem("Bandits.Book2")
     nuclearWinter:setCanBeWrite(false)
     nuclearWinter:setName("Nuclear Winter by Carl Sagan")
     local md = nuclearWinter:getModData()

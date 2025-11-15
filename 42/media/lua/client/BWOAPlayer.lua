@@ -16,12 +16,14 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_R, name=BodyPartType.Hand_
 table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_L, chance=10})
 
 local roomRevealMap = {
-    ["GENERATOR_ROOM"] = {person = "Emma Robinson", qid = "100.1"},
-    ["FOODGARDEN"]     = {person = "Emma Robinson", qid = "100.3"},
-    ["LIBRARY"]        = {person = "Emma Robinson", qid = "100.4"},
-    ["CHAPEL"]         = {person = "Emma Robinson", qid = "100.5"},
-    ["LABORATORY"]     = {person = "Emma Robinson", qid = "100.6"},
-    ["BEDROOM"]        = {person = "Emma Robinson", qid = "100.7"},
+    ["GENERATOR_ROOM"]          = {person = "Emma Robinson", qid = "100.1"},
+    ["FOODGARDEN"]              = {person = "Emma Robinson", qid = "100.3"},
+    ["LIBRARY"]                 = {person = "Emma Robinson", qid = "100.4"},
+    ["CHAPEL"]                  = {person = "Emma Robinson", qid = "100.5"},
+    ["LABORATORY"]              = {person = "Emma Robinson", qid = "100.6"},
+    ["ARMORY"]                  = {person = "Emma Robinson", qid = "100.8"},
+    ["DECONTAMINATION_CHAMBER"] = {person = "Emma Robinson", qid = "100.9"},
+    -- ["INCINERATOR_ROOM"]        = {person = "Emma Robinson", qid = "100.10"},
 }
 
 local traitRevealMap = {
@@ -91,7 +93,7 @@ local function everyOneMinute()
 
     local hasSuit
     local hasMask
-    
+
     local suit = player:getWornItem("Boilersuit")
     if suit then
         if suit:hasTag(ItemTag.HAZMAT_SUIT) then 
@@ -126,9 +128,9 @@ local function everyOneMinute()
     end
 
     local hasGeiger = false
-    local item = player:getAttachedItem("Walkie Belt Left") or player:getAttachedItem("Walkie Belt Right") or player:getPrimaryHandItem() or player:getSecondaryHandItem()
-    if item then
-        if item:hasTag(ItemTag.MISC_ELECTRONIC) then
+    local itemGeiger = player:getAttachedItem("Walkie Belt Left") or player:getAttachedItem("Walkie Belt Right") or player:getPrimaryHandItem() or player:getSecondaryHandItem()
+    if itemGeiger then
+        if itemGeiger:hasTag(ItemTag.MISC_ELECTRONIC) then
             hasGeiger = true
         end
     end
@@ -138,8 +140,7 @@ local function everyOneMinute()
     if not md.bwoa.timeRadiatedHematopoietic then md.bwoa.timeRadiatedHematopoietic = 0 end
     if not md.bwoa.timeRadiatedGastrointernal then md.bwoa.timeRadiatedGastrointernal = 0 end
 
-    print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO HEMA: " .. md.bwoa.timeRadiatedHematopoietic .. " EXPO GAST: " .. md.bwoa.timeRadiatedGastrointernal)
-
+    local radiationBalance = 0
     local immuneRadiation = false
     if hasSuit and hasMask then immuneRadiation = true end
 
@@ -174,7 +175,6 @@ local function everyOneMinute()
                     local o = wobs:get(i)
                     local groundItem = o:getItem()
                     table.insert(groundItems, groundItem)
-                    
                 end
             end
         end
@@ -186,9 +186,9 @@ local function everyOneMinute()
     end
 
     if radiation > 0 then
+        local dose = math.floor(radiation / 60)
         if not immuneRadiation then
-            local dose = math.floor(radiation / 60)
-            md.bwoa.radiation = md.bwoa.radiation + dose
+            radiationBalance = radiationBalance + dose
         end
 
         -- geiger effect
@@ -200,24 +200,26 @@ local function everyOneMinute()
         end
 
         -- item contamination
-        for i=0, items:size()-1 do
-            local item = items:get(i)
-            local ftype = item:getFullType()
-            if suit then
-                if instanceof(item, "Clothing") then
-                    if item:hasTag(ItemTag.HAZMAT_SUIT) then
+        if multiplayer > 0 then
+            for i=0, items:size()-1 do
+                local item = items:get(i)
+                local ftype = item:getFullType()
+                if suit then
+                    if instanceof(item, "Clothing") then
+                        if item:hasTag(ItemTag.HAZMAT_SUIT) then
+                            item:getModData().radiated = true
+                        end
+                    else
                         item:getModData().radiated = true
                     end
                 else
                     item:getModData().radiated = true
                 end
-            else
-                item:getModData().radiated = true
             end
-        end
 
-        for _, groundItem in ipairs(groundItems) do
-            groundItem:getModData().radiated = true
+            for _, groundItem in ipairs(groundItems) do
+                groundItem:getModData().radiated = true
+            end
         end
     end
 
@@ -287,27 +289,37 @@ local function everyOneMinute()
                 BWOADialogues.Reveal("Emma Robinson", "1000.3")
             end
         end
-        
+
     elseif md.bwoa.radiation < 16 then
         --[[
         md.bwoa.timeRadiatedHematopoietic = md.bwoa.timeRadiatedHematopoietic - 1
         if md.bwoa.timeRadiatedHematopoietic < 0 then md.bwoa.timeRadiatedHematopoietic = 0 end
-    
+
         md.bwoa.timeRadiatedGastrointernal = md.bwoa.timeRadiatedGastrointernal - 1
         if md.bwoa.timeRadiatedGastrointernal < 0 then md.bwoa.timeRadiatedGastrointernal = 0 end
         ]]
     end
 
-    md.bwoa.radiation = md.bwoa.radiation - 0.5
+    radiationBalance = radiationBalance - 0.5
     if md.bwoa.drug.PotassiumYodine and md.bwoa.drug.PotassiumYodine > 0 then
-        md.bwoa.radiation = md.bwoa.radiation - 1
+        radiationBalance = radiationBalance - 1
     end
 
-    if md.bwoa.radiation < 0 then 
+    md.bwoa.radiation = md.bwoa.radiation + radiationBalance
+    if md.bwoa.radiation < 0 then
+        radiationBalance = 0
         md.bwoa.radiation = 0
         md.bwoa.timeRadiatedHematopoietic = 0
         md.bwoa.timeRadiatedGastrointernal = 0
     end
+
+    if radiationBalance >= 0.5 then
+        HaloTextHelper.addTextWithArrow(player, "Radiation +" .. radiationBalance, true, HaloTextHelper.getColorRed())
+    elseif radiationBalance <= -0.5 then
+        HaloTextHelper.addTextWithArrow(player, "Radiation " .. radiationBalance, false, HaloTextHelper.getColorGreen())
+    end
+
+    print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO HEMA: " .. md.bwoa.timeRadiatedHematopoietic .. " EXPO GAST: " .. md.bwoa.timeRadiatedGastrointernal)
 
     -- co2 intoxication simlation
     if pz < -2 and px >= 9900 and py >= 12590 and px < 9990 and py < 12660 and not hasMask then
@@ -328,7 +340,7 @@ local function everyOneMinute()
         local drunkExpected
         local enduranceExpected
         local panicExpected
-        
+
         if ventilation.co2 > 60000 then
             healthExpected = 0
             sickExpected = 55
@@ -364,7 +376,7 @@ local function everyOneMinute()
             fatigueExpected = 0.65
         end
 
-        if md.bwoa.drug.Aspirine and md.bwoa.drug.Aspirine > 0 then
+        if md.bwoa.drug.Aspirine and md.bwoa.drug.Aspirine > 0 and headAcheExpected then
             headAcheExpected = headAcheExpected / 2
         end
 
@@ -427,7 +439,7 @@ local function everyOneMinute()
 end
 
 local onTimedActionPerform = function(data)
-   
+
     local character = data.character
     if not character then return end
 
@@ -470,6 +482,11 @@ local onTimedActionPerform = function(data)
             if not md.bwoa.drug[drug.name] then md.bwoa.drug[drug.name] = 0 end
             md.bwoa.drug[drug.name] = md.bwoa.drug[drug.name] + drug.dose
         end
+    elseif action == "TABAS_TakeShower" then
+
+        local radiationBalance = 0.5 * md.bwoa.radiation
+        md.bwoa.radiation = 1 - radiationBalance
+        HaloTextHelper.addTextWithArrow(player, "Radiation " .. radiationBalance, false, HaloTextHelper.getColorGreen())
     end
 end
 

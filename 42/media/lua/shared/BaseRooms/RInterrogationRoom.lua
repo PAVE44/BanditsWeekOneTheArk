@@ -86,6 +86,8 @@ BWOARooms.InterrogationRoom.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9963, 12633, -4, "Base.Mugl", {x=0.14, y=0.45, z=0.33, rx=0, ry=0, rz=0})
     BWOAPrepareTools.AddWorldItem(9963, 12633, -4, "Base.TissueBox", {x=0.62, y=0.69, z=0.33, rx=0, ry=0, rz=90})
 
+    BWOAPrepareTools.AddWorldItem(9965, 12631, -4, "Base.Extinguisher", {x=0.61, y=0.20, z=0.00, rx=0, ry=0, rz=0})
+
     local item = BanditCompatibility.InstanceItem("Base.VHS_Home")
     local mediaRecorder = ZomboidRadio.getInstance():getRecordedMedia()
     local mediaData = mediaRecorder:getMediaData("d5fe3df0-5e3b-0146-0001-000000000000")

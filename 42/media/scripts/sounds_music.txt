@@ -15,7 +15,7 @@ module Bandits {
         loop = false,
         is3D = true,
         clip {
-            file = media/sound/music_endure.ogg,
+            file = media/sound/music_endure_sg.ogg,
             reverbFactor = 0.6, 
         }
     }

@@ -69,6 +69,10 @@ end
 
 BWOARooms.Chapel.Prepare = function ()
     BWOARooms.Chapel.Init()
+
+    BWOAPrepareTools.AddWorldItem(9967, 12630, -4, "Base.Goblet", {x=0.04, y=0.48, z=0.48, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9967, 12629, -4, "Base.Book_Religion", {x=0.05, y=0.84, z=0.00, rx=0, ry=0, rz=0})
+
 end
 
 

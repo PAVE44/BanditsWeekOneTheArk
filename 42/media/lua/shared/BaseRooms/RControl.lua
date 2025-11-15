@@ -80,6 +80,10 @@ BWOARooms.Control.Prepare = function ()
     local md = report:getModData()
     md.printContent = "scavenge_report_1"
     BWOAPrepareTools.AddItemsToContainer(9959, 12627, -4, {report}, "Cabinet")
+
+    BWOAPrepareTools.AddWorldItem(9959, 12622, -4, "Base.Extinguisher", {x=0.28, y=0.47, z=0.00, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9959, 12622, -4, "Base.Extinguisher", {x=0.29, y=0.84, z=0.00, rx=0, ry=0, rz=0})
+
 end
 
 

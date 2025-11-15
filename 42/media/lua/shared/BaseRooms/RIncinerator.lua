@@ -58,6 +58,9 @@ end
 
 BWOARooms.Incinerator.Prepare = function ()
     BWOARooms.Incinerator.Init()
+
+    BWOAPrepareTools.AddWorldItem(9966, 12640, -4, "Base.Extinguisher", {x=0.44, y=0.09, z=0.00, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9966, 12640, -4, "Base.Extinguisher", {x=0.73, y=0.58, z=0.00, rx=0, ry=0, rz=0})
 end
 
 

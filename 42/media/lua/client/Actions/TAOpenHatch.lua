@@ -23,7 +23,9 @@ end
 function TAOpenHatch:perform()
     self.character:playSound("BreakBarricadePlank")
     local x, y = self.square:getX(), self.square:getY()
-    local basement = BWOABasements.Generic:new(x, y)
+    local theme = BanditUtils.Choice({"generic", "wine", "preppers"})
+    local builder = BanditUtils.Choice({"Generic", "Double"})
+    local basement = BWOABasements[builder]:new(x, y, self.square:getRoom(), theme)
     basement:build()
 
     BWOABuildings.RemoveHatch(x, y)

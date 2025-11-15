@@ -79,6 +79,26 @@ BWOABuildTools.Generic = function(x, y, z, spriteName)
     square:setSquareChanged()
 end
 
+BWOABuildTools.Mannequin = function(x, y, z, scriptName, dir)
+    local spriteName = "location_shop_mall_01_68"
+    local item = BanditCompatibility.InstanceItem("Moveables."..spriteName)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoMannequin.new(getCell(), square, getSprite(spriteName))
+    obj:getCustomSettingsFromItem(item)
+    obj:setDir(dir)
+    obj:setMannequinScriptName(scriptName)
+
+    for i=1,obj:getContainerCount() do
+        obj:getContainerByIndex(i-1):clear()
+    end
+
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+end
+
+
+
 BWOABuildTools.Fireplace = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
     local obj = IsoFireplace.new(getCell(), square, getSprite(spriteName))

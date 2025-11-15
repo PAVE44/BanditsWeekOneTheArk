@@ -29,7 +29,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["1.2.1.1"] = {
         qst = "Can I help with any of the issues here?",
-        ans = "Take your time and rest first. When you're ready, feel free to look around. We'll talk about the details later.",
+        ans = "Take your time and rest first. When you're ready, feel free to look around. We'll talk about the details later. I can promise, you'll not get bored with me.",
         anim = "Talk3",
         req = {"1.2.1", "3.1"},
     },
@@ -189,7 +189,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["3.2.1.2.2"] = {
         qst = "I don't know what my name is.",
-        ans = "Well, you look like Bob to me.",
+        ans = "Well, I hope your memories will come back to you. Anyway, you look like a Bob to me.",
         anim = "Talk3",
         req = {"3.2.1.2"},
     },
@@ -238,7 +238,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["5.1.1.1"] = {
         qst = "I want to go out and find other people. Where exactly should I go?",
-        ans = "Okay, but be careful. You can check the surrounding houses. Some of them has hidden entrances in the floor to the basements.",
+        ans = "You would need to check the surrounding houses. Some of them has hidden entrances in the floor to the basements. Again, I need to warn you, this is danegerous. Don't go unless you are well prepared.",
         anim = "Talk3",
         req = {"5.1.1"},
         func = "RevealMission",
@@ -248,16 +248,16 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     -- room reveal
     ["100.1"] = {
         qst = "I found a room with loud machinery.",
-        ans = "Engineering rooms. That's where power generators and water pump is located.",
+        ans = "Engineering room. That's where power generators and water pump is located.",
         anim = "Talk3",
         req = {"3.2.1.2"},
         hidden = true
     },
     ["100.1.1"] = {
         qst = "How do I use the water pump?",
-        ans = "It's not connected to the central computer, so it has to be turned on and off manually.",
+        ans = "It's not connected to the central computer, so it has to be turned on and off manually. Eli tried to fix it, but he gave up.",
         anim = "Talk3",
-        req = {"100.1"},
+        req = {"100.1", "1.2.3.1"},
     },
     ["100.1.2"] = {
         qst = "How do I use the power generators?",
@@ -287,21 +287,21 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         qst = "I found Noah, a computer of some kind.",
         ans = "Great find! Noah controls and monitors many systems in the base. I'd advise caution before changing anything.",
         anim = "Talk3",
-        req = {"3.2.1.2"},
+        req = {"1.2.1.1"},
         hidden = true
     },
     ["100.3"] = {
         qst = "I found a garden.",
         ans = "Perfect! Enjoy the food, but also take care of the plants, Martha's gone now.",
         anim = "Talk3",
-        req = {"1.2.3.1.3"},
+        req = {"1.2.1.1"},
         hidden = true
     },
     ["100.4"] = {
         qst = "I found a library.",
         ans = "Nice! Did you find anything interesting?",
         anim = "Talk3",
-        req = {"3.2.1.2"},
+        req = {"1.2.1.1"},
         hidden = true
     },
     ["100.4.1"] = {
@@ -314,12 +314,12 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         qst = "I found a chapel.",
         ans = "Yep. It's been here since before us.",
         anim = "Talk3",
-        req = {"3.2.1.2"},
+        req = {"1.2.1.1"},
         hidden = true
     },
     ["100.5.1"] = {
         qst = "How can you still believe after all of this?",
-        ans = "To be honest, faith is all I have left.",
+        ans = "To be honest, faith is all I have left. ",
         anim = "Talk3",
         req = {"100.5"},
     },
@@ -327,11 +327,11 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         qst = "I think I found a laboratory.",
         ans = "Yes! It's where we conduct our research.",
         anim = "Talk3",
-        req = {"3.2.1.2"},
+        req = {"1.2.1.1"},
         hidden = true
     },
     ["100.6.1"] = {
-        qst = "What kind of research are you conducting?.",
+        qst = "What kind of research are you conducting?",
         ans = "Well. We are trying to understand the virus so maybe we can do something about it.",
         anim = "Talk3",
         req = {"100.6"},
@@ -344,15 +344,17 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["100.6.1.1.1"] = {
         qst = "What are your virus research results so far?",
-        ans = "It's best if you review the documents in the lab yourself.",
+        ans = "I need fresh specimen to continue my research.",
         anim = "Talk3",
         req = {"100.6.1.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 5},
     },
     ["100.7"] = {
         qst = "I found the bedroom. Can I sleep there?",
         ans = "Yes, choose the bed you want.",
         anim = "Talk3",
-        req = {"3.2.1.2"},
+        req = {"1.2.1.1"},
         hidden = true
     },
     ["100.7.1"] = {
@@ -360,6 +362,34 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         ans = "I knew you would notice that at some point. Yes, there were more of us. But they are dead, ok?",
         anim = "Talk3",
         req = {"100.7", "1.2.3"},
+    },
+    ["100.8"] = {
+        qst = "I found the armory. Can I get some guns?",
+        ans = "You bet! While it may not seem so, we're still in Kentucky.",
+        anim = "Talk3",
+        req = {"1.2.1.1"},
+        hidden = true
+    },
+    ["100.8.1"] = {
+        qst = "There are hazmat suits in the armory, why would we need them?",
+        ans = "They are crucial when we need to go outside. They protect you from the radiation.",
+        anim = "Talk3",
+        req = {"108.8"},
+        hidden = true
+    },
+    ["100.9"] = {
+        qst = "I found a decontamination chamber.",
+        ans = "Yes. It's a crucial function of the Ark. Everything and everyone that comes from the outside must be decontaminated. ",
+        anim = "Talk3",
+        req = {"1.2.1.1"},
+        hidden = true
+    },
+    ["100.8.1.1"] = {
+        qst = "What radiation are you speaking about?",
+        ans = "Oh right, I forgot you don't remember things. It's the nuclear fallout. I'm sorry, but the world as you knew is now gone. When you're ready, you can go outside and see for yourself. Just be careful there!",
+        anim = "Talk3",
+        req = {"108.8.1"},
+        hidden = true
     },
 
     -- trait reveal
