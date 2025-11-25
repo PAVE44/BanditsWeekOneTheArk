@@ -138,6 +138,7 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.ElecShut = 1
         SandboxVars.NatureAbundance = 1
         SandboxVars.FishAbundance = 1
+        SandboxVars.FarmingSpeedNew = 2
         SandboxVars.KillInsideCrops = false
         SandboxVars.PlantGrowingSeasons = false
         SandboxVars.PlaceDirtAboveground = true
@@ -147,6 +148,9 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.EnableSnowOnGround = false
         SandboxVars.MaximumFireFuelHours = 24
         SandboxVars.BloodLevel = 5
+        SandboxVars.SurvivorHouseChance = 1
+        SandboxVars.VehicleStoryChance = 1
+        SandboxVars.ZoneStoryChance = 1
 
         SandboxVars.ZombieLore.Memory = 1
         SandboxVars.ZombieLore.Sight = 1

@@ -5,7 +5,7 @@ BWOAMissions.new = true
 BWOAMissions.missions = {
     [1] = {
         name = "Meet Emma",
-        desc = "Find and talk to Emma.",
+        desc = "Find and talk to Emma.\nPress \"T\" to open chat panel.",
         revealed = true
     },
     [2] = {
@@ -23,6 +23,14 @@ BWOAMissions.missions = {
     [5] = {
         name = "Obtain zombie specimen",
         desc = "Bring a zombie corpse to the laboratory.",
+    },
+    [6] = {
+        name = "Bring fuel truck to the Ark",
+        desc = "Fuel truck is located on Dixie Highway leading to Muldraugh Ruins.\nBring the truck home and pump the fuel to the underground tank.",
+    },
+    [7] = {
+        name = "Find the missing tool bag",
+        desc = "The bag is located in the remainings of the Community Center in March Ridge Ruins.",
     }
 }
 

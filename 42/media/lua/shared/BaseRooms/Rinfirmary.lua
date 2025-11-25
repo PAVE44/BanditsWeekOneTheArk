@@ -35,7 +35,38 @@ BWOARooms.Infirmary.Build = function ()
     BWOABuildTools.LampOvalW(9965, 12624, -4)
     BWOABuildTools.LampOvalW(9968, 12626, -4)
 
-    BWOABuildTools.Generic(9965, 12623, -4, "location_community_medical_01_24")
+    BWOABuildTools.RemoveObject(9965, 12624, -4, "Bed")
+    BWOABuildTools.RemoveObject(9966, 12624, -4, "Bed")
+    BWOABuildTools.RemoveObject(9965, 12625, -4, "Curtain B")
+    BWOABuildTools.RemoveObject(9966, 12625, -4, "Curtain C")
+    BWOABuildTools.RemoveObject(9967, 12625, -4, "Curtain A")
+    BWOABuildTools.RemoveObject(9965, 12627, -4, "Bed")
+    BWOABuildTools.RemoveObject(9966, 12627, -4, "Bed")
+    BWOABuildTools.RemoveObject(9965, 12626, -4, "Curtain B")
+    BWOABuildTools.RemoveObject(9966, 12626, -4, "Curtain C")
+    BWOABuildTools.RemoveObject(9967, 12626, -4, "Curtain A")
+
+    BWOABuildTools.Generic(9965, 12623, -4, "location_community_medical_01_22")
+    BWOABuildTools.Generic(9966, 12623, -4, "location_community_medical_01_23")
+    BWOABuildTools.Generic(9965, 12624, -4, "location_community_medical_01_40")
+    BWOABuildTools.Generic(9966, 12624, -4, "location_community_medical_01_42")
+    BWOABuildTools.Generic(9967, 12624, -4, "location_community_medical_01_40")
+
+    BWOABuildTools.Generic(9966, 12626, -4, "location_community_medical_01_0")
+    BWOABuildTools.Generic(9966, 12625, -4, "location_community_medical_01_1")
+
+    BWOABuildTools.Generic(9965, 12626, -4, "location_community_medical_01_116")
+    BWOABuildTools.Generic(9966, 12626, -4, "location_community_medical_01_117")
+
+    BWOABuildTools.LampCustom(9965, 12625, -4, "location_community_medical_01_54")
+    BWOABuildTools.Generic(9965, 12625, -4, "location_community_medical_01_161")
+
+    BWOABuildTools.LampCustom(9965, 12626, -4, "location_community_medical_01_54")
+    BWOABuildTools.Generic(9965, 12626, -4, "location_community_medical_01_162")
+
+    BWOABuildTools.Generic(9970, 12623, -4, "location_community_medical_01_26")
+
+    
 
     BWOABuildTools.LampDeskYellowS(9970, 12622, -4)
 end
@@ -88,7 +119,7 @@ BWOARooms.Infirmary.Prepare = function ()
         ["Base.PillsVitamins"] = 6, 
         ["Base.Pills"] = 7,
         ["Base.PillsSleepingTablets"] = 3,
-        ["Bandits.PillsPotassiumYodine"] = 4,
+        ["Bandits.PillsPotassiumIodine"] = 4,
         ["Bandits.PillsPentoxifylline"] = 5,
         ["Base.Gloves_Surgical"] = 24, 
         ["Base.PillsAntiDep"] = 2, 

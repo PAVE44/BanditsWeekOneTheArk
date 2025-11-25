@@ -63,8 +63,7 @@ BWOAChat.Say = function(question, quiet)
     local player = getSpecificPlayer(0)
     if not player then return end
 
-    local color = player:getSpeakColour()
-    player:addLineChatElement(question, color:getR(), color:getG(), color:getB())
+    BWOAEventControl.Add("SayPlayer", {txt = question}, 1)
 
     local tab
     local person = "Emma Robinson"
@@ -123,8 +122,7 @@ local function onKeyPressed(keynum)
             ui:initialise()
             ui:addToUIManager()
         else
-            local color = player:getSpeakColour()
-            player:addLineChatElement("There is nobody around to speak to.", color:getR(), color:getG(), color:getB())
+            BWOAEventControl.Add("SayPlayer", {txt = "There is nobody around to speak to."}, 1)
         end
     end
 end

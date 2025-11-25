@@ -161,8 +161,6 @@ function BWOABasements.Generic:placeFurniture()
     local cell = getCell()
     local sz = self.z
 
-    self:recalcFurnitureArea()
-
     local roomCnt = #self.furnitureMap
 
     for k, furnitureMap in ipairs(self.furnitureMap) do
@@ -176,7 +174,7 @@ function BWOABasements.Generic:placeFurniture()
                                 local allGood = true
                                 for _, sconfig in ipairs(dirs) do
                                     local square = cell:getGridSquare(fmap.x + sconfig.x, fmap.y + sconfig.y, sz)
-                                    if not square or not square:isFree(false) then
+                                    if not square or not square:isFree(false) or square:getDoor(true) or square:getDoor(false) then
                                         allGood = false
                                         break
                                     end
@@ -187,7 +185,10 @@ function BWOABasements.Generic:placeFurniture()
                                         local bx, by, bz = fmap.x + sconfig.x, fmap.y + sconfig.y, sz
                                         if fconfig.fireplace then
                                             BWOABuildTools.Fireplace (bx, by, bz, sconfig.name)
+                                        elseif fconfig.mannequin then
+                                            BWOABuildTools.Mannequin (bx, by, bz, sconfig.script, sconfig.dir)
                                         elseif fconfig.attachment then
+                                            local square = cell:getGridSquare(bx, by, bz)
                                             local wall
                                             if dir == "n" or dir == "s" then
                                                 wall = square:getWall(true)
@@ -197,11 +198,11 @@ function BWOABasements.Generic:placeFurniture()
                                             if wall then
                                                 local attachments = wall:getAttachedAnimSprite()
                                                 if not attachments or attachments:size() == 0 then
-                                                    object:setAttachedAnimSprite(ArrayList.new())
+                                                    wall:setAttachedAnimSprite(ArrayList.new())
                                                 else
-                                                    object:clearAttachedAnimSprite()
+                                                    wall:clearAttachedAnimSprite()
                                                 end
-                                                object:getAttachedAnimSprite():add(getSprite(sconfig.name):newInstance())
+                                                wall:getAttachedAnimSprite():add(getSprite(sconfig.name):newInstance())
                                             end
                                         else
                                             BWOABuildTools.Generic (bx, by, bz, sconfig.name)
@@ -302,12 +303,30 @@ function BWOABasements.Generic:placeItems()
     end
 end
 
+function BWOABasements.Generic:placeCorpses()
+    local roomCnt = #self.furnitureMap
+    for k, furnitureMap in ipairs(self.furnitureMap) do
+        for _, cconfig in pairs(self.corpses) do
+            if math.floor(cconfig.chance / roomCnt) > ZombRand(100) then
+                local done = false
+                for _, fmap in ipairs(furnitureMap) do
+                    if not fmap.taken then
+                        fmap.taken = true
+                        BWOAPrepareTools.AddHumanCorpse(fmap.x, fmap.y, self.z, cconfig.outfits, cconfig.femaleChance)
+                        break
+                    end
+                end
+            end
+        end
+    end
+end
+
 function BWOABasements.Generic:populate()
     local player = getSpecificPlayer(0)
     if not player then return end
 
     local args = {}
-    args.cid = Bandit.clanMap.BasementWeak
+    args.cid = self.cid
     args.x = self.x + 5
     args.y = self.y + 3
     args.z = self.z
@@ -323,9 +342,11 @@ function BWOABasements.Generic:build()
     self:buildWalls()
     self:buildStairs()
     -- self:makeRoom()
+    self:recalcFurnitureArea()
     self:placeFurniture()
     self:placeLights()
     self:placeItems()
+    self:placeCorpses()
     self:populate()
 end
 

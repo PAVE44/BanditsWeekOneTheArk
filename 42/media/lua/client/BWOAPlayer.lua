@@ -2,6 +2,9 @@ BWOAPlayer = BWOPlayer or {}
 
 BWOAPlayer.tick = 0
 
+BWOAPlayer.dreamStage = 1
+BWOAPlayer.dreamNo = 1
+
 local bodyParts = {}
 table.insert(bodyParts, {bname=BloodBodyPartType.Head, name=BodyPartType.Head, chance=1000})
 table.insert(bodyParts, {bname=BloodBodyPartType.Torso_Lower, name=BodyPartType.Torso_Lower, chance=600})
@@ -23,6 +26,7 @@ local roomRevealMap = {
     ["LABORATORY"]              = {person = "Emma Robinson", qid = "100.6"},
     ["ARMORY"]                  = {person = "Emma Robinson", qid = "100.8"},
     ["DECONTAMINATION_CHAMBER"] = {person = "Emma Robinson", qid = "100.9"},
+    ["AIRVENTROOM"]             = {person = "Emma Robinson", qid = "100.10"},
     -- ["INCINERATOR_ROOM"]        = {person = "Emma Robinson", qid = "100.10"},
 }
 
@@ -70,6 +74,65 @@ local onPlayerUpdate = function(player)
         end
     end
 
+    -- dreams
+    local emitter = player:getEmitter()
+    local dreamShouldStart = false
+    local dreamShouldEnd = false
+    if player:isAsleep() then
+        nh = math.floor(getGameTime():getTimeOfDay()) + 2
+        if (nh >= 24) then
+            nh = nh - 24
+        end
+
+        player:setForceWakeUpTime(nh)
+
+        if BWOAPlayer.dreamStage == 1 then
+            local hours = player:getHoursSurvived()
+            if hours < 24 then
+                BWOAPlayer.dreamNo = 1
+            elseif hours < 48 then
+                BWOAPlayer.dreamNo = 2
+            elseif hours < 72 then
+                BWOAPlayer.dreamNo = 3
+            else
+                BWOAPlayer.dreamNo = nil
+            end
+
+            if BWOAPlayer.dreamNo then
+                dreamShouldStart = true
+            end
+        elseif BWOAPlayer.dreamStage == 2 then
+            if not emitter:isPlaying(BWOAPlayer.soundStart) then
+                dreamShouldEnd = true
+            end
+        end
+    else
+        -- player wakes before dream end
+        if BWOAPlayer.dreamStage == 2 then
+            dreamShouldEnd = true
+        end
+    end
+
+    if dreamShouldStart then
+        BWOAPlayer.soundStart = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "Start"
+        BWOAPlayer.soundEnd = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "End"
+        emitter:playSound(BWOAPlayer.soundStart)
+        BWOAPlayer.dreamStage = 2
+    end
+
+    if dreamShouldEnd then
+        emitter:playSound(BWOAPlayer.soundEnd)
+        emitter:stopSoundByName(BWOAPlayer.soundStart)
+        BanditPlayer.WakeEveryone()
+        local stats = player:getStats()
+        stats:setPanic(100)
+
+        BWOAEventControl.Add("SayPlayer", {txt = "Arggghhh!"}, 1)
+
+        BWOAPlayer.dreamStage = 1
+    end
+
+    -- tick update
     BWOAPlayer.tick = BWOAPlayer.tick + 1
 end
 
@@ -301,7 +364,7 @@ local function everyOneMinute()
     end
 
     radiationBalance = radiationBalance - 0.5
-    if md.bwoa.drug.PotassiumYodine and md.bwoa.drug.PotassiumYodine > 0 then
+    if md.bwoa.drug.PotassiumIodine and md.bwoa.drug.PotassiumIodine > 0 then
         radiationBalance = radiationBalance - 1
     end
 
@@ -380,7 +443,7 @@ local function everyOneMinute()
             headAcheExpected = headAcheExpected / 2
         end
 
-        if md.bwoa.drug.Pentoxifylline and md.bwoa.drug.Pentoxifylline > 0 then
+        if md.bwoa.drug.Pentoxifylline and md.bwoa.drug.Pentoxifylline > 0 and fatigueExpected and enduranceExpected then
             fatigueExpected = fatigueExpected / 3
             enduranceExpected = enduranceExpected / 3
         end
@@ -457,8 +520,8 @@ local onTimedActionPerform = function(data)
                 name = "Aspirine",
                 dose = 120
             },
-            ["PillsPotassiumYodine"] = { -- accumulated radiation will wear off quicker
-                name = "PotassiumYodine",
+            ["PillsPotassiumIodine"] = { -- accumulated radiation will wear off quicker
+                name = "PotassiumIodine",
                 dose = 480
             },
             ["PillsPentoxifylline"] = { -- minimizes effects of high co2 
@@ -482,6 +545,18 @@ local onTimedActionPerform = function(data)
             if not md.bwoa.drug[drug.name] then md.bwoa.drug[drug.name] = 0 end
             md.bwoa.drug[drug.name] = md.bwoa.drug[drug.name] + drug.dose
         end
+    elseif action == "ISInventoryTransferAction" then
+        local item = data.item
+        local destContainerParent = data.destContainer:getParent()
+
+        -- that means taking things
+        if instanceof(destContainerParent, "IsoPlayer") then 
+            local md = item:getModData()
+            if md.BWOA and md.BWOA.accomplishMissionId then
+                BWOAMissions.Accomplish(md.BWOA.accomplishMissionId)
+            end
+        end
+
     elseif action == "TABAS_TakeShower" then
 
         local radiationBalance = 0.5 * md.bwoa.radiation

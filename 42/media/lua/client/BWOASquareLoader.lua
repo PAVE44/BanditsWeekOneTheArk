@@ -31,6 +31,10 @@ BWOASquareLoader.burnMap = {
     ["Base.Pickup"]           = "Base.PickupBurnt",
 }
 
+BWOASquareLoader.burnExclusion = {
+    ["Base.PickUpTruckLightsFossoil"] = true
+}
+
 local burnVehicle = function(vehicle)
     local burnMap = BWOASquareLoader.burnMap
     local scriptName = vehicle:getScriptName()
@@ -141,12 +145,18 @@ local processSquare = function(square)
     -- post nuke world destroyer
     if not md.BWO.processed then
         burnSquare(square)
-        local vehicle = square:getVehicleContainer()
-        if vehicle then
-            burnVehicle(vehicle)
-        end
         md.BWO.processed = true
     end
 end
 
+local function as(vehicle)
+    if not BWOASquareLoader.burnExclusion[vehicle:getScriptName()] then
+        burnVehicle(vehicle)
+    end
+end
+
+Events.OnSpawnVehicleEnd.Remove(onSpawnVehicleEnd)
+Events.OnSpawnVehicleEnd.Add(onSpawnVehicleEnd)
+
+Events.LoadGridsquare.Remove(processSquare)
 Events.LoadGridsquare.Add(processSquare)

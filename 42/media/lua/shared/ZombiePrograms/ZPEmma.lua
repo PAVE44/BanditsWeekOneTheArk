@@ -11,9 +11,64 @@ ZombiePrograms.Emma.Prepare = function(bandit)
     return {status=true, next="Main", tasks=tasks}
 end
 
+local switchStage = function(bandit)
+    local brain = BanditBrain.Get(bandit)
+    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+
+    if bz > -4 or (bx < 9950 and by > 12621 and by < 12629) then
+        if brain.program.stage ~= "Exterior" then
+            brain.program.stage = "Exterior"
+            return "Exterior"
+        end
+    elseif BWOABaseAPI.alarm then
+        if brain.program.stage ~= "Defend" then
+            brain.program.stage = "Defend"
+            return "Defend"
+        end
+    else
+        if brain.program.stage ~= "Main" then
+            brain.program.stage = "Main"
+            return "Main"
+        end
+    end
+end
+
+local switchOutfit = function(bandit, expectedBid)
+    local brain = BanditBrain.Get(bandit)
+    
+    if expectedBid ~= brain.bid then
+        local task = {
+            action = "Transform", 
+            anim = "BandageUpperBody",
+            bid = expectedBid,
+            cid = Bandit.clanMap.Emma,
+            time = 150
+        }
+        return task
+    end
+end
+
 ZombiePrograms.Emma.Main = function(bandit)
+
     local tasks = {}
 
+    local newStage = switchStage(bandit)
+    if newStage then
+        return {status=true, next=newStage, tasks=tasks}
+    end
+
+    local expectedBid = Bandit.banditMap.Emma.Bunker
+    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    if reoutfitTask then
+        table.insert(tasks, reoutfitTask)
+        return {status=true, next="Main", tasks=tasks}
+    end
+
+    local brain = BanditBrain.Get(bandit)
+    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+
+    -- transform
+    
     local schedule = {
         --[[
         shower = {
@@ -36,9 +91,6 @@ ZombiePrograms.Emma.Main = function(bandit)
             minuteMax = 60
         }
     }
-
-    local brain = BanditBrain.Get(bandit)
-    local bx, by = bandit:getX(), bandit:getY()
 
     if brain.bladder and brain.bladder > 20 then
         bandit:addLineChatElement("ACTIVITY: TOILET", 0, 0, 1)
@@ -113,6 +165,152 @@ ZombiePrograms.Emma.Main = function(bandit)
     end
 
     return {status=true, next="Main", tasks=tasks}
+end
+
+ZombiePrograms.Emma.Defend = function(bandit)
+    local tasks = {}
+    local cell = getCell()
+
+    local newStage = switchStage(bandit)
+    if newStage then
+        return {status=true, next=newStage, tasks=tasks}
+    end
+
+    local expectedBid = Bandit.banditMap.Emma.Defend
+    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    if reoutfitTask then
+        table.insert(tasks, reoutfitTask)
+        return {status=true, next="Defend", tasks=tasks}
+    end
+
+    local brain = BanditBrain.Get(bandit)
+    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+
+    local config = {}
+    config.mustSee = false
+    config.hearDist = 70
+    config.levelDiff = 0
+
+    local target, enemy = BanditUtils.GetTarget(bandit, config)
+    
+    -- engage with target
+    if target.x and target.y and target.z and target.z == -4 then
+        local targetSquare = cell:getGridSquare(target.x, target.y, target.z)
+        if targetSquare then
+            Bandit.SayLocation(bandit, targetSquare)
+        end
+
+        local tx, ty, tz = target.x, target.y, target.z
+    
+        if enemy then
+            if target.fx and target.fy and (enemy:isRunning()  or enemy:isSprinting()) then
+                tx, ty = target.fx, target.fy
+            end
+        end
+
+        local walkType = "WalkAim"
+
+        table.insert(tasks, BanditUtils.GetMoveTask(endurance, tx, ty, tz, walkType, target.dist))
+        return {status=true, next="Main", tasks=tasks}
+    end
+
+    local subTasks = BWOAPrograms.IdleEmma(bandit)
+    if #subTasks > 0 then
+        for _, subTask in pairs(subTasks) do
+            table.insert(tasks, subTask)
+        end
+        return {status=true, next="Defend", tasks=tasks}
+    end
+
+    return {status=true, next="Defend", tasks=tasks}
+end
+
+ZombiePrograms.Emma.Exterior = function(bandit)
+    local tasks = {}
+
+    local newStage = switchStage(bandit)
+    if newStage then
+        return {status=true, next=newStage, tasks=tasks}
+    end
+
+    local expectedBid = Bandit.banditMap.Emma.Hazmat
+    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    if reoutfitTask then
+        table.insert(tasks, reoutfitTask)
+        return {status=true, next="Exterior", tasks=tasks}
+    end
+
+    local brain = BanditBrain.Get(bandit)
+    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+    local cell = getCell()
+    local master = BanditPlayer.GetMasterPlayer(bandit)
+    local mx, my, mz = master:getX(), master:getY(), master:getZ()
+
+    -- update walktype
+    local walkType = "Walk"
+    local endurance = 0.00
+    local vehicle = master:getVehicle()
+    local dist = BanditUtils.DistTo(bx, by, mx, my)
+
+    if master:isSprinting() or dist > 10 then
+        walkType = "Run"
+        endurance = 0
+    elseif master:isSneaking() and dist < 12 then
+        walkType = "SneakWalk"
+        endurance = 0
+    end
+
+    local outOfAmmo = Bandit.IsOutOfAmmo(bandit)
+    if master:isAiming() and not outOfAmmo and dist < 8 then
+        walkType = "WalkAim"
+        endurance = 0
+    end
+
+    local health = bandit:getHealth()
+    if health < 0.4 then
+        walkType = "Limp"
+        endurance = 0
+    end 
+
+    if dist < 20 then
+        local closestZombie = BanditUtils.GetClosestZombieLocation(bandit)
+        local closestBandit = BanditUtils.GetClosestEnemyBanditLocation(bandit)
+        local closestEnemy = closestZombie
+
+        if closestBandit.dist < closestZombie.dist and closestBandit.z == bz then 
+            closestEnemy = closestBandit
+        end
+
+        if closestEnemy.dist < 8 and closestEnemy.z == bz then
+            walkType = "WalkAim"
+            table.insert(tasks, BanditUtils.GetMoveTask(endurance, closestEnemy.x, closestEnemy.y, closestEnemy.z, walkType, closestEnemy.dist))
+            return {status=true, next="Main", tasks=tasks}
+        end
+    end
+
+    if dist > 2 or math.abs(mz - bz) >= 1 then
+        table.insert(tasks, BanditUtils.GetMoveTask(endurance, mx, my, mz, walkType, dist, false))
+        return {status=true, next="Main", tasks=tasks}
+    else
+
+        local subTasks = BanditPrograms.Idle(bandit)
+        if #subTasks > 0 then
+            for _, subTask in pairs(subTasks) do
+                table.insert(tasks, subTask)
+            end
+            return {status=true, next="Main", tasks=tasks}
+        end
+    end
+
+    local subTasks = BWOAPrograms.IdleEmma(bandit)
+    if #subTasks > 0 then
+        for _, subTask in pairs(subTasks) do
+            table.insert(tasks, subTask)
+        end
+        return {status=true, next="Exterior", tasks=tasks}
+    end
+
+    return {status=true, next="Exterior", tasks=tasks}
 end
 
 ZombiePrograms.Emma.Leisure = function(bandit)

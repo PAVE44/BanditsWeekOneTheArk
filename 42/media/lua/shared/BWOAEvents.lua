@@ -86,6 +86,13 @@ BWOAEvents.PlayerSetup = function(params)
     end
 end
 
+BWOAEvents.SayPlayer = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+    local color = player:getSpeakColour()
+    player:addLineChatElement(params.txt, color:getR(), color:getG(), color:getB())
+end
+
 -- params: id, txt, anim
 BWOAEvents.SayBandit = function(params)
     local player = getSpecificPlayer(0)

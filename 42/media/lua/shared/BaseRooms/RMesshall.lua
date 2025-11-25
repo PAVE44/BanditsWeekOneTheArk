@@ -84,13 +84,13 @@ BWOARooms.Messhall.Prepare = function ()
         ["Base.Pot"] = 1, ["Base.GridlePan"] = 2, ["Base.BottleOpener"] = 1, 
         ["Base.BastingBrush"] = 1, ["Base.TinOpener"] = 1, ["Base.CheeseGrater"] = 1, 
         ["Base.Corkscrew"] = 1, ["Base.GrillBrush"] = 1, ["Base.Ladle"] = 1, 
-        ["Base.MuffinTray"] = 1, ["Base.OverMitt"] = 4, ["Base.Strainer"] = 1,
+        ["Base.MuffinTray"] = 1, ["Base.OvenMitt"] = 4, ["Base.Strainer"] = 1,
         ["Base.Whisk"] = 1, ["Base.RollingPin"] = 4, ["Base.Pan"] = 1
     }
     BWOAPrepareTools.AddItemsToContainer(9962, 12610, -4, items, "Counter")
 
     items = {
-        ["Base.CuttinBoardWooden"] = 2, ["Base.Matches"] = 20, ["Base.Lighter"] = 2, 
+        ["Base.CuttingBoardWooden"] = 2, ["Base.Matches"] = 20, ["Base.Lighter"] = 2, 
         ["Base.WoodenSpoon"] = 2
     }
     BWOAPrepareTools.AddItemsToContainer(9963, 12610, -4, items, "Counter")

@@ -3,6 +3,61 @@ BWOAEventControl = BWOAEventControl or {}
 -- table for enqueued events
 BWOAEventControl.Events = {}
 
+local schedule = {
+    [0] = {
+        [1] = {"SayPlayer", {txt="What the hell?"}},
+    },
+    [11] = {
+        [39] = {"Assault", {intensity = 2}},
+    },
+    [22] = {
+        [39] = {"Horde", {intensity = 30}},
+    },
+    [33] = {
+        [17] = {"Earthquake", {intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
+    },
+    [44] = {
+        [39] = {"Assault", {intensity = 6}},
+    },
+}
+
+-- triggering scheduled events 
+local function everyOneMinute()
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    -- time events
+    local gt = getGameTime()
+    local hours = math.floor(gt:getWorldAgeHours()) - 10
+    local minutes = gt:getMinutes()
+
+    if schedule[hours] and schedule[hours][minutes] then
+        local event = schedule[hours][minutes]
+        if event and event[1] and event[2] then
+            local eventName = event[1]
+            local eventParams = event[2]
+            if BWOASequence[eventName] then
+                BWOASequence[eventName](eventParams)
+            else
+                BWOAEventControl.Add(eventName, eventParams, 1)
+            end
+        end
+    end
+
+    -- place events
+
+    local gmd = GetBWOAModData()
+    local px, py = player:getX(), player:getY()
+    local placeEvents = gmd.placeEvents
+    for k, event in pairs(placeEvents) do
+        if not event.rendered then
+            if BanditUtils.DistTo(px, py, event.x, event.y) < 50 then
+                BWOAPlaceEvents.Render(event)
+            end
+        end
+    end
+end
+
 -- queue adder
 function BWOAEventControl.Add(name, params, delay)
     event = {}
@@ -30,4 +85,8 @@ function onTick()
     end
 end
 
+Events.EveryOneMinute.Remove(everyOneMinute)
+Events.EveryOneMinute.Add(everyOneMinute)
+
+Events.OnTick.Remove(onTick)
 Events.OnTick.Add(onTick)

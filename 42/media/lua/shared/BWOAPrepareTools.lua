@@ -48,6 +48,11 @@ local addWorldItem = function(x, y, z, item, data)
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)
     
+    if not data then data = {} end
+    if not data.x then data.x = 0.5 end
+    if not data.y then data.y = 0.5 end
+    if not data.z then data.z = 0 end
+
     item = square:AddWorldInventoryItem(item, data.x, data.y, data.z)
 
     if data.rx then
@@ -122,4 +127,64 @@ BWOAPrepareTools.AddItemsToContainer = function(x, y, z, items, customName, pres
         end
         container:setDrawDirty(true)
     end
+end
+
+BWOAPrepareTools.AddHumanCorpse = function(x, y, z, outfits, femaleChance)
+    local fakeItem = BanditCompatibility.InstanceItem("Base.AssaultRifle")
+    local fakeZombie = getCell():getFakeZombieForHit()
+    local outfit = BanditUtils.Choice(outfits)
+    local zombieList = BanditCompatibility.AddZombiesInOutfit(x, y, z, outfit, femaleChance, false, false, false, false, false, false, 2)
+    for i=0, zombieList:size()-1 do
+        -- print ("place body at x:" .. x .. " y:" .. y)
+        local zombie = zombieList:get(i)
+        local banditVisuals = zombie:getHumanVisual()
+        local id = BanditUtils.GetCharacterID(zombie)
+        local r = 1 + math.abs(id) % 5 
+        if zombie:isFemale() then
+            banditVisuals:setSkinTextureName("FemaleBody0" .. tostring(r))
+        else
+            banditVisuals:setSkinTextureName("MaleBody0" .. tostring(r))
+        end
+
+        -- zombie:setForceFakeDead(true)
+        BanditCompatibility.Splash(zombie, fakeItem, fakeZombie)
+        zombie:getInventory():clear()
+        zombie:Hit(fakeItem, fakeZombie, 50, false, 1, false)
+        
+    end
+end
+
+BWOAPrepareTools.AddVehicle = function(x, y, z, vtype, data)
+    local cell = getCell()
+    local square = getCell():getGridSquare(x, y, z)
+    if not square then return end
+
+    if not square:getChunk() then return end
+
+    if not data then data = {} end
+    if not data.dir then data.dir = IsoDirections.E end
+
+    local vehicle = addVehicle(vtype, square:getX(), square:getY(), square:getZ())
+    if not vehicle then return end
+
+    for i = 0, vehicle:getPartCount() - 1 do
+        local container = vehicle:getPartByIndex(i):getItemContainer()
+        if container then
+            container:removeAllItems()
+        end
+    end
+
+    if not data.condition then data.condition = 100 end
+    vehicle:setGeneralPartCondition(data.condition / 100, 0)
+
+    if not data.fuel then data.fuel = 100 end
+    local gasTank = vehicle:getPartById("GasTank")
+    if gasTank then
+        local fuel = gasTank:getContainerCapacity() * data.fuel / 100
+        gasTank:setContainerContentAmount(fuel)
+    end
+
+    vehicle:setRust(100)
+
+    return vehicle
 end

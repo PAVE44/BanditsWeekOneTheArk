@@ -200,7 +200,7 @@ BWOANoah.Screens.Power = function()
     text[5]  = "POWER CONTROL"
 
     text[7]  = "> GRID:  ACTIVE"
-    text[8]  = "> USAGE: " .. string.format("%.2f", BWOABaseControl.powerUsing) .. "L/h"
+    text[8]  = "> USAGE: " .. string.format("%.2f", BWOABaseControl.gridPowerUsing) .. "L/h"
 
     text[11]  = "SELECT UNIT:"
     text[12]  = "1. MAIN: MASS-GENFAC GX-9"

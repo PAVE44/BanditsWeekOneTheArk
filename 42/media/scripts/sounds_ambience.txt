@@ -289,4 +289,64 @@ module Bandits {
             reverbFactor = 0.6, 
         }
     }
+
+    sound Dream1Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_1_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream1End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_1_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream2Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_2_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream2End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_2_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream3Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_3_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream3End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_3_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
 }

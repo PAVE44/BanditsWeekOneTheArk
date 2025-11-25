@@ -112,8 +112,15 @@ BWOABaseAPI.GetGeneratorPowerUsing = function()
             local generator = square:getGenerator()
             if generator then
                 if generator:isActivated() then
+                    generator:update()
                     powerUsing = powerUsing + generator:getTotalPowerUsing()
+                    --[[
+                    print (powerUsing)
                     local items = generator:getItemsPowered()
+                    for i=0,items:size()-1 do
+                        print(items:get(i))
+                    end]]
+
                 end
             end
         else

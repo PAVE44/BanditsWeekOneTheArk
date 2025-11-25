@@ -40,8 +40,8 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         req = {"1.2"},
     },
     ["1.2.3"] = {
-        qst = "How many of us live here?",
-        ans = "It's you, me, and four others.",
+        qst = "How many of you live here?",
+        ans = "It's me, four others and you.",
         anim = "Talk3",
         req = {"1.2", "2"},
     },
@@ -53,7 +53,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["1.2.3.1.1"] = {
         qst = "Who's David?",
-        ans = "David is our leader, ex-military.",
+        ans = "David is our leader. He was the one that found me.",
         anim = "Talk3",
         req = {"1.2.3.1"},
     },
@@ -142,7 +142,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         req = {"3.1.1.1"},
     },
     ["3.1.1.1.1.1"] = {
-        qst = "Show me!",
+        qst = "Show me! (Kung-Fu)",
         ans = "Nah... I might still need you.",
         anim = "Talk3",
         req = {"3.1.1.1.1"},
@@ -283,6 +283,14 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         anim = "Talk3",
         req = {"100.1.2.2"},
     },
+    ["100.1.2.2.1.1"] = {
+        qst = "How do we get more fuel?",
+        ans = "Fuel is a scarse resource. Our intel shows that there is a fuel truck located on Dixie Highway leading to Muldraugh Ruins. Can you get it here?",
+        anim = "Talk3",
+        req = {"100.1.2.2.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 6},
+    },
     ["100.2"] = {
         qst = "I found Noah, a computer of some kind.",
         ans = "Great find! Noah controls and monitors many systems in the base. I'd advise caution before changing anything.",
@@ -384,6 +392,15 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         req = {"1.2.1.1"},
         hidden = true
     },
+    ["100.10"] = {
+        qst = "I think we need more tools.",
+        ans = "Good observation. We lost some of our tools during one of our recent scavenge missions. There is a bag full of tools in what is left of the Community Center in March Ridge. Can you get it back for us?",
+        anim = "Talk3",
+        req = {"1.2.1.1"},
+        hidden = true,
+        func = "RevealMission",
+        funcParams = {missionId = 7},
+    },
     ["100.8.1.1"] = {
         qst = "What radiation are you speaking about?",
         ans = "Oh right, I forgot you don't remember things. It's the nuclear fallout. I'm sorry, but the world as you knew is now gone. When you're ready, you can go outside and see for yourself. Just be careful there!",
@@ -441,7 +458,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["1000.3.1"] = {
         qst = "How can we recover from radiation poisoning?",
-        ans = "Take a shower and some potassioum yodine pills immediately!",
+        ans = "Take a shower and some potassioum iodine pills immediately!",
         anim = "Talk3",
         req = {"1000.3"},
     },
@@ -462,11 +479,6 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         funcParams = {missionId = 3},
     },
 }
-
-BWOADialogues.LoadDialogues = function()
-    local gmd = GetBWOAModData()
-    gmd.dialogues = BWOADialogues.dialogues
-end
 
 BWOADialogues.GetQuestions = function(person)
     local gmd = GetBWOAModData()

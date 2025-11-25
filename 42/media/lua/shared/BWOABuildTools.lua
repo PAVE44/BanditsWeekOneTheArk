@@ -7,10 +7,18 @@ BWOABuildTools.Floor = function(x, y, z, spriteName)
         square = cell:createNewGridSquare(x, y, z, true)
     end
     local obj = IsoObject.new(square, spriteName, "")
-    
-    local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
-    obj:setAttachedAnimSprite(ArrayList.new())
-    obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
+
+        obj:setAttachedAnimSprite(ArrayList.new())
+
+    if ZombRand(3) == 0 then
+        local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
+        obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
+    end
+
+    if ZombRand(3) == 0 then
+        local bloodSprite = "overlay_blood_floor_01_" .. tostring(1 + ZombRand(13))
+        obj:getAttachedAnimSprite():add(getSprite(bloodSprite):newInstance())
+    end
 
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()

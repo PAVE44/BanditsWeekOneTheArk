@@ -23,7 +23,7 @@ end
 function TAOpenHatch:perform()
     self.character:playSound("BreakBarricadePlank")
     local x, y = self.square:getX(), self.square:getY()
-    local theme = BanditUtils.Choice({"generic", "wine", "preppers"})
+    local theme = BanditUtils.Choice({"generic", "wine", "preppers", "wicked", "cannibals"})
     local builder = BanditUtils.Choice({"Generic", "Double"})
     local basement = BWOABasements[builder]:new(x, y, self.square:getRoom(), theme)
     basement:build()
@@ -39,7 +39,7 @@ function TAOpenHatch:new(character, square)
     local o = {}
     setmetatable(o, self)
     self.__index = self
-    
+
     o.character = character
     o.square = square
     o.stopOnWalk = false

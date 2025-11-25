@@ -99,8 +99,8 @@ function onClimateTick()
 
     BWOAClimate.tick = BWOAClimate.tick + 1
 
-    if BWOAClimate.lastQuake > 200 then
-        if ZombRand(250) == 0 then
+    if BWOAClimate.lastQuake > 2000 then
+        if ZombRand(1000) == 0 then
             local playerList = BanditPlayer.GetPlayers()
             for i=0, playerList:size()-1 do
                 local player = playerList:get(i)

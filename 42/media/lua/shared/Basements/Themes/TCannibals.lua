@@ -4,13 +4,13 @@ BasementThemes = BasementThemes or {}
 
 local theme = {}
 
-theme.cid = Bandit.clanMap.BasementPreppers
+theme.cid = Bandit.clanMap.BasementCannibals
 
 theme.sprites = {}
 theme.sprites.stairs1 = "fixtures_stairs_01_64"
 theme.sprites.stairs2 = "fixtures_stairs_01_65"
 theme.sprites.stairs3 = "fixtures_stairs_01_66"
-theme.sprites.floor = "floors_interior_tilesandwood_01_41"
+theme.sprites.floor = "floors_exterior_street_01_0"
 theme.sprites.ceiling = "carpentry_02_58"
 
 theme.sprites.wallOptions = {
@@ -79,6 +79,8 @@ theme.furniture = {
         chance = 1000,
         items = {
             {["Base.Pot"] = 1},
+            {["Bandits.HumanMeat"] = 1},
+            {["Bandits.HumanBrain"] = 1},
             {["Base.Firewood"] = 3},
         },
         fireplace = true,
@@ -119,15 +121,34 @@ theme.furniture = {
     ["shelves"] = {
         chance = 100,
         items = {
-            {["Base.CannedSardines"] = 1},
-            {["Base.CannedCorn"] = 1},
-            {["Base.CannedMushroomSoup"] = 1},
-            {["Base.CannedChili"] = 1},
-            {["Base.CannedPeas"] = 1},
-            {["Base.CannedPineapple"] = 1},
-            {["Base.CannedBolognese"] = 2},
-            {["Base.HazmatSuitUrban"] = 1},
-            {["Base.GasmaskFilter"] = 6},
+            {["Base.Salt"] = 1},
+            {["Base.Pepper"] = 1},
+            {["Base.Hotsauce"] = 1},
+            {["Base.PowderedGarlic"] = 1},
+            {["Base.Ketchup"] = 2},
+            {["Base.MayonnaiseFull"] = 1},
+            {["Bandits.HumanMeat"] = 7},
+            {["Bandits.MincedHumanMeat"] = 7},
+            {["Bandits.HumanBrain"] = 2},
+            {["Base.Pot"] = 2},
+            {["Base.Saucepan"] = 2},
+            {["Base.Vodka"] = 1},
+            {["Base.JerryCan"] = 4},
+            {["Base.Battery"] = 4},
+            {["Base.Book"] = 3},
+            {["Base.CandleBox"] = 1},
+            {["Base.Matches"] = 3},
+            {["Base.CigaretteSingle"] = 7},
+            {["Base.FirstAidKit"] = 1},
+            {["Base.Garbagebag"] = 3},
+            {["Base.Garbagebag"] = 1},
+            {["Base.Handtorch"] = 1},
+            {["Base.BaseballBat"] = 1},
+            {["Base.RevolverCase1"] = 1},
+            {["Base.Handaxe"] = 1},
+            {["Base.HazmatSuitBlack"] = 1},
+            {["Base.Apron_Black"] = 3},
+            {["Base.GasmaskFilter"] = 3},
         },
         dirs = {
             n = {
@@ -141,62 +162,10 @@ theme.furniture = {
             w = {
                 [1] = {x=0, y=0, name="furniture_shelving_01_25"},
                 [2] = {x=0, y=1, name="furniture_shelving_01_24"},
-                [3] = {x=0, y=2, name="furniture_shelving_01_25"},
-                [4] = {x=0, y=3, name="furniture_shelving_01_24"},
             },
             e = {
                 [1] = {x=0, y=0, name="furniture_shelving_01_25"},
                 [2] = {x=0, y=1, name="furniture_shelving_01_24"},
-            },
-        }
-    },
-    ["lockers"] = {
-        chance = 90,
-        items = {
-            {["Base.AssaultRifle"] = 1},
-            {["Base.556Clip"] = 1},
-            {["Base.556Box"] = 2},
-            {["Base.556Bullets"] = 14},
-            {["Base.Pistol2"] = 1},
-            {["Base.45Clip"] = 1},
-            {["Base.Bullets45"] = 9},
-            {["Base.Bullets45Box"] = 1},
-            {["Base.FirstAidKit_Military"] = 1},
-            {["Base.Jacket_ArmyCamoUrban"] = 2},
-            {["Base.Trousers_CamoUrban"] = 2},
-            {["Base.Shirt_CamoUrban"] = 2},
-            {["Base.Tshirt_CamoUrban"] = 2},
-            {["Base.BookAiming1"] = 1},
-            {["Base.BookAiming2"] = 1},
-            {["Base.BookAiming3"] = 1},
-            {["Base.BookAiming4"] = 1},
-            {["Base.BookAiming5"] = 1},
-            {["Base.WeaponMag1"] = 1},
-            {["Base.WeaponMag2"] = 1},
-            {["Base.WeaponMag3"] = 1},
-            {["Base.WeaponMag4"] = 1},
-            {["Base.WeaponMag5"] = 1},
-            {["Base.WeaponMag6"] = 1},
-            {["Base.WeaponMag7"] = 1},
-
-            {["Base.HamRadio2"] = 7},
-        },
-        dirs = {
-            n = {
-                [1] = {x=0, y=0, name="location_military_generic_01_30"},
-                [2] = {x=0, y=0, name="location_military_generic_01_30"},
-            },
-            s = {
-                [1] = {x=0, y=0, name="location_military_generic_01_22"},
-                [2] = {x=1, y=0, name="location_military_generic_01_22"},
-            },
-            w = {
-                [1] = {x=0, y=0, name="location_military_generic_01_31"},
-                [2] = {x=0, y=1, name="location_military_generic_01_31"},
-            },
-            e = {
-                [1] = {x=0, y=0, name="location_military_generic_01_23"},
-                [2] = {x=0, y=1, name="location_military_generic_01_23"},
             },
         }
     },
@@ -205,125 +174,120 @@ theme.furniture = {
         surface = true,
         dirs = {
             n = {
-                [1] = {x=0, y=0, name="furniture_tables_high_01_50"},
-                [2] = {x=1, y=0, name="furniture_tables_high_01_51"},
+                [1] = {x=0, y=0, name="carpentry_01_28"},
+                [2] = {x=1, y=0, name="carpentry_01_29"},
             },
             s = {
-                [1] = {x=0, y=0, name="furniture_tables_high_01_50"},
-                [2] = {x=1, y=0, name="furniture_tables_high_01_51"},
+                [1] = {x=0, y=0, name="carpentry_01_28"},
+                [2] = {x=1, y=0, name="carpentry_01_29"},
             },
             w = {
-                [1] = {x=0, y=0, name="furniture_tables_high_01_49"},
-                [2] = {x=0, y=1, name="furniture_tables_high_01_48"},
+                [1] = {x=0, y=0, name="carpentry_01_31"},
+                [2] = {x=0, y=1, name="carpentry_01_30"},
             },
             e = {
-                [1] = {x=0, y=0, name="furniture_tables_high_01_49"},
-                [2] = {x=0, y=1, name="furniture_tables_high_01_48"},
+                [1] = {x=0, y=0, name="carpentry_01_31"},
+                [2] = {x=0, y=1, name="carpentry_01_30"},
             },
         }
     },
-    ["bed1"] = {
+    ["matress1"] = {
         chance = 100,
         dirs = {
             n = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_58"},
-                [2] = {x=1, y=0, name="furniture_bedding_01_59"},
+                [1] = {x=0, y=0, name="carpentry_02_76"},
+                [2] = {x=1, y=0, name="carpentry_02_77"},
             },
             s = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_58"},
-                [2] = {x=1, y=0, name="furniture_bedding_01_59"},
+                [1] = {x=0, y=0, name="carpentry_02_76"},
+                [2] = {x=1, y=0, name="carpentry_02_77"},
             },
             w = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_57"},
-                [2] = {x=0, y=1, name="furniture_bedding_01_55"},
+                [1] = {x=0, y=0, name="carpentry_02_79"},
+                [2] = {x=0, y=1, name="carpentry_02_78"},
             },
             e = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_57"},
-                [2] = {x=0, y=1, name="furniture_bedding_01_56"},
+                [1] = {x=0, y=0, name="carpentry_02_79"},
+                [2] = {x=0, y=1, name="carpentry_02_78"},
             },
         }
     },
-    ["bed2"] = {
+    ["matress2"] = {
         chance = 90,
         dirs = {
             n = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_58"},
-                [2] = {x=1, y=0, name="furniture_bedding_01_59"},
+                [1] = {x=0, y=0, name="carpentry_02_76"},
+                [2] = {x=1, y=0, name="carpentry_02_77"},
             },
             s = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_58"},
-                [2] = {x=1, y=0, name="furniture_bedding_01_59"},
+                [1] = {x=0, y=0, name="carpentry_02_76"},
+                [2] = {x=1, y=0, name="carpentry_02_77"},
             },
             w = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_57"},
-                [2] = {x=0, y=1, name="furniture_bedding_01_56"},
+                [1] = {x=0, y=0, name="carpentry_02_79"},
+                [2] = {x=0, y=1, name="carpentry_02_78"},
             },
             e = {
-                [1] = {x=0, y=0, name="furniture_bedding_01_57"},
-                [2] = {x=0, y=1, name="furniture_bedding_01_56"},
+                [1] = {x=0, y=0, name="carpentry_02_79"},
+                [2] = {x=0, y=1, name="carpentry_02_78"},
             },
         }
     },
-    ["usa"] = {
-        chance = 1000,
-        attachment = true,
+    ["matress3"] = {
+        chance = 90,
         dirs = {
-            s = {
-                [1] = {x=0, y=0, name="walls_decoration_01_16"},
-            },
-            e = {
-                [1] = {x=0, y=0, name="walls_decoration_01_17"},
+            c = {
+                [1] = {x=0, y=0, name="carpentry_02_76"},
+                [2] = {x=1, y=0, name="carpentry_02_77"},
             },
         }
     },
-    ["worldmap"] = {
-        chance = 100,
+    ["matress4"] = {
+        chance = 90,
         dirs = {
-            s = {
-                [1] = {x=0, y=0, name="location_community_school_01_22"},
-                [2] = {x=1, y=0, name="location_community_school_01_23"},
-            },
-            e = {
-                [1] = {x=0, y=0, name="location_community_school_01_31"},
-                [1] = {x=0, y=1, name="location_community_school_01_30"},
+            c = {
+                [1] = {x=0, y=0, name="carpentry_02_76"},
+                [2] = {x=1, y=0, name="carpentry_02_77"},
             },
         }
     },
-    ["cork"] = {
-        chance = 100,
-        dirs = {
-            s = {
-                [1] = {x=0, y=0, name="location_business_office_generic_01_7"},
-            },
-            e = {
-                [1] = {x=0, y=0, name="location_business_office_generic_01_15"},
-            },
-        }
-    },
-    ["chest1"] = {
+    ["tablesmall"] = {
         chance = 100, 
         items = {
-            {["Base.MilitaryMedal"] = 1},
-            {["Base.PhotoBook"] = 1},
-            {["Base.Photo"] = 1},
-            {["Base.Pistol"] = 1},
-            {["Base.9mmCLip"] = 1},
-            {["Base.Bullets9mm"] = 14},
-            {["Base.Briefs_White"] = 2},
-            {["Base.Vest_DefaultTEXTURE"] = 2},
-            {["Base.Socks_Heavy"] = 3},
+            {["Base.BookButchering1"] = 1},
+            {["Base.BookButchering2"] = 1},
+            {["Base.BookButchering3"] = 1},
+            {["Base.BookButchering4"] = 1},
+            {["Base.BookButchering5"] = 1},
         },
         dirs = {
             c = {
-                [1] = {x=0, y=0, name="furniture_storage_02_29"}
+                [1] = {x=0, y=0, name="carpentry_02_10"}
             }
         }
     },
-    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="chair_seating_indoor_01_60"}}}},
-    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="chair_seating_indoor_01_61"}}}},
-    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="chair_seating_indoor_01_62"}}}},
-    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="chair_seating_indoor_01_63"}}}},
+    ["poster"] = {
+        chance = 100,
+        attachment = true,
+        dirs = {
+            s = {
+                [1] = {x=0, y=0, name="location_community_medical_01_11"},
+            },
+            e = {
+                [1] = {x=0, y=0, name="location_community_medical_01_12"},
+            },
+        }
+    },
+    ["saw"] = {chance = 200, dirs = {c = {[1] = {x=0, y=0, name="industry_02_155"}}}},
+    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_44"}}}},
+    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_45"}}}},
+    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_46"}}}},
+    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_47"}}}},
+    ["barrel"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="crafted_01_32"}}}},
+    ["oxygen"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="industry_03_7"}}}},
     ["woodscrap1"] = {chance = 100, blocks=false, dirs = {c = {[1] = {x=0, y=0, name="fencing_damaged_01_137"}}}},
+    ["woodscrap2"] = {chance = 100, blocks=false, dirs = {c = {[1] = {x=0, y=0, name="fencing_damaged_01_138"}}}},
+    ["woodscrap3"] = {chance = 100, blocks=false, dirs = {c = {[1] = {x=0, y=0, name="fencing_damaged_01_139"}}}},
     ["trash1"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
     ["trash2"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
     ["trash3"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
@@ -335,41 +299,102 @@ theme.furniture = {
 }
 
 theme.items = {
+    {["Base.Shoes_BlackBoots"] = 1},
     {["Base.Book"] = 2},
     {["Base.TinCanEmpty"] = 3},
     {["Base.TinCanEmpty"] = 3},
-    {["Base.TinCanEmpty"] = 2},
-    {["Base.TinCanEmpty"] = 1},
-    {["Base.ToiletPaper"] = 3},
-    {["Base.ToiletPaper"] = 3},
-    {["Base.ToiletPaper"] = 3},
+    {["Base.ToiletPaper"] = 4},
     {["Base.Bucket"] = 1},
+    {["Base.Bucket"] = 1},
+    {["Base.Bucket"] = 1},
+    {["Base.Bucket"] = 1},
+    {["Base.SmashedBottle"] = 1},
+    {["Base.SmashedBottle"] = 1},
+    {["Base.SmashedBottle"] = 1},
+    {["Base.SmashedBottle"] = 2},
+    {["Bandits.HumanBone"] = 4},
+    {["Bandits.HumanBone"] = 3},
+    {["Bandits.HumanBone"] = 7},
+    {["Bandits.HumanBone"] = 2},
+    {["Bandits.HumanBone"] = 5},
+    {["Bandits.HumanBone"] = 3},
+    {["Bandits.HumanBrain"] = 1},
+    {["Bandits.HumanBone"] = 11},
+    {["Bandits.HumanBone"] = 1},
+    {["Bandits.HumanBone"] = 4},
+    {["Bandits.HumanBone"] = 8},
+    {["Base.Hominid_Skull"] = 1},
+    {["Base.Hominid_Skull"] = 1},
+    {["Base.Hominid_Skull"] = 1},
+    {["Base.Hominid_Skull"] = 2},
     {["Base.WaterDispenserBottle"] = 1},
     {["Base.WaterBottle"] = 2},
     {["Base.Lantern_Hurricane"] = 1},
     {["Base.Bag_WeaponBag"] = 1},
-    {["Base.FirewoodBundle"] = 1},
+    {["Base.FirewoodBundle"] = 3},
     {["Base.Bag_TrashBag"] = 1},
     {["Base.Gin"] = 1},
-    {["Base.Vodka"] = 1},
     {["Base.CardDeck"] = 1},
     {["Base.CheckerBoard"] = 1},
-    {["Base.PhotoAlbum"] = 1},
     {["Base.PropaneTank"] = 1},
     {["Base.RippedSheets"] = 1},
     {["Base.RippedSheets"] = 3},
+    {["Base.RippedSheets"] = 3},
+    {["Base.RippedSheets"] = 3},
     {["Base.RippedSheets"] = 1},
+    {["Base.ClubHammer"] = 1},
+    {["Base.Saw"] = 1},
+    {["Base.SmallSaw"] = 1},
+    {["Base.Scalpel"] = 1},
+    {["Base.KitchenKnife"] = 1},
+    {["Base.KitchenKnife"] = 1},
+    {["Base.MeatCleaver"] = 1},
+    {["Base.MeatCleaver"] = 1},
+    {["Base.MeatCleaver"] = 1},
+    {["Base.HacksawBlade"] = 1},
+    {["Base.CircularSawblade"] = 1},
+    {["Base.Wine2Open"] = 1},
     {["Base.SoupBowl"] = 1},
     {["Base.Bowl"] = 2},
     {["Base.Yoyo"] = 1},
     {["Base.WoodAxe"] = 1},
+    {["Base.Toolbox_Mechanic"] = 1},
+    {["Base.Briefs_SmallTrunks_WhiteTINT"] = 1},
+    {["Base.Vest_DefaultTEXTURE_TINT"] = 1},
+    {["Base.Tshirt_WhiteTINT"] = 1},
+    {["Base.Jumper_RoundNeck"] = 1},
+    {["Base.Jumper_VNeck"] = 2},
+    {["Base.Socks_Long"] = 3},
     {["Base.Pillow"] = 1},
-    {["Base.Pillow"] = 1},
-    {["Base.ArmyBoots"] = 3},
-    {["Base.TentGreen_Packed"] = 1},
-    {["Base.Bag_Satchel_Military"] = 1},
+    {["Base.Trousers"] = 1},
+    {["Base.Tshirt_WhiteLongSleeveTINT"] = 1},
+    {["Base.Tshirt_WhiteLongSleeveTINT"] = 1},
+    {["Base.Tshirt_WhiteTINT"] = 1},
+    {["Base.Tshirt_WhiteTINT"] = 1},
+    {["Base.Tshirt_WhiteTINT"] = 1},
+    {["Base.Tshirt_WhiteTINT"] = 1},
+    {["Base.Briefs_Rag"] = 2},
+    {["Base.Briefs_Rag"] = 1},
+    {["Base.Skirt_Normal"] = 1},
+    {["Base.Razor"] = 2},
+    {["Base.Dung_Rat"] = 1},
+    {["Base.Dung_Rat"] = 1},
+    {["Base.Dung_Rat"] = 1},
+    {["Base.Dung_Rat"] = 1},
+    {["Base.B"] = 1},
 }
 
-theme.corpses = {}
+theme.corpses = {
+    ["corpse1"] = {
+        chance = 200, 
+        femaleChance = 50,
+        outfits = {"Naked"},
+    },
+    ["corpse2"] = {
+        chance = 200, 
+        femaleChance = 50,
+        outfits = {"Naked"},
+    },
+}
 
-BasementThemes["preppers"] = theme
+BasementThemes["cannibals"] = theme

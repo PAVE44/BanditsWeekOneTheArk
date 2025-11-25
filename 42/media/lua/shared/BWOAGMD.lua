@@ -11,7 +11,7 @@ function InitBWOAModData(isNewGame)
         ModData.request("BanditWeekOneTheArk")
     end
     
-    -- if not globalData.generators then 
+    if not globalData.generators then 
         globalData.generators = {
             main = {
                 x = 9946,
@@ -32,9 +32,9 @@ function InitBWOAModData(isNewGame)
                 active = false
             }
         }
-    -- end
+    end
 
-    -- if not globalData.ventilation then 
+    if not globalData.ventilation then 
         globalData.ventilation = {
             active = true,
             co2 = 884,
@@ -44,54 +44,54 @@ function InitBWOAModData(isNewGame)
             tempTarget = 21,
             temp = 21,
         }
-    -- end
+    end
 
-    -- if not globalData.airintakes then 
-    globalData.airintakes = {
-        [1] = {
-            x = 9940, 
-            y = 12633, 
-            z = 0,
-            broken = true,
-        },
-        [2] = {
-            x = 9940, 
-            y = 12634, 
-            z = 0, 
-            broken = false,
-        },
-        [3] = {
-            x = 9941, 
-            y = 12633, 
-            z = 0, 
-            broken = false,
-        },
-        [4] = {
-            x = 9941, 
-            y = 12634, 
-            z = 0, 
-            broken = false,
+    if not globalData.airintakes then 
+        globalData.airintakes = {
+            [1] = {
+                x = 9940, 
+                y = 12633, 
+                z = 0,
+                broken = true,
+            },
+            [2] = {
+                x = 9940, 
+                y = 12634, 
+                z = 0, 
+                broken = false,
+            },
+            [3] = {
+                x = 9941, 
+                y = 12633, 
+                z = 0, 
+                broken = false,
+            },
+            [4] = {
+                x = 9941, 
+                y = 12634, 
+                z = 0, 
+                broken = false,
+            }
         }
-    }
--- end
+    end
 
-    -- if not globalData.waterpump then 
-    globalData.waterpump = {
-        x = 9946,
-        y = 12620,
-        active = true,
-    }
--- end
+    if not globalData.waterpump then 
+        globalData.waterpump = {
+            x = 9946,
+            y = 12620,
+            active = true,
+        }
+    end
 
-    -- if not globalData.control then 
-    globalData.alerting = {
-        generatorFuelAlert = 10,
-        generatorConditionAlert = 10,
-        radiationAlert = 10,
-        co2Alert = 10,
-        waterPumpConditionAlert = 10,
-    }
--- end
+    if not globalData.control then 
+        globalData.alerting = {
+            generatorFuelAlert = 10,
+            generatorConditionAlert = 10,
+            radiationAlert = 10,
+            co2Alert = 10,
+            waterPumpConditionAlert = 10,
+        }
+    end
 
     if not globalData.hatches then 
         globalData.hatches = {}
@@ -103,7 +103,10 @@ function InitBWOAModData(isNewGame)
 
     if not globalData.missions then 
         globalData.missions = BWOAMissions.missions
-        
+    end
+
+    if not globalData.placeEvents then 
+        globalData.placeEvents = BWOAPlaceEvents.events
     end
 
     BWOAGlobalData = globalData

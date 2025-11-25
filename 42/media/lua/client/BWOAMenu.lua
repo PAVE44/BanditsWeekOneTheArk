@@ -10,19 +10,46 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.24"
+BWOAMenu.version = "0.35"
 
 BWOAMenu.blinking = {}
 
 BWOAMenu.specialObjectsCanHighlight = {}
 
-BWOAMenu.specialObjectsCanHighlight.Noah = function()
+BWOAMenu.specialObjectsCanHighlight.Noah = function(player)
     return true
 end
 
-BWOAMenu.specialObjectsCanHighlight.Vent = function()
-    -- return true
+BWOAMenu.specialObjectsCanHighlight.Vent = function(player)
     return BWOAMissions.IsActive(3)
+end
+
+BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
+    local cell = getCell()
+    local sqs = {
+        {x = 9926, y = 12616, z = 0},
+        {x = 9927, y = 12616, z = 0},
+        {x = 9926, y = 12615, z = 0},
+        {x = 9927, y = 12615, z = 0},
+    }
+
+    for _, sq in pairs(sqs) do
+        local square = cell:getGridSquare(sq.x, sq.y, sq.z)
+        if square then
+            local vehicle = square:getVehicleContainer()
+            if vehicle then
+                local gasTank = vehicle:getPartById("GasTank")
+                if gasTank then
+                    local fuel = gasTank:getContainerContentAmount()
+                    if fuel > 0 then
+                        return true
+                    end
+                end
+            end
+        end
+    end
+
+    return false
 end
 
 BWOAMenu.specialObjectsCanHighlight.Hatch = function()
@@ -34,19 +61,25 @@ BWOAMenu.specialObjectsAction = {}
 BWOAMenu.specialObjectsAction.Noah = function(player, square)
     if luautils.walkAdj(player, square) then
         BWOANoah.Show()
-    end    
+    end
 end
 
 BWOAMenu.specialObjectsAction.Vent = function(player, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(TAFixIntake:new(player, square))
+    end
+end
+
+BWOAMenu.specialObjectsAction.FuelIntake = function(player, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(TAFuelIntake:new(player, square))
     end    
 end
 
 BWOAMenu.specialObjectsAction.Hatch = function(player, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(TAOpenHatch:new(player, square))
-    end    
+    end
 end
 
 BWOAMenu.specialObjectsHighlight = {
@@ -60,7 +93,12 @@ BWOAMenu.specialObjectsHighlight = {
         x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", option = "Fix Vent", 
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Vent,
         actionFunc = BWOAMenu.specialObjectsAction.Vent
-    }
+    },
+    ["Fuel1"] = {
+        x = 9927, y = 12617, z = 0, spriteName = "theark_01_7", option = "Drain Fuel", 
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.FuelIntake,
+        actionFunc = BWOAMenu.specialObjectsAction.FuelIntake
+    },
 }
 
 function BWOAMenu.EventCracks(player)
@@ -75,9 +113,16 @@ function BWOAMenu.EventAssault(player)
     BWOASequence.Assault({intensity = 6})
 end
 
+function BWOAMenu.SceneFuelTank(player , square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local scene = BWOAScenes.FuelTruck:new(x, y, z)
+    scene:build()
+end
+
+
 function BWOAMenu.MakeBasement(player, square)
 
-    local basement = BWOABasements.Double:new(square:getX(), square:getY(), square:getRoom(), "preppers")
+    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom(), "preppers")
     basement:build()
 
 end
@@ -95,6 +140,15 @@ function BWOAMenu.LoadHatches(player)
     BWOABuildings.LoadHatches()
 end
 
+function BWOAMenu.Transform(player, zombie)
+    Bandit.AddTask(zombie, {
+        action="Transform", 
+        anim="BandageUpperBody",
+        bid = Bandit.banditMap.Emma.Hazmat,
+        cid = Bandit.clanMap.Emma
+    })
+end
+
 function BWOAMenu.Spawn(player, square)
     local args = {}
     args.cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
@@ -107,12 +161,26 @@ function BWOAMenu.Spawn(player, square)
     sendClientCommand(player, 'Spawner', 'Clan', args)
 end
 
+
+function BWOAMenu.TestItem(player, square)
+    local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet:setCanBeWrite(false)
+    leaflet:setName("Test Note")
+    local md = leaflet:getModData()
+    md.printContent = "survivor_note_1"
+    BWOAPrepareTools.AddWorldItemSpecial(square:getX(), square:getY(), square:getZ(), leaflet, {x=0.5, y=0.5, z=0})
+end
+
+function BWOAMenu.SetDream(player)
+    BWOAPlayer.dream = 1
+end
+
 local saveItems = function(square)
 
     local sx = square:getX()
     local sy = square:getY()
     local sz = square:getZ()
-    
+
     local lines = {}
 
     local wobs = square:getWorldObjects()
@@ -160,7 +228,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
     for sname, sobject in pairs(specialObjectsHighlight) do
         if sobject.x == sx and sobject.y == sy and sobject.z == sz then
-            if sobject.highLightFunc() then
+            if sobject.highLightFunc(player) then
                 context:addOption(sobject.option, player, sobject.actionFunc, square)
             end
         end
@@ -174,10 +242,18 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
+        context:addOption("Test Item", player, BWOAMenu.TestItem, square)
+        context:addOption("Set Dream", player, BWOAMenu.SetDream)
         context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         context:addOption("Event Cracks", player, BWOAMenu.EventCracks)
         context:addOption("Event Horde", player, BWOAMenu.EventHorde)
         context:addOption("Event Assault", player, BWOAMenu.EventAssault)
+        context:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
+
+        local zombie = square:getZombie()
+        if zombie then
+            context:addOption("Transform", player, BWOAMenu.Transform, zombie)
+        end
 
     end
 end
@@ -197,27 +273,32 @@ local updateHighlight = function()
         for i=0, playerList:size()-1 do
             local player = playerList:get(i)
             if player then
-                local px, py, pz = player:getX(), player:getY(), player:getZ()
+                local px, py = player:getX(), player:getY()
                 if math.abs(px - sobject.x) < 6 and math.abs(py - sobject.y) < 6 then 
                     local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
                     if square then
                         local objects = square:getObjects()
+                        local found = false
                         for i=objects:size()-1, 0, -1 do
                             local object = objects:get(i)
                             local sprite = object:getSprite()
                             if sprite then
                                 spriteName = sprite:getName()
                                 if spriteName == sobject.spriteName then
-                                    if sobject.highLightFunc() then
+                                    if sobject.highLightFunc(player) then
                                         table.insert(BWOAMenu.blinking, object)
-                                    end
-                                    if sobject.highLightFunc() then
                                         object:setHighlighted(0, true)
                                         object:setHighlightColor(1, 0.5, 0, 1)
                                         object:setBlink(true)
                                     end
+                                    found = true
+                                    break
                                 end
                             end
+                        end
+
+                        if not found then
+                            BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
                         end
                     end
                 end

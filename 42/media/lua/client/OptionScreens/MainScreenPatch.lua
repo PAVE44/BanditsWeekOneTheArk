@@ -75,8 +75,8 @@ function MainScreen:prerender()
     MainScreenPrerender(self)
 
     if not self.inGame then
-        if not MainScreen.start then
-            MainScreen.alphaBG = MainScreen.alphaBG + 0.001
+        if MainScreen.start then
+            MainScreen.alphaBG = MainScreen.alphaBG + 0.0005
             if MainScreen.alphaBG > 1 then 
                 MainScreen.alphaBG = 1 
                 MainScreen.start = false
@@ -85,9 +85,9 @@ function MainScreen:prerender()
         else
 
             if MainScreen.titleTextureNow == 1 then
-                MainScreen.alphaBG = MainScreen.alphaBG + 0.01
+                MainScreen.alphaBG = MainScreen.alphaBG + 0.025
                 if MainScreen.alphaBG > 1 then 
-                    MainScreen.alphaBG = 1 
+                    MainScreen.alphaBG = 1
                 end
                 local rnd = ZombRand(1000)
                 if rnd == 1 then

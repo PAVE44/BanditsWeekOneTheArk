@@ -3,6 +3,8 @@ BWOABaseControl = {}
 BWOABaseControl.power = false
 BWOABaseControl.powerUsing = 0
 
+BWOABaseControl.intrusion = false
+
 local function onGameStart()
     for room, _ in pairs(BWOARooms) do
         BWOARooms[room].Init()
@@ -32,6 +34,12 @@ local function onGameStart()
     rsm:RemoveChannel(210)
     rsm:reset()
 
+    getSandboxOptions():set("ElecShut", 1)
+    getSandboxOptions():set("ElecShutModifier", 0)
+    if getWorld():isHydroPowerOn() then
+        getWorld():setHydroPowerOn(false)
+    end
+
     getCore():setOptionUIRenderFPS(60)
 
 end
@@ -56,6 +64,8 @@ local function manageIntrusion()
     local minute = gametime:getMinutes()
     if minute % 4 > 0 then return end
 
+    BWOABaseControl.intrusion = false
+
     local zombieList = BanditZombie.CacheLightZ
     local roomNames = {}
     local alarmZombie = false
@@ -74,6 +84,7 @@ local function manageIntrusion()
         for roomName, _ in pairs(roomNames) do
             BWOASound.AddNoah({sound = BWOASound.noahSounds[roomName]})
         end
+        BWOABaseControl.intrusion = true
     end
 
     local banditList = BanditZombie.CacheLightB
@@ -96,6 +107,7 @@ local function manageIntrusion()
         for roomName, _ in pairs(roomNames) do
             BWOASound.AddNoah({sound = BWOASound.noahSounds[roomName]})
         end
+        BWOABaseControl.intrusion = true
     end    
 end
 
@@ -151,43 +163,46 @@ local function managePower()
 
     -- generator fuel usage
     if genCnt > 0 then
-        local powerUsing = BWOABaseAPI.GetGeneratorPowerUsing()
+        local gridPowerUsing = BWOABaseAPI.GetGeneratorPowerUsing()
+        -- print ("GRID-POWER" .. gridPowerUsing)
 
+        local ventPowerUsing = 0
+        if gmd.ventilation.active then
+            ventPowerUsing = 0.01 -- mechanical ventilation cost
+            if gmd.ventilation.heating then
+                -- heating cost
+
+                local diff = gmd.ventilation.tempTarget - BWOAClimate.temp
+                if diff > 0 then
+                    
+                    if diff > 80 then
+                        diff = 80
+                    end
+
+                    -- Quadratic growth: (diff / 80)^2 scaled to max 0.1
+                    local normalized = diff / 80.0
+                    local cost = (normalized ^ 2) * 0.1
+
+                    ventPowerUsing = ventPowerUsing + cost
+                end
+            end
+            ventPowerUsing = ventPowerUsing / genCnt
+        end
+
+        BWOABaseControl.gridPowerUsing = 0
         for gtype, gen in pairs(gmd.generators) do
             if gen.active then
 
                 -- in case physical generators are unreachable, use last know value
-                if not powerUsing then
+                local powerUsing
+                if not gridPowerUsing then
                     powerUsing = gen.powerUsing
                 else
-                    powerUsing = powerUsing / genCnt
-                end
-
-                ventPowerUsing = 0
-                if gmd.ventilation.active then
-                    ventPowerUsing = 0.01 -- mechanical ventilation cost
-                    if gmd.ventilation.heating then
-                        -- heating cost
-
-                        local diff = gmd.ventilation.tempTarget - BWOAClimate.temp
-                        if diff > 0 then
-                            
-                            if diff > 80 then
-                                diff = 80
-                            end
-
-                            -- Quadratic growth: (diff / 80)^2 scaled to max 0.1
-                            local normalized = diff / 80.0
-                            local cost = (normalized ^ 2) * 0.1
-
-                            ventPowerUsing = ventPowerUsing + cost
-                        end
-                    end
-                    ventPowerUsing = ventPowerUsing / genCnt
+                    powerUsing = gridPowerUsing / genCnt
                 end
 
                 local totalPowerUsing = powerUsing + ventPowerUsing
-                BWOABaseControl.powerUsing = totalPowerUsing
+                BWOABaseControl.gridPowerUsing = BWOABaseControl.gridPowerUsing + totalPowerUsing
 
                 local fuelUsing = totalPowerUsing * 0.1
                 gen.fuel = gen.fuel - fuelUsing

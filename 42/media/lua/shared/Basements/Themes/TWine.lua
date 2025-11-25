@@ -1,6 +1,10 @@
+require "BWOABandit"
+
 BasementThemes = BasementThemes or {}
 
 local theme = {}
+
+theme.cid = Bandit.clanMap.BasementGeneric
 
 theme.sprites = {}
 theme.sprites.stairs1 = "fixtures_stairs_01_64"
@@ -77,7 +81,7 @@ theme.furniture = {
             {["Base.Pot"] = 1},
             {["Base.Firewood"] = 3},
         },
-        fireplace = 1,
+        fireplace = true,
         dirs = {
             n = {[1] = {x=0, y=0, name="appliances_cooking_01_18"}},
             s = {[1] = {x=0, y=0, name="appliances_cooking_01_17"}},
@@ -315,5 +319,7 @@ theme.items = {
     {["Base.Socks_Long"] = 3},
     {["Base.Pillow"] = 1},
 }
+
+theme.corpses = {}
 
 BasementThemes["wine"] = theme
