@@ -19,12 +19,26 @@ end
 function BWOAScenes.FuelTruck:placeVehicles()
     local x, y, z = self.x, self.y, self.z
     local vtype = "Base.PickUpTruckLightsFossoil"
-    local data = {
-        dir = IsoDirections.E,
-        fuel = 50,
-        condition = 30
-    }
-    BWOAPrepareTools.AddVehicle(x, y, z, vtype, data)
+
+    local vehicle = addVehicle(vtype, x, y, z)
+    if not vehicle then return end
+
+    vehicle:setGeneralPartCondition(0.4, 0)
+    vehicle:setRust(100)
+
+    for i = 0, vehicle:getPartCount() - 1 do
+        local container = vehicle:getPartByIndex(i):getItemContainer()
+        if container then
+            container:removeAllItems()
+        end
+    end
+
+    local gasTank = vehicle:getPartById("GasTank")
+    local fuel = gasTank:getContainerCapacity()
+    gasTank:setContainerContentAmount(fuel)
+
+    vehicle:addKeyToGloveBox()
+    -- vehicle:putKeyInIgnition(vehicle:createVehicleKey())
 end
 
 function BWOAScenes.FuelTruck:populate()

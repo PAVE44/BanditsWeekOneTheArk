@@ -238,7 +238,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["5.1.1.1"] = {
         qst = "I want to go out and find other people. Where exactly should I go?",
-        ans = "You would need to check the surrounding houses. Some of them has hidden entrances in the floor to the basements. Again, I need to warn you, this is danegerous. Don't go unless you are well prepared.",
+        ans = "You would need to check the surrounding houses. Some of them have hidden entrances in the floor to the basements. Again, I need to warn you, this is dangerous. Don't go unless you are well prepared.",
         anim = "Talk3",
         req = {"5.1.1"},
         func = "RevealMission",

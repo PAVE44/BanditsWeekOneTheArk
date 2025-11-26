@@ -2,7 +2,13 @@ ZombieActions = ZombieActions or {}
 
 ZombieActions.Talk = {}
 ZombieActions.Talk.onStart = function(zombie, task)
-    zombie:addLineChatElement(task.txt, 0.2, 0.8, 0.1)
+    if task.txt then
+        zombie:addLineChatElement(task.txt, 0.2, 0.8, 0.1)
+    end
+
+    if task.sound then
+        zombie:playSound(task.sound)
+    end
     return true
 end
 

@@ -145,6 +145,10 @@ local processSquare = function(square)
     -- post nuke world destroyer
     if not md.BWO.processed then
         burnSquare(square)
+        local vehicle = square:getVehicleContainer()
+        if vehicle and not BWOASquareLoader.burnExclusion[vehicle:getScriptName()] then
+            burnVehicle(vehicle)
+        end
         md.BWO.processed = true
     end
 end

@@ -238,6 +238,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         -- BWOABuildTools.Mannequin(sx, sy, sz, "CommandoJohn", IsoDirections.S)
 
+        local vehicle = square:getVehicleContainer()
+
         saveItems(square)
         context:addOption("Teleport", player, BWOAMenu.Teleport)
         context:addOption("Spawn", player, BWOAMenu.Spawn, square)

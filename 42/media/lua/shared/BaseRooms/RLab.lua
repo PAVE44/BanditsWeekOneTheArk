@@ -54,14 +54,6 @@ BWOARooms.Lab.Build = function ()
     BWOABuildTools.RemoveObject(9964, 12640, -4, "Hamster Wheel")
     BWOABuildTools.RemoveObject(9965, 12640, -4, "Hamster Wheel")
 
-    -- room lamps
-    BWOABuildTools.LampOvalN(9964, 12643, -4)
-    BWOABuildTools.LampOvalN(9970, 12643, -4)
-    BWOABuildTools.LampOvalS(9959, 12650, -4)
-    BWOABuildTools.LampOvalS(9970, 12650, -4)
-
-    -- BWOABuildTools.Skeleton(9970, 12643, -4)
-
     -- closets
     BWOABuildTools.Generic(9959, 12636, -4, "location_community_medical_01_153")
     BWOABuildTools.Generic(9959, 12637, -4, "location_community_medical_01_152")

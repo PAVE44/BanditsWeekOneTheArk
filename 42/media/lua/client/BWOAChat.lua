@@ -108,6 +108,70 @@ BWOAChat.Say = function(question, quiet)
     end
 end
 
+local emoteActions = {
+    ["hey!"] = function(target)
+        local tab = {}
+        tab.id = target.id
+        if target.dist < 2.1 then
+            tab.anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
+            tab.txt = "You scared me!"
+            BWOAEventControl.Add("SayBandit", tab, 1)
+        else
+            tab.anim = "WaveHi"
+            tab.txt = "Hey!"
+            tab.sound = "VoiceFemaleShoutHey"
+            BWOAEventControl.Add("SayBandit", tab, 250)
+        end
+    end,
+    ["hey"] = function(target)
+        local tab = {}
+        tab.id = target.id
+        if ZombRand(3) == 0 then
+            tab.txt = "psst"
+            tab.sound = "VoiceFemaleWhisperPsst"
+        else
+            tab.txt = "hey"
+            tab.sound = "VoiceFemaleWhisperHey"
+        end
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["wavehi"] = function(target)
+        local tab = {}
+        tab.id = target.id
+        tab.anim = "WaveHi"
+        tab.txt = "Hi!"
+        tab.sound = "VoiceFemaleShoutHey"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["followme"] = function(target)
+        BWOANPC.ModBrain(target.id, "follow", true)
+        local tab = {}
+        tab.id = target.id
+        tab.anim = "Yes"
+        tab.txt = "Okay, let's go!"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["stop"] = function(target)
+        BWOANPC.ModBrain(target.id, "follow", false)
+        local tab = {}
+        tab.id = target.id
+        tab.anim = "Yes"
+        tab.txt = "Okay!"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end
+
+
+}
+
+local function onEmote(player, emote)
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+    if target.dist < BWOAChat.talkDist then
+        if emoteActions[emote] then
+            return emoteActions[emote](target)
+        end
+    end
+end
+
 local function onKeyPressed(keynum)
     local player = getSpecificPlayer(0)
     if not player then return end
@@ -124,7 +188,20 @@ local function onKeyPressed(keynum)
         else
             BWOAEventControl.Add("SayPlayer", {txt = "There is nobody around to speak to."}, 1)
         end
+    elseif keynum == getCore():getKey("Shout") then
+        if player:isSneaking() then
+            onEmote(player, "hey")
+        else
+            onEmote(player, "hey!")
+        end
     end
 end
 
+LuaEventManager.AddEvent("OnEmote")
+
+Events.OnEmote.Remove(onEmote)
+Events.OnEmote.Add(onEmote)
+
+Events.OnKeyPressed.Remove(onKeyPressed)
 Events.OnKeyPressed.Add(onKeyPressed)
+

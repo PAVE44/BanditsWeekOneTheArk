@@ -97,7 +97,8 @@ function BWOABasements.Generic:buildStairs()
             x = sx,
             y = sy,
             z = sz,
-            spriteName = self.sprites.stairs3
+            spriteName = self.sprites.stairs3,
+            connect = true
         },
         [2] = {
             x = sx + 1,
@@ -123,6 +124,11 @@ function BWOABasements.Generic:buildStairs()
         squareUp:setSquareChanged()
 
         BWOABuildTools.Generic (stair.x, stair.y, stair.z, stair.spriteName)
+        if stair.connectTo then
+            -- local above = IsoGridSquare.new(getCell(), nil, stair.x, stair.y-1, stair.z + 1)
+            local above = cell:getGridSquare(stair.x-1, stair.y, stair.z + 1)
+            cell:ConnectNewSquare(above, false)
+        end
     end
 end
 

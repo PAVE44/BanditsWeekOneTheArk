@@ -40,5 +40,13 @@ local function manageNPC()
     end
 end
 
+BWOANPC.ModBrain = function(id, k, v)
+    local bandit = BanditZombie.GetInstanceById(id)
+    if bandit then
+        local brain = BanditBrain.Get(bandit)
+        brain[k] = v
+    end
+end
+
 Events.EveryOneMinute.Remove(manageNPC)
 Events.EveryOneMinute.Add(manageNPC)
