@@ -1,0 +1,6 @@
+VERSION = 1,
+
+option BWOA.ShelterOccurance  = {
+    type = enum, numValues=5, default = 4,
+    page = BWOA, translation = BWOA.ShelterOccurance, valueTranslation=BWOA.ShelterOccurance,
+}

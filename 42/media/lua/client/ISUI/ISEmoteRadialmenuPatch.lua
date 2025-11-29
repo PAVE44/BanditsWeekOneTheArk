@@ -22,14 +22,23 @@ function ISEmoteRadialMenu:init()
 	ISEmoteRadialMenu.defaultMenu["movement"].subMenu = {}
 	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["stop"] = "Don't follow"
 	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["followme"] = "Follow me"
+
+    ISEmoteRadialMenu.defaultMenu["play"] = {}
+    ISEmoteRadialMenu.defaultMenu["play"].name = getText("Play")
+	ISEmoteRadialMenu.defaultMenu["play"].subMenu = {}
+	ISEmoteRadialMenu.defaultMenu["play"].subMenu["moveout"] = "Tag"
     
     ISEmoteRadialMenu.variants = {}
 
     ISEmoteRadialMenu.icons = {}
     ISEmoteRadialMenu.icons["shout"] = getTexture("media/ui/Traits/trait_talkative.png")
+
     ISEmoteRadialMenu.icons["movement"] = getTexture("media/ui/emotes/followme.png")
     ISEmoteRadialMenu.icons["stop"] = getTexture("media/ui/emotes/comehere.png")
     ISEmoteRadialMenu.icons["followme"] = getTexture("media/ui/emotes/followme.png")
+
+    ISEmoteRadialMenu.icons["play"] = getTexture("media/ui/emotes/moveout.png");
+    ISEmoteRadialMenu.icons["moveout"] = getTexture("media/ui/emotes/moveout.png");
 
     ISEmoteRadialMenu.menu = ISEmoteRadialMenu.defaultMenu
 

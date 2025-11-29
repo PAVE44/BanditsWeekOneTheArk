@@ -238,6 +238,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         -- BWOABuildTools.Mannequin(sx, sy, sz, "CommandoJohn", IsoDirections.S)
 
+        local test = SandboxVars
         local vehicle = square:getVehicleContainer()
 
         saveItems(square)

@@ -50,6 +50,89 @@ BWOAPrograms.FollowMaster = function(bandit)
     return tasks
 end
 
+BWOAPrograms.TagGame = function(bandit)
+    local tasks = {}
+    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+
+    local master = BanditPlayer.GetMasterPlayer(bandit)
+    local mx, my, mz = master:getX(), master:getY(), master:getZ()
+
+    local x1, y1, x2, y2 = 9958, 12609, 9971, 12641
+
+    local dx = bx - mx
+    local dy = by - my
+    local len = math.sqrt(dx*dx + dy*dy)
+    if ZombRand(6) == 0 then
+        if len > 10 then
+            local txtOpts = {
+                "Catch me!", "Don't be a pussy!", "You are so weak!", "Out of breath already?",
+                "Hahaha!", "Run!"
+            }
+            bandit:addLineChatElement(BanditUtils.Choice(txtOpts), 0.2, 0.8, 0.1)
+        elseif len > 4 then
+            local txtOpts = {
+                "Almost got me!", "Almost there!", "Haha!", "I'm faster than you!",
+                "Hahaha!", "Run Bobby, run!"
+            }
+        end
+    end
+
+    if len < 0.6 then 
+        bandit:addLineChatElement("Ok, you won!", 0.2, 0.8, 0.1)
+        local brain = BanditBrain.Get(bandit)
+        BWOANPC.ModBrain(brain.id, "mode", nil)
+        len = 0.6
+    end
+
+    dx, dy = dx / len, dy / len
+
+    -- If escapee is at a border, adjust flee direction so it stays inside the map
+    if bx <= x1 + 1 and dx < 0 then
+        dx = 0              -- cannot flee further left → remove horizontal push
+    end
+    if bx >= x2 - 1 and dx > 0 then
+        dx = 0              -- cannot flee further right
+    end
+    if by <= y1 + 1 and dy < 0 then
+        dy = 0              -- cannot flee further up
+    end
+    if by >= y2 - 1 and dy > 0 then
+        dy = 0              -- cannot flee further down
+    end
+
+    -- If dx and dy are both canceled (corner), create a sideways escape
+    if dx == 0 and dy == 0 then
+        -- pick a random sliding direction along the wall
+        if bx <= x1 + 1 or bx >= x2 - 1 then
+            dx = 0
+            dy = (ZombRandFloat(0, 1) < 0.5) and -1 or 1
+        else
+            dy = 0
+            dx = (ZombRandFloat(0, 1) < 0.5) and -1 or 1
+        end
+    end
+
+    -- Re-normalize the adjusted direction
+    len = math.sqrt(dx*dx + dy*dy)
+    dx, dy = dx/len, dy/len
+
+    local fleeDistance = 12
+    local targetX = bx + dx * fleeDistance
+    local targetY = by + dy * fleeDistance
+
+    -- Boundary clamp
+    targetX = math.min(math.max(targetX, x1), x2)
+    targetY = math.min(math.max(targetY, y1), y2)
+
+    -- update walktype
+    local walkType = "Run"
+    local endurance = 0.00
+
+    table.insert(tasks, BanditUtils.GetMoveTask(endurance, targetX, targetY, bz, walkType, 10, false))
+
+    return tasks
+end
+
 BWOAPrograms.IdleEmma = function(bandit)
     local tasks = {}
     local action = ZombRand(100)

@@ -144,7 +144,7 @@ local emoteActions = {
         BWOAEventControl.Add("SayBandit", tab, 250)
     end,
     ["followme"] = function(target)
-        BWOANPC.ModBrain(target.id, "follow", true)
+        BWOANPC.ModBrain(target.id, "mode", "follow")
         local tab = {}
         tab.id = target.id
         tab.anim = "Yes"
@@ -152,11 +152,18 @@ local emoteActions = {
         BWOAEventControl.Add("SayBandit", tab, 250)
     end,
     ["stop"] = function(target)
-        BWOANPC.ModBrain(target.id, "follow", false)
+        BWOANPC.ModBrain(target.id, "mode", nil)
         local tab = {}
         tab.id = target.id
         tab.anim = "Yes"
         tab.txt = "Okay!"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["moveout"] = function(target)
+        BWOANPC.ModBrain(target.id, "mode", "taggame")
+        local tab = {}
+        tab.id = target.id
+        tab.txt = "Catch me if you can!"
         BWOAEventControl.Add("SayBandit", tab, 250)
     end
 

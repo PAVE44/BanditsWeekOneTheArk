@@ -6,6 +6,8 @@ ZombiePrograms.name = "Emma Robinson"
 ZombiePrograms.Emma.Prepare = function(bandit)
     local tasks = {}
 
+    bandit:setVariable("RunSpeed", 0.91)
+
     Bandit.ForceStationary(bandit, false)
   
     return {status=true, next="Main", tasks=tasks}
@@ -67,8 +69,16 @@ ZombiePrograms.Emma.Main = function(bandit)
         return {status=true, next="Main", tasks=tasks}
     end
 
-    if brain.follow then
+    if brain.mode and brain.mode == "follow" then
         local subTasks = BWOAPrograms.FollowMaster(bandit)
+        if #subTasks > 0 then
+            for _, subTask in pairs(subTasks) do
+                table.insert(tasks, subTask)
+            end
+            return {status=true, next="Main", tasks=tasks}
+        end
+    elseif brain.mode and brain.mode == "taggame" then
+        local subTasks = BWOAPrograms.TagGame(bandit)
         if #subTasks > 0 then
             for _, subTask in pairs(subTasks) do
                 table.insert(tasks, subTask)

@@ -24,9 +24,19 @@ BWOABuildings.CreateHatches = function()
 
     local defs = getWorld():getMetaGrid():getBuildings()
 
+    local s2r = {
+        [1] = 24,
+        [2] = 16,
+        [3] = 12,
+        [4] = 7,
+        [5] = 4,
+    }
+
+    local so = s2r[SandboxVars.BWOA.ShelterOccurance]
+
     for i=0, defs:size()-1 do
         local def = defs:get(i)
-        if ZombRand(4) == 0 then
+        if ZombRand(so) == 0 then
             local x1 = def:getX()
             local x2 = def:getX2()
             local y1 = def:getY()

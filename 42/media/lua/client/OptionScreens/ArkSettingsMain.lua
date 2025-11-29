@@ -18,6 +18,7 @@ local BUTTON_HGT = FONT_HGT_SMALL + 6
 local JOYPAD_TEX_SIZE = 32
 local COL1_WIDTH = 320
 local COL2_MARGIN = UI_BORDER_SPACING * 3
+local CONTROL_WIDTH = 240
 
 -- -- -- -- --
 -- -- -- -- --
@@ -46,6 +47,9 @@ function ArkSettingsMain:instantiate()
     self:createChildren();
 end
 
+function ArkSettingsMain:onComboBoxSelected(combo, optionName)
+end
+
 function ArkSettingsMain:create()
     local x = UI_BORDER_SPACING + 1
     local y = UI_BORDER_SPACING + FONT_HGT_TITLE + x
@@ -54,60 +58,121 @@ function ArkSettingsMain:create()
     local btnPadding = JOYPAD_TEX_SIZE + UI_BORDER_SPACING*2
     local btnWidth = btnPadding + getTextManager():MeasureStringX(UIFont.Small, getText("UI_btn_back"))
     self.backButton = ISButton:new(UI_BORDER_SPACING+1, self.height - UI_BORDER_SPACING - BUTTON_HGT - 1, btnWidth, BUTTON_HGT, getText("UI_btn_back"), self, self.onOptionMouseDown);
-    self.backButton.internal = "BACK";
-    self.backButton:initialise();
-    self.backButton:instantiate();
-    self.backButton:setAnchorLeft(true);
-    self.backButton:setAnchorTop(false);
-    self.backButton:setAnchorBottom(true);
+    self.backButton.internal = "BACK"
+    self.backButton:initialise()
+    self.backButton:instantiate()
+    self.backButton:setAnchorLeft(true)
+    self.backButton:setAnchorTop(false)
+    self.backButton:setAnchorBottom(true)
     self.backButton:enableCancelColor()
---    self.backButton.setJoypadFocused = self.setJoypadFocusedBButton
-    self:addChild(self.backButton);
+    self:addChild(self.backButton)
 
     btnWidth = btnPadding + getTextManager():MeasureStringX(UIFont.Small, getText("UI_btn_play"))
     self.playButton = ISButton:new(self.width - btnWidth - UI_BORDER_SPACING - 1, self.backButton.y, btnWidth, BUTTON_HGT, getText("UI_btn_play"), self, self.onOptionMouseDown);
-    self.playButton.internal = "NEXT";
-    self.playButton:initialise();
-    self.playButton:instantiate();
-    self.playButton:setAnchorLeft(false);
-    self.playButton:setAnchorRight(true);
-    self.playButton:setAnchorTop(false);
-    self.playButton:setAnchorBottom(true);
-    self.playButton:setEnable(true); -- sets the hard-coded border color
---    self.playButton.setJoypadFocused = self.setJoypadFocusedAButton
+    self.playButton.internal = "NEXT"
+    self.playButton:initialise()
+    self.playButton:instantiate()
+    self.playButton:setAnchorLeft(false)
+    self.playButton:setAnchorRight(true)
+    self.playButton:setAnchorTop(false)
+    self.playButton:setAnchorBottom(true)
+    self.playButton:setEnable(true)
     self.playButton:setSound("activate", "UIActivatePlayButton")
     self.playButton:enableAcceptColor()
     self:addChild(self.playButton);
 
-    
+    local y = UI_BORDER_SPACING + 1 + FONT_HGT_TITLE + 8
+
+    self.infoPanel = ISRichTextPanel:new(UI_BORDER_SPACING+1, y, self:getWidth() - (UI_BORDER_SPACING * 2) - 2, self:getHeight() - (UI_BORDER_SPACING * 2) - 2)
+    self.infoPanel:setAnchorLeft(true)
+    self.infoPanel:setAnchorTop(true)
+    self.infoPanel.drawBorder = false
+    self:addChild(self.infoPanel)
+    -- self.infoPanel:addScrollBars()
+    self.infoPanel:paginate()
+    self.infoPanel:setText("Something important to say at the start.")
+
+    y = self.infoPanel:getBottom() + 24
+
+    --[[
+    local lbl = ISLabel:new(UI_BORDER_SPACING+1 + 20, y, BUTTON_HGT, "Settings", 1, 1, 1, 1, UIFont.Medium, true)
+    lbl:initialise()
+    lbl:instantiate()
+    self:addChild(lbl)
+
+    local leftX = 200
+    y = lbl:getBottom() + 8
+
+    local settingsTable = ServerSettingsScreen.getSandboxSettingsTable()
+    self.controls = {}
+
+    for _, page in ipairs(settingsTable) do
+        for _, setting in ipairs(page.settings) do
+            if setting.name:startsWith("BWOA") then
+                local settingName = setting.translatedName
+                local tooltip = setting.tooltip
+                if tooltip then
+                    tooltip = tooltip:gsub("\\n", "\n")
+                    tooltip = tooltip:gsub("\\\"", "\"")
+                end
+                if setting.type == "enum" then
+                    local label = ISLabel:new(leftX - UI_BORDER_SPACING, y, BUTTON_HGT, settingName, 1, 1, 1, 1, UIFont.Small, false)
+                    label:initialise()
+                    label:instantiate()
+                    self:addChild(label)
+
+                    local control = ISComboBox:new(leftX, y, CONTROL_WIDTH, BUTTON_HGT, self, self.onComboBoxSelected, setting.name)
+                    if tooltip then
+                        control.tooltip = { defaultTooltip = tooltip }
+                    end
+                    control:initialise()
+                    for index, value in ipairs(setting.values) do
+                        control:addOption(value)
+                        if index == SandboxVars.BWOA[setting.name:match("%.(.*)")] then
+                            control.selected = index
+                        end
+                    end
+                    self:addChild(control)
+                    self.controls[setting.name] = control
+                end
+            end
+        end
+    end
+    ]]
+
     -- DISABLE BUTTON
     self:disableBtn();
 end
 
-function ArkSettingsMain:doDrawItem(y, item, alt)
-    local isMouseOver = self.mouseoverselected == item.index and not self:isMouseOverScrollBar()
-    if self.selected == item.index then
-        self:drawRect(0, y, self:getWidth(), item.height-1, 0.3, 0.7, 0.35, 0.15)
-    elseif isMouseOver then
-        self:drawRect(1, y + 1, self:getWidth() - 2, item.height - 2, 0.95, 0.05, 0.05, 0.05);
-    end
-    self:drawRectBorder(0, (y), self:getWidth(), item.height, 0.5, self.borderColor.r, self.borderColor.g, self.borderColor.b)
-    local fontHgt = getTextManager():getFontFromEnum(UIFont.Large):getLineHeight()
-    local textY = y + (item.height - fontHgt) / 2
-    self:drawText(item.item.name, 15, textY, 0.9, 0.9, 0.9, 0.9, UIFont.Large)
-    y = y + item.height
-    return y
-end
+function ArkSettingsMain.onResolutionChange(oldw, oldh, neww, newh)
+    if not MainScreen.instance then return end
+	local self = MainScreen.instance
 
-function ArkSettingsMain:onVariantChange(variant)
+    local uis = {
+        { self.arkSettingsMain, 0.7, 0.8 },
+    }
 
-    self.image = getTexture(variant.image)
-    self.variantPanel:setText(variant.desc)
-    self.variantPanel.textDirty = true
-end
+    for _,ui in ipairs(uis) do
+		if ui[1] and ui[1].javaObject and instanceof(ui[1].javaObject, 'UIElement') then
+			local width = neww * ui[2]
+			local height = newh * ui[3]
+			if neww <= 1024 then
+				width = neww * 0.95
+				height = newh * 0.95
+			end
+			ui[1]:setWidth(width)
+			ui[1]:setHeight(height)
+			ui[1]:setX((neww - width) / 2)
+			ui[1]:setY((newh - height) / 2)
+			ui[1]:recalcSize()
+		end
+	end
 
-function ArkSettingsMain:onResolutionChange()
-    self.variantListBox:setHeight(self:getHeight() - y - BUTTON_HGT - (UI_BORDER_SPACING * 2))
+    local width = self.arkSettingsMain:getWidth() - (UI_BORDER_SPACING * 2) - 2
+    local height = self.arkSettingsMain:getHeight() - (UI_BORDER_SPACING * 2) - 2
+    self.arkSettingsMain.infoPanel:setWidth(width)
+    self.arkSettingsMain.infoPanel:setHeight(height)
+
 end
 
 function ArkSettingsMain:disableBtn()
@@ -128,7 +193,9 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         --        MainScreen.instance.charCreationProfession:addChild(MainScreen.instance.charCreationHeader);
         --        MainScreen.instance.charCreationProfession:setVisible(true, self.joyfocus);
 
-        -- set what missings screens should set
+        -- saettings copy to sandbox
+        SandboxVars.BWOA = {}
+        SandboxVars.BWOA.shelterOccurance = self.shelterOccuranceCombo.selected
 
         -- override sandbox settings here
         SandboxVars.StartMonth = 11
@@ -183,7 +250,7 @@ end
 function ArkSettingsMain:prerender()
     ArkSettingsMain.instance = self
     ISPanel.prerender(self);
-    self:drawTextCentre(getText("UI_variantcreation_title"), self.width / 2, UI_BORDER_SPACING+1, 1, 1, 1, 1, UIFont.Title);
+    self:drawTextCentre("Welcome to the Ark", self.width / 2, UI_BORDER_SPACING+1, 1, 1, 1, 1, UIFont.Title);
 
     if self.image then
         local w = self.width - (UI_BORDER_SPACING * 3) - COL1_WIDTH
@@ -266,3 +333,5 @@ function ArkSettingsMain:new (x, y, width, height)
     ArkSettingsMain.instance = o;
     return o;
 end
+
+Events.OnResolutionChange.Add(ArkSettingsMain.onResolutionChange)
