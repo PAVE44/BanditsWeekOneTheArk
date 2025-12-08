@@ -59,6 +59,28 @@ BWOAChat.SwitchMission = function(params)
     BWOAMissions.Reveal(params.missionRevelaId)
 end
 
+--[[
+BWOAChat.ChangeProgramStage = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {params.programName})
+    if target then
+        local emma = BanditZombie.GetInstanceById(target.id)
+        Bandit.SetProgramStage(emma, params.programStage)
+    end
+end
+]]
+
+BWOAChat.ChangeBrainParam = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local bandit = BanditZombie.GetInstanceById(params.target.id)
+    local brain = BanditBrain.Get(bandit)
+    brain[params.param] = params.value
+end
+
 BWOAChat.Say = function(question, quiet)
     local player = getSpecificPlayer(0)
     if not player then return end
@@ -74,7 +96,7 @@ BWOAChat.Say = function(question, quiet)
     else
         local answer = BWOADialogues.GetAnswer(person, question)
         if answer then
-            local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma"}, "Main")
             if target.dist < BWOAChat.talkDist then
                 if not anim then 
                     anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
@@ -84,6 +106,7 @@ BWOAChat.Say = function(question, quiet)
                 BWOADialogues.MarkAsked(person, question)
 
                 if answer.func then
+                    answer.funcParams.target = target
                     BWOAChat[answer.func](answer.funcParams)
                 end
             end
@@ -171,7 +194,7 @@ local emoteActions = {
 }
 
 local function onEmote(player, emote)
-    local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+    local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma"}, "Main")
     if target.dist < BWOAChat.talkDist then
         if emoteActions[emote] then
             return emoteActions[emote](target)
@@ -187,7 +210,7 @@ local function onKeyPressed(keynum)
     local key = options:getOption("TALK"):getValue()
 
     if keynum == key then
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"}, "Main")
         if target.dist < BWOAChat.talkDist then
             local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0))
             ui:initialise()

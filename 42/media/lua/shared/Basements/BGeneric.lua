@@ -115,13 +115,7 @@ function BWOABasements.Generic:buildStairs()
     }
 
     for _, stair in pairs(stairs) do
-        local squareUp = cell:getGridSquare(stair.x, stair.y, 0)
-        local objects = squareUp:getObjects()
-        for i = objects:size()-1, 0, -1 do
-            local object = objects:get(i)
-            squareUp:transmitRemoveItemFromSquare(object)
-        end
-        squareUp:setSquareChanged()
+        BWOABuildTools.ClearAll(stair.x, stair.y, 0)
 
         BWOABuildTools.Generic (stair.x, stair.y, stair.z, stair.spriteName)
         if stair.connectTo then

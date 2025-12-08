@@ -18,7 +18,7 @@ end
 
 function BWOAScenes.FuelTruck:placeVehicles()
     local x, y, z = self.x, self.y, self.z
-    local vtype = "Base.PickUpTruckLightsFossoil"
+    local vtype = "Base.pzkPostapoTanker"
 
     local vehicle = addVehicle(vtype, x, y, z)
     if not vehicle then return end
@@ -33,11 +33,11 @@ function BWOAScenes.FuelTruck:placeVehicles()
         end
     end
 
-    local gasTank = vehicle:getPartById("GasTank")
-    local fuel = gasTank:getContainerCapacity()
-    gasTank:setContainerContentAmount(fuel)
-
     vehicle:addKeyToGloveBox()
+    
+    local md = vehicle:getModData()
+    md.BWOA = {}
+    md.BWOA.fuel = 982
     -- vehicle:putKeyInIgnition(vehicle:createVehicleKey())
 end
 

@@ -5,6 +5,8 @@ BWOAPrograms.FollowMaster = function(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
     local master = BanditPlayer.GetMasterPlayer(bandit)
     local mx, my, mz = master:getX(), master:getY(), master:getZ()
+    local mid = BanditUtils.GetCharacterID(master)
+
 
     -- update walktype
     local walkType = "Walk"
@@ -37,13 +39,14 @@ BWOAPrograms.FollowMaster = function(bandit)
 
         if closestEnemy.dist < 8 and closestEnemy.z == bz then
             walkType = "WalkAim"
-            table.insert(tasks, BanditUtils.GetMoveTask(endurance, closestEnemy.x, closestEnemy.y, closestEnemy.z, walkType, closestEnemy.dist))
+            table.insert(tasks, BanditUtils.GetMoveTaskTarget(endurance, closestEnemy.x, closestEnemy.y, closestEnemy.z, closestEnemy.id, closestEnemy.player, walkType, closestEnemy.dist))
             return tasks
         end
     end
 
     if dist > 2 or math.abs(mz - bz) >= 1 then
-        table.insert(tasks, BanditUtils.GetMoveTask(endurance, mx, my, mz, walkType, dist, false))
+        table.insert(tasks, BanditUtils.GetMoveTaskTarget(endurance, mx, my, mz, mid, true, walkType, dist))
+        -- table.insert(tasks, BanditUtils.GetMoveTask(endurance, mx, my, mz, walkType, dist, false))
         return tasks
     end
 

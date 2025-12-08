@@ -1,7 +1,7 @@
 
 local FALLOUT_START = -90   -- WorldAge when fallout begins
 local FALLOUT_END = 8760      -- WorldAge when fallout ends
-local TEMP_LERP = 70          -- Maximum temperature drop
+local TEMP_LERP = 50          -- Maximum temperature drop
 local TEMP_STEP = 0.5         -- Rate of temperature change per day
 local RAD_LERP = 5000
 local RAD_STEP = 28

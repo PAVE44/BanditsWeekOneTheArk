@@ -5,16 +5,19 @@ BWOAEventControl.Events = {}
 
 local schedule = {
     [0] = {
-        [1] = {"SayPlayer", {txt="What the hell?"}},
+        [1] = {"SayPlayer", {txt = "What the hell?"}},
     },
     [11] = {
         [39] = {"Assault", {intensity = 2}},
+    },
+    [29] = {
+        [1] = {"DialogueReveal", {person = "Emma Robinson", key = "300.1"}},
     },
     [22] = {
         [39] = {"Horde", {intensity = 30}},
     },
     [33] = {
-        [17] = {"Earthquake", {intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
+        [17] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [44] = {
         [39] = {"Assault", {intensity = 6}},
@@ -30,6 +33,8 @@ local function everyOneMinute()
     local gt = getGameTime()
     local hours = math.floor(gt:getWorldAgeHours()) - 10
     local minutes = gt:getMinutes()
+
+    print ("H: " .. hours .. " M: " .. minutes)
 
     if schedule[hours] and schedule[hours][minutes] then
         local event = schedule[hours][minutes]

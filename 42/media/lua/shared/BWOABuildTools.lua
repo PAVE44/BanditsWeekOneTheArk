@@ -54,8 +54,9 @@ BWOABuildTools.Wall = function(x, y, z, spriteName)
 
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
-    buildUtil.setHaveConstruction(square, true)
     square:setSquareChanged()
+    square:RecalcAllWithNeighbours(true)
+    buildUtil.setHaveConstruction(square, true)
 end
 
 BWOABuildTools.Door = function(x, y, z, north, sprite)
@@ -421,6 +422,42 @@ BWOABuildTools.ELS = function(tab)
             BWOABuildTools.EmergencyExitW(el.x, el.y, el.z)
         elseif el.dir == "XN" then
             BWOABuildTools.EmergencyExitN(el.x, el.y, el.z)
+        end
+    end
+end
+
+
+BWOABuildTools.ClearAll = function(x, y, z)
+    local cell = getCell()
+    local square = cell:getGridSquare(x, y, z)
+    local objects = square:getObjects()
+    for i = objects:size()-1, 0, -1 do
+        local object = objects:get(i)
+        square:transmitRemoveItemFromSquare(object)
+    end
+    square:setSquareChanged()
+end
+
+-- advanced builder
+BWOABuildTools.BuildMap = function(x, y, z, map, dict)
+    local cursor = {x = 0, y = 0}
+    for i = 1, #map do
+        local char = map:sub(i, i)
+        
+        local obj = dict[char]
+        if obj then
+            local builder = "Generic"
+            if obj.builder then
+                builder = obj.builder
+            end
+            BWOABuildTools[builder](x + cursor.x, y + cursor.y, z, obj.sprite)
+        end
+
+        cursor.x = cursor.x + 1
+
+        if char == "\n" then
+            cursor.x = 0
+            cursor.y = cursor.y + 1
         end
     end
 end

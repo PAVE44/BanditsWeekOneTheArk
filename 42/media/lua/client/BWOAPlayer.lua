@@ -66,11 +66,26 @@ local onPlayerUpdate = function(player)
         end
     end
 
-    -- player clothing discovery
+    -- player clothing mission completion
     if BWOAPlayer.tick == 2 then 
         local suit = player:getWornItem("Boilersuit")
         if suit then
             BWOAMissions.Accomplish(2)
+        end
+    end
+
+    -- player at location mission completion and dialogue reveal
+    local placeEvents = BWOAPlaceEvents.events
+    for k_, placeEvent in pairs(placeEvents) do
+        if placeEvent.accomplishMissionId or (placeEvent.revealDialoguePerson and placeEvent.revealDialogueId) then
+            if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 6 and pz == placeEvent.z then
+                if placeEvent.accomplishMissionId then
+                    BWOAMissions.Accomplish(placeEvent.accomplishMissionId)
+                end
+                if placeEvent.revealDialoguePerson and placeEvent.revealDialogueId then
+                    BWOADialogues.Reveal(placeEvent.revealDialoguePerson, placeEvent.revealDialogueId)
+                end
+            end
         end
     end
 

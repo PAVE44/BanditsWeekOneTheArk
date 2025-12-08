@@ -19,10 +19,12 @@ local function manageNPC()
                 if not brain.thirst then
                     brain.thirst = 0
                 end
-                
+                if not brain.sadness then
+                    brain.sadness = 0
+                end
 
                 brain.bladder = brain.bladder + 0.1
-
+                brain.sadness = brain.sadness - 1
 
                 if brain.bladder > 100 then
                     brain.bladder = 100
@@ -32,6 +34,9 @@ local function manageNPC()
                 end
                 if brain.thirst > 100 then
                     brain.thirst = 100
+                end
+                if brain.sadness < 0 then
+                    brain.sadness = 0
                 end
 
                 Bandit.ForceSyncPart(bandit, brain)

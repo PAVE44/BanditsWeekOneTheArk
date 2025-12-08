@@ -6,8 +6,6 @@ ZombiePrograms.name = "Emma Robinson"
 ZombiePrograms.Emma.Prepare = function(bandit)
     local tasks = {}
 
-    bandit:setVariable("RunSpeed", 0.91)
-
     Bandit.ForceStationary(bandit, false)
   
     return {status=true, next="Main", tasks=tasks}
@@ -15,6 +13,11 @@ end
 
 local switchStage = function(bandit)
     local brain = BanditBrain.Get(bandit)
+
+    if brain.sadness and brain.sadness > 50 then
+        return "Cry"
+    end
+
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
 
     if bz > -4 or (bx < 9950 and by > 12621 and by < 12629) then
@@ -57,6 +60,8 @@ ZombiePrograms.Emma.Main = function(bandit)
     local brain = BanditBrain.Get(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
 
+    bandit:setVariable("RunSpeed", 0.91)
+    
     local newStage = switchStage(bandit)
     if newStage then
         return {status=true, next=newStage, tasks=tasks}
@@ -238,7 +243,7 @@ ZombiePrograms.Emma.Defend = function(bandit)
 
         local walkType = "WalkAim"
 
-        table.insert(tasks, BanditUtils.GetMoveTask(endurance, tx, ty, tz, walkType, target.dist))
+        table.insert(tasks, BanditUtils.GetMoveTaskTarget(endurance, tx, ty, tz, target.id, target.player, walkType, target.dist))
         return {status=true, next="Main", tasks=tasks}
     end
 
@@ -288,6 +293,15 @@ ZombiePrograms.Emma.Exterior = function(bandit)
     end
 
     return {status=true, next="Exterior", tasks=tasks}
+end
+
+ZombiePrograms.Emma.Cry = function(bandit)
+    local tasks = {}
+    
+    local task = {action="Cry", time=200}
+    table.insert(tasks, task)
+
+    return {status=true, next="Cry", tasks=tasks}
 end
 
 ZombiePrograms.Emma.Leisure = function(bandit)

@@ -140,7 +140,7 @@ local processSquare = function(square)
     local md = square:getModData()
     if not md.BWO then md.BWO = {} end
 
-    -- if true then return end
+    if true then return end
 
     -- post nuke world destroyer
     if not md.BWO.processed then

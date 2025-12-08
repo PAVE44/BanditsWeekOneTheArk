@@ -154,6 +154,64 @@ BWOAPrepareTools.AddHumanCorpse = function(x, y, z, outfits, femaleChance)
     end
 end
 
+BWOAPrepareTools.AddHumanCorpseDetail = function(x, y, z, female, clothing, items)
+    local bandit = createZombie(x, y, z, nil, 0, IsoDirections.getRandom())
+    local id = BanditUtils.GetCharacterID(bandit)
+    local r = 1 + math.abs(id) % 5 
+    bandit:setFemale(female)
+
+    local hv = bandit:getHumanVisual()
+    if female then
+        hv:setSkinTextureName("FemaleBody0" .. tostring(r))
+    else
+        hv:setSkinTextureName("MaleBody0" .. tostring(r))
+    end
+    hv:setSkinTextureName("MaleBody01")
+
+    --[[
+    local maxIndex = BloodBodyPartType.MAX:index()
+    for i = 0, maxIndex - 1 do
+        local part = BloodBodyPartType.FromIndex(i)
+        hv:setBlood(part, 1)
+        hv:setDirt(part, 1)
+    end
+    ]]
+    
+    local body = IsoDeadBody.new(bandit, false)
+
+    local wornItems = body:getWornItems()
+    local inventory = body:getContainer()
+
+    for _, bodyLocationDef in pairs(BanditCompatibility.GetBodyLocationsOrdered()) do
+        for bodyLocation, itemType in pairs(clothing) do
+            if bodyLocation == bodyLocationDef then
+                local item = BanditCompatibility.InstanceItem(itemType)
+                if item then
+                    --[[
+                    local itemVisual = ItemVisual.new()
+                    itemVisual:setItemType(itemType)
+                    itemVisual:setClothingItemName(itemType)
+                    itemVisuals:add(itemVisual)
+                    
+                    ]]
+                    wornItems:setItem(bodyLocation, item)
+                    inventory:AddItem(item)
+                end
+            end
+        end
+    end
+
+    for _, itemType in ipairs(items) do
+        local item = BanditCompatibility.InstanceItem(itemType)
+        if item then
+            inventory:AddItem(item)
+        end
+    end
+
+    bandit:removeFromSquare()
+    bandit:removeFromWorld()
+end
+
 BWOAPrepareTools.AddVehicle = function(x, y, z, vtype, data)
     local cell = getCell()
     local square = getCell():getGridSquare(x, y, z)

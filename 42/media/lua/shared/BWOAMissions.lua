@@ -31,7 +31,12 @@ BWOAMissions.missions = {
     [7] = {
         name = "Find the missing tool bag",
         desc = "The bag is located in the remainings of the Community Center in March Ridge Ruins.",
-    }
+    },
+    [8] = {
+        name = "Find missing survivors",
+        desc = "Locate Dave's group. Their last know location is south east of Rosewood Ruins.\nThey planned to stop at one of the houses on their way back to the Ark.",
+    },
+    
 }
 
 BWOAMissions.LoadMissions = function()

@@ -194,8 +194,7 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         --        MainScreen.instance.charCreationProfession:setVisible(true, self.joyfocus);
 
         -- saettings copy to sandbox
-        SandboxVars.BWOA = {}
-        SandboxVars.BWOA.shelterOccurance = self.shelterOccuranceCombo.selected
+
 
         -- override sandbox settings here
         SandboxVars.StartMonth = 11

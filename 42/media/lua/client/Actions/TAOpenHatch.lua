@@ -31,6 +31,7 @@ function TAOpenHatch:perform()
     BWOABuildings.RemoveHatch(x, y)
 
     BWOAMissions.Accomplish(4)
+    BWOADialogues.Reveal("Emma Robinson", "5.1.1.1.1")
 
     ISBaseTimedAction.perform(self)
 end

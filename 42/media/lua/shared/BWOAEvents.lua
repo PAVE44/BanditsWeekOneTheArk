@@ -113,6 +113,14 @@ BWOAEvents.ElecShut = function(params)
 end
 
 -- proxy
+
+BWOAEvents.DialogueReveal = function(params)
+    if params.person and params.key then
+        BWOADialogues.Reveal(params.person, params.key)
+    end
+end
+
+
 BWOAEvents.EmergencyLights = function(params)
     if params.roomName and params.active ~= nil then
         BWOABaseAPI.EmergencyLights(params.roomName, params.active)

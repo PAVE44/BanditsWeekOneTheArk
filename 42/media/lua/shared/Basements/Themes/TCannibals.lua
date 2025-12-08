@@ -336,7 +336,6 @@ theme.items = {
     {["Base.Gin"] = 1},
     {["Base.CardDeck"] = 1},
     {["Base.CheckerBoard"] = 1},
-    {["Base.PropaneTank"] = 1},
     {["Base.RippedSheets"] = 1},
     {["Base.RippedSheets"] = 3},
     {["Base.RippedSheets"] = 3},

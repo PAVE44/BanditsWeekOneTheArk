@@ -27,10 +27,14 @@ end
 BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
     local cell = getCell()
     local sqs = {
+        {x = 9925, y = 12616, z = 0},
         {x = 9926, y = 12616, z = 0},
         {x = 9927, y = 12616, z = 0},
+        {x = 9928, y = 12616, z = 0},
+        {x = 9925, y = 12615, z = 0},
         {x = 9926, y = 12615, z = 0},
         {x = 9927, y = 12615, z = 0},
+        {x = 9928, y = 12616, z = 0},
     }
 
     for _, sq in pairs(sqs) do
@@ -38,9 +42,9 @@ BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
         if square then
             local vehicle = square:getVehicleContainer()
             if vehicle then
-                local gasTank = vehicle:getPartById("GasTank")
-                if gasTank then
-                    local fuel = gasTank:getContainerContentAmount()
+                local md = vehicle:getModData()
+                if md.BWOA and md.BWOA.fuel then
+                    local fuel = md.BWOA.fuel
                     if fuel > 0 then
                         return true
                     end
@@ -113,12 +117,95 @@ function BWOAMenu.EventAssault(player)
     BWOASequence.Assault({intensity = 6})
 end
 
+function BWOAMenu.EventAbyss(player, square)
+    local cell = getCell()
+    local xmin = square:getX() - 5
+    local xmax = square:getX() + 5
+    local ymin = square:getY() - 5
+    local ymax = square:getY() + 5
+    local depth = 16
+
+    for x=xmin, xmax do
+        for y=ymin, ymax do
+            --if x ~= xmax and y ~= ymax then
+                local square = cell:getGridSquare(x, y, 0)
+                if square then
+                    local objects = square:getObjects()
+                    for i=objects:size()-1, 0, -1 do
+                        local object = objects:get(i)
+                        square:transmitRemoveItemFromSquare(object)
+                    end
+                    square:setSquareChanged()
+                end
+
+                BWOABuildTools.Floor (x, y, -depth, "floors_exterior_street_01_0")
+                BWOABuildTools.Generic (x, y, -depth, "boulders_" .. (1 + ZombRand(14)))
+            --end
+
+            if x == xmin then
+                for z = -depth, -1 do
+                    BWOABuildTools.Wall (x, y, z, "walls_logs_96")
+                end
+            end
+            if x == xmax then
+                for z = -depth, -1 do
+                    BWOABuildTools.Wall (x, y, z, "theark_01_8")
+                end
+            end
+            if y == ymin then
+                for z = -depth, -1 do
+                    BWOABuildTools.Wall (x, y, z, "walls_logs_97")
+                end
+            end
+            if y == ymax then
+                for z = -depth, -1 do
+                    BWOABuildTools.Wall (x, y, z, "theark_01_9")
+                end
+            end
+        end
+    end
+
+                -- NW: walls_logs_98
+                -- N: walls_logs_97
+                -- W: walls_logs_96
+
+                -- floors_exterior_street_01_0
+
+                -- boulders: boulders_3
+                -- boulders: boulders_7
+                -- boulders: boulders_8
+                -- boulders: boulders_9
+                -- boulders: boulders_14
+                -- boulders: boulders_11
+
+                -- boulders: boulders_33, boulders_32 (y+1)
+
+
+end
+
 function BWOAMenu.SceneFuelTank(player , square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
     local scene = BWOAScenes.FuelTruck:new(x, y, z)
     scene:build()
 end
 
+function BWOAMenu.SceneDave(player , square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local scene = BWOAScenes.Dave:new(x, y, z)
+    scene:build()
+end
+
+function BWOAMenu.SceneExcavation(player , square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local scene = BWOAScenes.Excavation:new(x, y, z)
+    scene:build()
+end
+
+
+function BWOAMenu.EmmaCry(player)
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+    BWOAChat.ChangeBrainParam({param="sadness", value=100, target = target})
+end
 
 function BWOAMenu.MakeBasement(player, square)
 
@@ -128,12 +215,15 @@ function BWOAMenu.MakeBasement(player, square)
 end
 
 function BWOAMenu.Teleport(player)
-    player:setX(9962)
-    player:setY(12609)
-    player:setZ(-4)
-    player:setLastX(9962)
-    player:setLastY(12609)
-    player:setLastZ(-4)
+    --local x, y, z = 9962, 12609, -4
+    local x, y, z = 5655, 12456, -17
+    
+    player:setX(x)
+    player:setY(y)
+    player:setZ(z)
+    player:setLastX(x)
+    player:setLastY(y)
+    player:setLastZ(z)
 end
 
 function BWOAMenu.LoadHatches(player)
@@ -218,6 +308,7 @@ end
 local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
     local player = getSpecificPlayer(playerID)
     local square = BanditCompatibility.GetClickedSquare()
+    local cell = square:getCell()
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local room = square:getRoom()
@@ -238,6 +329,26 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         -- BWOABuildTools.Mannequin(sx, sy, sz, "CommandoJohn", IsoDirections.S)
 
+        --[[
+        for x = px - 80, px + 80 do
+            for y = py - 80, py + 80 do
+                for z = -1, 3 do
+                    local square = cell:getGridSquare(x, y, z)
+                    if square then
+                        local wobs = square:getWorldObjects()
+                        for i = 0, wobs:size()-1 do
+                            local o = wobs:get(i)
+                            local item = o:getItem()
+                            local itemType = item:getFullType()
+                            if itemType == "Base.Bag_Military" then
+                                print ("BAG X:" .. x .. "Y: " .. y)
+                            end
+                        end
+                    end
+                end
+            end
+        end]]
+        
         local test = SandboxVars
         local vehicle = square:getVehicleContainer()
 
@@ -251,7 +362,11 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Event Cracks", player, BWOAMenu.EventCracks)
         context:addOption("Event Horde", player, BWOAMenu.EventHorde)
         context:addOption("Event Assault", player, BWOAMenu.EventAssault)
+        context:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
         context:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
+        context:addOption("Scene Dave", player, BWOAMenu.SceneDave, square)
+        context:addOption("Scene Excavation", player, BWOAMenu.SceneExcavation, square)
+        context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
 
         local zombie = square:getZombie()
         if zombie then

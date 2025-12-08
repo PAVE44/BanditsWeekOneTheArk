@@ -178,6 +178,9 @@ theme.furniture = {
             {["Base.WeaponMag5"] = 1},
             {["Base.WeaponMag6"] = 1},
             {["Base.WeaponMag7"] = 1},
+            {["Base.BlowTorch"] = 1},
+            {["Base.WeldingMask"] = 1},
+            {["Base.PropaneTank"] = 1},
 
             {["Base.HamRadio2"] = 7},
         },
