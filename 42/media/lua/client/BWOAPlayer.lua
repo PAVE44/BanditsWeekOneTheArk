@@ -109,6 +109,8 @@ local onPlayerUpdate = function(player)
                 BWOAPlayer.dreamNo = 2
             elseif hours < 72 then
                 BWOAPlayer.dreamNo = 3
+            elseif hours < 96 then
+                BWOAPlayer.dreamNo = 4
             else
                 BWOAPlayer.dreamNo = nil
             end
