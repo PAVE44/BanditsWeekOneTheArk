@@ -224,7 +224,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/ambient_rumble.ogg, 
-            reverbFactor = 0.8, 
+            reverbFactor = 1, 
         } 
     }
 

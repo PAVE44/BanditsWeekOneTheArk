@@ -353,25 +353,32 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local vehicle = square:getVehicleContainer()
 
         saveItems(square)
-        context:addOption("Teleport", player, BWOAMenu.Teleport)
-        context:addOption("Spawn", player, BWOAMenu.Spawn, square)
-        context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
-        context:addOption("Test Item", player, BWOAMenu.TestItem, square)
-        context:addOption("Set Dream", player, BWOAMenu.SetDream)
-        context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
-        context:addOption("Event Cracks", player, BWOAMenu.EventCracks)
-        context:addOption("Event Horde", player, BWOAMenu.EventHorde)
-        context:addOption("Event Assault", player, BWOAMenu.EventAssault)
-        context:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
-        context:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
-        context:addOption("Scene Dave", player, BWOAMenu.SceneDave, square)
-        context:addOption("Scene Excavation", player, BWOAMenu.SceneExcavation, square)
-        context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
 
-        local zombie = square:getZombie()
-        if zombie then
-            context:addOption("Transform", player, BWOAMenu.Transform, zombie)
-        end
+        context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
+        context:addOption("Spawn Emma", player, BWOAMenu.Spawn, square)
+        context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
+
+        local eventsOption = context:addOption("Events")
+        local eventsMenu = context:getNew(context)
+        context:addSubMenu(eventsOption, eventsMenu)
+        eventsMenu:addOption("Event Earthquake", player, BWOAMenu.EventCracks)
+        eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
+        eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
+        eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
+
+        local scenesOption = context:addOption("Scenes")
+        local scenesMenu = context:getNew(context)
+        context:addSubMenu(scenesOption, scenesMenu)
+        
+        scenesMenu:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
+        scenesMenu:addOption("Scene Dave", player, BWOAMenu.SceneDave, square)
+        scenesMenu:addOption("Scene Excavation", player, BWOAMenu.SceneExcavation, square)
+
+        
+        -- context:addOption("Test Item", player, BWOAMenu.TestItem, square)
+        -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
+        -- context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
+        -- eventsMenu:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
 
     end
 end

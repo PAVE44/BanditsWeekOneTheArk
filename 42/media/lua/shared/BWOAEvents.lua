@@ -209,6 +209,10 @@ BWOAEvents.Effect = function(params)
     BWOAEffects.Add(effect)
 end
 
+BWOAEvents.Shaker = function(params)
+    BWOAShaker.SetStatus(params.status)
+end
+
 BWOAEvents.DecontaminatePre = function(params)
     BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION})
 
@@ -320,24 +324,30 @@ BWOAEvents.WallCrack = function(params)
         local wall = candidates[1 + ZombRand(#candidates)]
 
         if wall then
+
             local x, y, z = wall:getX(), wall:getY(), wall:getZ()
-            local spriteName = "d_wallcracks_1_" .. tostring(1 + ZombRand(70))
-            local list = ArrayList.new()
-            local attachments = wall:getAttachedAnimSprite()
-            if not attachments or attachments:size() == 0 then
-                wall:setAttachedAnimSprite(ArrayList.new())
-            end
-            wall:getAttachedAnimSprite():add(getSprite(spriteName):newInstance())
             BWOASound.PlayLocation({x = x, y = y, z = z, sound="AmbientWallcrack"})
 
-            local lightSwitch = BanditUtils.GetLightSwitch(x, y, z)
-            if lightSwitch and lightSwitch:hasLightBulb() then
-                lightSwitch:setActive(false, false, true)
-                lightSwitch:removeLightBulb(cell:getFakeZombieForHit())
-                local emitter = world:getFreeEmitter(x, y, z)
-                if emitter then
-                    local id = emitter:playSound("LightFlicker")
-                    emitter:setVolume(id, volume)
+            if ZombRand(3) == 0 then
+                
+                local spriteName = "d_wallcracks_1_" .. tostring(1 + ZombRand(70))
+                local list = ArrayList.new()
+                local attachments = wall:getAttachedAnimSprite()
+                if not attachments or attachments:size() == 0 then
+                    wall:setAttachedAnimSprite(ArrayList.new())
+                end
+                wall:getAttachedAnimSprite():add(getSprite(spriteName):newInstance())
+                
+
+                local lightSwitch = BanditUtils.GetLightSwitch(x, y, z)
+                if lightSwitch and lightSwitch:hasLightBulb() then
+                    lightSwitch:setActive(false, false, true)
+                    lightSwitch:removeLightBulb(cell:getFakeZombieForHit())
+                    local emitter = world:getFreeEmitter(x, y, z)
+                    if emitter then
+                        local id = emitter:playSound("LightFlicker")
+                        emitter:setVolume(id, volume)
+                    end
                 end
             end
         end

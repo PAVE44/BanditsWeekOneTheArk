@@ -93,8 +93,11 @@ BWOASequence.Earthquake = function(params)
 
     local d = 1
     BWOAEventControl.Add("PlayPlayer", {sound = "AmbientRumble"}, d)
+    
+    d = 750
+    BWOAEventControl.Add("Shaker", {status = true}, d)
 
-    d = 800
+    d = 1000
     local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
     if target.dist < BWOAChat.talkDist then
         local anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
@@ -109,7 +112,7 @@ BWOASequence.Earthquake = function(params)
     BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
     BWOASound.AddNoah({sound = BWOASound.noahSounds.STRUCTURAL})
     
-    d = 1000
+    d = 1200
     for j = 1, params.duration do
         local x = params.x1 + ZombRand(params.x2 - params.x1)
         local y = params.y1 + ZombRand(params.y2 - params.y1)
@@ -125,6 +128,9 @@ BWOASequence.Earthquake = function(params)
             BWOAEventControl.Add("WallCrack", params, d)
         end
     end
+
+    d = d + 200
+    BWOAEventControl.Add("Shaker", {status = false}, d)
 end
 
 BWOASequence.Horde = function(params)

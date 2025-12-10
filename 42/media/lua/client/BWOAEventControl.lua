@@ -22,6 +22,9 @@ local schedule = {
     [44] = {
         [39] = {"Assault", {intensity = 6}},
     },
+    [55] = {
+        [2] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
+    },
 }
 
 -- triggering scheduled events 
