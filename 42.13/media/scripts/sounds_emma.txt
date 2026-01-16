@@ -1,0 +1,14 @@
+module Bandits {
+
+    sound EmmaCry {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/emma_cry.ogg,
+            distanceMin = 1,
+            distanceMax = 5,
+            reverbFactor = 0.6, 
+        } 
+    }
+}

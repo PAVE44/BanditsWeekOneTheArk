@@ -1,8 +1,0 @@
-Tooltip_EN = {
-	Tooltip_item_Radio = "Equip to operate radio.",
-	Tooltip_PillsPotassiumIodine = "Lowers the negative effects of radiation."
-	Tooltip_PillsPentoxifylline = "Fights against high CO2 poisoning."
-	Tooltip_PillsPrussianBlue = "Not implemented yet."
-	Tooltip_PillsNikethamide = "Not implemented yet."
-	Tooltip_GeigerCounter = "Measures radiation levels and emitts signals when equipped / attached."
-}

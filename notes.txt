@@ -1,3 +1,14 @@
+LOG  : Lua          f:0, t:1765622444859, st:394,111,669> feedingTrough: added luaObject 10932,10119,0
+LOG  : Lua          f:0, t:1765622444859, st:394,111,669> feedingTrough: added luaObject 10933,10112,0
+LOG  : Lua          f:0, t:1765622444859, st:394,111,669> feedingTrough: added luaObject 10933,10119,0
+LOG  : Lua          f:0, t:1765622444859, st:394,111,670> feedingTrough: added luaObject 10934,10112,0
+LOG  : Lua          f:0, t:1765622444859, st:394,111,670> feedingTrough: added luaObject 10892,9913,0
+LOG  : Lua          f:0, t:1765622444860, st:394,111,670> feedingTrough: added luaObject 10892,9914,0
+LOG  : Lua          f:0, t:1765622444860, st:394,111,670> feedingTrough: added luaObject 10831,9743,0
+LOG  : Lua          f:0, t:1765622444860, st:394,111,670> feedingTrough: added luaObject 10834,9739,0
+LOG  : Lua          f:0, t:1765622444860, st:394,111,670> feedingTrough: added luaObject 10835,9739,0
+LOG  : Lua          f:0, t:1765622444860, st:394,111,670> feedingTrough: added luaObject 10763,9554,0
+LOG  : Lua          f:0, t:1765622444860, st:394,111,671> feedingTrough: added luaObject 10763,9555,0
 rooms:
 
 incinerator room + morgue

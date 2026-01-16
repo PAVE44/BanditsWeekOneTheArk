@@ -1,0 +1,9 @@
+IG_UI_EN = {
+    IGUI_ItemCat_Lore = "Lore",
+
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_1_1 = "Wait! We need to talk!",
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_1_2 = "Wait! You're in shock!",
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_1_3 = "Hold on! I'm a friend!",
+
+    IGUI_VehicleNamepzkPostapoTanker = "Franklin Heavy Lifter (Tanker)",
+}

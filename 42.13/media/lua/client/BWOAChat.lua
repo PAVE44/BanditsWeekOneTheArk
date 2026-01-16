@@ -1,0 +1,237 @@
+BWOAChat = BWOAChat or {}
+
+function splitSentences(text)
+    local sentences = {}
+
+    for sentence, ending in text:gmatch("([^%.%!%?]+)([%.%!%?])") do
+        local s = (sentence .. ending):gsub("^%s+", ""):gsub("%s+$", "")
+        table.insert(sentences, s)
+    end
+
+    return sentences
+end
+
+BWOAChat.last = {}
+
+BWOAChat.talkDist = 5
+
+BWOAChat.Give = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if not params.item then return end
+
+    local inv = player:getInventory()
+    local pills = BanditCompatibility.InstanceItem(params.item)
+    inv:AddItem(pills)
+
+    if params.sound then
+        player:playSound(params.sound)
+    end
+end
+
+BWOAChat.AccomplishMission = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if not params.missionId then return end
+
+    BWOAMissions.Accomplish(params.missionId)
+end
+
+BWOAChat.RevealMission = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if not params.missionId then return end
+
+    BWOAMissions.Reveal(params.missionId)
+end
+
+BWOAChat.SwitchMission = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if not params.missionAccomplishId then return end
+    if not params.missionRevelaId then return end
+
+    BWOAMissions.Accomplish(params.missionAccomplishId)
+    BWOAMissions.Reveal(params.missionRevelaId)
+end
+
+--[[
+BWOAChat.ChangeProgramStage = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {params.programName})
+    if target then
+        local emma = BanditZombie.GetInstanceById(target.id)
+        Bandit.SetProgramStage(emma, params.programStage)
+    end
+end
+]]
+
+BWOAChat.ChangeBrainParam = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local bandit = BanditZombie.GetInstanceById(params.target.id)
+    local brain = BanditBrain.Get(bandit)
+    brain[params.param] = params.value
+end
+
+BWOAChat.Say = function(question, quiet)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    BWOAEventControl.Add("SayPlayer", {txt = question}, 1)
+
+    local tab
+    local person = "Emma Robinson"
+
+    if BWOAChat.last and question == "Can you repeat that?" then
+        tab = BWOAChat.last[person]
+        tab.txt = "Sure. " .. tab.txt
+    else
+        local answer = BWOADialogues.GetAnswer(person, question)
+        if answer then
+            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma"}, "Main")
+            if target.dist < BWOAChat.talkDist then
+                if not anim then 
+                    anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
+                end
+                tab = {id=target.id, txt=answer.ans, anim=answer.anim}
+                BWOAChat.last[person] = tab
+                BWOADialogues.MarkAsked(person, question)
+
+                if answer.func then
+                    answer.funcParams.target = target
+                    BWOAChat[answer.func](answer.funcParams)
+                end
+            end
+        end
+    end
+
+    if tab then
+        local perLetter = 25 -- time per letter
+        local minimal = 1000 -- minimal time per sentence
+        local counter = 400 -- initial response delay
+        local sentences = splitSentences(tab.txt)
+        for i, sentence in ipairs(sentences) do
+            local newtab = {}
+            newtab.id = tab.id
+            newtab.anim = tab.anim
+            newtab.txt = sentence
+            local responseTime = perLetter * #sentence
+            if responseTime < minimal then responseTime = minimal end
+            BWOAEventControl.Add("SayBandit", newtab, counter)
+            counter = counter + responseTime
+        end
+    end
+end
+
+local emoteActions = {
+    ["hey!"] = function(target)
+        local tab = {}
+        tab.id = target.id
+        if target.dist < 2.1 then
+            tab.anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
+            tab.txt = "You scared me!"
+            BWOAEventControl.Add("SayBandit", tab, 1)
+        else
+            tab.anim = "WaveHi"
+            tab.txt = "Hey!"
+            tab.sound = "VoiceFemaleShoutHey"
+            BWOAEventControl.Add("SayBandit", tab, 250)
+        end
+    end,
+    ["hey"] = function(target)
+        local tab = {}
+        tab.id = target.id
+        if ZombRand(3) == 0 then
+            tab.txt = "psst"
+            tab.sound = "VoiceFemaleWhisperPsst"
+        else
+            tab.txt = "hey"
+            tab.sound = "VoiceFemaleWhisperHey"
+        end
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["wavehi"] = function(target)
+        local tab = {}
+        tab.id = target.id
+        tab.anim = "WaveHi"
+        tab.txt = "Hi!"
+        tab.sound = "VoiceFemaleShoutHey"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["followme"] = function(target)
+        BWOANPC.ModBrain(target.id, "mode", "follow")
+        local tab = {}
+        tab.id = target.id
+        tab.anim = "Yes"
+        tab.txt = "Okay, let's go!"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["stop"] = function(target)
+        BWOANPC.ModBrain(target.id, "mode", nil)
+        local tab = {}
+        tab.id = target.id
+        tab.anim = "Yes"
+        tab.txt = "Okay!"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end,
+    ["moveout"] = function(target)
+        BWOANPC.ModBrain(target.id, "mode", "taggame")
+        local tab = {}
+        tab.id = target.id
+        tab.txt = "Catch me if you can!"
+        BWOAEventControl.Add("SayBandit", tab, 250)
+    end
+
+
+}
+
+local function onEmote(player, emote)
+    local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma"}, "Main")
+    if target.dist < BWOAChat.talkDist then
+        if emoteActions[emote] then
+            return emoteActions[emote](target)
+        end
+    end
+end
+
+local function onKeyPressed(keynum)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local options = PZAPI.ModOptions:getOptions("BanditsWeekOneTheArk")
+    local key = options:getOption("TALK"):getValue()
+
+    if keynum == key then
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"}, "Main")
+        if target.dist < BWOAChat.talkDist then
+            local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0))
+            ui:initialise()
+            ui:addToUIManager()
+        else
+            BWOAEventControl.Add("SayPlayer", {txt = "There is nobody around to speak to."}, 1)
+        end
+    elseif keynum == getCore():getKey("Shout") then
+        if player:isSneaking() then
+            onEmote(player, "hey")
+        else
+            onEmote(player, "hey!")
+        end
+    end
+end
+
+LuaEventManager.AddEvent("OnEmote")
+
+Events.OnEmote.Remove(onEmote)
+Events.OnEmote.Add(onEmote)
+
+Events.OnKeyPressed.Remove(onKeyPressed)
+Events.OnKeyPressed.Add(onKeyPressed)
+

@@ -1,0 +1,22 @@
+module Bandits {
+
+    sound MusicIntro {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music_intro.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicEndure {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music_endure_sg.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+}

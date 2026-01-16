@@ -1,0 +1,392 @@
+module Bandits {
+
+    sound AmbientHorn {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/horn.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientHornLong {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_horn.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientGeiger1 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_1.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger2 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger3 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger4 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger5 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+    sound AmbientGeiger6 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/geiger_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientAlarmGlobal {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_alarm_2.ogg,
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientAlarmLocal {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_alarm_1.ogg, 
+            distanceMin = 1,
+            distanceMax = 12,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientArk {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_ark.ogg, 
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientComputer {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_computer2.ogg, 
+            distanceMin = 1,
+            distanceMax = 12,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientElectricity {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_electricity.ogg, 
+            distanceMin = 1,
+            distanceMax = 5,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientELS {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_els.ogg, 
+            distanceMin = 1,
+            distanceMax = 50,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientGenerator {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_generator2.ogg, 
+            distanceMin = 1,
+            distanceMax = 12,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientGeneratorStart {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_generator_start.ogg, 
+            distanceMin = 1,
+            distanceMax = 23,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientPlumbing {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_plumbing.ogg, 
+            distanceMin = 1,
+            distanceMax = 5,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientPowerDown {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_power_down.ogg, 
+            distanceMin = 1,
+            distanceMax = 200,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientVent {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_vent.ogg, 
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientWaterDrops {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_water_drops.ogg, 
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientRumble {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_rumble.ogg, 
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound AmbientMist {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_mist.ogg, 
+            distanceMin = 1,
+            distanceMax = 8,
+            reverbFactor = 0.1, 
+            volume = 0.8, 
+        } 
+    }
+
+    sound AmbientWallcrack {
+        category = Object,
+        loop = false
+        is3D = true,
+        clip
+        {
+            file = media/sound/wallcrack_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_4.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_5.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_6.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/wallcrack_7.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound Dream1Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_1_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream1End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_1_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream2Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_2_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream2End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_2_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream3Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_3_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream3End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_3_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream4Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_4_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream4End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_4_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream5Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_5_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream5End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_5_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+}
