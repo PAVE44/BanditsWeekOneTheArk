@@ -66,9 +66,6 @@ end
 
 local burnSquare = function(square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
-    if z < 0 then return end
-
-    if x >= 9910 and y >= 12611 and x <= 9942 and y <= 12645 then return end
 
     local md = square:getModData()
     if not md.BWO then md.BWO = {} end
@@ -136,6 +133,19 @@ local burnSquare = function(square)
     end
 end
 
+local isExcluded = function(square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+
+    if z < 0 then return true end
+
+    -- ARK exclusion
+    if x >= 9910 and y >= 12611 and x <= 9942 and y <= 12645 then return true end
+
+    -- Fallas Lake exclusion
+    if x >= 7050 and y >= 8154 and x <= 7880 and y <= 8560 then return true end
+
+    return false
+end
 local processSquare = function(square)
     local md = square:getModData()
     if not md.BWO then md.BWO = {} end
@@ -143,7 +153,7 @@ local processSquare = function(square)
     -- if true then return end
 
     -- post nuke world destroyer
-    if not md.BWO.processed then
+    if not md.BWO.processed and not isExcluded(square) then
         burnSquare(square)
         local vehicle = square:getVehicleContainer()
         if vehicle and not BWOASquareLoader.burnExclusion[vehicle:getScriptName()] then

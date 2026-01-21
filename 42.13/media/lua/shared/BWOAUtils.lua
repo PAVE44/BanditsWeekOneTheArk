@@ -132,3 +132,106 @@ function BanditUtils.GetClosestBanditLocationProgramStage(character, programs, s
 
     return result
 end
+
+BanditUtils.GetBodyLocationsOrdered = function()
+    return {
+        ItemBodyLocation.UNDERWEAR_BOTTOM, 
+        ItemBodyLocation.UNDERWEAR_TOP, 
+        ItemBodyLocation.UNDERWEAR_EXTRA1, 
+        ItemBodyLocation.UNDERWEAR_EXTRA2, 
+        ItemBodyLocation.UNDERWEAR, 
+        ItemBodyLocation.TORSO1LEGS1, 
+        ItemBodyLocation.LEGS1,
+        ItemBodyLocation.EARS, 
+        ItemBodyLocation.EAR_TOP, 
+        ItemBodyLocation.NOSE, 
+        ItemBodyLocation.HAT, 
+        ItemBodyLocation.FULL_HAT,
+        ItemBodyLocation.MASK, 
+        ItemBodyLocation.MASK_EYES, 
+        ItemBodyLocation.EYES, 
+        ItemBodyLocation.RIGHT_EYE, 
+        ItemBodyLocation.LEFT_EYE,
+        ItemBodyLocation.NECK, 
+        ItemBodyLocation.NECKLACE, 
+        ItemBodyLocation.GORGET, 
+        ItemBodyLocation.SCARF,
+        ItemBodyLocation.TANK_TOP, 
+        ItemBodyLocation.TSHIRT, 
+        ItemBodyLocation.SHORT_SLEEVE_SHIRT, 
+        ItemBodyLocation.SHIRT,
+        ItemBodyLocation.VEST_TEXTURE, 
+        ItemBodyLocation.SWEATER, 
+        ItemBodyLocation.SWEATER_HAT, 
+        ItemBodyLocation.TORSO_EXTRA_VEST, 
+        ItemBodyLocation.CUIRASS, 
+        ItemBodyLocation.TORSO_EXTRA,
+        ItemBodyLocation.JACKET, 
+        ItemBodyLocation.JACKET_HAT, 
+        ItemBodyLocation.JACKET_DOWN, 
+        ItemBodyLocation.JACKET_HAT_BULKY, 
+        ItemBodyLocation.JACKET_BULKY, 
+        ItemBodyLocation.JACKET_SUIT, 
+        ItemBodyLocation.FULL_TOP,
+        ItemBodyLocation.RIGHT_WRIST, 
+        ItemBodyLocation.RIGHT_MIDDLE_FINGER, 
+        ItemBodyLocation.RIGHT_RING_FINGER, 
+        ItemBodyLocation.LEFT_WRIST, 
+        ItemBodyLocation.LEFT_MIDDLE_FINGER, 
+        ItemBodyLocation.LEFT_RING_FINGER, 
+        ItemBodyLocation.HANDS, 
+        ItemBodyLocation.HANDS_RIGHT, 
+        ItemBodyLocation.HANDS_LEFT,
+        ItemBodyLocation.PANTS, 
+        ItemBodyLocation.PANTS_EXTRA, 
+        ItemBodyLocation.SHORT_PANTS, 
+        ItemBodyLocation.SHORTS_SHORT, 
+        ItemBodyLocation.LONG_SKIRT, 
+        ItemBodyLocation.SKIRT,
+        ItemBodyLocation.DRESS, 
+        ItemBodyLocation.LONG_DRESS,
+        ItemBodyLocation.BATH_ROBE, 
+        ItemBodyLocation.FULL_SUIT, 
+        ItemBodyLocation.FULL_SUIT_HEAD, 
+        ItemBodyLocation.BOILERSUIT, 
+        ItemBodyLocation.TAIL, 
+        ItemBodyLocation.TORSO_EXTRA_VEST_BULLET,
+        ItemBodyLocation.SHOULDERPAD_RIGHT, 
+        ItemBodyLocation.SHOULDERPAD_LEFT, 
+        ItemBodyLocation.ELBOW_RIGHT, 
+        ItemBodyLocation.ELBOW_LEFT, 
+        ItemBodyLocation.FORE_ARM_RIGHT, 
+        ItemBodyLocation.FORE_ARM_LEFT,
+        ItemBodyLocation.THIGH_RIGHT, 
+        ItemBodyLocation.THIGH_LEFT, 
+        ItemBodyLocation.KNEE_RIGHT, 
+        ItemBodyLocation.KNEE_LEFT, 
+        ItemBodyLocation.CALF_RIGHT, 
+        ItemBodyLocation.CALF_LEFT,
+        ItemBodyLocation.FANNY_PACK_FRONT, 
+        ItemBodyLocation.FANNY_PACK_BACK, 
+        ItemBodyLocation.WEBBING, 
+        ItemBodyLocation.AMMO_STRAP, 
+        ItemBodyLocation.ANKLE_HOLSTER, 
+        ItemBodyLocation.BELT_EXTRA, 
+        ItemBodyLocation.SHOULDER_HOLSTER,
+        ItemBodyLocation.SOCKS, 
+        ItemBodyLocation.SHOES
+    }
+end
+
+BanditUtils.ClearZombies = function(x1, x2, y1, y2)
+    local cell = getCell()
+    local zombieList = cell:getZombieList()
+    local zombieListSize = zombieList:size()
+    for i = zombieListSize - 1, 0, -1 do
+        local zombie = zombieList:get(i)
+        if zombie then
+            if zombie:getX() >= x1 and zombie:getX() <= x2
+               and zombie:getY() >= y1 and zombie:getY() <= y2 then
+                zombie:removeFromSquare()
+                zombie:removeFromWorld()
+            end
+        end
+    end
+end

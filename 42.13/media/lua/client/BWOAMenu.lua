@@ -56,6 +56,10 @@ BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
     return false
 end
 
+BWOAMenu.specialObjectsCanHighlight.Wall = function()
+    return true
+end
+
 BWOAMenu.specialObjectsCanHighlight.Hatch = function()
     return true
 end
@@ -77,6 +81,15 @@ end
 BWOAMenu.specialObjectsAction.FuelIntake = function(player, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(TAFuelIntake:new(player, square))
+    end    
+end
+
+BWOAMenu.specialObjectsAction.Wall = function(player, square)
+    if luautils.walkAdj(player, square) then
+        local wall = square:getWall()
+        if wall then
+            ISTimedActionQueue.add(ISDestroyStuffAction:new(player, wall, false))
+        end
     end    
 end
 
@@ -102,6 +115,11 @@ BWOAMenu.specialObjectsHighlight = {
         x = 9927, y = 12617, z = 0, spriteName = "theark_01_7", option = "Drain Fuel", 
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.FuelIntake,
         actionFunc = BWOAMenu.specialObjectsAction.FuelIntake
+    },
+    ["Wall"] = {
+        x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1", option = "Destroy", 
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Wall,
+        actionFunc = BWOAMenu.specialObjectsAction.Wall
     },
 }
 
@@ -183,6 +201,14 @@ function BWOAMenu.EventAbyss(player, square)
 
 end
 
+function BWOAMenu.SceneToolbag(player , square)
+    local x = 10033
+    local y = 12733
+    local z = 0
+    local scene = BWOAScenes.Toolbag:new(x, y, z)
+    scene:build()
+end
+
 function BWOAMenu.SceneFuelTank(player , square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
     local scene = BWOAScenes.FuelTruck:new(x, y, z)
@@ -195,12 +221,29 @@ function BWOAMenu.SceneDave(player , square)
     scene:build()
 end
 
+function BWOAMenu.SceneBanditsCar(player , square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local scene = BWOAScenes.BanditsCar:new(x, y, z)
+    scene:build()
+end
+
+function BWOAMenu.SceneFallasChurch(player , square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local scene = BWOAScenes.FallasChurch:new(x, y, z)
+    scene:build()
+end
+
+function BWOAMenu.SceneEkronChurch(player , square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local scene = BWOAScenes.EkronChurch:new(x, y, z)
+    scene:build()
+end
+
 function BWOAMenu.SceneExcavation(player , square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
     local scene = BWOAScenes.Excavation:new(x, y, z)
     scene:build()
 end
-
 
 function BWOAMenu.EmmaCry(player)
     local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
@@ -268,12 +311,12 @@ function BWOAMenu.Spawn(player, square)
 end
 
 
-function BWOAMenu.TestItem(player, square)
+function BWOAMenu.TestItem(player, square, artifact)
     local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
     leaflet:setCanBeWrite(false)
     leaflet:setName("Test Note")
     local md = leaflet:getModData()
-    md.printContent = "survivor_note_1"
+    md.printContent = artifact
     BWOAPrepareTools.AddWorldItemSpecial(square:getX(), square:getY(), square:getZ(), leaflet, {x=0.5, y=0.5, z=0})
 end
 
@@ -342,8 +385,16 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     end 
 
     if isDebugEnabled() then
+        BWOAMissions.Reveal(7)
+
         local test = SandboxVars
         local vehicle = square:getVehicleContainer()
+
+        local building = square:getBuilding()
+        if building then
+            def = building:getDef()
+            print ("BID: " .. def:getIDString())
+        end
 
         saveItems(square)
 
@@ -363,13 +414,40 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local scenesOption = context:addOption("Scenes")
         local scenesMenu = context:getNew(context)
         context:addSubMenu(scenesOption, scenesMenu)
-        
+
+        scenesMenu:addOption("Scene Toolbag", player, BWOAMenu.SceneToolbag, square)
         scenesMenu:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
         scenesMenu:addOption("Scene Dave", player, BWOAMenu.SceneDave, square)
-        scenesMenu:addOption("Scene Excavation", player, BWOAMenu.SceneExcavation, square)
+        scenesMenu:addOption("Scene Bandits Car", player, BWOAMenu.SceneBanditsCar, square)
+        scenesMenu:addOption("Scene Fallas Church", player, BWOAMenu.SceneFallasChurch, square)
+        scenesMenu:addOption("Scene Ekron Church", player, BWOAMenu.SceneEkronChurch, square)
+        -- scenesMenu:addOption("Scene Excavation", player, BWOAMenu.SceneExcavation, square)
 
         
-        -- context:addOption("Test Item", player, BWOAMenu.TestItem, square)
+        local artifactsOption = context:addOption("Artifacts")
+        local artifactsMenu = context:getNew(context)
+        context:addSubMenu(artifactsOption, artifactsMenu)
+
+        local artifacts = {
+            "confidential_medical_observation",
+            "emergency_medical_report",
+            "doc_note",
+            "sacred_incense",
+            "cold_passage",
+            "early_mortuary_practice",
+            "paleolithic_survey_group",
+            "supplementary_excavation_log",
+            "diary_kowalska",
+            "7Q17",
+            "medical",
+            "health_effects_radiation",
+            "book_dacr_research",
+            "book_nuclear_winter",
+        }
+        for _, artifact in pairs(artifacts) do
+            artifactsMenu:addOption(artifact, player, BWOAMenu.TestItem, square, artifact)
+        end
+
         -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
         -- context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         -- eventsMenu:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
@@ -416,9 +494,9 @@ local updateHighlight = function()
                             end
                         end
 
-                        if not found then
-                            BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
-                        end
+                        -- if not found then
+                        --     BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
+                        -- end
                     end
                 end
             end

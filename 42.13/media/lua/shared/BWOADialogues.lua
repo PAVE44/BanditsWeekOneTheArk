@@ -480,6 +480,29 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         func = "ChangeBrainParam",
         funcParams = {param = "sadness", value = 100},
     },
+    ["300.1.1.1.1"] = {
+        qst = "I will revenge Dave & Martha. I promise!",
+        ans = "[speechless]",
+        anim = "GestNo",
+        req = {"300.1.1.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 9},
+    },
+    ["300.2"] = {
+        qst = "Emma, I killed those bastards who killed Dave and Martha.",
+        ans = "That's... that's good, I guess. But it won't bring them back...",
+        anim = "Gest1",
+        req = {},
+        hidden = true,
+        func = "ChangeBrainParam",
+        funcParams = {param = "sadness", value = 0},
+    },
+    ["300.2.1"] = {
+        qst = "I also found a working car.",
+        ans = "Wow! That's great news! That seriously increases our range of operation.",
+        anim = "GestYes",
+        req = {"300.2"},
+    },
 
     -- base condition dependent
     ["1000.1"] = {

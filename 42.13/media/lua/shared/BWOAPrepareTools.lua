@@ -182,24 +182,19 @@ BWOAPrepareTools.AddHumanCorpseDetail = function(x, y, z, female, clothing, item
     local wornItems = body:getWornItems()
     local inventory = body:getContainer()
 
-    for _, bodyLocationDef in pairs(BanditCompatibility.GetBodyLocationsOrdered()) do
-        for bodyLocation, itemType in pairs(clothing) do
-            if bodyLocation == bodyLocationDef then
+    -- for _, bodyLocationDef in pairs(BanditUtils.GetBodyLocationsOrdered()) do
+        for _, clothingData in ipairs(clothing) do
+            local bodyLocation = clothingData.bl
+            local itemType = clothingData.itemType
+            -- if bodyLocation == bodyLocationDef then
                 local item = BanditCompatibility.InstanceItem(itemType)
                 if item then
-                    --[[
-                    local itemVisual = ItemVisual.new()
-                    itemVisual:setItemType(itemType)
-                    itemVisual:setClothingItemName(itemType)
-                    itemVisuals:add(itemVisual)
-                    
-                    ]]
                     wornItems:setItem(bodyLocation, item)
                     inventory:AddItem(item)
                 end
-            end
+            -- end
         end
-    end
+    -- end
 
     for _, itemType in ipairs(items) do
         local item = BanditCompatibility.InstanceItem(itemType)

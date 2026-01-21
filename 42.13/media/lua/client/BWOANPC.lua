@@ -1,11 +1,14 @@
 BWOANPC = BWOANPC or {}
 
 local function manageNPC()
+    
     local cache = BanditZombie.CacheLightB
     if not cache then return end
 
+    local i = 0
     for id, npc in pairs(cache) do
         if true then --  npc.brain.permanent then
+            i = i + 1
             local bandit = BanditZombie.GetInstanceById(id)
             if bandit then
                 local brain = BanditBrain.Get(bandit)
@@ -43,6 +46,7 @@ local function manageNPC()
             end
         end
     end
+    print ("iters: " .. i)
 end
 
 BWOANPC.ModBrain = function(id, k, v)

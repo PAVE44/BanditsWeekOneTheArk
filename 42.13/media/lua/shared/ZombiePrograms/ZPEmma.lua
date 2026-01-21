@@ -13,14 +13,13 @@ end
 
 local switchStage = function(bandit)
     local brain = BanditBrain.Get(bandit)
-
-    if brain.sadness and brain.sadness > 50 then
-        return "Cry"
-    end
-
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
 
-    if bz > -4 or (bx < 9950 and by > 12621 and by < 12629) then
+    if brain.sadness and brain.sadness > 50 then
+        if brain.program.stage ~= "Cry" then
+            return "Cry"
+        end
+    elseif bz > -4 or (bx < 9950 and by > 12621 and by < 12629) then
         if brain.program.stage ~= "Exterior" then
             brain.program.stage = "Exterior"
             return "Exterior"
@@ -298,6 +297,11 @@ end
 ZombiePrograms.Emma.Cry = function(bandit)
     local tasks = {}
     
+    local newStage = switchStage(bandit)
+    if newStage then
+        return {status=true, next=newStage, tasks=tasks}
+    end
+
     local task = {action="Cry", time=200}
     table.insert(tasks, task)
 

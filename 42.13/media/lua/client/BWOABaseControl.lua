@@ -377,6 +377,3 @@ Events.EveryOneMinute.Add(manageRoomLogic)
 
 Events.OnNewFire.Remove(manageFire)
 Events.OnNewFire.Add(manageFire)
-
-Events.OnNewFire.Remove(manageFire)
-Events.OnNewFire.Add(manageFire)

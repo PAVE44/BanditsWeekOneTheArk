@@ -66,6 +66,7 @@ function TAFuelIntake:stop()
 end
 
 function TAFuelIntake:perform()
+    self.character:stopOrTriggerSound(self.sound)
     BWOAMissions.Accomplish(6)
     -- needed to remove from queue / start next.
 	ISBaseTimedAction.perform(self);

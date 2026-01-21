@@ -137,6 +137,8 @@ local function onTick()
 
     local world = getWorld()
     local player = getSpecificPlayer(0)
+    if not player then return end
+
     local pemitter = player:getEmitter()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local maxDist = BWOASound.maxDist

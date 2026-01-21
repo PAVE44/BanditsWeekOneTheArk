@@ -10,9 +10,6 @@ local schedule = {
     [11] = {
         [39] = {"Assault", {intensity = 2}},
     },
-    [29] = {
-        [1] = {"DialogueReveal", {person = "Emma Robinson", key = "300.1"}},
-    },
     [22] = {
         [39] = {"Horde", {intensity = 30}},
     },

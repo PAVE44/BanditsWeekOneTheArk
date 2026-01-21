@@ -36,9 +36,37 @@ BWOAMissions.missions = {
         name = "Find missing survivors",
         desc = "Locate Dave's group. Their last know location is south east of Rosewood Ruins.\nThey planned to stop at one of the houses on their way back to the Ark.",
     },
+    [9] = {
+        name = "Revenge for Dave & Martha",
+        desc = "Those who killed Dave and Martha, must have a shelter nearby.\nInvestigate basements in Rosewood Remains.",
+    },
     [10] = {
-        name = "Investigate location",
-        desc = "Investigate location described in the dream.",
+        name = "Find the car",
+        desc = "You've found a car key. It suggests a working vehicle may be nearby.",
+    },
+    [100] = {
+        name = "Go to church in Fallas Lake Ruins",
+        desc = "The voice in your dream points you to Fallas Lake church.",
+    },
+    [101] = {
+        name = "Investigate the church in Ekron Ruins",
+        desc = "According to the priest's note in Fallas Lake, church in Ekron hides some secrets.",
+    },
+    [102] = {
+        name = "Find comfrey seeds",
+        desc = "Comfrey plays some role in all of this. Find it.",
+    },
+    [103] = {
+        name = "Grow comfrey",
+        desc = "Grow and harvest a healthy comfrey plant.",
+    },
+    [110] = {
+        name = "Go to the secret lab",
+        desc = "The voice in your dream points you now to the secret lab near March Ridge Ruins.",
+    },
+    [111] = {
+        name = "Find the doctor's house",
+        desc = "The doctor's house is located near his clinic in Muldraugh.",
     },
 }
 

@@ -389,4 +389,16 @@ module Bandits {
             reverbFactor = 1, 
         } 
     }
+
+    sound MusicJuke1 {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/music_juke_1.ogg,
+            distanceMin = 3,
+            distanceMax = 30,
+            reverbFactor = 0.2, 
+        } 
+    }
 }

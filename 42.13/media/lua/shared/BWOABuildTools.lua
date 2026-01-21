@@ -88,6 +88,52 @@ BWOABuildTools.Generic = function(x, y, z, spriteName)
     square:setSquareChanged()
 end
 
+BWOABuildTools.Stove = function(x, y, z, spriteName)
+    local cell = getCell()
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoStove.new(cell, square, getSprite(spriteName))
+    obj:createContainersFromSpriteProperties()
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+end
+
+BWOABuildTools.WasherDryer = function(x, y, z, spriteName, activated)
+    local cell = getCell()
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoCombinationWasherDryer.new(cell, square, getSprite(spriteName))
+    obj:setMovedThumpable(true)
+    obj:createContainersFromSpriteProperties()
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+    obj:setActivated(activated)
+end
+
+BWOABuildTools.Jukebox = function(x, y, z, spriteName, activated)
+    local cell = getCell()
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    local obj = IsoJukebox.new(cell, square, getSprite(spriteName))
+    obj:setMovedThumpable(true)
+    obj:createContainersFromSpriteProperties()
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+    obj:SetPlaying(activated)
+end
+
+BWOABuildTools.Generator = function(x, y, z, fuel, condition, connected, active)
+    local cell = getCell()
+    local square = cell:getOrCreateGridSquare(x, y, z)
+    local genItem = BanditCompatibility.InstanceItem("Base.Generator")
+    local generator = IsoGenerator.new(genItem, cell, square)
+    generator:setMovedThumpable(true)
+    generator:setCondition(condition)
+    generator:setFuel(fuel)
+    generator:setConnected(connected)
+    generator:setActivated(active)
+end
+
 BWOABuildTools.Mannequin = function(x, y, z, scriptName, dir)
     local spriteName = "location_shop_mall_01_68"
     local item = BanditCompatibility.InstanceItem("Moveables."..spriteName)

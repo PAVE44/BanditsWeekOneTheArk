@@ -18,6 +18,10 @@ table.insert(bodyParts, {bname=BloodBodyPartType.ForeArm_L, name=BodyPartType.Fo
 table.insert(bodyParts, {bname=BloodBodyPartType.Hand_R, name=BodyPartType.Hand_R, chance=20})
 table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_L, chance=10})
 
+local timeRevealMap = {
+    [1] = {hours = 29, person = "Emma Robinson", qid = "300.1"},
+}
+
 local roomRevealMap = {
     ["GENERATOR_ROOM"]          = {person = "Emma Robinson", qid = "100.1"},
     ["FOODGARDEN"]              = {person = "Emma Robinson", qid = "100.3"},
@@ -39,7 +43,11 @@ local dreamRevealMap = {
     [2] = {hours = 48, qid = "2000.2", txt = "Not again...!"},
     [3] = {hours = 72, qid = "2000.3", txt = "Damn dream again!"},
     [4] = {hours = 96, qid = "2000.4", txt = "WTF... This was different..."},
-    [5] = {hours = 120, qid = "2000.5", mid = 10, txt = "I think this is important."},
+    [5] = {hours = 120, qid = "2000.5", rmid = 100, txt = "I think this is important."},
+}
+
+local proximityRevealMap = {
+    [1] = {x=8318, y=11636, z=0, dist=6, amid = 10}
 }
 
 local function predicateAll(item)
@@ -65,8 +73,18 @@ local onPlayerUpdate = function(player)
         end
     end
 
-    -- player trait discovery
+    -- time discovery
     if BWOAPlayer.tick == 1 then
+        local hours = math.floor(getGameTime():getWorldAgeHours()) - 10
+        for _, tab in ipairs(timeRevealMap) do
+            if hours >= tab.hours then
+                BWOADialogues.Reveal(tab.person, tab.qid)
+            end
+        end
+    end
+
+    -- player trait discovery
+    if BWOAPlayer.tick == 2 then
         for _, tab in ipairs(traitRevealMap) do
             if player:hasTrait(tab.trait) then
                 BWOADialogues.Reveal(tab.person, tab.qid)
@@ -74,8 +92,25 @@ local onPlayerUpdate = function(player)
         end
     end
 
+    -- player proximity to location discovery
+    if BWOAPlayer.tick == 3 then
+        for _, tab in ipairs(proximityRevealMap) do
+            if math.abs(px - tab.x) < tab.dist and math.abs(py - tab.y) < tab.dist and pz == tab.z then
+                if tab.rmid then
+                    BWOAMissions.Reveal(tab.rmid)
+                end
+                if tab.amid then
+                    BWOAMissions.Accomplish(tab.amid)
+                end
+                if tab.person and tab.qid then
+                    BWOADialogues.Reveal(tab.person, tab.qid)
+                end
+            end
+        end
+    end
+
     -- player clothing mission completion
-    if BWOAPlayer.tick == 2 then 
+    if BWOAPlayer.tick == 3 then 
         local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
         if suit then
             BWOAMissions.Accomplish(2)
@@ -149,8 +184,11 @@ local onPlayerUpdate = function(player)
 
         for dreamNo, dreamData in pairs(dreamRevealMap) do
             if dreamNo == BWOAPlayer.dreamNo then
-                if dreamData.mid then
-                    BWOAMissions.Reveal(dreamData.mid)
+                if dreamData.amid then
+                    BWOAMissions.Accomplish(dreamData.amid)
+                end
+                if dreamData.rmid then
+                    BWOAMissions.Reveal(dreamData.rmid)
                 end
                 if dreamData.qid then
                     BWOADialogues.Reveal("Emma Robinson", dreamData.qid)
@@ -342,10 +380,10 @@ local function everyOneMinute()
         -- md.bwoa.timeRadiatedHematopoietic = 1500
 
         if md.bwoa.timeRadiatedHematopoietic > 1440 then -- latent subphase
-            local sick = bodyDamage:getFoodSicknessLevel()
+            local sick = stats:get(CharacterStat.FOOD_SICKNESS)
             local sickExpected = md.bwoa.radiation / 10
-            if sick < sickExpected then 
-                bodyDamage:setFoodSicknessLevel(sick + 5)
+            if sick < sickExpected then
+                stats:set(CharacterStat.FOOD_SICKNESS, sick + 5)
             end
 
             if ZombRand(20) == 0 then
@@ -358,10 +396,10 @@ local function everyOneMinute()
         end
 
         if md.bwoa.timeRadiatedHematopoietic > 480 and md.bwoa.timeRadiatedHematopoietic < 2100 then -- prodromal subphase
-            local fatigue = stats:getFatigue()
+            local fatigue = stats:get(CharacterStat.FATIGUE)
             local fatigueExpected = md.bwoa.radiation / 1000
-            if fatigue < fatigueExpected then 
-                stats:setFatigue(fatigue + 0.1) 
+            if fatigue < fatigueExpected then
+                stats:set(CharacterStat.FATIGUE, fatigue + 0.1)
             end
 
             local head = bodyDamage:getBodyPart(BodyPartType.Head)
@@ -585,8 +623,16 @@ local onTimedActionPerform = function(data)
         -- that means taking things
         if instanceof(destContainerParent, "IsoPlayer") then 
             local md = item:getModData()
-            if md.BWOA and md.BWOA.accomplishMissionId then
-                BWOAMissions.Accomplish(md.BWOA.accomplishMissionId)
+            if md.BWOA then
+                if md.BWOA.accomplishMissionId then
+                    BWOAMissions.Accomplish(md.BWOA.accomplishMissionId)
+                end
+                if md.BWOA.revealMissionId then
+                    BWOAMissions.Reveal(md.BWOA.revealMissionId)
+                end
+                if md.BWOA.revealDialogueId and md.BWOA.revealDialoguePerson then
+                    BWOADialogues.Reveal(md.BWOA.revealDialoguePerson, md.BWOA.revealDialogueId)
+                end
             end
         end
 

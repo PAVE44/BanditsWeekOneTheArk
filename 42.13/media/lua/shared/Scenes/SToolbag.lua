@@ -14,11 +14,19 @@ function BWOAScenes.Toolbag:placeItems()
     local room = building:getRandomRoom()
     local def = room:getRoomDef()
     local itemSquare = def:getFreeSquare()
-    local x, y, z = itemSquare:getX(), itemSquare:getY(), itemSquare:getZ()
+
+    local x, y, z
+    if itemSquare then
+        x, y, z = itemSquare:getX(), itemSquare:getY(), itemSquare:getZ()
+    else
+        x, y, z = 10033, 12731, 1
+    end
 
     local bag = BanditCompatibility.InstanceItem("Base.Bag_Military")
     bag:getModData().BWOA = {}
     bag:getModData().BWOA.accomplishMissionId = 7
+    bag:getModData().BWOA.revealDialoguePerson = "Emma Robinson"
+    bag:getModData().BWOA.revealDialogueId = "100.10.1"
 
     local tools = {"Base.Sledgehammer", "Base.Crowbar", "Base.BoltCutters", "Base.Hammer", "Base.Screwdriver"}
     local container = bag:getItemContainer()

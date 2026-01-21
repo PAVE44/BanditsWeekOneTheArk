@@ -25,7 +25,29 @@ BWOAPlaceEvents.events = {
         accomplishMissionId = 8,
         revealDialoguePerson = "Emma Robinson",
         revealDialogueId = "300.1.1.1",
-    }
+    },
+    ["BanditsCar"] = {
+        scene = "BanditsCar",
+        x = 8318,
+        y = 11636,
+        z = 0,
+        accomplishMissionId = 9,
+        revealDialoguePerson = "Emma Robinson",
+        revealDialogueId = "300.2",
+    },
+    ["FallasChurch"] = {
+        scene = "FallasChurch",
+        x = 7386,
+        y = 8353,
+        z = 0,
+    },
+    ["EkronChurch"] = {
+        scene = "EkronChurch",
+        x = 439,
+        y = 9925,
+        z = 0,
+    },
+
 }
 
 -- event: x, y, z, scene

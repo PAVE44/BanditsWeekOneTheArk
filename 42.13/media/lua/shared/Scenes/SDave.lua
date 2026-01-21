@@ -67,17 +67,17 @@ function BWOAScenes.Dave:placeCorpses()
     local daveCoords = {x = x, y = y, z = z}
 
     local daveClothing = {
-        ["MaskEyes"] = "Base.Hat_GasMask",
-        ["Scarf"] = "Base.Scarf_White",
-        ["Boilersuit"] = "Base.HazmatSuitCamo",
-        ["Torso1Legs1"] = "Base.LongJohns",
-        ["TankTop"] = "Base.Vest_DefaultTEXTURE_TINT",
-        ["Tshirt"] = "Base.Tshirt_WhiteLongSleeve",
-        ["Shirt"] = "Base.Shirt_Denim",
-        ["Hands"] = "Base.Gloves_LeatherGlovesBlack",
-        ["BeltExtra"] = "Base.HolsterSimple_Brown",
-        ["Socks"] = "Base.Socks_Long_Black",
-        ["Shoes"] = "Base.Shoes_ArmyBoots",
+        {bl = ItemBodyLocation.MASK_EYES, itemType = "Base.Hat_GasMask"},
+        {bl = ItemBodyLocation.SCARF, itemType = "Base.Scarf_White"},
+        {bl = ItemBodyLocation.BOILERSUIT, itemType = "Base.HazmatSuitCamo"},
+        {bl = ItemBodyLocation.TORSO1LEGS1, itemType = "Base.LongJohns"},
+        {bl = ItemBodyLocation.TANK_TOP, itemType = "Base.Vest_DefaultTEXTURE_TINT"},
+        {bl = ItemBodyLocation.TSHIRT, itemType = "Base.Tshirt_WhiteLongSleeve"},
+        {bl = ItemBodyLocation.SHIRT, itemType = "Base.Shirt_Denim"},
+        {bl = ItemBodyLocation.HANDS, itemType = "Base.Gloves_LeatherGlovesBlack"},
+        {bl = ItemBodyLocation.BELT_EXTRA, itemType = "Base.HolsterSimple_Brown"},
+        {bl = ItemBodyLocation.SOCKS, itemType = "Base.Socks_Long_Black"},
+        {bl = ItemBodyLocation.SHOES, itemType = "Base.Shoes_ArmyBoots"},
     }
 
     local daveInventory = {
@@ -95,17 +95,17 @@ function BWOAScenes.Dave:placeCorpses()
     local marthaCoords = {x = x + 1, y = y, z = z}
 
     local mathaClothing = {
-        ["MaskEyes"] = "Base.Hat_GasMask",
-        ["Scarf"] = "Base.Scarf_White",
-        ["Boilersuit"] = "Base.HazmatSuitCamo",
-        ["Torso1Legs1"] = "Base.LongJohns",
-        ["TankTop"] = "Base.Vest_DefaultTEXTURE_TINT",
-        ["Tshirt"] = "Base.Tshirt_WhiteLongSleeve",
-        ["Shirt"] = "Base.Shirt_Denim",
-        ["Hands"] = "Base.Gloves_LeatherGlovesBlack",
-        ["BeltExtra"] = "Base.HolsterSimple_Brown",
-        ["Socks"] = "Base.Socks_Long_Black",
-        ["Shoes"] = "Base.Shoes_ArmyBoots",
+        {bl = ItemBodyLocation.MASK_EYES, itemType = "Base.Hat_GasMask"},
+        {bl = ItemBodyLocation.SCARF, itemType = "Base.Scarf_White"},
+        {bl = ItemBodyLocation.BOILERSUIT, itemType = "Base.HazmatSuitCamo"},
+        {bl = ItemBodyLocation.TORSO1LEGS1, itemType = "Base.LongJohns"},
+        {bl = ItemBodyLocation.TANK_TOP, itemType = "Base.Vest_DefaultTEXTURE_TINT"},
+        {bl = ItemBodyLocation.TSHIRT, itemType = "Base.Tshirt_WhiteLongSleeve"},
+        {bl = ItemBodyLocation.SHIRT, itemType = "Base.Shirt_Denim"},
+        {bl = ItemBodyLocation.HANDS, itemType = "Base.Gloves_LeatherGlovesBlack"},
+        {bl = ItemBodyLocation.BELT_EXTRA, itemType = "Base.HolsterSimple_Brown"},
+        {bl = ItemBodyLocation.SOCKS, itemType = "Base.Socks_Long_Black"},
+        {bl = ItemBodyLocation.SHOES, itemType = "Base.Shoes_ArmyBoots"},
     }
 
     local mathaInventory = {

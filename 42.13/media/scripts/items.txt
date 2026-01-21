@@ -11,7 +11,6 @@ module Bandits
         StaticModelsByIndex = Note1;Note2,
         WorldStaticModelsByIndex = Note1;Note2,
 		ReadType = photo,
-		Tags = FastRead,
     }
 
     item Book2
@@ -23,12 +22,12 @@ module Bandits
         Icon = Book,
         StaticModel = Book,
         WorldStaticModel = BookClosedGround,
-        Tags = Hardcover;HollowBook,
+        Tags = base:hardcover;base:hollowbook,
     }
 
     item PillsPotassiumIodine
     {
-        ItemType = base:firstaid,
+        ItemType = base:drainable,
         DisplayCategory = FirstAid,
         Type = Drainable,
         Weight = 0.2,
@@ -39,12 +38,12 @@ module Bandits
         UseWhileEquipped = false,
         StaticModel = PillBottle,
         WorldStaticModel = PillBottleGround,
-        Tags = Pills,
+        Tags = base:consumable,
     }
 
     item PillsPentoxifylline
     {
-        ItemType = base:firstaid,
+        ItemType = base:drainable,
         DisplayCategory = FirstAid,
         Type = Drainable,
         Weight = 0.2,
@@ -55,12 +54,12 @@ module Bandits
         UseWhileEquipped = false,
         StaticModel = PillBottle,
         WorldStaticModel = PillBottleGround,
-        Tags = Pills,
+        Tags = base:consumable,
     }
 
     item PillsPrussianBlue
     {
-        ItemType = base:firstaid,
+        ItemType = base:drainable,
         DisplayCategory = FirstAid,
         Type = Drainable,
         Weight = 0.2,
@@ -71,12 +70,12 @@ module Bandits
         UseWhileEquipped = false,
         StaticModel = PillBottle,
         WorldStaticModel = PillBottleGround,
-        Tags = Pills,
+        Tags = base:consumable,
     }
 
     item PillsNikethamide
     {
-        ItemType = base:firstaid,
+        ItemType = base:drainable,
         DisplayCategory = FirstAid,
         Type = Drainable,
         Weight = 0.2,
@@ -87,7 +86,7 @@ module Bandits
         UseWhileEquipped = false,
         StaticModel = PillBottle,
         WorldStaticModel = PillBottleGround,
-        Tags = Pills,
+        Tags = base:consumable,
     }
 
     item GeigerCounter
@@ -103,7 +102,7 @@ module Bandits
         WorldObjectSprite = appliances_com_01_40,
         StaticModel = WalkieTalkieTactical,
         WorldStaticModel = WalkieTalkieTactical,
-        Tags = MiscElectronic,
+        Tags = base:miscelectronic
     }
 
     item HumanMeat

@@ -94,7 +94,7 @@ function UIPrintMedia:new(tex, character)
     local width = texture:getWidth();
     local height = texture:getHeight();
 
-    local aspect = screenHeight * 0.75 / height
+    local aspect = screenHeight * 0.85 / height
     width = width * aspect
     height = height * aspect
     
