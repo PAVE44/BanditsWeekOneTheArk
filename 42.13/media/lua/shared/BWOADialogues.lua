@@ -583,7 +583,6 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         ans = "Yes, that's when found you. You were moments away from getting bitten. Hopefully we got to you in time.",
         anim = "Yes",
         req = {"2000.3"},
-        hidden = true,
     },
     ["2000.4"] = {
         qst = "My dreams are changing. I heard some voices.",
@@ -597,20 +596,25 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         ans = "Okay. What did the voice said to you?",
         anim = "Calm",
         req = {"2000.4"},
-        hidden = true,
     },
     ["2000.4.1.1"] = {
         qst = "In my dream, the voice told me about a shattered seal... And about a judgement of some kind.",
         ans = "I'm a doctor, but not a shirnk. ",
         anim = "GestNo",
-        req = {"2000.4"},
-        hidden = true,
+        req = {"2000.4.1"},
     },
     ["2000.5"] = {
-        qst = "I had a dream and... ",
+        qst = "I had another dream and... ",
         ans = "Stop! I don't want to hear that crazy stuff! You need to get back to reality!",
         anim = "Calm",
-        req = {},
+        req = {"2000.4.1.1"},
+        hidden = true,
+    },
+    ["2000.6"] = {
+        qst = "I know you don't want to hear about my dreams, but... ",
+        ans = "Stop! Get it togheter, ok? This is not helping anyone!",
+        anim = "Calm",
+        req = {"2000.5"},
         hidden = true,
     },
 }

@@ -390,6 +390,26 @@ module Bandits {
         } 
     }
 
+    sound Dream6Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_6_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream6End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_6_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
     sound MusicJuke1 {
         category = Object, 
         loop = true,

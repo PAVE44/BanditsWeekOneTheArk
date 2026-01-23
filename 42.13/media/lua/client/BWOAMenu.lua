@@ -119,7 +119,8 @@ BWOAMenu.specialObjectsHighlight = {
     ["Wall"] = {
         x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1", option = "Destroy", 
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Wall,
-        actionFunc = BWOAMenu.specialObjectsAction.Wall
+        actionFunc = BWOAMenu.specialObjectsAction.Wall,
+        destroyable = true,
     },
 }
 
@@ -376,13 +377,16 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     -- Debug options
 
     local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
+    local i = 0
     for sname, sobject in pairs(specialObjectsHighlight) do
+        i = i + 1
         if sobject.x == sx and sobject.y == sy and sobject.z == sz then
             if sobject.highLightFunc(player) then
                 context:addOption(sobject.option, player, sobject.actionFunc, square)
             end
         end
     end 
+    print ("Hatch count: " .. tostring(i - 4))
 
     if isDebugEnabled() then
         BWOAMissions.Reveal(7)
@@ -393,7 +397,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local building = square:getBuilding()
         if building then
             def = building:getDef()
-            print ("BID: " .. def:getIDString())
+            print ("BID: " .. def:getX() .. "-" .. def:getY())
         end
 
         saveItems(square)
@@ -464,6 +468,7 @@ local updateHighlight = function()
 
     local cell = getCell()
     local playerList = BanditPlayer.GetPlayers()
+    local dist = 6
 
     local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
     for sname, sobject in pairs(specialObjectsHighlight) do
@@ -471,7 +476,7 @@ local updateHighlight = function()
             local player = playerList:get(i)
             if player then
                 local px, py = player:getX(), player:getY()
-                if math.abs(px - sobject.x) < 6 and math.abs(py - sobject.y) < 6 then 
+                if math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then 
                     local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
                     if square then
                         local objects = square:getObjects()
@@ -494,10 +499,12 @@ local updateHighlight = function()
                             end
                         end
 
-                        -- if not found then
-                        --     BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
-                        -- end
+                        if not found and not sobject.destroyable then
+                            BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
+                        end
                     end
+                elseif math.abs(px - sobject.x) < 50 and math.abs(py - sobject.y) < 50 then 
+                    print ("Hatch close at " .. tostring(sobject.x) .. ", " .. tostring(sobject.y))
                 end
             end
         end

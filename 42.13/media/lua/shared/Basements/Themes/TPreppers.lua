@@ -128,6 +128,7 @@ theme.furniture = {
             {["Base.CannedBolognese"] = 2},
             {["Base.HazmatSuitUrban"] = 1},
             {["Base.GasmaskFilter"] = 6},
+            {["Base.JerryCan"] = 2},
         },
         dirs = {
             n = {

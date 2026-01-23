@@ -3,13 +3,13 @@ BWOABuildings = BWOABuildings or {}
 BWOABuildings.hatches = {}
 
 BWOABuildings.exceptions = {
-    "13792437067579392", -- ARK
-    "12666511390933024", -- Rosewood Elementary School
-    "12666507095965703", -- Rosewood Mama McFudginton's
-    "12666507095965702", -- Rosewood Mama McFudginton's
-    "12666507095965702", -- 
-    "10696053409972268", -- Ekron Church
-    "13510889076424705", -- Secret Lab
+    "9921-12622", -- ARK
+    "8321-11595", -- Rosewood Elementary School
+    "8081-11520", -- Rosewood Mama McFudginton's
+    "8081-11487", -- Rosewood Mama McFudginton's
+    "7380-8349", -- Fallas Church
+    "432-9911", -- Ekron Church
+    "5537-12440", -- Secret Lab
 }
 
 local getHatchId = function(x, y)
@@ -46,7 +46,12 @@ BWOABuildings.CreateHatches = function()
 
     for i=0, defs:size()-1 do
         local def = defs:get(i)
-        local id = def:getIDString()
+        local x1 = def:getX()
+        local x2 = def:getX2()
+        local y1 = def:getY()
+        local y2 = def:getY2()
+        local id = x1 .. "-" .. y1
+
         local isException = false
         for _, exception in ipairs(BWOABuildings.exceptions) do
             if id == exception then
@@ -56,11 +61,6 @@ BWOABuildings.CreateHatches = function()
         end
 
         if not isException and ZombRand(so) == 0 then
-            local x1 = def:getX()
-            local x2 = def:getX2()
-            local y1 = def:getY()
-            local y2 = def:getY2()
-
             local x = x1 + ZombRand(x2 - x1)
             local y = y1 + ZombRand(y2 - y1)
 

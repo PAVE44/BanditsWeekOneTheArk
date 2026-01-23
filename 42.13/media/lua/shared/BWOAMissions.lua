@@ -54,7 +54,7 @@ BWOAMissions.missions = {
     },
     [102] = {
         name = "Find comfrey seeds",
-        desc = "Comfrey plays some role in all of this. Find it.",
+        desc = "Comfrey plays some role in all of this. Find it. Plant it",
     },
     [103] = {
         name = "Grow comfrey",

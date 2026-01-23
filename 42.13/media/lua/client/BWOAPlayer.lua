@@ -44,6 +44,7 @@ local dreamRevealMap = {
     [3] = {hours = 72, qid = "2000.3", txt = "Damn dream again!"},
     [4] = {hours = 96, qid = "2000.4", txt = "WTF... This was different..."},
     [5] = {hours = 120, qid = "2000.5", rmid = 100, txt = "I think this is important."},
+    [6] = {hours = 144, qid = "2000.6", rmid = 110, txt = "I think this is important."},
 }
 
 local proximityRevealMap = {
@@ -510,7 +511,7 @@ local function everyOneMinute()
             fatigueExpected = 0.65
         end
 
-        if md.bwoa.drug.Aspirine and md.bwoa.drug.Aspirine > 0 and headAcheExpected then
+        if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 and headAcheExpected then
             headAcheExpected = headAcheExpected / 2
         end
 
@@ -556,7 +557,7 @@ local function everyOneMinute()
         end
     end
 
-    if md.bwoa.drug.Aspirine and md.bwoa.drug.Aspirine > 0 then
+    if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 then
         local cs = bodyDamage:getColdStrength()
         cs = cs - 0.8
         if cs < 0 then cs = 0 end
@@ -588,7 +589,7 @@ local onTimedActionPerform = function(data)
 
         local drugMap ={
             ["Pills"] = { -- heals cold
-                name = "Aspirine",
+                name = "Aspirin",
                 dose = 120
             },
             ["PillsPotassiumIodine"] = { -- accumulated radiation will wear off quicker
@@ -634,6 +635,16 @@ local onTimedActionPerform = function(data)
                     BWOADialogues.Reveal(md.BWOA.revealDialoguePerson, md.BWOA.revealDialogueId)
                 end
             end
+        end
+
+    elseif action == "ISSeedActionNew" then
+        if data.typeOfSeed == "Comfrey" then
+            BWOAMissions.Accomplish(102)
+        end
+
+    elseif action == "ISHarvestPlantAction" then
+        if data.plant.typeOfSeed == "Comfrey" then
+            BWOAMissions.Accomplish(103)
         end
 
     elseif action == "TABAS_TakeShower" then

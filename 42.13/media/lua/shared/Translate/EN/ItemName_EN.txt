@@ -1,5 +1,5 @@
 ItemName_EN = {
-    ItemName_Base.Pills = "Bayer Aspirine",
+    ItemName_Base.Pills = "Bayer Aspirin",
     ItemName_Bandits.Book2 = "Book",
     ItemName_Bandits.PillsPotassiumIodine = "Potassium Iodine",
     ItemName_Bandits.PillsPentoxifylline = "Pentoxifylline",
