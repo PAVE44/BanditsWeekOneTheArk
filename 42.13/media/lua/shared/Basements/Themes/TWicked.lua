@@ -142,6 +142,7 @@ theme.furniture = {
             {["Base.WildGarlicDried"] = 4},
             {["Base.PlantainDried"] = 4},
             {["Base.MortarPestle"] = 1},
+            {["Base.Twine"] = 3},
         },
         dirs = {
             s = {
@@ -379,6 +380,9 @@ theme.items = {
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
+    {["Base.NailsBox"] = 1},
+    {["Base.Garbagebag"] = 2},
+    
 }
 
 theme.corpses = {}

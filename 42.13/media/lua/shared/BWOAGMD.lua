@@ -10,7 +10,7 @@ function InitBWOAModData(isNewGame)
     if isClient() then
         ModData.request("BanditWeekOneTheArk")
     end
-    
+
     if not globalData.generators then 
         globalData.generators = {
             main = {
@@ -107,6 +107,10 @@ function InitBWOAModData(isNewGame)
 
     if not globalData.placeEvents then 
         globalData.placeEvents = BWOAPlaceEvents.events
+    end
+
+    if not globalData.itemMemoryRegain then 
+        globalData.itemMemoryRegain = BWOAPlayer.itemMemoryRegain
     end
 
     BWOAGlobalData = globalData

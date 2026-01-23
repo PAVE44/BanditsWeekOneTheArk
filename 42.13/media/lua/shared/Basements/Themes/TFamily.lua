@@ -4,7 +4,7 @@ BasementThemes = BasementThemes or {}
 
 local theme = {}
 
-theme.cid = Bandit.clanMap.BasementGeneric
+theme.cid = nil -- Bandit.clanMap.BasementGeneric
 
 theme.sprites = {}
 theme.sprites.stairs1 = "fixtures_stairs_01_64"
@@ -54,8 +54,8 @@ theme.sprites.wallOptions = {
 
 theme.sprites.doorN = "fixtures_doors_01_57"
 
-theme.deco1 = "location_business_office_generic_01_36"
-theme.deco2 = "location_business_office_generic_01_37"
+theme.deco1 = "location_community_school_01_62"
+theme.deco2 = "location_community_school_01_63"
 
 theme.furniture = {
     ["logs"] = {
@@ -129,31 +129,24 @@ theme.furniture = {
             {["Base.CannedFruitCocktail"] = 1},
             {["Base.CannedPotato2"] = 1},
             {["Base.CannedCarrots2"] = 1},
-            {["Base.Pasta"] = 1},
+            {["Base.Cereal"] = 1},
             {["Base.Rice"] = 2},
-            {["Base.OatsRaw"] = 1},
-            {["Base.DriedLentils"] = 1},
-            {["Base.Vodka"] = 1},
-            {["Base.JerryCan"] = 4},
             {["Base.Battery"] = 4},
-            {["Base.Book"] = 3},
+            {["Base.Book_Childs"] = 12},
             {["Base.CandleBox"] = 1},
             {["Base.Matches"] = 3},
             {["Base.CigaretteSingle"] = 7},
-            {["Base.BeefJerky"] = 1},
-            {["Base.Pop2"] = 2},
+            {["Base.Pop2"] = 3},
             {["Base.FirstAidKit"] = 1},
             {["Base.Garbagebag"] = 3},
             {["Base.Handtorch"] = 1},
-            {["Base.PistolCase1"] = 1},
-            {["Base.RevolverCase1"] = 1},
-            {["Base.Handaxe"] = 1},
-            {["Base.HazmatSuitBlack"] = 1},
-            {["Base.GasmaskFilter"] = 3},
-            {["Base.Wrench"] = 1},
-            {["Base.TireIron"] = 1},
-            {["Base.Jack"] = 1},
-            {["Base.TirePump"] = 1},
+            {["Base.Crayons"] = 2},
+            {["Base.SheetPaper2"] = 2},
+            {["Base.Camera"] = 1},
+            {["Base.CameraFilm"] = 3},
+            {["Base.CheckerBoard"] = 1},
+            {["Base.PhotoAlbum"] = 2},
+            
         },
         dirs = {
             n = {
@@ -247,90 +240,84 @@ theme.furniture = {
             },
         }
     },
-    ["matress4"] = {
-        chance = 90,
+    ["cot"] = {
+        chance = 100,
         dirs = {
             c = {
-                [1] = {x=0, y=0, name="carpentry_02_76"},
-                [2] = {x=1, y=0, name="carpentry_02_77"},
+                [1] = {x=0, y=0, name="furniture_bedding_01_95"},
+                [2] = {x=0, y=1, name="furniture_bedding_01_94"},
             },
         }
     },
     ["tablesmall"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="carpentry_02_10"}}}},
     ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_44"}}}},
     ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_45"}}}},
-    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_46"}}}},
-    ["chair"] = {chance = 25, dirs = {c = {[1] = {x=0, y=0, name="carpentry_01_47"}}}},
-    ["barrel"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="crafted_01_32"}}}},
-    ["oxygen"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="industry_03_7"}}}},
     ["woodscrap1"] = {chance = 100, blocks=false, dirs = {c = {[1] = {x=0, y=0, name="fencing_damaged_01_137"}}}},
     ["woodscrap2"] = {chance = 100, blocks=false, dirs = {c = {[1] = {x=0, y=0, name="fencing_damaged_01_138"}}}},
-    ["woodscrap3"] = {chance = 100, blocks=false, dirs = {c = {[1] = {x=0, y=0, name="fencing_damaged_01_139"}}}},
     ["trash1"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
     ["trash2"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
     ["trash3"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
     ["trash4"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
     ["trash5"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="trash_01_" .. tostring(ZombRand(53))}}}},
-    ["palette"] = {chance = 100, dirs = {c = {[1] = {x=0, y=0, name="construction_01_5"}}}},
-
-
 }
 
 theme.items = {
     {["Base.Shoes_BlackBoots"] = 1},
-    {["Base.Book"] = 2},
+    {["Base.Book_Childs"] = 2},
     {["Base.TinCanEmpty"] = 3},
     {["Base.TinCanEmpty"] = 3},
     {["Base.ToiletPaper"] = 3},
     {["Base.Bucket"] = 1},
-    {["Base.HandShovel"] = 1},
-    {["Base.WateredCan"] = 1},
-    {["Base.GardenFork"] = 1},
     {["Base.SmashedBottle"] = 1},
     {["Base.SmashedBottle"] = 1},
     {["Base.WaterDispenserBottle"] = 1},
     {["Base.WaterBottle"] = 2},
     {["Base.Lantern_Hurricane"] = 1},
-    {["Base.Bag_WeaponBag"] = 1},
+    {["Base.Tshirt_WhiteLongSleeveTINT"] = 1},
     {["Base.FirewoodBundle"] = 1},
     {["Base.Bag_TrashBag"] = 1},
-    {["Base.Gin"] = 1},
+    {["Base.Tshirt_WhiteTINT"] = 2},
+    {["Base.Briefs"] = 2},
     {["Base.CardDeck"] = 1},
     {["Base.CheckerBoard"] = 1},
     {["Base.PhotoAlbum"] = 1},
-    {["Base.PropaneTank"] = 1},
-    {["Base.BlowTorch"] = 1},
-    {["Base.WeldingMask"] = 1},
     {["Base.RippedSheets"] = 1},
     {["Base.RippedSheets"] = 3},
-    {["Base.RippedSheets"] = 1},
+    {["Base.RippedSheetsDirty"] = 2},
+    {["Base.RippedSheetsDirty"] = 3},
+    {["Base.RippedSheetsDirty"] = 1},
+    {["Base.RippedSheetsDirty"] = 4},
     {["Base.Wine2Open"] = 1},
     {["Base.SoupBowl"] = 1},
     {["Base.Bowl"] = 2},
     {["Base.Yoyo"] = 1},
-    {["Base.WoodAxe"] = 1},
     {["Base.Toolbox_Mechanic"] = 1},
     {["Base.Briefs_SmallTrunks_WhiteTINT"] = 1},
     {["Base.Vest_DefaultTEXTURE_TINT"] = 1},
     {["Base.Tshirt_WhiteTINT"] = 1},
-    {["Base.Jumper_RoundNeck"] = 1},
+    {["Base.Dress_Straps"] = 1},
     {["Base.Jumper_VNeck"] = 1},
     {["Base.Socks_Long"] = 3},
-    {["Base.Pillow"] = 1},
+    {["Base.Pillow"] = 2},
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
-    {["Base.PrimitiveToolMag1"] = 1},
-    {["Base.PrimitiveToolMag2"] = 1},
-    {["Base.PrimitiveToolMag3"] = 1},
     {["Base.SmallHandle"] = 1},
     {["Base.Handle"] = 1},
     {["Base.Plank"] = 3},
+    {["Base.Bucket"] = 2},
+    {["Base.ToyBear"] = 1},
+    {["Base.BorisBadger"] = 1},
+    {["Base.FluffyfootBunny"] = 1},
+    {["Base.JacquesBeaver"] = 1},
+    {["Base.ToyCar"] = 3},
+    
+    
     
     
 }
 
 theme.corpses = {}
 
-BasementThemes["generic"] = theme
+BasementThemes["family"] = theme

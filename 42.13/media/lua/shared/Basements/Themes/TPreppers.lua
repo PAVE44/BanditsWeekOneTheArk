@@ -182,7 +182,9 @@ theme.furniture = {
             {["Base.BlowTorch"] = 1},
             {["Base.WeldingMask"] = 1},
             {["Base.PropaneTank"] = 1},
-
+            {["Base.FishingRod"] = 1},
+            {["Base.FishingTackle"] = 1},
+            {["Base.FishingTackle2"] = 1},
             {["Base.HamRadio2"] = 7},
         },
         dirs = {
@@ -372,6 +374,13 @@ theme.items = {
     {["Base.ArmyBoots"] = 3},
     {["Base.TentGreen_Packed"] = 1},
     {["Base.Bag_Satchel_Military"] = 1},
+    {["Base.DuctTape"] = 1},
+    {["Base.Glue"] = 1},
+    {["Base.Woodglue"] = 1},
+    {["Base.Rope"] = 1},
+    {["Base.ScrewsBox"] = 1},
+    {["Base.NailsBox"] = 1},
+    {["Base.Wire"] = 2},
 }
 
 theme.corpses = {}

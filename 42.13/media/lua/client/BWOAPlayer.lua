@@ -20,6 +20,7 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_
 
 local timeRevealMap = {
     [1] = {hours = 29, person = "Emma Robinson", qid = "300.1"},
+    [2] = {hours = 65, person = "Emma Robinson", qid = "300.3"},
 }
 
 local roomRevealMap = {
@@ -49,6 +50,155 @@ local dreamRevealMap = {
 
 local proximityRevealMap = {
     [1] = {x=8318, y=11636, z=0, dist=6, amid = 10}
+}
+
+BWOAPlayer.itemMemoryRegain = {
+    -- running
+    {itemType = "Shoes_TrainerTINT", perk = "Sprinting", xp = 200, chance=30},
+    {itemType = "Shoes_RedTrainers", perk = "Sprinting", xp = 600, chance=70},
+
+    -- long blade
+    {itemType = "Machete", perk = "LongBlade", xp = 400, chance=100},
+
+    -- short blade
+    {itemType = "HuntingKnife", perk = "SmallBlade", xp = 300, chance=50},
+    {itemType = "KitchenKnife", perk = "SmallBlade", xp = 100}, chance=50,
+
+    -- axe
+    {itemType = "Axe", perk = "Axe", xp = 400, chance=40},
+    {itemType = "HandAxe", perk = "Axe", xp = 300, chance=40},
+    {itemType = "WoodAxe", perk = "Axe", xp = 400, chance=40},
+
+
+    -- aiming
+    {itemType = "Pistol", perk = "Aiming", xp = 600, chance=100},
+    {itemType = "Pistol2", perk = "Aiming", xp = 300, chance=20},
+    {itemType = "Pistol3", perk = "Aiming", xp = 300, chance=20},
+    {itemType = "AssaultRifle", perk = "Aiming", xp = 300, chance=20},
+    {itemType = "AssaultRifle2", perk = "Aiming", xp = 300, chance=20},
+    {itemType = "HuntingRifle", perk = "Aiming", xp = 450, chance=15},
+
+    -- reloading
+    {itemType = "9mmClip", perk = "Reloading", xp = 600, chance=100},
+    {itemType = "45Clip", perk = "Reloading", xp = 300, chance=20},
+    {itemType = "44Clip", perk = "Reloading", xp = 300, chance=20},
+    {itemType = "M14Clip", perk = "Reloading", xp = 300, chance=20},
+    {itemType = "556Clip", perk = "Reloading", xp = 300, chance=20},
+    {itemType = "308Clip", perk = "Reloading", xp = 450, chance=15},
+
+    -- carpentry
+    {itemType = "Hammer", perk = "Woodwork", xp = 400, chance=60},
+    {itemType = "BallPeenHammer", perk = "Woodwork", xp = 400, chance=40},
+    {itemType = "Nails", perk = "Woodwork", xp = 200, chance=20},
+    {itemType = "Plank", perk = "Woodwork", xp = 200, chance=20},
+
+    -- first aid
+    {itemType = "Bandage", perk = "Doctor", xp = 150, chance=100},
+    {itemType = "SutureNeedle", perk = "Doctor", xp = 150, chance=100},
+    {itemType = "SutureNeedleHolder", perk = "Doctor", xp = 150, chance=100},
+
+    -- electrical
+    {itemType = "Screwdriver", perk = "Electricity", xp = 200, chance=100},
+
+    -- mechanics
+    {itemType = "Wrench", perk = "Mechanics", xp = 150, chance=100},
+    {itemType = "CarKey", perk = "Mechanics", xp = 75, chance=50},
+    {itemType = "TireIron", perk = "Mechanics", xp = 75, chance=40},
+    {itemType = "LugWrench", perk = "Mechanics", xp = 75, chance=50},
+    {itemType = "EngineParts", perk = "Mechanics", xp = 150, chance=60},
+    {itemType = "Jack", perk = "Mechanics", xp = 75, chance=60},
+    {itemType = "TirePump", perk = "Mechanics", xp = 75, chance=60},
+    {itemType = "Screws", perk = "Mechanics", xp = 75, chance=30},
+
+    -- metalworking
+    {itemType = "SheetMetal", perk = "MetalWelding", xp = 75, chance=40},
+    {itemType = "SmallSheetMetal", perk = "MetalWelding", xp = 75, chance=40},
+    {itemType = "BlowTorch", perk = "MetalWelding", xp = 200, chance=100},
+    {itemType = "WeldingMask", perk = "MetalWelding", xp = 200, chance=100},
+    {itemType = "WeldingRods", perk = "MetalWelding", xp = 75, chance=20},
+
+    -- cooking
+    {itemType = "Onion", perk = "Cooking", xp = 75, chance=100},
+    {itemType = "Avocado", perk = "Cooking", xp = 75, chance=10},
+    {itemType = "Carrots", perk = "Cooking", xp = 75, chance=10},
+    {itemType = "Broccoli", perk = "Cooking", xp = 75, chance=10},
+    {itemType = "Cabbage", perk = "Cooking", xp = 75, chance=10},
+    {itemType = "Cucumber", perk = "Cooking", xp = 75, chance=10},
+    {itemType = "Tomato", perk = "Cooking", xp = 75, chance=10},
+    {itemType = "Bowl", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Butter", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Pot", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Pan", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Pasta", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Plate", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Spatula", perk = "Cooking", xp = 125, chance=50},
+
+    -- maintenance
+    {itemType = "DuctTape", perk = "Maintenance", xp = 300, chance=80},
+    {itemType = "Glue", perk = "Maintenance", xp = 150, chance=25},
+    {itemType = "Woodglue", perk = "Maintenance", xp = 150, chance=25},
+
+    -- farming
+    {itemType = "HandShovel", perk = "Farming", xp = 300, chance=80},
+    {itemType = "WateredCan", perk = "Farming", xp = 150, chance=50},
+    {itemType = "GardenFork", perk = "Farming", xp = 150, chance=25},
+    {itemType = "BasilBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "BellPepperBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "BarleyBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "BroccoliBagSeed2", perk = "Farming", xp = 50, chance=15},
+    {itemType = "CabbageBagSeed2", perk = "Farming", xp = 50, chance=15},
+    {itemType = "CarrotBagSeed2", perk = "Farming", xp = 50, chance=15},
+    {itemType = "CauliflowerBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "CilantroBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "CornBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "CucumberBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "FlaxBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "GarlicBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "GreenpeasBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "HabaneroBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "HopsBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "JalapenoBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "KaleBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "LavenderBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "LeekBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "LemonGrassBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "LettuceBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "MarigoldBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "MintBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "OnionBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "OreganoBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "ParsleyBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "PoppyBagSeed", perk = "Farming", xp = 50, chance=15},
+    {itemType = "PotatoBagSeed2", perk = "Farming", xp = 50, chance=15},
+    {itemType = "PumpkinBagSeed", perk = "Farming", xp = 50, chance=15},
+
+    -- fishing
+    {itemType = "FishingRod", perk = "Fishing", xp = 300, chance=50},
+    {itemType = "FishingTackle", perk = "Fishing", xp = 75, chance=25},
+    {itemType = "FishingTackle2", perk = "Fishing", xp = 75, chance=25},
+
+    -- foraging
+    {itemType = "MushroomGeneric1", perk = "PlantScavenging", xp = 75, chance=25},
+    {itemType = "MushroomGeneric2", perk = "PlantScavenging", xp = 75, chance=25},
+    {itemType = "MushroomGeneric3", perk = "PlantScavenging", xp = 75, chance=25},
+    {itemType = "MushroomGeneric4", perk = "PlantScavenging", xp = 75, chance=25},
+    {itemType = "MushroomGeneric5", perk = "PlantScavenging", xp = 75, chance=25},
+    {itemType = "MushroomGeneric6", perk = "PlantScavenging", xp = 75, chance=25},
+}
+
+local timeMemoryRegain = {
+    {hours = 2, minutes = 30, perk="Strength", xp=2500, txt="Physical Recovery"},
+    {hours = 4, minutes = 0, perk="Strength", xp=2600, txt="Physical Recovery"},
+    {hours = 8, minutes = 0, perk="Strength", xp=2700, txt="Physical Recovery"},
+    {hours = 16, minutes = 0, perk="Strength", xp=2800, txt="Physical Recovery"},
+    {hours = 24, minutes = 0, perk="Strength", xp=2700, txt="Physical Recovery"},
+    {hours = 36, minutes = 0, perk="Nimble", xp=150, txt="Physical Recovery"},
+    {hours = 48, minutes = 0, perk="Strength", xp=2600, txt="Physical Recovery"},
+    {hours = 72, minutes = 0, perk="Agility", xp=150, txt="Physical Recovery"},
+    {hours = 96, minutes = 0, perk="Strength", xp=2500, txt="Physical Recovery"},
+    {hours = 120, minutes = 0, perk="Lightfoot", xp=150, txt="Physical Recovery"},
+    {hours = 144, minutes = 0, perk="Sneak", xp=150, txt="Physical Recovery"},
+    {hours = 192, minutes = 0, perk="Strength", xp=1000, txt="Physical Recovery"},
 }
 
 local function predicateAll(item)
@@ -214,6 +364,19 @@ local function everyOneMinute()
 
     if not player:isAlive() then return end
 
+    -- time memory regain
+    local gt = getGameTime()
+    local hours = math.floor(gt:getWorldAgeHours()) - 10
+    local minutes = gt:getMinutes()
+
+    for _, regainConf in ipairs(timeMemoryRegain) do
+        if regainConf.hours == hours and regainConf.minutes == minutes then
+            BWOAEventControl.Add("HaloPlayer", {txt = regainConf.txt}, 100)
+            BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+        end
+    end
+
+    -- health management
     if player:isGodMod() then return end
 
     local cell = getCell()
@@ -584,6 +747,8 @@ local onTimedActionPerform = function(data)
     local md = character:getModData()
     if not md.bwoa then md.bwoa = {} end
 
+    local gmd = GetBWOAModData()
+
     if action == "ISTakePillAction" then
         if not md.bwoa.drug then md.bwoa.drug = {} end
 
@@ -623,6 +788,8 @@ local onTimedActionPerform = function(data)
 
         -- that means taking things
         if instanceof(destContainerParent, "IsoPlayer") then 
+
+            -- mission or dialogue reveal
             local md = item:getModData()
             if md.BWOA then
                 if md.BWOA.accomplishMissionId then
@@ -633,6 +800,20 @@ local onTimedActionPerform = function(data)
                 end
                 if md.BWOA.revealDialogueId and md.BWOA.revealDialoguePerson then
                     BWOADialogues.Reveal(md.BWOA.revealDialoguePerson, md.BWOA.revealDialogueId)
+                end
+            end
+
+            -- items triggering memory regain
+            local itemMemoryRegain = gmd.itemMemoryRegain
+            local itemType = item:getType()
+            for _, regainConf in ipairs(itemMemoryRegain) do
+                if not regainConf.used and regainConf.itemType == itemType then
+                    local rnd = ZombRand(100)
+                    if rnd < regainConf.chance then
+                        BWOAEventControl.Add("HaloPlayer", {txt = "Memory Regain"}, 100)
+                        BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+                    end
+                    regainConf.used = true
                 end
             end
         end

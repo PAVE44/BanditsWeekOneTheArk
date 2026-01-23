@@ -253,7 +253,7 @@ end
 
 function BWOAMenu.MakeBasement(player, square)
 
-    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom(), "preppers")
+    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom(), "family")
     basement:build()
 
 end
@@ -389,7 +389,6 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     print ("Hatch count: " .. tostring(i - 4))
 
     if isDebugEnabled() then
-        BWOAMissions.Reveal(7)
 
         local test = SandboxVars
         local vehicle = square:getVehicleContainer()

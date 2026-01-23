@@ -333,7 +333,9 @@ function BWOABasements.Generic:populate()
     args.program = "Basement"
     args.size = 4
     -- args.permanent = true
-    sendClientCommand(player, 'Spawner', 'Clan', args)
+    if args.cid then
+        sendClientCommand(player, 'Spawner', 'Clan', args)
+    end
 end
 
 function BWOABasements.Generic:build()

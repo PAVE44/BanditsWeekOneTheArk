@@ -74,14 +74,29 @@ BWOAEvents.PlayerSetup = function(params)
             local humanVisual = player:getHumanVisual()
             humanVisual:setHairModel("Bald")
             if not player:isFemale() then
-                humanVisual:setBeardModel("None")
+                humanVisual:setBeardModel("")
             end
+
+            player:resetModel()
+            player:resetHairGrowingTime()
+            player:resetBeardGrowingTime()
 
             local bodyDamage = player:getBodyDamage()
             local head = bodyDamage:getBodyPart(BodyPartType.Head)
             head:setAdditionalPain(90)
-            head:setBandaged(true, 1)
-            player:resetModel()
+            -- head:setBandaged(true, 1)
+            bodyDamage:SetBandaged(head:getIndex(), true, 8, false, "Base.Bandage")
+    
+            local xp = player:getXp()
+            xp:AddXP(PerkFactory.Perks.Strength, -18500)
+
+            local nutrition = player:getNutrition()
+            local weight = nutrition:getWeight()
+            nutrition:setWeight(weight - 6)
+
+            local stats = player:getStats()
+            stats:set(CharacterStat.HUNGER, 50)
+            stats:set(CharacterStat.THIRST, 40)
         end
     end
 end
@@ -101,6 +116,19 @@ BWOAEvents.SayBandit = function(params)
         Bandit.ClearTasks(speaker)
         local task = {action="Talk", anim=params.anim, txt=params.txt, sound=params.sound, x=player:getX(), y=player:getY(), time=2000}
         Bandit.AddTask(speaker, task)
+    end
+end
+
+BWOAEvents.HaloPlayer = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    if params.perk and params.xp then
+        local xp = player:getXp()
+        local perk = PerkFactory.Perks[params.perk]
+        xp:AddXPHaloText(perk, params.xp)
+    else
+        HaloTextHelper.addGoodText(player, params.txt)
     end
 end
 

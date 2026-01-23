@@ -503,6 +503,20 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         anim = "GestYes",
         req = {"300.2"},
     },
+    ["300.3"] = {
+        qst = "I never had a chance to thank you for saving me.",
+        ans = "Sure thing! Every sould counts",
+        anim = "GestYes",
+        req = {"100.1.2.2.1.1.1"},
+        hidden = true,
+    },
+    ["300.3.1"] = {
+        qst = "Thanks for taking care of me while I was in coma.",
+        ans = "You're welcome. I knew you'd wake up one day.",
+        anim = "GestYes",
+        req = {"300.3"},
+    },
+
 
     -- base condition dependent
     ["1000.1"] = {
