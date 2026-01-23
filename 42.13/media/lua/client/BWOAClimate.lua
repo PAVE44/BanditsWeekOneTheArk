@@ -1,6 +1,6 @@
 
 local FALLOUT_START = -90   -- WorldAge when fallout begins
-local FALLOUT_END = 8760      -- WorldAge when fallout ends
+local FALLOUT_END = 4380      -- WorldAge when fallout ends
 local TEMP_LERP = 50          -- Maximum temperature drop
 local TEMP_STEP = 0.5         -- Rate of temperature change per day
 local RAD_LERP = 5000
@@ -13,7 +13,65 @@ BWOAClimate.tick = 0
 
 BWOAClimate.lastQuake = 0
 
-function onClimateTick()
+local function updateForageZones()
+
+    local radiation = BWOAClimate.radiation
+    local clean = RAD_LERP - radiation
+    local plantMod = BanditUtils.Lerp(clean, 0, RAD_LERP, 0, 1)
+    local mushroomMod = BanditUtils.Lerp(radiation, 0, RAD_LERP, 0, 10)
+    
+    -- Berries
+    for k, v in pairs(forageSystem.categoryDefinitions["Berries"].zones) do
+        forageSystem.categoryDefinitions["Berries"].zones[k] = v * plantMod
+    end
+
+    -- Fruits
+    for k, v in pairs(forageSystem.categoryDefinitions["Fruits"].zones) do
+        forageSystem.categoryDefinitions["Fruits"].zones[k] = v * plantMod
+    end
+
+    -- Vegetables
+    for k, v in pairs(forageSystem.categoryDefinitions["Vegetables"].zones) do
+        forageSystem.categoryDefinitions["Vegetables"].zones[k] = v * plantMod
+    end
+
+    -- Crops
+    for k, v in pairs(forageSystem.categoryDefinitions["Crops"].zones) do
+        forageSystem.categoryDefinitions["Crops"].zones[k] = v * plantMod
+    end
+
+    -- Mushrooms
+    for k, v in pairs(forageSystem.categoryDefinitions["Mushrooms"].zones) do
+        forageSystem.categoryDefinitions["Mushrooms"].zones[k] = v * mushroomMod
+    end
+
+    -- MedicinalPlants
+    for k, v in pairs(forageSystem.categoryDefinitions["MedicinalPlants"].zones) do
+        forageSystem.categoryDefinitions["MedicinalPlants"].zones[k] = v * plantMod
+    end
+
+    -- WildPlants
+    for k, v in pairs(forageSystem.categoryDefinitions["WildPlants"].zones) do
+        forageSystem.categoryDefinitions["WildPlants"].zones[k] = v * plantMod
+    end
+    
+    -- WildHerbs
+    for k, v in pairs(forageSystem.categoryDefinitions["WildHerbs"].zones) do
+        forageSystem.categoryDefinitions["WildHerbs"].zones[k] = v * plantMod
+    end
+
+    -- Trash
+    forageSystem.categoryDefinitions["Trash"].zones.TownZone        = 65
+    forageSystem.categoryDefinitions["Trash"].zones.TrailerPark     = 65
+    forageSystem.categoryDefinitions["Trash"].zones.Vegitation      = 15
+
+    -- Junk
+    forageSystem.categoryDefinitions["Junk"].zones.TownZone        = 35
+    forageSystem.categoryDefinitions["Junk"].zones.TrailerPark     = 35
+    forageSystem.categoryDefinitions["Junk"].zones.Vegitation      = 10
+end
+
+local function onClimateTick()
     local world = getWorld()
     local cm = world:getClimateManager()
     local wfx = getCell():getWeatherFX()
@@ -112,6 +170,8 @@ function onClimateTick()
         end
     end
     BWOAClimate.lastQuake = BWOAClimate.lastQuake + 1
+
+    updateForageZones()
 end
 
 Events.OnClimateTick.Add(onClimateTick)
