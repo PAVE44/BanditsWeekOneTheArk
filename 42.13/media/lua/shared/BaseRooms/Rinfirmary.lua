@@ -137,6 +137,15 @@ BWOARooms.Infirmary.Prepare = function ()
     md.printContent = "medical"
     BWOAPrepareTools.AddWorldItemSpecial(9969, 12622, -4, medical, {x=0.6, y=0.6, z=0.35})
 
+    --[[
+    items = {
+        ["Base.Book_Medical"] = 4, 
+        ["Base.Eraser"] = 1, 
+        ["Base.Pencil"] = 1, 
+    }
+    BWOAPrepareTools.AddItemsToContainer(9965, 12625, -4, items, "Desk")
+    ]]
+    
 end
 
 

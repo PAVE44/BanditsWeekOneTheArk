@@ -37,6 +37,7 @@ local roomRevealMap = {
 
 local traitRevealMap = {
     {trait = CharacterTrait.SMOKER, person = "Emma Robinson", qid = "200.1"},
+    {trait = CharacterTrait.SHORT_SIGHTED, person = "Emma Robinson", qid = "200.2"},
 }
 
 local dreamRevealMap = {

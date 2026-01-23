@@ -434,7 +434,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     ["200.1"] = {
         qst = "Do you have a cigarette?",
         ans = "I quit. But I do carry one last with me. Here, enjoy.",
-        anim = "Yes",
+        anim = "Give",
         req = {},
         hidden = true,
         func = "Give",
@@ -443,7 +443,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     ["200.1.1"] = {
         qst = "Do you have a light?",
         ans = "Yes, here you go.",
-        anim = "Yes",
+        anim = "Give",
         req = {"200.1"},
         func = "Give",
         funcParams = {item = "Base.Lighter"},
@@ -453,6 +453,14 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         ans = "I planned to smoke it after getting bit, but it never happened.",
         anim = "Gest1",
         req = {"200.1"},
+    },
+    ["200.2"] = {
+        qst = "I can barely see. Do you have my glasses?",
+        ans = "Yes! Here you go.",
+        anim = "Give",
+        hidden = true,
+        func = "Give",
+        funcParams = {item = "Base.Glasses_Prescription_Aviators"},
     },
 
     -- event control reveal
@@ -481,7 +489,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         funcParams = {param = "sadness", value = 100},
     },
     ["300.1.1.1.1"] = {
-        qst = "I will revenge Dave & Martha. I promise!",
+        qst = "I will revenge Dave and  Martha. I promise!",
         ans = "[speechless]",
         anim = "GestNo",
         req = {"300.1.1.1"},
@@ -516,7 +524,6 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         anim = "GestYes",
         req = {"300.3"},
     },
-
 
     -- base condition dependent
     ["1000.1"] = {

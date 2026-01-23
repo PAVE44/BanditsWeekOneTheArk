@@ -150,6 +150,7 @@ BWOARooms.Lab.Prepare = function ()
         ["Base.Disinfectant"] = 2, 
         ["Base.Scalpel"] = 3, 
         ["Base.SmallSaw"] = 1, 
+        ["Base.Book_Medical"] = 4, 
     }
     BWOAPrepareTools.AddItemsToContainer(9963, 12639, -4, items, "Desk")
 end

@@ -70,6 +70,9 @@ BWOARooms.Library.Build = function ()
     md.printContent = "book_nuclear_winter"
     BWOAPrepareTools.AddItemsToContainer(9959, 12605, -4, {nuclearWinter}, "Shelves")
 
+    local items = {["Base.Book_Science"] = 12, ["Book_Philosophy"] = 6}
+    BWOAPrepareTools.AddItemsToContainer(9959, 12605, -4, items, "Locker", true)
+
     return true
 end
 
