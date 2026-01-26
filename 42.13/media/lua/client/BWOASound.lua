@@ -22,6 +22,7 @@ BWOASound.megaphones.noah = {
 
 BWOASound.noahSounds = {
     ["ATTENTION"] = "NoahAttention",
+    ["ERROR"] = "NoahError",
     ["POWERUP"] = "NoahPowerUp",
     ["POWERDOWN"] = "NoahPowerDown",
     ["BIO"] = "NoahBio",

@@ -135,7 +135,7 @@ function BWOAScenes.BanditsCar:placeItems()
     }
     BWOAPrepareTools.AddItemsToContainer(8345, 11606, -1, items, "Shelves")
 
-     items = {
+    items = {
         ["Base.CannedBolognese"] = 5, ["Base.TinnedBeans"] = 4, ["Base.CannedCorn"] = 6,
         ["Base.CannedMushroomSoup"] = 7, ["Base.TinnedSoup"] = 5,
         ["Base.CannedCornedBeef"] = 6, ["Base.CannedChili"] = 3,
@@ -199,6 +199,56 @@ function BWOAScenes.BanditsCar:placeItems()
         ["Base.BookMechanic1"] = 1, ["Base.BookMechanic2"] = 1
     }
     BWOAPrepareTools.AddItemsToContainer(8355, 11607, -2, items, "Shelves")
+
+    BWOAPrepareTools.AddWorldItem(8338, 11612, -2, "Base.BarBell", {x=0.57, y=0.49, z=0.00, rx=0, ry=0, rz=32})
+    BWOAPrepareTools.AddWorldItem(8338, 11613, -2, "Base.DumbBell", {x=0.37, y=0.22, z=0.00, rx=0, ry=0, rz=310})
+    BWOAPrepareTools.AddWorldItem(8338, 11613, -2, "Base.DumbBell", {x=0.56, y=0.85, z=0.00, rx=0, ry=0, rz=95})
+
+    BWOAPrepareTools.AddWorldItem(8334, 11612, -2, "Base.Whiskey", {x=0.63, y=0.40, z=0.23, rx=0, ry=0, rz=30})
+    BWOAPrepareTools.AddWorldItem(8334, 11612, -2, "Base.HerbalistMag", {x=0.43, y=0.54, z=0.23, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8334, 11612, -2, "Base.MugWhite", {x=0.68, y=0.60, z=0.23, rx=0, ry=0, rz=215})
+    BWOAPrepareTools.AddWorldItem(8335, 11610, -2, "Base.Whiskey", {x=0.34, y=0.16, z=0.00, rx=0, ry=0, rz=30})
+    BWOAPrepareTools.AddWorldItem(8337, 11609, -2, "Base.MugWhite", {x=0.27, y=0.42, z=0.35, rx=0, ry=0, rz=215})
+    BWOAPrepareTools.AddWorldItem(8340, 11610, -2, "Base.Magazine_Firearm_New", {x=0.45, y=0.80, z=0.00, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8340, 11611, -2, "Base.Magazine_Firearm_New", {x=0.65, y=0.13, z=0.00, rx=0, ry=0, rz=295})
+    BWOAPrepareTools.AddWorldItem(8344, 11609, -2, "Base.CuttingBoardPlastic", {x=0.43, y=0.41, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8344, 11609, -2, "Base.KnifeFillet", {x=0.88, y=0.52, z=0.38, rx=0, ry=0, rz=290})
+    BWOAPrepareTools.AddWorldItem(8344, 11609, -2, "Base.DeadRat", {x=0.38, y=0.41, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8344, 11609, -2, "Base.Smallanimalmeat", {x=0.55, y=0.54, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8345, 11609, -2, "Base.MeatCleaver", {x=0.05, y=0.59, z=0.38, rx=0, ry=0, rz=290})
+    BWOAPrepareTools.AddWorldItem(8345, 11609, -2, "Base.Ladle", {x=0.95, y=0.54, z=0.38, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8346, 11609, -2, "Base.PotOfStew", {x=0.33, y=0.58, z=0.39, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8346, 11609, -2, "Base.Pan", {x=0.90, y=0.70, z=0.39, rx=0, ry=0, rz=220})
+    BWOAPrepareTools.AddWorldItem(8343, 11613, -2, "Base.CannedPotatoOpen", {x=0.62, y=0.91, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8343, 11613, -2, "Base.TinOpener", {x=0.52, y=0.36, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8343, 11613, -2, "Base.CannedSardinesOpen", {x=0.80, y=0.30, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8343, 11613, -2, "Base.TunaTin", {x=0.80, y=0.48, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8343, 11613, -2, "Base.BeerBottle", {x=0.79, y=0.74, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8343, 11613, -2, "Base.PlasticFork", {x=0.78, y=0.91, z=0.35, rx=0, ry=0, rz=35})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.CannedPeasOpen", {x=0.42, y=0.36, z=0.35, rx=0, ry=0, rz=100})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.BeerEmpty", {x=0.38, y=0.52, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.DogfoodOpen", {x=0.47, y=0.94, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.TinCanEmpty", {x=0.64, y=0.86, z=0.35, rx=0, ry=0, rz=240})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.BottleOpener", {x=0.38, y=0.65, z=0.35, rx=0, ry=0, rz=295})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.BeerBottle", {x=0.74, y=0.76, z=0.35, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8344, 11613, -2, "Base.Fork", {x=0.63, y=0.95, z=0.35, rx=0, ry=0, rz=225})
+    BWOAPrepareTools.AddWorldItem(8345, 11613, -2, "Base.DogfoodOpen", {x=0.34, y=0.38, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8345, 11613, -2, "Base.CigaretteSingle", {x=0.25, y=0.53, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8345, 11613, -2, "Base.TinCanEmpty", {x=0.54, y=0.43, z=0.33, rx=0, ry=0, rz=295})
+    BWOAPrepareTools.AddWorldItem(8345, 11613, -2, "Base.TinCanEmpty", {x=0.55, y=0.60, z=0.33, rx=0, ry=0, rz=240})
+    BWOAPrepareTools.AddWorldItem(8345, 11613, -2, "Base.Fork", {x=0.74, y=0.76, z=0.33, rx=0, ry=0, rz=290})
+    BWOAPrepareTools.AddWorldItem(8345, 11613, -2, "Base.9mmClip", {x=0.36, y=0.77, z=0.33, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8346, 11613, -2, "Base.Bag_TrashBag", {x=0.30, y=0.70, z=0.00, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8346, 11613, -2, "Base.Bag_TrashBag", {x=0.48, y=0.48, z=0.00, rx=0, ry=0, rz=120})
+    BWOAPrepareTools.AddWorldItem(8355, 11609, -2, "Base.ToiletPaper", {x=0.19, y=0.78, z=0.00, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(8355, 11609, -2, "Base.ToiletPaper", {x=0.35, y=0.90, z=0.00, rx=0, ry=0, rz=0})
+
+
+
+
+
+
+
 
 end
 

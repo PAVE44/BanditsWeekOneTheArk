@@ -12,12 +12,24 @@ module Bandits {
         } 
     }
 
-    sound NoahPowerUp {
+    sound NoahStorageAreaFour {
         category = Object, 
         loop = false,
         is3D = true,
         clip { 
-            file = media/sound/noah_power_up.ogg, 
+            file = media/sound/noah_storage_area_four.ogg, 
+            distanceMax = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahError {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_error.ogg, 
             distanceMax = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 

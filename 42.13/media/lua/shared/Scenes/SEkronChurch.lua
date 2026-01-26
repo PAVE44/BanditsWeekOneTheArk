@@ -7,7 +7,9 @@ BWOAScenes.EkronChurch = BWOAScenes.Abstract:derive("BWOAScenes.Abstract")
 function BWOAScenes.EkronChurch:placeObjects()
     local x, y, z = self.x, self.y, self.z
 
-    BWOABuildTools.LampBattery(440, 9925, -2, "lighting_indoor_01_10")
+    BWOABuildTools.Generic(440, 9925, -2, "location_community_church_small_01_23") -- cross
+
+    BWOABuildTools.LampBattery(441, 9925, -2, "lighting_indoor_01_10")
 end
 
 function BWOAScenes.EkronChurch:placeItems()
@@ -44,5 +46,18 @@ function BWOAScenes.EkronChurch:placeVehicles()
 end
 
 function BWOAScenes.EkronChurch:populate()
+    local player = getSpecificPlayer(0)
+
+    BanditUtils.ClearZombies(437, 9925, 446, 9941)
+
+    local params1 = {
+        cid = Bandit.clanMap.James,
+        x = 439,
+        y = 9926,
+        z = -2,
+        program = "James",
+        size = 1,
+    }
+    sendClientCommand(player, 'Spawner', 'Clan', params1)
 
 end

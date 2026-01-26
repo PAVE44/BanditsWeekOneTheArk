@@ -4,23 +4,40 @@ BWOAEventControl = BWOAEventControl or {}
 BWOAEventControl.Events = {}
 
 local schedule = {
+    -- 17.00
+
     [0] = {
         [1] = {"SayPlayer", {txt = "What the hell?"}},
     },
-    [11] = {
-        [39] = {"Assault", {intensity = 2}},
-    },
     [22] = {
-        [39] = {"Horde", {intensity = 30}},
+        [39] = {"Horde", {intensity = 12}},
     },
-    [33] = {
+    [34] = {
+        [39] = {"Assault", {intensity = 3}},
+    },
+    [45] = {
         [17] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
-    },
-    [44] = {
-        [39] = {"Assault", {intensity = 6}},
     },
     [55] = {
         [2] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
+    },
+    [79] = {
+        [14] = {"Assault", {intensity = 4}},
+    },
+    [132] = {
+        [30] = {"Assault", {intensity = 2}},
+        [31] = {"Assault", {intensity = 2}},
+        [32] = {"Assault", {intensity = 2}},
+        [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
+    },
+    [135] = {
+        [30] = {"Horde", {intensity = 40}},
+    },
+    [177] = {
+        [30] = {"Assault", {intensity = 9}},
+    },
+    [200] = {
+        [30] = {"Horde", {intensity = 50}},
     },
 }
 

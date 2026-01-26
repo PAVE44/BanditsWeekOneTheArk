@@ -81,22 +81,20 @@ BWOAChat.ChangeBrainParam = function(params)
     brain[params.param] = params.value
 end
 
-BWOAChat.Say = function(question, quiet)
+BWOAChat.Say = function(question, person)
     local player = getSpecificPlayer(0)
     if not player then return end
 
     BWOAEventControl.Add("SayPlayer", {txt = question}, 1)
 
     local tab
-    local person = "Emma Robinson"
-
     if BWOAChat.last and question == "Can you repeat that?" then
         tab = BWOAChat.last[person]
         tab.txt = "Sure. " .. tab.txt
     else
         local answer = BWOADialogues.GetAnswer(person, question)
         if answer then
-            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma"}, "Main")
+            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma", "James"}, "Main")
             if target.dist < BWOAChat.talkDist then
                 if not anim then 
                     anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
@@ -210,9 +208,9 @@ local function onKeyPressed(keynum)
     local key = options:getOption("TALK"):getValue()
 
     if keynum == key then
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"}, "Main")
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James"}, "Main")
         if target.dist < BWOAChat.talkDist then
-            local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0))
+            local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0), target.program)
             ui:initialise()
             ui:addToUIManager()
         else

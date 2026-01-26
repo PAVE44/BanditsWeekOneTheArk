@@ -1,3 +1,23 @@
+[h1]The Ark[/h1]
+[b]The Ark[/b] is a direct sequel to the Bandits: Week One mod, continuing the story after the dramatic events of the first chapter. You awaken from a coma days later, disoriented and changed, to discover that the world — and your place in it — is no longer the same.
+
+Unlike Week One, The Ark delivers a completely different experience. This is a narrative-driven adventure focused on progression, discovery, and atmosphere. The story unfolds step by step, drawing you deeper into a world filled with mystery and unanswered questions.
+
+Expect rich lore, unexpected twists, and carefully placed surprises as you explore new locations and encounter new events. The mod introduces original gameplay mechanics designed specifically to support the story and immerse you in its themes. Your choices, observations, and persistence matter.
+
+The Ark is not just about survival and not about you only — it’s about uncovering the truth, forming connection with other human, and facing moments that will challenge you emotionally as much as mechanically. This is a slower, more deliberate journey meant to be experienced, not rushed.
+
+Endure.
+
+Workshop ID: 3592869164
+Mod ID: BanditsWeekOneTheArk
+
+bugs:
+ - stairs
+ - need tools to perform vent and other actions
+ 
+
+
 LOG  : Lua          f:0, t:1765622444859, st:394,111,669> feedingTrough: added luaObject 10932,10119,0
 LOG  : Lua          f:0, t:1765622444859, st:394,111,669> feedingTrough: added luaObject 10933,10112,0
 LOG  : Lua          f:0, t:1765622444859, st:394,111,669> feedingTrough: added luaObject 10933,10119,0

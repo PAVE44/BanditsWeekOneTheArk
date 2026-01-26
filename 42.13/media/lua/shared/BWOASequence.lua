@@ -147,16 +147,29 @@ BWOASequence.Horde = function(params)
 end
 
 BWOASequence.Assault = function(params)
-    local player = getSpecificPlayer(0)
+
+    local coords = {
+        x = 9931,
+        y = 12625,
+        z = 0,
+        size = 1.5
+    }
+
+    if player:getZ() == -4 and (player:getX() >= 9965 or player:getY() >= 12636) then
+        coords = {
+            x=9930, y=12625, z=-4, size=1,
+        }
+    end
+
     local group = {
         cid = Bandit.clanMap.Surface1,
-        x = 9956,
-        y = 12616,
-        z = 0,
+        x = coords.x,
+        y = coords.y,
+        z = coords.z,
         program = "Bandit",
-        size = 6,
+        size = params.intensity * coords.size,
     }
-    BWOAEventControl.Add("SpawnGroup", group, 100)
+    BWOAEventControl.Add("SpawnGroup", group, 2000)
 end
 
 BWOASequence.Decontamination = function(params)

@@ -110,3 +110,19 @@
 	spawn: groupMax = 10
 	spawn: zone = 0
 
+[cb8880f8-d45c-4051-acb3-a9d7b7d598a7]
+	general: name = W1A_James
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+

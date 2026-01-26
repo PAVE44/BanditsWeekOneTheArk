@@ -11,6 +11,10 @@ function InitBWOAModData(isNewGame)
         ModData.request("BanditWeekOneTheArk")
     end
 
+    if not globalData.noah then
+        globalData.noah = true
+    end
+
     if not globalData.generators then 
         globalData.generators = {
             main = {
@@ -83,7 +87,7 @@ function InitBWOAModData(isNewGame)
         }
     end
 
-    if not globalData.control then 
+    if not globalData.alerting then 
         globalData.alerting = {
             generatorFuelAlert = 10,
             generatorConditionAlert = 10,

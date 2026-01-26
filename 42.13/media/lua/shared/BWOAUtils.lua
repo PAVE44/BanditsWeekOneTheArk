@@ -91,6 +91,7 @@ function BanditUtils.GetClosestBanditLocationProgram(character, programs)
                         result.y = zombie.y
                         result.z = zombie.z
                         result.id = zombie.id
+                        result.program = zombie.brain.program.name
                     end
                 end
             end
@@ -124,6 +125,7 @@ function BanditUtils.GetClosestBanditLocationProgramStage(character, programs, s
                         result.y = zombie.y
                         result.z = zombie.z
                         result.id = zombie.id
+                        result.program = zombie.brain.program.name
                     end
                 end
             end

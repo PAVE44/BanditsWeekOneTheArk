@@ -17,10 +17,9 @@ function UIDialogue:initialise()
     self:addChild(self.dialListBox)
     self.dialListBox:clear()
 
-    local person = "Emma Robinson"
-    local dialogues = BWOADialogues.GetQuestions(person)
+    local dialogues = BWOADialogues.GetQuestions(self.person)
 
-    if BWOAChat.last[person] then
+    if BWOAChat.last[self.person] then
         self.dialListBox:addItem(id, { index = 0, qst = "Can you repeat that?"})
     end
 
@@ -28,7 +27,7 @@ function UIDialogue:initialise()
         self.dialListBox:addItem(id, { index = id, qst = dialogue.qst})
     end
 
-    self.maxWidth = 0
+    self.maxWidth = getTextManager():MeasureStringX(UIFont.Medium, "Speak to " .. self.person)
     self.dialListBox.doDrawItem = function(list, y, item, alt)
         local h = list.itemheight
 
@@ -47,7 +46,7 @@ function UIDialogue:initialise()
 
     self.dialListBox.onMouseUp = function(listBox, x, y)
         local itemText = listBox.items[listBox.selected].item.qst
-        BWOAChat.Say(itemText)
+        BWOAChat.Say(itemText, self.person)
         self:destroy()
     end
     
@@ -97,7 +96,7 @@ function UIDialogue:prerender()
     self:drawRect(0, 0, self.width, self.height, self.backgroundColor.a, self.backgroundColor.r, self.backgroundColor.g, self.backgroundColor.b);
     self:drawRectBorder(0, 0, self.width, self.height, self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b);
 
-    self:drawTextCentre("Say", self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
+    self:drawTextCentre("Speak to " .. self.person, self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
 end
 
 function UIDialogue:render()
@@ -109,21 +108,23 @@ end
 function UIDialogue:updateNow()
 end
 
-function UIDialogue:new(x, y, width, height, character)
+function UIDialogue:new(x, y, width, height, character, program)
     local o = {}
     o = ISPanelJoypad:new(x, y, width, height);
     setmetatable(o, self)
     self.__index = self
-    o.character = character;
-    o.name = nil;
-    o.backgroundColor = {r=0, g=0, b=0, a=0.5};
-    o.borderColor = {r=0.4, g=0.4, b=0.4, a=1};
-    o.width = width;
-    o.height = height;
-    o.anchorLeft = true;
-    o.anchorRight = true;
-    o.anchorTop = true;
-    o.anchorBottom = true;
+    o.character = character
+    o.program = program
+    o.person = Bandit.prg2person[program]
+    o.name = nil
+    o.backgroundColor = {r=0, g=0, b=0, a=0.5}
+    o.borderColor = {r=0.4, g=0.4, b=0.4, a=1}
+    o.width = width
+    o.height = height
+    o.anchorLeft = true
+    o.anchorRight = true
+    o.anchorTop = true
+    o.anchorBottom = true
 
     local player = character:getPlayerNum()
     if y == 0 then

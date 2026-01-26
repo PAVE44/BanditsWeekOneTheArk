@@ -63,7 +63,7 @@ BWOAPlayer.itemMemoryRegain = {
 
     -- short blade
     {itemType = "HuntingKnife", perk = "SmallBlade", xp = 300, chance=50},
-    {itemType = "KitchenKnife", perk = "SmallBlade", xp = 100}, chance=50,
+    {itemType = "KitchenKnife", perk = "SmallBlade", xp = 100, chance=50},
 
     -- axe
     {itemType = "Axe", perk = "Axe", xp = 400, chance=40},

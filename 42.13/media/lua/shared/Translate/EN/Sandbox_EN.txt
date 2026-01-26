@@ -2,6 +2,29 @@ Sandbox_EN = {
 
     Sandbox_BWOA = "Bandits Week One: The Ark"
 
+    Sandbox_BWOA.FalloutStarted = "Fallout Started"
+    Sandbox_BWOA.FalloutStarted_option1 = "1 week ago"    
+    Sandbox_BWOA.FalloutStarted_option2 = "1 month ago"
+    Sandbox_BWOA.FalloutStarted_option3 = "3 months ago"
+    Sandbox_BWOA.FalloutStarted_option4 = "6 months ago"
+    Sandbox_BWOA.FalloutStarted_option5 = "1 year ago"
+    Sandbox_BWOA.FalloutStarted_option6 = "2 years ago"
+
+    Sandbox_BWOA.FalloutEnds = "Fallout Ends In"
+    Sandbox_BWOA.FalloutEnds_option1 = "1 week"
+    Sandbox_BWOA.FalloutEnds_option2 = "1 month"
+    Sandbox_BWOA.FalloutEnds_option3 = "3 months"
+    Sandbox_BWOA.FalloutEnds_option4 = "6 months"
+    Sandbox_BWOA.FalloutEnds_option5 = "1 year"
+    Sandbox_BWOA.FalloutEnds_option6 = "2 years"
+
+    Sandbox_BWOA.FalloutCurve = "Fallout Curve"
+    Sandbox_BWOA.FalloutCurve_option1 = "Very fast rise + Very slow decay"
+    Sandbox_BWOA.FalloutCurve_option2 = "Fast rise + slow decay"
+    Sandbox_BWOA.FalloutCurve_option3 = "Uniform"
+    Sandbox_BWOA.FalloutCurve_option4 = "Slow rise + fast decay"
+    Sandbox_BWOA.FalloutCurve_option5 = "Very slow rise + very fast decay"
+
     Sandbox_BWOA.ShelterOccurance = "Shelter Occurance"
     Sandbox_BWOA.ShelterOccurance_option1 = "Extremely Rare"    
     Sandbox_BWOA.ShelterOccurance_option2 = "Rare"

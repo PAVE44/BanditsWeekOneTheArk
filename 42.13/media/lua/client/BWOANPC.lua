@@ -13,6 +13,12 @@ local function manageNPC()
             if bandit then
                 local brain = BanditBrain.Get(bandit)
 
+                brain.bornCoords = {
+                    x = bandit:getX(),
+                    y = bandit:getY(),
+                    z = bandit:getZ()
+                }
+
                 if not brain.bladder then
                     brain.bladder = 0
                 end
@@ -45,8 +51,29 @@ local function manageNPC()
                 Bandit.ForceSyncPart(bandit, brain)
             end
         end
+
     end
     print ("iters: " .. i)
+
+    -- protect from despawning
+    --[[
+    i = 0
+    local player = getSpecificPlayer(0)
+    local cell = getCell()
+    for i = 0, BanditClusterCount - 1 do
+        local globalData = BanditClusters[i]
+        for id, gmdBrain in pairs(globalData) do
+            if not cache[id] then
+                local square = cell:getGridSquare(gmdBrain.bornCoords.x, gmdBrain.bornCoords.y, gmdBrain.bornCoords.z)
+                if square then
+                    sendClientCommand(player, 'Spawner', 'Restore', gmdBrain)
+                end
+            end
+            i = i + 1
+        end
+    end
+    print ("iters gmd: " .. i)
+    ]]
 end
 
 BWOANPC.ModBrain = function(id, k, v)

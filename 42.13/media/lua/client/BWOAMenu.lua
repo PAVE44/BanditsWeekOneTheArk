@@ -276,7 +276,7 @@ end
 
 function BWOAMenu.Teleport(player)
     --local x, y, z = 9962, 12609, -4
-    local x, y, z = 5655, 12456, -17
+    local x, y, z = 9961, 12622, -4
     
     player:setX(x)
     player:setY(y)
@@ -299,18 +299,17 @@ function BWOAMenu.Transform(player, zombie)
     })
 end
 
-function BWOAMenu.Spawn(player, square)
+function BWOAMenu.Spawn(player, square, program, cid)
     local args = {}
-    args.cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
+    args.cid = cid
     args.x = square:getX()
     args.y = square:getY()
     args.z = square:getZ()
-    args.program = "Emma"
+    args.program = program
     args.size = 1
     -- args.permanent = true
     sendClientCommand(player, 'Spawner', 'Clan', args)
 end
-
 
 function BWOAMenu.TestItem(player, square, artifact)
     local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
@@ -319,6 +318,18 @@ function BWOAMenu.TestItem(player, square, artifact)
     local md = leaflet:getModData()
     md.printContent = artifact
     BWOAPrepareTools.AddWorldItemSpecial(square:getX(), square:getY(), square:getZ(), leaflet, {x=0.5, y=0.5, z=0})
+end
+
+function BWOAMenu.HangingBody(player, square, artifact)
+    local args = {}
+    args.cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
+    args.x = square:getX()
+    args.y = square:getY()
+    args.z = square:getZ()
+    args.program = "Hanging"
+    args.size = 1
+    -- args.permanent = true
+    sendClientCommand(player, 'Spawner', 'Clan', args)
 end
 
 function BWOAMenu.SetDream(player)
@@ -402,7 +413,15 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         saveItems(square)
 
         context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
-        context:addOption("Spawn Emma", player, BWOAMenu.Spawn, square)
+        
+
+        local spawnOption = context:addOption("Character Spawn")
+        local spawnMenu = context:getNew(context)
+        context:addSubMenu(spawnOption, spawnMenu)
+        spawnMenu:addOption("Emma", player, BWOAMenu.Spawn, square, "Emma", Bandit.clanMap.Emma)
+        spawnMenu:addOption("James", player, BWOAMenu.Spawn, square, "James", Bandit.clanMap.James)
+
+        context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
         context:addOption("Lava Lake", player, BWOAMenu.LavaLake, square)
 
