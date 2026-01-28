@@ -367,6 +367,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
+        BWOASound.PlayPlayer({sound="AngelProximity"})
+
         print (SandboxVars.Basement.SpawnFrequency)
         local test = SandboxVars
         local vehicle = square:getVehicleContainer()

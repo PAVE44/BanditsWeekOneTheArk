@@ -48,6 +48,7 @@ end
 
 local procedural_basement_spawn_locations = {
     {x=10183, y=12634, stairDir="N", choices={"lot_basement_house_01"}}, -- vhs secret room
+    {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_01"}},
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},
 }
 

@@ -13,6 +13,19 @@ module Bandits
 		ReadType = photo,
     }
 
+    item NoteBook
+    {
+        ItemType = base:literature,
+        DisplayCategory = Lore,
+        Weight	=	0.5,
+        Type	=	Literature,
+        DisplayName	=	NoteBook,
+        Icon = Notebook,
+        WorldStaticModel = EmptyNotebook,
+        ReadType = newspaper,
+        Tags = base:magazine,
+    }
+
     item Book2
     {
         ItemType = base:literature,

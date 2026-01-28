@@ -10,6 +10,8 @@ BWOABuildings.exceptions = {
     "7380-8349", -- Fallas Church
     "432-9911", -- Ekron Church
     "5537-12440", -- Secret Lab
+    "9156-12147", -- Dave and Martha's House
+    "10164-12633", -- MR Cinema
 }
 
 local getHatchId = function(x, y)
