@@ -47,6 +47,18 @@ BWOAPlaceEvents.events = {
         y = 9925,
         z = 0,
     },
+    ["Cinema"] = {
+        scene = "Cinema",
+        x = 10181,
+        y = 12634,
+        z = 0,
+    },
+    ["Hunter"] = {
+        scene = "Hunter",
+        x = 9814,
+        y = 12918,
+        z = 0,
+    },
 
 }
 

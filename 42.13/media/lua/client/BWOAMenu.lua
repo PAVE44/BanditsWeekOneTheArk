@@ -202,47 +202,9 @@ function BWOAMenu.EventAbyss(player, square)
 
 end
 
-function BWOAMenu.SceneToolbag(player , square)
-    local x = 10033
-    local y = 12733
-    local z = 0
-    local scene = BWOAScenes.Toolbag:new(x, y, z)
-    scene:build()
-end
-
-function BWOAMenu.SceneFuelTank(player , square)
-    local x, y, z = square:getX(), square:getY(), square:getZ()
-    local scene = BWOAScenes.FuelTruck:new(x, y, z)
-    scene:build()
-end
-
-function BWOAMenu.SceneDave(player , square)
-    local x, y, z = square:getX(), square:getY(), square:getZ()
-    local scene = BWOAScenes.Dave:new(x, y, z)
-    scene:build()
-end
-
-function BWOAMenu.SceneBanditsCar(player , square)
-    local x, y, z = square:getX(), square:getY(), square:getZ()
-    local scene = BWOAScenes.BanditsCar:new(x, y, z)
-    scene:build()
-end
-
-function BWOAMenu.SceneFallasChurch(player , square)
-    local x, y, z = square:getX(), square:getY(), square:getZ()
-    local scene = BWOAScenes.FallasChurch:new(x, y, z)
-    scene:build()
-end
-
-function BWOAMenu.SceneEkronChurch(player , square)
-    local x, y, z = square:getX(), square:getY(), square:getZ()
-    local scene = BWOAScenes.EkronChurch:new(x, y, z)
-    scene:build()
-end
-
-function BWOAMenu.SceneExcavation(player , square)
-    local x, y, z = square:getX(), square:getY(), square:getZ()
-    local scene = BWOAScenes.Excavation:new(x, y, z)
+function BWOAMenu.Scene(player, placeEvent)
+    local x, y, z = placeEvent.x, placeEvent.y, placeEvent.z
+    local scene = BWOAScenes[placeEvent.scene]:new(x, y, z)
     scene:build()
 end
 
@@ -437,14 +399,9 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local scenesMenu = context:getNew(context)
         context:addSubMenu(scenesOption, scenesMenu)
 
-        scenesMenu:addOption("Scene Toolbag", player, BWOAMenu.SceneToolbag, square)
-        scenesMenu:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
-        scenesMenu:addOption("Scene Dave", player, BWOAMenu.SceneDave, square)
-        scenesMenu:addOption("Scene Bandits Car", player, BWOAMenu.SceneBanditsCar, square)
-        scenesMenu:addOption("Scene Fallas Church", player, BWOAMenu.SceneFallasChurch, square)
-        scenesMenu:addOption("Scene Ekron Church", player, BWOAMenu.SceneEkronChurch, square)
-        -- scenesMenu:addOption("Scene Excavation", player, BWOAMenu.SceneExcavation, square)
-
+        for _, placeEvent in pairs(BWOAPlaceEvents.events) do
+            scenesMenu:addOption("Scene " .. placeEvent.scene, player, BWOAMenu.Scene, placeEvent)
+        end
         
         local artifactsOption = context:addOption("Artifacts")
         local artifactsMenu = context:getNew(context)
