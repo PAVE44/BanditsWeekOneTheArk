@@ -426,12 +426,33 @@ local function everyOneMinute()
         end
     end
 
+    -- Geiger counter check
     local hasGeiger = false
-    local itemGeiger = player:getAttachedItem("Walkie Belt Left") or player:getAttachedItem("Walkie Belt Right") or player:getPrimaryHandItem() or player:getSecondaryHandItem()
-    if itemGeiger then
-        if itemGeiger:hasTag(ItemTag.MISC_ELECTRONIC) then
+
+    local function isGeiger(item)
+        return item and item:getType() == "GeigerCounter"
+    end
+
+    local slots = {
+        "Walkie Belt Left",
+        "Walkie Belt Right",
+        "Webbing Left Walkie",
+        "Webbing Right Walkie"
+    }
+
+    for _, slot in ipairs(slots) do
+        if isGeiger(player:getAttachedItem(slot)) then
             hasGeiger = true
+            break
         end
+    end
+
+    if not hasGeiger and isGeiger(player:getPrimaryHandItem()) then
+        hasGeiger = true
+    end
+
+    if not hasGeiger and isGeiger(player:getSecondaryHandItem()) then
+        hasGeiger = true
     end
 
     -- radiation effect simulation

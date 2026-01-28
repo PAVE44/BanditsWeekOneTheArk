@@ -7,7 +7,8 @@ local schedule = {
     -- 17.00
 
     [0] = {
-        [1] = {"SayPlayer", {txt = "What the hell?"}},
+        [2] = {"Chapter", {tex = "chapter_1"}},
+        [3] = {"SayPlayer", {txt = "What the hell?"}},
     },
     [22] = {
         [39] = {"Horde", {intensity = 12}},

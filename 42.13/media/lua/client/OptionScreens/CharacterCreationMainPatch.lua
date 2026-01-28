@@ -46,6 +46,34 @@ function CharacterCreationMain:create()
 	self.variantButton:enableAcceptColor()
 	self:addChild(self.variantButton);
 
+    self.characterPanel:removeChild(self.genderCombo)
+
+    MainScreen.instance.desc:setFemale(false)
+
+end
+
+function CharacterCreationMain:onRandomCharacter()
+	-- remove the beard
+	MainScreen.instance.desc:getExtras():clear()
+
+	local female = false
+	MainScreen.instance.avatar:setFemale(female)
+	MainScreen.instance.desc:setFemale(female)
+	MainScreen.instance.desc:getHumanVisual():clear()
+	self:setAvatarFromUI()
+--		CharacterCreationProfession.instance:changeClothes();
+	self:randomGenericOutfit();
+	self:randomVoice();
+
+	-- we random the name
+	SurvivorFactory.randomName(MainScreen.instance.desc);
+
+	self.forenameEntry:setText(MainScreen.instance.desc:getForename());
+	self.surnameEntry:setText(MainScreen.instance.desc:getSurname());
+
+	self:loadJoypadButtons();
+
+	self:disableBtn();
 end
 
 

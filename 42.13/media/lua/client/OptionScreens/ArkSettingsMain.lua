@@ -223,6 +223,8 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.ZombieLore.Hearing = 1
         SandboxVars.ZombieLore.Cognition = 1
         SandboxVars.ZombieLore.CrawlUnderVehicle = 7
+
+        SandboxVars.Basement.SpawnFrequency = 7 -- always
        
 
         MainScreen.instance.charCreationMain:setVisible(false)

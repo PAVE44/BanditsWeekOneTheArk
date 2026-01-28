@@ -36,6 +36,18 @@ BWOAEvents.FadeIn = function(params)
     end
 end
 
+BWOAEvents.Chapter = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    BWOASound.PlayPlayer({sound="Dream1End"})
+    
+    BWOATex.tex = getTexture("media/textures/" .. params.tex .. ".png")
+    BWOATex.speed = 0.009
+    BWOATex.mode = "center"
+    BWOATex.alpha = 2.4
+end
+
 BWOAEvents.Teleport = function(params)
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do

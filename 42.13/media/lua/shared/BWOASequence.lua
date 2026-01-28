@@ -76,6 +76,10 @@ BWOASequence.Resume = function(params)
     end
 end
 
+BWOASequence.Chapter = function(params)
+    BWOAEventControl.Add("Chapter", {tex = params.tex}, 100)
+end
+
 BWOASequence.EmergencyLights = function(params)
     local d = 1
     if params.active ~= nil then
@@ -147,6 +151,7 @@ BWOASequence.Horde = function(params)
 end
 
 BWOASequence.Assault = function(params)
+    local player = getSpecificPlayer(0)
 
     local coords = {
         x = 9931,

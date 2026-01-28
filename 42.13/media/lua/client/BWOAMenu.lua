@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.35"
+BWOAMenu.version = "0.59"
 
 BWOAMenu.blinking = {}
 
@@ -124,6 +124,10 @@ BWOAMenu.specialObjectsHighlight = {
     },
 }
 
+function BWOAMenu.EventChapter(player)
+    BWOASequence.Chapter({tex = "chapter_1"})
+end
+
 function BWOAMenu.EventCracks(player)
     BWOASequence.Earthquake({intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4})
 end
@@ -209,6 +213,16 @@ function BWOAMenu.SceneToolbag(player , square)
     local scene = BWOAScenes.Toolbag:new(x, y, z)
     scene:build()
 end
+
+function BWOAMenu.SceneCinema(player , square)
+    local x = 10185
+    local y = 12635
+    local z = 0
+    local scene = BWOAScenes.Cinema:new(x, y, z)
+    scene:build()
+end
+
+
 
 function BWOAMenu.SceneFuelTank(player , square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
@@ -401,6 +415,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
+        print (SandboxVars.Basement.SpawnFrequency)
         local test = SandboxVars
         local vehicle = square:getVehicleContainer()
 
@@ -428,6 +443,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local eventsOption = context:addOption("Events")
         local eventsMenu = context:getNew(context)
         context:addSubMenu(eventsOption, eventsMenu)
+        eventsMenu:addOption("Event Chapter", player, BWOAMenu.EventChapter)
         eventsMenu:addOption("Event Earthquake", player, BWOAMenu.EventCracks)
         eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
@@ -437,6 +453,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local scenesMenu = context:getNew(context)
         context:addSubMenu(scenesOption, scenesMenu)
 
+        scenesMenu:addOption("Scene Cinema", player, BWOAMenu.SceneCinema, square)
         scenesMenu:addOption("Scene Toolbag", player, BWOAMenu.SceneToolbag, square)
         scenesMenu:addOption("Scene Fuel Tank", player, BWOAMenu.SceneFuelTank, square)
         scenesMenu:addOption("Scene Dave", player, BWOAMenu.SceneDave, square)

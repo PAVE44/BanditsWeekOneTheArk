@@ -45,7 +45,7 @@ BWOAMissions.missions = {
         desc = "You've found a car key. It suggests a working vehicle may be nearby.",
     },
     [100] = {
-        name = "Go to church in Fallas Lake Ruins",
+        name = "Go to church in Fallas Lake",
         desc = "The voice in your dream points you to Fallas Lake church.",
     },
     [101] = {
