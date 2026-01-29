@@ -17,3 +17,8 @@ option BWOA.ShelterOccurance  = {
     type = enum, numValues=5, default = 4,
     page = BWOA, translation = BWOA.ShelterOccurance, valueTranslation=BWOA.ShelterOccurance,
 }
+
+option BWOA.AngelProximity = {
+    type = boolean, default = true,
+    page = BWOA, translation = BWOA.AngelProximity,
+}
