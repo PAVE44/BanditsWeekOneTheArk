@@ -74,7 +74,10 @@ local function everyOneMinute()
     local placeEvents = gmd.placeEvents
     for k, event in pairs(placeEvents) do
         if not event.rendered then
-            if BanditUtils.DistTo(px, py, event.x, event.y) < 50 then
+            if not renderDist then
+                event.renderDist = 50
+            end
+            if BanditUtils.DistTo(px, py, event.x, event.y) < event.renderDist then
                 BWOAPlaceEvents.Render(event)
 
                 if SandboxVars.BWOA.AngelProximity then
