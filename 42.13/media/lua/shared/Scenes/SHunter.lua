@@ -17,8 +17,12 @@ function BWOAScenes.Hunter:placeItems()
     local x, y, z = self.x, self.y, self.z
 
     -- trapping books
+    -- hunting mags
+    -- tent
     -- hunting rifle and ammo
     -- traps as items
+    -- exposure survival 6
+    -- Base.SurvivalSchematic
     -- hunter note
 end
 

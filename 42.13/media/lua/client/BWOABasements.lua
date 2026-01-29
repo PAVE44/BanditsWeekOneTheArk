@@ -48,7 +48,10 @@ end
 
 local procedural_basement_spawn_locations = {
     {x=10183, y=12634, stairDir="N", choices={"lot_basement_house_01"}}, -- vhs secret room
-    {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_01"}},
+    {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_01"}}, -- hunter house
+    {x=8114, y=12226, stairDir="W", choices={"lot_basement_house_06_B_east"}}, -- fisherman house
+    {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
+
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},
 }
 
