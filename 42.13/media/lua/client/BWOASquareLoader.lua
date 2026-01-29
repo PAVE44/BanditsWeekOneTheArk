@@ -136,7 +136,7 @@ end
 local isExcluded = function(square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
 
-    if z < 10 then return true end
+    if z < 0 then return true end
 
     -- ARK exclusion
     if x >= 9910 and y >= 12611 and x <= 9942 and y <= 12645 then return true end
