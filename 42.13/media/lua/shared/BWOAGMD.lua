@@ -117,6 +117,10 @@ function InitBWOAModData(isNewGame)
         globalData.itemMemoryRegain = BWOAPlayer.itemMemoryRegain
     end
 
+    if not globalData.permanentNPC then 
+        globalData.permanentNPC = {}
+    end
+
     BWOAGlobalData = globalData
 
 end

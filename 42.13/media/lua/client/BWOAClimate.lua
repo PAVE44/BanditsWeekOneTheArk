@@ -163,12 +163,12 @@ local function onClimateTick()
         -- renderer not ready for this updates right after game start
         if BWOAClimate.tick > 3 then
             ImprovedFog.setEnableEditing(true)
-            ImprovedFog.setBaseAlpha(1)
+            ImprovedFog.setBaseAlpha(0.75)
             ImprovedFog.setSecondLayerAlpha(0.4)
             ImprovedFog.setTopAlphaHeight(0.25)
             ImprovedFog.setBottomAlphaHeight(0.5)
-            ImprovedFog.setAlphaCircleAlpha(0.3)
-            ImprovedFog.setAlphaCircleRad(3)
+            ImprovedFog.setAlphaCircleAlpha(0.25)
+            ImprovedFog.setAlphaCircleRad(4)
 
             local dls = cm:getDayLightStrength()
             local r = math.floor(BanditUtils.Lerp(dls, 0, 1, 0.15, 0.6) * 100) / 100

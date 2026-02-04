@@ -481,7 +481,7 @@ local function everyOneMinute()
     for i=0, items:size()-1 do
         local item = items:get(i)
         if item:getModData().radiated then
-            radiation = radiation + 100
+            radiation = radiation + 30
         end
     end
 
@@ -501,7 +501,7 @@ local function everyOneMinute()
     end
     for _, groundItem in ipairs(groundItems) do
         if groundItem:getModData().radiated then
-            radiation = radiation + 50
+            radiation = radiation + 20
         end
     end
 

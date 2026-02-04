@@ -284,12 +284,12 @@ local function manageVentilation()
         
         for _, airintake in pairs(airintakes) do
             if not airintake.broken then
-                co2Reduction = co2Reduction + 2
+                co2Reduction = co2Reduction + 4
             end
         end
     end
 
-    local co2BuildUp = 7
+    local co2BuildUp = 13
 
     ventilation.co2 = ventilation.co2 + co2BuildUp - co2Reduction
 

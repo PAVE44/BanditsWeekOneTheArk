@@ -1,3 +1,5 @@
+require "BWOADialogues"
+
 BWOADialogues.dialogues = BWOADialogues.dialogues or {}
 
 BWOADialogues.dialogues["Emma Robinson"] = {
