@@ -81,7 +81,7 @@ BWOAChat.ChangeBrainParam = function(params)
     brain[params.param] = params.value
 end
 
-BWOAChat.Say = function(question, person)
+BWOAChat.Say = function(qid, question, person)
     local player = getSpecificPlayer(0)
     if not player then return end
 
@@ -112,15 +112,16 @@ BWOAChat.Say = function(question, person)
     end
 
     if tab then
-        local perLetter = 25 -- time per letter
+        local perLetter = 27 -- time per letter
         local minimal = 1000 -- minimal time per sentence
-        local counter = 400 -- initial response delay
+        local counter = 600 -- initial response delay
         local sentences = splitSentences(tab.txt)
         for i, sentence in ipairs(sentences) do
             local newtab = {}
             newtab.id = tab.id
             newtab.anim = tab.anim
             newtab.txt = sentence
+            newtab.sound = "Dial_" .. person .. "_" .. qid .. "_" .. i
             local responseTime = perLetter * #sentence
             if responseTime < minimal then responseTime = minimal end
             BWOAEventControl.Add("SayBandit", newtab, counter)

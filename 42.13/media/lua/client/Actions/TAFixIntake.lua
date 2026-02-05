@@ -25,7 +25,7 @@ function TAFixIntake:perform()
     local airintakes = gmd.airintakes
     airintakes[1].broken = false
     BWOAMissions.Accomplish(3)
-    BWOADialogues.Reveal("Emma Robinson", "1000.5.1")
+    BWOADialogues.Reveal("Emma_Robinson", "1000.5.1")
 
     ISBaseTimedAction.perform(self)
 end

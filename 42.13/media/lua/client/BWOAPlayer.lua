@@ -1,3 +1,8 @@
+require "BanditPlayer"
+BanditPlayer.CheckFriendlyFire = function(bandit, attacker)
+    return
+end
+
 BWOAPlayer = BWOPlayer or {}
 
 BWOAPlayer.tick = 0
@@ -19,25 +24,25 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_R, name=BodyPartType.Hand_
 table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_L, chance=10})
 
 local timeRevealMap = {
-    [1] = {hours = 29, person = "Emma Robinson", qid = "300.1"},
-    [2] = {hours = 65, person = "Emma Robinson", qid = "300.3"},
+    [1] = {hours = 29, person = "Emma_Robinson", qid = "300.1"},
+    [2] = {hours = 65, person = "Emma_Robinson", qid = "300.3"},
 }
 
 local roomRevealMap = {
-    ["GENERATOR_ROOM"]          = {person = "Emma Robinson", qid = "100.1"},
-    ["FOODGARDEN"]              = {person = "Emma Robinson", qid = "100.3"},
-    ["LIBRARY"]                 = {person = "Emma Robinson", qid = "100.4"},
-    ["CHAPEL"]                  = {person = "Emma Robinson", qid = "100.5"},
-    ["LABORATORY"]              = {person = "Emma Robinson", qid = "100.6"},
-    ["ARMORY"]                  = {person = "Emma Robinson", qid = "100.8"},
-    ["DECONTAMINATION_CHAMBER"] = {person = "Emma Robinson", qid = "100.9"},
-    ["AIRVENTROOM"]             = {person = "Emma Robinson", qid = "100.10"},
-    -- ["INCINERATOR_ROOM"]        = {person = "Emma Robinson", qid = "100.10"},
+    ["GENERATOR_ROOM"]          = {person = "Emma_Robinson", qid = "100.1"},
+    ["FOODGARDEN"]              = {person = "Emma_Robinson", qid = "100.3"},
+    ["LIBRARY"]                 = {person = "Emma_Robinson", qid = "100.4"},
+    ["CHAPEL"]                  = {person = "Emma_Robinson", qid = "100.5"},
+    ["LABORATORY"]              = {person = "Emma_Robinson", qid = "100.6"},
+    ["ARMORY"]                  = {person = "Emma_Robinson", qid = "100.8"},
+    ["DECONTAMINATION_CHAMBER"] = {person = "Emma_Robinson", qid = "100.9"},
+    ["AIRVENTROOM"]             = {person = "Emma_Robinson", qid = "100.10"},
+    -- ["INCINERATOR_ROOM"]        = {person = "Emma_Robinson", qid = "100.10"},
 }
 
 local traitRevealMap = {
-    {trait = CharacterTrait.SMOKER, person = "Emma Robinson", qid = "200.1"},
-    {trait = CharacterTrait.SHORT_SIGHTED, person = "Emma Robinson", qid = "200.2"},
+    {trait = CharacterTrait.SMOKER, person = "Emma_Robinson", qid = "200.1"},
+    {trait = CharacterTrait.SHORT_SIGHTED, person = "Emma_Robinson", qid = "200.2"},
 }
 
 local dreamRevealMap = {
@@ -343,7 +348,7 @@ local onPlayerUpdate = function(player)
                     BWOAMissions.Reveal(dreamData.rmid)
                 end
                 if dreamData.qid then
-                    BWOADialogues.Reveal("Emma Robinson", dreamData.qid)
+                    BWOADialogues.Reveal("Emma_Robinson", dreamData.qid)
                 end
                 if dreamData.txt then
                     BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 100)
@@ -577,7 +582,7 @@ local function everyOneMinute()
                 player:playEmote("feelfeint")
                 local sound = player:getDescriptor():getVoicePrefix() .. "PainFromGlassCut"
                 player:getEmitter():playVocals(sound)
-                BWOADialogues.Reveal("Emma Robinson", "1000.3")
+                BWOADialogues.Reveal("Emma_Robinson", "1000.3")
             end
         end
 
@@ -606,7 +611,7 @@ local function everyOneMinute()
                     local bz = player:getZ()
                     player:getChunk():addBloodSplat(bx, by, bz, ZombRand(20))
                 end
-                BWOADialogues.Reveal("Emma Robinson", "1000.3")
+                BWOADialogues.Reveal("Emma_Robinson", "1000.3")
             end
         end
 
@@ -684,7 +689,7 @@ local function everyOneMinute()
             enduranceExpected = 0.3
             panicExpected = 0.2
         elseif ventilation.co2 > 5000 then
-            BWOADialogues.Reveal("Emma Robinson", "1000.4")
+            BWOADialogues.Reveal("Emma_Robinson", "1000.4")
             sickExpected = 55
             headAcheExpected = 55
             fatigueExpected = 0.80

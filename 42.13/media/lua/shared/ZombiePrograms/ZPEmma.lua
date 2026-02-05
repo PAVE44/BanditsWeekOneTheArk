@@ -2,7 +2,7 @@ ZombiePrograms = ZombiePrograms or {}
 
 ZombiePrograms.Emma = {}
 
-ZombiePrograms.name = "Emma Robinson"
+ZombiePrograms.name = "Emma_Robinson"
 ZombiePrograms.Emma.Prepare = function(bandit)
     local tasks = {}
 

@@ -2,7 +2,7 @@ require "BWOADialogues"
 
 BWOADialogues.dialogues = BWOADialogues.dialogues or {}
 
-BWOADialogues.dialogues["Emma Robinson"] = {
+BWOADialogues.dialogues["Emma_Robinson"] = {
     ["1"] = {
         qst = "Who are you?",
         ans = "My name is Emma. I'm a survivor, just like you. I'm a doctor.",
@@ -29,7 +29,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["1.2.1.1"] = {
         qst = "Can I help with any of the issues here?",
-        ans = "Take your time and rest first. When you're ready, feel free to look around. We'll talk about the details later. I can promise, you'll not get bored with me.",
+        ans = "Take your time and rest first. When you're ready, feel free to look around. We'll talk about the details later. I can promise, you'll not get bored.",
         anim = "Calm",
         req = {"1.2.1", "3.1"},
     },
@@ -59,7 +59,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["1.2.3.1.2"] = {
         qst = "Who's Luke?",
-        ans = "Luke is our scientist. He works in the lab.",
+        ans = "Luke is our scientist. He works with me in the lab.",
         anim = "Talk3",
         req = {"1.2.3.1"},
     },
@@ -131,7 +131,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["3.1.1.1"] = {
         qst = "How did you know you could trust me, that I wasn't dangerous?",
-        ans = "We've all done things, but we all deserved a second chance.",
+        ans = "We've all done things. But we all deserved a second chance.",
         anim = "Gest1",
         req = {"3.1.1", "1", "2"},
     },
@@ -143,7 +143,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["3.1.1.1.1.1"] = {
         qst = "Show me! (Kung-Fu)",
-        ans = "Nah... I might still need you.",
+        ans = "Nah. I might still need you.",
         anim = "No",
         req = {"3.1.1.1.1"},
     },
@@ -205,7 +205,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
         anim = "Gest1",
         req = {"3.2.2"},
     },
-    ["3.2.2.1"] = {
+    ["3.2.2.2"] = {
         qst = "Are you immune too?",
         ans = "Yeah. At this point, everyone who's still human is considered immune.",
         anim = "GestYes",
@@ -220,7 +220,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["5"] = {
         qst = "Are there any other survivors outside the base?",
-        ans = "Yes, there are some living underground. ",
+        ans = "Yes. There are some living underground. ",
         anim = "GestYes",
         req = {"2.2.1", "1.2.3.1", "3.1.1", "3.2.1.1.1"},
     },
@@ -268,19 +268,19 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["100.1.2"] = {
         qst = "How do I use the power generators?",
-        ans = "Generators are operated by Noah, a central computer. However fuel is added manually through an inlet on the surface.",
+        ans = "Generators are operated by Noah - a central computer. However, fuel is added manually through an inlet on the surface.",
         anim = "Gest1",
         req = {"100.1"},
     },
     ["100.1.2.1"] = {
         qst = "Why do we have two generators?",
-        ans = "Redundancy for safety reasons. But also we switch to backup one, when we need to fix the main one.",
+        ans = "Redundancy for safety reasons. But also, we switch to backup one, when we need to fix the main one.",
         anim = "Gest1",
         req = {"100.1.2"},
     },
     ["100.1.2.2"] = {
         qst = "How much fuel do we have left?",
-        ans = "The only way to check is to use Noah, the central computer.",
+        ans = "The only way to check is to use Noah - the central computer.",
         anim = "Gest1",
         req = {"100.1.2"},
     },
@@ -292,7 +292,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["100.1.2.2.1.1"] = {
         qst = "How do we get more fuel?",
-        ans = "Fuel is a scarse resource. Our intel shows that there is a fuel truck located on Dixie Highway leading to Muldraugh Ruins. Can you get it here?",
+        ans = "Fuel is a scarce resource. Our intel shows that there is a fuel truck located on Dixie Highway leading to Muldraugh Ruins. Can you get it here?",
         anim = "Gest1",
         req = {"100.1.2.2.1"},
         func = "RevealMission",
@@ -314,7 +314,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["100.3"] = {
         qst = "I found a garden.",
-        ans = "Perfect! Enjoy the food, but also take care of the plants, Martha's gone now.",
+        ans = "Perfect! Enjoy the food, but also take care of the plants.",
         anim = "GestYes",
         req = {"1.2.1.1"},
         hidden = true
@@ -341,7 +341,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["100.5.1"] = {
         qst = "How can you still believe after all of this?",
-        ans = "To be honest, faith is all I have left. ",
+        ans = "To be honest, faith is all we might have left. ",
         anim = "Gest1",
         req = {"100.5"},
     },
@@ -360,7 +360,7 @@ BWOADialogues.dialogues["Emma Robinson"] = {
     },
     ["100.6.1.1"] = {
         qst = "Are you saying you are looking for a cure?",
-        ans = "I don't know, but we have to start somewhere.",
+        ans = "I don't know. But we have to start somewhere.",
         anim = "Shrug",
         req = {"100.6.1"},
     },

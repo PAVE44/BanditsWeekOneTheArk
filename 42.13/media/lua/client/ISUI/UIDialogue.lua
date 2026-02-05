@@ -46,7 +46,8 @@ function UIDialogue:initialise()
 
     self.dialListBox.onMouseUp = function(listBox, x, y)
         local itemText = listBox.items[listBox.selected].item.qst
-        BWOAChat.Say(itemText, self.person)
+        local itemId = listBox.items[listBox.selected].item.index
+        BWOAChat.Say(itemId, itemText, self.person)
         self:destroy()
     end
     

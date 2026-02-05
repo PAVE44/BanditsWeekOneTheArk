@@ -7,10 +7,13 @@ ZombieActions.Talk.onStart = function(zombie, task)
     end
 
     if task.sound then
-        zombie:playSound(task.sound)
+        local bx, by, bz = zombie:getX(), zombie:getY(), zombie:getZ()
+        BWOASound.PlayLocation({x = bx, y = by, z = bz, sound = task.sound})
     end
     return true
 end
+
+
 
 ZombieActions.Talk.onWorking = function(zombie, task)
 
