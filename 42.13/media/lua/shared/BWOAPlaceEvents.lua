@@ -81,6 +81,13 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 70,
     },
+    ["SecretLab"] = {
+        scene = "SecretLab",
+        x = 5560,
+        y = 12500,
+        z = 0,
+        renderDist = 40,
+    },
 
 }
 

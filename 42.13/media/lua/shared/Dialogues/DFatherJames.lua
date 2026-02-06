@@ -5,7 +5,7 @@ BWOADialogues.dialogues = BWOADialogues.dialogues or {}
 BWOADialogues.dialogues["Father_James"] = {
     ["1"] = {
         qst = "Who are you?",
-        ans = "My name is Father James. I'm a catholic priest. If have nothing to give. You can have my life, that is all I have left to give.",
+        ans = "My name is Father James. I have nothing to give. You can have my life, that is all what is left.",
         anim = "Pray",
         req = {},
     },
@@ -35,7 +35,7 @@ BWOADialogues.dialogues["Father_James"] = {
     },
     ["3.1"] = {
         qst = "Father James. Please, allow yourself to be saved!",
-        ans = "We are already saved by our Lord. I need not more salvation. Why are you here?",
+        ans = "We are already saved by our Lord. I need not more salvation. Why are you here anyway?",
         anim = "Pray",
         req = {"3"},
     },
@@ -71,7 +71,7 @@ BWOADialogues.dialogues["Father_James"] = {
     },
     ["3.1.1.1.3"] = {
         qst = "I have seen terrible things Father.",
-        ans = "We all did, trust in the Lord and protect what you hold dear.",
+        ans = "We all did. Trust in the Lord and protect what you hold dear.",
         anim = "Pray",
         req = {"3.1.1.1.1"},
     },
@@ -101,7 +101,7 @@ BWOADialogues.dialogues["Father_James"] = {
     },
     ["4.1.1"] = {
         qst = "How exactly did you try to stop it?",
-        ans = "We studied old documents. We suspected this was not the first time. We searched for a way to prevent it—but we failed. May God have mercy on our souls.",
+        ans = "We studied old documents. We suspected this was not the first time. We searched for a way to prevent it — but we failed. May God have mercy on our souls.",
         anim = "Pray",
         req = {"4.1"},
     },
