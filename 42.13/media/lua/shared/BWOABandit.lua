@@ -32,5 +32,5 @@ Bandit.banditMap.Emma.Defend = "e97500bf-0534-401a-822a-7891dc8881d5"
 
 
 Bandit.prg2person = {}
-Bandit.prg2person["Emma"] = "Emma Robinson"
-Bandit.prg2person["James"] = "Father James"
+Bandit.prg2person["Emma"] = "Emma_Robinson"
+Bandit.prg2person["James"] = "Father_James"

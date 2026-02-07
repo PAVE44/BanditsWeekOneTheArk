@@ -60,6 +60,20 @@ BWOASound.noahSounds = {
     ["STORAGEAREAFOUR"] = "NoahStorageAreaFour",
 }
 
+local function fixVolume(volume)
+    local volumeMain = getSoundManager():getSoundVolume()
+    local volumeZoom = 1
+
+    local player = getSpecificPlayer(0)
+    if player then
+        local playerNum = player:getPlayerNum()
+        local zoom = 1 / getCore():getZoom(playerNum)
+        volumeZoom = BanditUtils.Lerp(zoom, 0.4, 4, 0.2, 1)
+    end
+
+    return volume * volumeMain * volumeZoom
+end
+
 BWOASound.PlayPlayer = function(tab)
     local player = getSpecificPlayer(0)
     player:playSound(tab.sound)
@@ -70,7 +84,7 @@ BWOASound.PlayLocation = function(tab)
     if square then
         local emitter = getWorld():getFreeEmitter(tab.x, tab.y, tab.z)
         local id = emitter:playSound(tab.sound)
-        emitter:setVolume(id, getSoundManager():getSoundVolume())
+        emitter:setVolume(id, fixVolume(1))
     end
 end
 
@@ -147,7 +161,7 @@ local function onTick()
     local gmd = GetBWOAModData()
     local power = BWOABaseControl.power
 
-    local volume = getSoundManager():getSoundVolume()
+    local volume = fixVolume(1)
     local volumeNoah = volume * 1.5
 
     -- ambient looped emitter

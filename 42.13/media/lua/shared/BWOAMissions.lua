@@ -66,7 +66,7 @@ BWOAMissions.missions = {
     },
     [111] = {
         name = "Find the doctor's house",
-        desc = "The doctor's house is located near his clinic in Muldraugh.",
+        desc = "One of the research team's home addresses points to a location that can be reached.",
     },
 }
 

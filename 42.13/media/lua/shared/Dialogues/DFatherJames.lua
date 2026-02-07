@@ -1,9 +1,11 @@
+require "BWOADialogues"
+
 BWOADialogues.dialogues = BWOADialogues.dialogues or {}
 
-BWOADialogues.dialogues["Father James"] = {
+BWOADialogues.dialogues["Father_James"] = {
     ["1"] = {
         qst = "Who are you?",
-        ans = "My name is Father James. I'm a catholic priest. If have nothing to give. You can have my life, that is all I have left to give.",
+        ans = "My name is Father James. I have nothing to give. You can have my life, that is all what is left.",
         anim = "Pray",
         req = {},
     },
@@ -13,6 +15,18 @@ BWOADialogues.dialogues["Father James"] = {
         anim = "Pray",
         req = {},
     },
+    ["2.1"] = {
+        qst = "How long have you been here?",
+        ans = "I'm not sure really.",
+        anim = "Pray",
+        req = {"2"},
+    },
+    ["2.1.1"] = {
+        qst = "This place was sealed, how did you get in here?",
+        ans = "I bricked up the entrance and myself in here.",
+        anim = "Pray",
+        req = {"2.1"},
+    },
     ["3"] = {
         qst = "Father, you don't need to be here. We have a shelter. Come with me!",
         ans = "This place is where I belong.",
@@ -21,7 +35,7 @@ BWOADialogues.dialogues["Father James"] = {
     },
     ["3.1"] = {
         qst = "Father James. Please, allow yourself to be saved!",
-        ans = "We are already saved by our Lord. I need not more salvation. Why are you here?",
+        ans = "We are already saved by our Lord. I need not more salvation. Why are you here anyway?",
         anim = "Pray",
         req = {"3"},
     },
@@ -57,7 +71,7 @@ BWOADialogues.dialogues["Father James"] = {
     },
     ["3.1.1.1.3"] = {
         qst = "I have seen terrible things Father.",
-        ans = "We all did, trust in the Lord and protect what you hold dear.",
+        ans = "We all did. Trust in the Lord and protect what you hold dear.",
         anim = "Pray",
         req = {"3.1.1.1.1"},
     },
@@ -74,10 +88,39 @@ BWOADialogues.dialogues["Father James"] = {
         req = {"3.1.1.1.3.1"},
     },
     ["4"] = {
-        qst = "Thank you father, I must go now.",
-        ans = "God bless you on your journey my son!",
+        qst = "I read a note that led me here.",
+        ans = "I see.",
+        anim = "Pray",
+        req = {"1", "2"},
+    },
+    ["4.1"] = {
+        qst = "What kind of meetings were held in this place?",
+        ans = "We tried to stop it, but we failed. May God have mercy on our souls.",
+        anim = "Pray",
+        req = {"4"},
+    },
+    ["4.1.1"] = {
+        qst = "How exactly did you try to stop it?",
+        ans = "We studied old documents. We suspected this was not the first time. We searched for a way to prevent it — but we failed. May God have mercy on our souls.",
+        anim = "Pray",
+        req = {"4.1"},
+    },
+    ["4.1.1.1"] = {
+        qst = "Please tell me more, Father. What documents? Can I do something?",
+        ans = "The Eastern Church wrote of it. We believed it to be a syncretism of faith and local tradition, but it carried a deeper meaning. All signs pointed to cleansing rituals using herbs, most notably comfrey. They used it because they struggled with the dead. Do you understand?",
+        anim = "Pray",
+        req = {"4.1.1"},
+    },
+    ["4.1.1.1.1"] = {
+        qst = "Comfrey? Why comfrey?",
+        ans = "I am no scientist, my child. But if you still have hope, what I have said may guide you. Look at the note on the table.",
+        anim = "Pray",
+        req = {"4.1.1.1"},
+    },
+    ["5"] = {
+        qst = "Thank you, Father. I must go now.",
+        ans = "May God bless you on your journey, my son.",
         anim = "Pray",
         req = {"3.1.1.1.3.1", "3.1.1.1.2", "3.1.1.1.1.1"},
     },
-
 }

@@ -15,6 +15,16 @@ end
 function BWOAScenes.EkronChurch:placeItems()
     local x, y, z = self.x, self.y, self.z
 
+    -- entrance
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.BucketConcreteFull", {x=0.59, y=0.10, z=0.00, rx=0, ry=0, rz=307})
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.ClayBrick", {x=0.70, y=0.72, z=0.00, rx=0, ry=0, rz=115})
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.ClayBrick", {x=0.63, y=0.64, z=0.00, rx=0, ry=0, rz=129})
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.ClayBrick", {x=0.18, y=0.12, z=0.00, rx=0, ry=0, rz=171})
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.ClayBrick", {x=0.42, y=0.14, z=0.00, rx=0, ry=0, rz=89})
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.ClayBrick", {x=0.36, y=0.28, z=0.00, rx=0, ry=0, rz=340})
+    BWOAPrepareTools.AddWorldItem(447, 9939, -1, "Base.MasonsTrowel", {x=0.46, y=0.55, z=0.00, rx=0, ry=0, rz=308})
+
+    -- interior
     BWOAPrepareTools.AddWorldItem(439, 9925, -2, "Base.Book_Religion", {x=0.41, y=0.40, z=0.33, rx=0, ry=0, rz=75})
     BWOAPrepareTools.AddWorldItem(439, 9925, -2, "Base.Book_Religion", {x=0.48, y=0.83, z=0.37, rx=0, ry=0, rz=0})
     BWOAPrepareTools.AddWorldItem(439, 9925, -2, "Base.Book_Religion", {x=0.48, y=0.48, z=0.38, rx=0, ry=0, rz=81})

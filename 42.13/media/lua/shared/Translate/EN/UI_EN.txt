@@ -33,7 +33,7 @@ UI_EN = {
 
     UI_quick_tip19 = "Didn't catch what Emma said? You can ask her to repeat it.",
     UI_quick_tip20 = "Carry a spare mask in case of filter failure.",
-    UI_quick_tip21 = "Bundle up—it's cold outside.",
+    UI_quick_tip21 = "Bundle up — it's cold outside.",
     UI_quick_tip22 = "Press T to talk. Hold Q for other interactions with people.",
     UI_quick_tip23 = "You can never have enough insulated clothing.",
 

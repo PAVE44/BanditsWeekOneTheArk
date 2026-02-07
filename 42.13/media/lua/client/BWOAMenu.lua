@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.61"
+BWOAMenu.version = "0.63"
 
 BWOAMenu.blinking = {}
 
@@ -225,19 +225,25 @@ function BWOAMenu.MakeBasement(player, square)
 end
 
 function BWOAMenu.LavaLake(player, square)
+    local cell = getCell()
+    local sx, sy, sz = square:getX(), square:getY(), square:getZ()
+    local r = 10
 
-    local effect = {}
-    effect.x = square:getX()
-    effect.y = square:getY()
-    effect.z = 0
-    effect.size = 1312
-    effect.name = "lava"
-    effect.frameCnt = 1
-    effect.frameRnd = false
-    effect.repCnt = 80
-    effect.alpha = 1
-    effect.colors = {r=1.0, g=0.0, b=0.0, a=1}
-    BWOAEventControl.Add("Effect", effect, 1)
+    BWOABuildTools.Generator(sx, sy, sz - 3, 100, 100, true, true)
+
+    for x = sx - r, sx + r do
+        for y = sy - r, sy + r do
+            if BWOAUtils.IsInCircle(x, y, sx, sy, r) then
+                BWOABuildTools.Generic (x, y, sz, "theark_02_0")
+                -- if x % 2 == 0 and y % 2 == 0 then
+                    local heatsource = IsoHeatSource.new(x, y, sz, 7, 200)
+                    cell:addHeatSource(heatsource)
+                -- end
+            end
+        end
+    end
+
+    
 end
 
 function BWOAMenu.Teleport(player)
@@ -367,7 +373,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
-        BWOASound.PlayPlayer({sound="AngelProximity"})
+        -- BWOASound.PlayPlayer({sound="AngelProximity"})
 
         print (SandboxVars.Basement.SpawnFrequency)
         local test = SandboxVars

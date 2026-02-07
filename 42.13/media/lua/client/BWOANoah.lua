@@ -336,7 +336,7 @@ end
 
 BWOANoah.Screens.Ventilation = function()
 
-    BWOADialogues.Reveal("Emma Robinson", "100.2")
+    BWOADialogues.Reveal("Emma_Robinson", "100.2")
 
     local gmd = GetBWOAModData()
 

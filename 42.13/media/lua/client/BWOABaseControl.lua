@@ -284,19 +284,19 @@ local function manageVentilation()
         
         for _, airintake in pairs(airintakes) do
             if not airintake.broken then
-                co2Reduction = co2Reduction + 2
+                co2Reduction = co2Reduction + 4
             end
         end
     end
 
-    local co2BuildUp = 7
+    local co2BuildUp = 13
 
     ventilation.co2 = ventilation.co2 + co2BuildUp - co2Reduction
 
     if  co2BuildUp > co2Reduction then
-        BWOADialogues.Reveal("Emma Robinson", "1000.5")
+        BWOADialogues.Reveal("Emma_Robinson", "1000.5")
     else
-        BWOADialogues.Hide("Emma Robinson", "1000.5")
+        BWOADialogues.Hide("Emma_Robinson", "1000.5")
     end
 
     if ventilation.co2 < 400 then ventilation.co2 = 400 end

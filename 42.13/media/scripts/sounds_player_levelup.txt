@@ -1,0 +1,12 @@
+module Base
+{
+	sound GainExperienceLevel
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/dream_6_end.ogg,
+			volume = 1,
+		}
+	}
+}

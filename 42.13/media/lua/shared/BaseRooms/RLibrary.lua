@@ -33,7 +33,7 @@ end
 BWOARooms.Library.Build = function ()
     BWOARooms.Library.Init()
 
-    BWOAPrepareTools.DarkenLight(9959, 12607, -4)
+    -- BWOAPrepareTools.DarkenLight(9959, 12607, -4) -- generates error for some reason
 
     BWOABuildTools.ELS(BWOARooms.Library.els)
     BWOABuildTools.EmergencyExitW(9959, 12606, -4)
