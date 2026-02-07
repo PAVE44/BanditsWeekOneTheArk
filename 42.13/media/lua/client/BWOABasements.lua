@@ -46,10 +46,65 @@ local function addDynamicBasementZones()
     )
 end
 
+-- NORTH STAIRS:
+
+-- WEST STAIRS:
+-- lot_basement_house_49_east - room with trophies, room with crates with ammo
+-- lot_basement_house_54_east - room with and computers and jukebox and tv and small fridge, storageroom with 2 metalshelves
+-- lot_basement_house_55_east - room with many bookshelves - librarylike, reading armchair and standing lamp
+-- lot_basement_house_56_east - room with washing machines, room with shelves and tools, room with crates
+-- lot_basement_house_58_east - room with shelves with tools, cardboxes, floodlight and table
+-- lot_basement_house_59_east - big room with unfinished interior walls, shelf and crates
+-- lot_basement_house_61_east - big room with percussion, wood logs, antique stove and boiler
+-- lot_basement_house_62_B_east - big room with shop shelves with clothes, mirror, table
+-- lot_basement_house_62_C_east - big room with shop racks with clothes, mirror, table, armchair
+-- lot_basement_house_62_east - big room with shop racks with clothes, mirror, table, armchair
+-- lot_basement_house_64_east - audiopile basement, nice walls
+-- lot_basement_house_65_east - one room like poor kitchen with boiler, second room with antique stove and many logs
+-- lot_basement_house_57 - nice walls, room with bed and table, 2nd identical room with bed and table, lobby with couch, computer, tv, separate storage area, room with metal shelve and washing machines
+-- lot_basement_house_63 - one quite big room with kitchen anex and many metal shelves, picture of woman on wall
+-- lot_basement_house_64_east 
+-- lot_basement_house_66 - one room with speakers, tv2, guitar amp, ham radio, tables and some shelves
+-- lot_basement_house_67_east - one room with a metal prison cage 2x2
+-- lot_basement_house_68_east - small room with audio speakers and couch, second room with darts and american flag, small room with metal shelves, long corridor with counters
+-- lot_basement_house_69 - 3 level base with everything
+-- lot_basement_house_E2_01 - one small room with washing mashines and metal shelves, sink
+-- lot_basement_house_E2_02 - gym, metalshelf and metal cabinet
+-- lot_basement_house_E2_03 - two metal  shelves, washing mashines, 2 fridges, cardboxes, electroboxes
+-- lot_basement_house_E2_04  - two metal  shelves, washing mashines, 2 metal cabinets
+-- lot_basement_house_E2_05 - one room with carboxes, metal shelf and table +chair, room with toilet, room with pietrowe bed and sink, room with kitchen, room with shower
+-- lot_basement_house_E_01 - room with boiler, washing mashines, metal shelf, carboxes and electrobox
+-- lot_basement_house_E_02 - room with ammo box, cardboxes, desk and chair, small gym
+-- lot_basement_house_E_03 - room with gym equip, electrobox, water pump
+-- lot_basement_house_E_04 - room pretty empty, just 2 electroboxes, some chairsa and cardboxes and 2 metal barrels
+-- lot_basement_house_E_05 - central room with kitchen and diner area and hamradio, room with pietrowe lozko and sink, room toilet, storage room with fridge, medical room with shower
+-- lot_basement_house_medium_38_westpoint - anvil, loom, jukebox, flippers, sofa, cardboxes, couch
+-- lot_basement_house_06_B_east - room with poolbilard and american flag, storage rtoom, main room with sofa, kitchen
+-- lot_basement_house_06_C_east - room with double bed big, storage rtoom, main room shelves
+-- lot_basement_house_06_D_east - room with percussion, microphone, storage room with no shelves, main room with logs and stove
+-- lot_basement_house_06_E_east -poker room, , storage rooms, main room with crap
+-- lot_basement_house_06_F_east -empty flower pots room, , storage rooms, main room with sofas
+-- lot_basement_house_06_G_east -logs and stove room, , storage room empty, main room with crap
+-- lot_basement_house_06_H_east -many desks with computers room,  storage room, main room with crap
+-- lot_basement_house_06_I_east - room with trophies, storage room, main room with crap
+-- lot_basement_house_07_B_east - very small, crates
+-- lot_basement_house_07_C_east - very small, empty
+-- lot_basement_house_07_D_east - very small, washing machines
+-- lot_basement_house_07_east - very small, shelf
+-- lot_basement_house_08 - room with bool bilard, room with 5 shelves
+-- lot_basement_house_08_B - 2 rooms with crates
+-- lot_basement_house_08_C - 2 rooms with logs and stove
+-- lot_basement_house_08_D - 2 rooms with percussion and kitchen
+-- lot_basement_house_08_E - 2 rooms hazard, bar, and storage
+
+
+
+
 local procedural_basement_spawn_locations = {
     {x=10183, y=12634, stairDir="N", choices={"lot_basement_house_01"}}, -- vhs secret room
-    {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_01"}}, -- hunter house
-    {x=8114, y=12226, stairDir="W", choices={"lot_basement_house_06_B_east"}}, -- fisherman house
+    {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_49_east"}}, -- hunter house
+    -- {x=8113, y=12221, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_44_east"}}, -- fisherman  house
+    {x=8340, y=11755, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_06_F_east"}}, -- farmer house
     {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
 
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},
