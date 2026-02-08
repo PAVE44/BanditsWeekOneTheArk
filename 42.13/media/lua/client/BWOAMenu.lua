@@ -442,7 +442,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         end
 
         -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
-        -- context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
+        context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         -- eventsMenu:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
 
     end
@@ -452,52 +452,89 @@ local function onFillInventoryObjectContextMenu(playerNum, context, items)
     -- print ("test")
 end
 
+BWOAMenu.tick = 0
+BWOAMenu.highlightClusters = nil
+
 local updateHighlight = function()
-    BWOAMenu.blinking = {}
+
+    if BWOAMenu.tick >= 16 then
+        BWOAMenu.tick = 0
+    end
+
+    local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
+    if not BWOAMenu.highlightClusters then
+        BWOAMenu.highlightClusters = {}
+        BWOABuildings.LoadHatches()
+        for sname, sobject in pairs(specialObjectsHighlight) do
+            local cluster = (sobject.x + sobject.y) % 16
+            if not BWOAMenu.highlightClusters[cluster] then
+                BWOAMenu.highlightClusters[cluster] = {}
+            end
+            table.insert(BWOAMenu.highlightClusters[cluster], sobject)
+        end
+    end
+    
 
     local cell = getCell()
     local playerList = BanditPlayer.GetPlayers()
-    local dist = 6
 
-    local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
-    for sname, sobject in pairs(specialObjectsHighlight) do
-        for i=0, playerList:size()-1 do
-            local player = playerList:get(i)
-            if player then
-                local px, py = player:getX(), player:getY()
-                if math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then 
-                    local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
-                    if square then
-                        local objects = square:getObjects()
-                        local found = false
-                        for i=objects:size()-1, 0, -1 do
-                            local object = objects:get(i)
-                            local sprite = object:getSprite()
-                            if sprite then
-                                spriteName = sprite:getName()
-                                if spriteName == sobject.spriteName then
-                                    if sobject.highLightFunc(player) then
-                                        table.insert(BWOAMenu.blinking, object)
-                                        object:setHighlighted(0, true)
-                                        object:setHighlightColor(1, 0.5, 0, 1)
-                                        object:setBlink(true)
+    local specialObjectsHighlightCluster = BWOAMenu.highlightClusters[BWOAMenu.tick]
+    if specialObjectsHighlightCluster then
+        local ts = getTimestampMs()
+        local i = 0
+        for _, sobject in ipairs(specialObjectsHighlightCluster) do
+            i = i + 1
+            local dist = sobject.dist and sobject.dist or 5
+            local id = sobject.x .. "-" .. sobject.y
+            for i=0, playerList:size()-1 do
+                local player = playerList:get(i)
+                if player then
+                    local px, py = player:getX(), player:getY()
+                    if math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then 
+                        local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
+                        if square then
+                            local objects = square:getObjects()
+                            local found = false
+                            for i=objects:size()-1, 0, -1 do
+                                local object = objects:get(i)
+                                local sprite = object:getSprite()
+                                if sprite then
+                                    spriteName = sprite:getName()
+                                    if spriteName == sobject.spriteName then
+                                        if sobject.highLightFunc(player) then
+                                            BWOAMenu.blinking[id] = object
+                                            object:setHighlighted(0, true)
+                                            object:setHighlightColor(1, 0.5, 0, 1)
+                                            object:setBlink(true)
+                                        end
+                                        found = true
+                                        break
                                     end
-                                    found = true
-                                    break
                                 end
                             end
-                        end
 
-                        if not found and not sobject.destroyable then
-                            BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
+                            if not found and not sobject.destroyable then
+                                BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
+                            end
                         end
+                    else
+                        BWOAMenu.blinking[id] = nil
                     end
-                elseif math.abs(px - sobject.x) < 50 and math.abs(py - sobject.y) < 50 then 
-                    print ("Hatch close at " .. tostring(sobject.x) .. ", " .. tostring(sobject.y))
                 end
             end
         end
+        -- print ("update highlight time: " .. (getTimestampMs() - ts) .. " iters: " .. i)
     end
+
+    local blinking = BWOAMenu.blinking
+    for _, object in pairs(blinking) do
+        object:setHighlighted(0, true)
+        object:setHighlightColor(1, 0.5, 0, 1)
+        object:setBlink(true)
+    end
+
+    -- tick update
+    BWOAMenu.tick = BWOAMenu.tick + 1
 end
 
 local blink = function(player)
@@ -516,8 +553,8 @@ Events.OnPreFillWorldObjectContextMenu.Add(onPreFillWorldObjectContextMenu)
 Events.OnFillInventoryObjectContextMenu.Remove(onFillInventoryObjectContextMenu)
 Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryObjectContextMenu)
 
-Events.EveryOneMinute.Remove(updateHighlight)
-Events.EveryOneMinute.Add(updateHighlight)
+Events.OnPlayerUpdate.Remove(updateHighlight)
+Events.OnPlayerUpdate.Add(updateHighlight)
 
-Events.OnPlayerUpdate.Remove(blink)
-Events.OnPlayerUpdate.Add(blink)
+-- Events.OnPlayerUpdate.Remove(blink)
+-- Events.OnPlayerUpdate.Add(blink)

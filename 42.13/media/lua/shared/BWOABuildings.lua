@@ -26,7 +26,7 @@ BWOABuildings.LoadHatches = function()
     for id, hatch in pairs(gmd.hatches) do
         local k = "Hatch-" .. id
         BWOAMenu.specialObjectsHighlight[k] = {
-            x = hatch.x, y = hatch.y, z = 0, spriteName = "street_decoration_01_15", option = "Open Hatch", 
+            x = hatch.x, y = hatch.y, z = 0, spriteName = "street_decoration_01_15", option = "Open Hatch", dist = 20,
             highLightFunc = BWOAMenu.specialObjectsCanHighlight.Hatch,
             actionFunc = BWOAMenu.specialObjectsAction.Hatch
         }
@@ -89,4 +89,7 @@ BWOABuildings.RemoveHatch = function(x, y)
 
     local k = "Hatch-" .. id
     BWOAMenu.specialObjectsHighlight[k] = nil
+
+    -- triggers highlight rebuild
+    BWOAMenu.highlightClusters = nil
 end

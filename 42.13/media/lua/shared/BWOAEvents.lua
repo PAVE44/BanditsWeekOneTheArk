@@ -126,7 +126,7 @@ BWOAEvents.SayBandit = function(params)
     local speaker = BanditZombie.GetInstanceById(params.id)
     if speaker then
         Bandit.ClearTasks(speaker)
-        local task = {action="Talk", anim=params.anim, txt=params.txt, sound=params.sound, x=player:getX(), y=player:getY(), time=2000}
+        local task = {action="Talk", anim=params.anim, txt=params.txt, voice=params.sound, x=player:getX(), y=player:getY(), time=2000}
         Bandit.AddTask(speaker, task)
     end
 end

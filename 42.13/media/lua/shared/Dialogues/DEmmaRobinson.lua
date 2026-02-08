@@ -433,7 +433,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     -- trait reveal
     ["200.1"] = {
         qst = "Do you have a cigarette?",
-        ans = "I quit. But I do carry one last with me. Here, enjoy.",
+        ans = "I quit. But, I do carry one last with me. Here, enjoy.",
         anim = "Give",
         req = {},
         hidden = true,
@@ -450,7 +450,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["200.1.2"] = {
         qst = "Why did you carry a cigarrete if you quit?",
-        ans = "I planned to smoke it after getting bit, but it never happened.",
+        ans = "I planned to smoke it after getting bit. But it never happened.",
         anim = "Gest1",
         req = {"200.1"},
     },
@@ -514,7 +514,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["300.3"] = {
         qst = "I never had a chance to thank you for saving me.",
-        ans = "Sure thing! Every sould counts",
+        ans = "Sure thing! Every soul counts.",
         anim = "GestYes",
         req = {"100.1.2.2.1.1.1"},
         hidden = true,
@@ -536,7 +536,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["1000.2"] = {
         qst = "Is the power out?",
-        ans = "Yes. We need to check the generator and fuel levels.",
+        ans = "Shit! We need to check the generator and fuel levels!",
         anim = "GestYes",
         req = {},
         hidden = true
@@ -550,7 +550,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["1000.3.1"] = {
         qst = "How can we recover from radiation poisoning?",
-        ans = "Take a shower and some potassioum iodine pills immediately!",
+        ans = "Take some potassioum iodine pills immediately!",
         anim = "Gest1",
         req = {"1000.3"},
     },
@@ -581,7 +581,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     -- dream related
     ["2000.1"] = {
         qst = "I had a terrible dream...",
-        ans = "It's ok, just a dream. You're safe here.",
+        ans = "It's ok, it's just a dream. You're safe here.",
         anim = "Calm",
         req = {},
         hidden = true,
@@ -595,14 +595,14 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["2000.3"] = {
         qst = "Dream again. Now, I remember what happened to me.",
-        ans = "What did you dream about exactly?.",
+        ans = "What did you dream about exactly?",
         anim = "Calm",
         req = {},
         hidden = true,
     },
     ["2000.3.1"] = {
         qst = "My last dream was about me surrounded by zombies with little chance of survival.",
-        ans = "Yes, that's when found you. You were moments away from getting bitten. Hopefully we got to you in time.",
+        ans = "Yes, that's when we found you. You were moments away from getting bitten. Hopefully we got to you in time.",
         anim = "Yes",
         req = {"2000.3"},
     },
@@ -621,7 +621,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["2000.4.1.1"] = {
         qst = "In my dream, the voice told me about a shattered seal... And about a judgement of some kind.",
-        ans = "I'm a doctor, but not a shirnk. ",
+        ans = "I'm a doctor, but not a shrink. ",
         anim = "GestNo",
         req = {"2000.4.1"},
     },
@@ -634,7 +634,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["2000.6"] = {
         qst = "I know you don't want to hear about my dreams, but... ",
-        ans = "Stop! Get it togheter, ok? This is not helping anyone!",
+        ans = "Stop! Get it together, ok? This is not helping anyone!",
         anim = "Calm",
         req = {"2000.5"},
         hidden = true,

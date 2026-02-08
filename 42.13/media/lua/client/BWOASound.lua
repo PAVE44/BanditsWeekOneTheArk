@@ -79,6 +79,13 @@ BWOASound.PlayPlayer = function(tab)
     player:playSound(tab.sound)
 end
 
+BWOASound.PlayCharacter = function(tab)
+    local character = tab.character
+    local emitter = character:getEmitter()
+    local id = emitter:playSound(tab.sound)
+    emitter:setVolume(id, fixVolume(1))
+end
+
 BWOASound.PlayLocation = function(tab)
     local square = getCell():getGridSquare(tab.x, tab.y, tab.z)
     if square then
