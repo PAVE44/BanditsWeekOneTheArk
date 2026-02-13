@@ -406,8 +406,14 @@ local function everyOneMinute()
     end
 
     local mask = player:getWornItem(ItemBodyLocation.MASK_EYES)
+    if not mask then
+         mask = player:getWornItem(ItemBodyLocation.FULL_HAT)
+    end
+    if not mask then
+         mask = player:getWornItem(ItemBodyLocation.SCBA)
+    end
     if mask then
-        if mask:hasTag(ItemTag.GAS_MASK) then
+        if mask:hasTag(ItemTag.GAS_MASK) or mask:hasTag(ItemTag.SCBA) then
             hasMask = true
             local filter = mask:getUsedDelta()
             filter = filter - 0.001

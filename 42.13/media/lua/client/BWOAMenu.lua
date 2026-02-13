@@ -403,7 +403,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     end 
     print ("Hatch count: " .. tostring(i - 4))
 
-    if isDebugEnabled() then
+    if isDebugEnabled() or isAdmin() then
 
         --[[
         for x = px - 40, px + 40 do
@@ -452,7 +452,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             print ("BID: " .. def:getX() .. "-" .. def:getY())
         end
 
-        saveItems(square)
+        Bandit.EnsureWhitelistedBandits()
+        -- saveItems(square)
 
         context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
         

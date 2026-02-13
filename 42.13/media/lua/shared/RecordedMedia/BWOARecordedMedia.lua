@@ -1,6 +1,5 @@
 RecMedia = RecMedia or {}
 
--- Media: Retail VHS: Electrical Ethan E1 [id: 9d1905c7-fd72-4717-8994-e952ec8edc7d]
 RecMedia["d5fe3df0-5e3b-0146-0001-000000000000"] = {
 	itemDisplayName = "RM_d5fe3df0-5e3b-0146-0001-00000000000a",
 	title = "RM_d5fe3df0-5e3b-0146-0001-00000000000b",

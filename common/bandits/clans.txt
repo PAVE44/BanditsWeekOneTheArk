@@ -47,7 +47,7 @@
 	spawn: zone = 0
 
 [2464da7c-5a04-4739-8237-e7b23f5ffa4a]
-	general: name = W1A_Surf_1
+	general: name = W1A_Deathsquad
 	spawn: friendly = false
 	spawn: companion = false
 	spawn: defenders = false
@@ -57,9 +57,9 @@
 	spawn: roadblock = false
 	spawn: dayStart = 0
 	spawn: dayEnd = 10000
-	spawn: spawnChance = 0
-	spawn: groupMin = 1
-	spawn: groupMax = 10
+	spawn: spawnChance = 0.1
+	spawn: groupMin = 2
+	spawn: groupMax = 4
 	spawn: zone = 0
 
 [a0ee0049-ee12-403e-9148-172d9029cc7c]
@@ -132,14 +132,14 @@
 	spawn: companion = false
 	spawn: defenders = false
 	spawn: campers = false
-	spawn: assault = false
+	spawn: assault = true
 	spawn: wanderer = false
 	spawn: roadblock = false
-	spawn: dayStart = 0
-	spawn: dayEnd = 10000
-	spawn: spawnChance = 0
-	spawn: groupMin = 1
-	spawn: groupMax = 10
+	spawn: dayStart = 3
+	spawn: dayEnd = 180
+	spawn: spawnChance = 0.14
+	spawn: groupMin = 2
+	spawn: groupMax = 3
 	spawn: zone = 0
 
 [06419731-fb8f-463f-98a3-d99c1fa0ef58]
@@ -148,13 +148,16 @@
 	spawn: companion = false
 	spawn: defenders = false
 	spawn: campers = false
-	spawn: assault = false
+	spawn: assault = true
 	spawn: wanderer = false
-	spawn: roadblock = false
-	spawn: dayStart = 1
-	spawn: dayEnd = 10000
-	spawn: spawnChance = 0
-	spawn: groupMin = 1
-	spawn: groupMax = 10
+	spawn: roadblock = true
+	spawn: dayStart = 6
+	spawn: dayEnd = 184
+	spawn: spawnChance = 0.12
+	spawn: groupMin = 3
+	spawn: groupMax = 5
 	spawn: zone = 0
+
+[3f5a2e61-8f0c-4a82-baff-98c174b786ae]
+	general: name = Untitled
 

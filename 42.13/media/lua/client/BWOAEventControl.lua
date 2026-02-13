@@ -1,20 +1,28 @@
+require "BanditCustom"
+require "BanditUtils"
+require "BanditEventMarkerHandler"
+require "BWOASequence"
+require "BWOAEvents"
+require "BWOAPlaceEvents"
+require "BWOASound"
+
 BWOAEventControl = BWOAEventControl or {}
 
 -- table for enqueued events
 BWOAEventControl.Events = {}
 
 local schedule = {
-    -- 17.00
+    
 
-    [0] = {
+    [0] = { -- D1 17.00
         [2] = {"Chapter", {tex = "chapter_1"}},
         [3] = {"SayPlayer", {txt = "What the hell?"}},
     },
-    [1] = {
+    [1] = { -- D1 18.00
         [7] = {"Spooky", {cnt = 1}},
         [8] = {"SayPlayer", {txt = "Shit..."}},
     },
-    [2] = {
+    [2] = { -- D1 19.00
         [17] = {"Spooky", {cnt = 5}},
         [18] = {"SayPlayer", {txt = "Damn..."}},
     },
@@ -49,6 +57,11 @@ local schedule = {
         [30] = {"Horde", {intensity = 50}},
     },
 }
+
+-- disable non whitelisted W1ARK bandits spawn 
+local function onGameStart()
+    Bandit.EnsureWhitelistedBandits()
+end
 
 -- triggering scheduled events 
 local function everyOneMinute()
@@ -127,6 +140,9 @@ function onTick()
         end
     end
 end
+
+Events.OnGameStart.Remove(onGameStart)
+Events.OnGameStart.Add(onGameStart)
 
 Events.EveryOneMinute.Remove(everyOneMinute)
 Events.EveryOneMinute.Add(everyOneMinute)

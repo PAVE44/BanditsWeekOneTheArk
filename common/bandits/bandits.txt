@@ -646,17 +646,13 @@
 	general: exp1 = 0
 	general: exp2 = 0
 	general: exp3 = 0
-	clothing: Hat = Base.Hat_BandanaTiedTINT
-	clothing: MaskEyes = Base.Hat_GasMask
+	clothing: Hat = Base.Hat_RidingHelmet
+	clothing: SCBA = Base.SCBA
 	clothing: Jacket = Base.Jacket_LeatherBlack
-	clothing: Cuirass = Base.Cuirass_Tire
 	clothing: UnderwearExtra1 = Base.TightsBlackTrans
-	clothing: ShoulderpadRight = Base.Shoulderpad_ArticulatedSpike_R
-	clothing: ShoulderpadLeft = Base.Shoulderpad_ArticulatedSpike_L
 	clothing: Hands = Base.Gloves_LeatherGlovesBlack
 	clothing: Pants = Base.Trousers_LeatherBlack
 	clothing: Shoes = Base.Shoes_ArmyBoots
-	tint: Hat = 1710618
 	weapons: melee = Base.Broom_BarbedWire
 
 [afa54656-4f4f-4b43-8b91-2a0a0ac5aa03]
@@ -734,8 +730,7 @@
 	general: exp1 = 0
 	general: exp2 = 0
 	general: exp3 = 0
-	clothing: Hat = Base.Hat_BandanaTiedTINT
-	clothing: MaskEyes = Base.Hat_GasMask
+	clothing: FullHat = Base.Hat_NBCmask
 	clothing: Jacket = Base.Jacket_AngusCalfHide
 	clothing: UnderwearExtra1 = Base.TightsBlackTrans
 	clothing: ShoulderpadRight = Base.Shoulderpad_Metal_R
@@ -745,7 +740,6 @@
 	clothing: Thigh_Right = Base.ThighMetal_R
 	clothing: Thigh_Left = Base.ThighMetal_L
 	clothing: Shoes = Base.Shoes_ArmyBoots
-	tint: Hat = 1710618
 	weapons: melee = Base.Broom_BarbedWire
 
 [811cb6f6-fb16-40fe-8ef1-7fd736a39341]
@@ -1673,5 +1667,34 @@
 	weapons: primary = Base.AssaultRifle
 	weapons: secondary = Base.Pistol3
 	ammo: primary = 2
+	ammo: secondary = 1
+
+[b47dd4e2-59f0-4845-9fcb-28e66cecb436]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 3f5a2e61-8f0c-4a82-baff-98c174b786ae
+	general: name = P_01
+	general: female = false
+	general: skin = 1
+	general: hairType = 1
+	general: beardType = 1
+	general: hairColor = 1
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_CrashHelmet_Stars
+	clothing: SCBA = Base.SCBA
+	clothing: Boilersuit = Base.HazmatSuitUrban
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: Tshirt = Base.Tshirt_WhiteLongSleeveTINT
+	clothing: TorsoExtraVestBullet = Base.Vest_BulletBlack
+	clothing: BeltExtra = Base.HolsterSimple_Black
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: secondary = Base.Revolver
+	weapons: melee = Base.FieldHockeyStick_Sawblade
 	ammo: secondary = 1
 
