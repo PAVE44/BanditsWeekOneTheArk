@@ -421,4 +421,16 @@ module Bandits {
             reverbFactor = 0.2, 
         } 
     }
+
+   sound Spooky1{
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/spooky_1.ogg,
+            distanceMin = 3,
+            distanceMax = 30,
+            reverbFactor = 0.7, 
+        } 
+    }
 }

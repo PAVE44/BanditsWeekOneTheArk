@@ -88,6 +88,13 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 40,
     },
+    ["Doc"] = {
+        scene = "Doc",
+        x = 10861,
+        y = 10033,
+        z = 0,
+        renderDist = 20,
+    },
 
 }
 

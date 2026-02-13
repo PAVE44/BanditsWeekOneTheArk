@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.63"
+BWOAMenu.version = "0.67"
 
 BWOAMenu.blinking = {}
 
@@ -124,8 +124,11 @@ BWOAMenu.specialObjectsHighlight = {
     },
 }
 
+local chapter = 1
 function BWOAMenu.EventChapter(player)
-    BWOASequence.Chapter({tex = "chapter_1"})
+    if chapter > 4 then chapter = 1 end
+    BWOASequence.Chapter({tex = "chapter_" .. chapter})
+    chapter = chapter + 1
 end
 
 function BWOAMenu.EventCracks(player)
@@ -224,6 +227,31 @@ function BWOAMenu.MakeBasement(player, square)
 
 end
 
+function BWOAMenu.LocateBasement(player)
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    BWOABuildings.LoadHatches()
+    local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
+    local distMax = math.huge
+    local dx, dy
+    
+    for sname, sobject in pairs(specialObjectsHighlight) do
+        local dist = BanditUtils.DistTo(px, py, sobject.x, sobject.y)
+        if dist < distMax then
+            distMax = dist
+            dx = sobject.x
+            dy = sobject.y
+        end
+    end
+
+
+    if dx and dy then
+        local icon = "media/ui/defend.png"
+        local color = {r=0.5, g=0.5, b=0.5}
+        local desc = "Closest Hatch"
+        BanditEventMarkerHandler.set(getRandomUUID(), icon, 7200, dx, dy, color, desc)
+    end
+end
+
 function BWOAMenu.LavaLake(player, square)
     local cell = getCell()
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
@@ -260,6 +288,10 @@ end
 
 function BWOAMenu.LoadHatches(player)
     BWOABuildings.LoadHatches()
+end
+
+function BWOAMenu.Spooky(player)
+    BWOASequence.Spooky({cnt = 5})
 end
 
 function BWOAMenu.Transform(player, zombie)
@@ -373,9 +405,44 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
-        -- BWOASound.PlayPlayer({sound="AngelProximity"})
+        --[[
+        for x = px - 40, px + 40 do
+            for y = py - 40, py + 40 do
+                local square = getCell():getGridSquare(x, y, pz)
+                if square then
+                    local wobs = square:getWorldObjects()
+                    for i = 0, wobs:size()-1 do
+                        local o = wobs:get(i)
+                        local item = o:getItem()
+                        local ftype = item:getFullType() 
+                        if ftype == "Base.Bag_Military" then
+                            print ("bag found")
+                        end
+                    end
+                end
+            end
+        end]]
 
-        print (SandboxVars.Basement.SpawnFrequency)
+        --[[
+        local doors = {
+            {x = 9926, y = 12626, z = 0},
+            {x = 9924, y = 12626, z = -4},
+        }
+
+        for _, doorConf in ipairs(doors) do
+            local square = cell:getGridSquare(doorConf.x, doorConf.y, doorConf.z)
+            if square then
+                local objects = square:getObjects()
+                if objects:size() > 1 then
+                    local object = objects:get(1)
+                    if instanceof(object, "IsoDoor") and not object:IsOpen() then
+                        IsoDoor.toggleGarageDoor(object, true)
+                    end
+                end
+            end
+        end]]
+
+        -- print (SandboxVars.Basement.SpawnFrequency)
         local test = SandboxVars
         local vehicle = square:getVehicleContainer()
 
@@ -398,6 +465,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
+        context:addOption("Locate Nearest Hatch", player, BWOAMenu.LocateBasement, player)
         context:addOption("Lava Lake", player, BWOAMenu.LavaLake, square)
 
         local eventsOption = context:addOption("Events")
@@ -443,7 +511,9 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
         context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
-        -- eventsMenu:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
+        context:addOption("Spooky", player, BWOAMenu.Spooky)
+        context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
+        
 
     end
 end

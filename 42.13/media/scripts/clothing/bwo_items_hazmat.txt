@@ -38,7 +38,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitGrey
@@ -57,7 +57,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitOrange
@@ -76,7 +76,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitRed
@@ -95,7 +95,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitWhite
@@ -114,7 +114,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitMilitary
@@ -133,7 +133,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitCamo
@@ -152,7 +152,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitUrban
@@ -171,7 +171,7 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 
     item HazmatSuitCherno
@@ -190,6 +190,6 @@ module Base
         Insulation = 0.65,
         WindResistance = 0.9,
         WorldStaticModel = Hazmat_Ground,
-        Tags = HazmatSuit,
+        Tags = base:hazmatsuit,
     }
 }

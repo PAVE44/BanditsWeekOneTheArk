@@ -1,9 +1,28 @@
 IG_UI_EN = {
     IGUI_ItemCat_Lore = "Lore",
 
-    IGUI_Bandits_Speech_BWOAWaitTalk_Female_1_1 = "Wait! We need to talk!",
-    IGUI_Bandits_Speech_BWOAWaitTalk_Female_1_2 = "Wait! You're in shock!",
-    IGUI_Bandits_Speech_BWOAWaitTalk_Female_1_3 = "Hold on! I'm a friend!",
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_21_1 = "Wait! We need to talk!",
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_21_2 = "Wait! You're in shock!",
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_21_3 = "Hold on! I'm a friend!",
+    IGUI_Bandits_Speech_BWOAWaitTalk_Female_21_4 = "Please, we need to talk!",
 
+    IGUI_Bandits_Speech_BWOACry_Female_21_1 = "No!",
+    IGUI_Bandits_Speech_BWOACry_Female_21_2 = "This can't be true!",
+    IGUI_Bandits_Speech_BWOACry_Female_21_3 = "I can't take it anymore!",
+    IGUI_Bandits_Speech_BWOACry_Female_21_4 = "We are doomed!",
+    IGUI_Bandits_Speech_BWOACry_Female_21_5 = "Please, I want this over!",
+    IGUI_Bandits_Speech_BWOACry_Female_21_6 = "God! Help me please!",
+
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_1 = "Dave, this is Emma. I need you to answer. Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_2 = "Dave, Eli, Martha, Luke. Please respond. Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_3 = "Dave, Eli, Martha, Luke. What is your status? Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_4 = "Dave, it’s me. Please respond. Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_5 = "Dave, if you can hear this, please come back now. Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_6 = "Dave, Bob is awake, I repeat, Bob is awake. Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_7 = "Dave, where are you? Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_8 = "Dave, what is your location? Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_9 = "Dave, do you need help? Answer, please. Over.",
+    IGUI_Bandits_Speech_BWOARadioCall_Female_21_10 = "Dave, I need you here. Over.",
+    
     IGUI_VehicleNamepzkPostapoTanker = "Franklin Heavy Lifter (Tanker)",
 }

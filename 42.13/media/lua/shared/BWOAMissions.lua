@@ -47,6 +47,7 @@ BWOAMissions.missions = {
     [100] = {
         name = "Go to church in Fallas Lake",
         desc = "The voice in your dream points you to Fallas Lake church.",
+        chapter = "chapter_2",
     },
     [101] = {
         name = "Investigate the church in Ekron Ruins",
@@ -63,6 +64,7 @@ BWOAMissions.missions = {
     [110] = {
         name = "Go to the secret lab",
         desc = "The voice in your dream points you now to the secret lab near March Ridge Ruins.",
+        chapter = "chapter_3",
     },
     [111] = {
         name = "Find the doctor's house",
@@ -126,8 +128,11 @@ BWOAMissions.Accomplish = function(missionId)
         if BWOAMissions.onAccomplish[missionId] then
             BWOAMissions.onAccomplish[missionId]()
         end
+
+        if mission.chapter then
+            BWOASequence.Chapter({tex = mission.chapter})
+        end
     end
-    -- todo: launch completion mission popup
 end
 
 BWOAMissions.IsAccomplished = function(missionId)

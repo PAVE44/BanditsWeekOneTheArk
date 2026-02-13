@@ -1,6 +1,8 @@
 Bandit = Bandit or {}
 
-Bandit.SoundTab.WAITTALK = {prefix = "BWOAWaitTalk_", chance = 100, randMax = 3, length = 5}
+Bandit.SoundTab.WAITTALK = {prefix = "BWOAWaitTalk_", chance = 100, randMax = 4, length = 5}
+Bandit.SoundTab.CRY = {prefix = "BWOACry_", chance = 100, randMax = 6, length = 5}
+Bandit.SoundTab.RADIOCALL = {prefix = "BWOARadioCall_", chance = 100, randMax = 10, length = 5}
 
 Bandit.playerStart = {
     x = 9966,
@@ -23,6 +25,8 @@ Bandit.clanMap.BasementCannibals = "8ab03e52-9394-4ff4-a6a4-5640b6597e5e"
 Bandit.clanMap.BasementPreppers = "55da7b22-d9d5-49bd-9d76-a39459cb69e4"
 
 Bandit.clanMap.Surface1 = "2464da7c-5a04-4739-8237-e7b23f5ffa4a"
+Bandit.clanMap.Surface2 = "06419731-fb8f-463f-98a3-d99c1fa0ef58" -- scba
+Bandit.clanMap.Surface3 = "4724a709-f1ac-499c-9b14-85f3a3a1b81f" -- robe
 
 Bandit.banditMap = {}
 Bandit.banditMap.Emma = {}

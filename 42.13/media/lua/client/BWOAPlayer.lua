@@ -46,12 +46,12 @@ local traitRevealMap = {
 }
 
 local dreamRevealMap = {
-    [1] = {hours = 24, qid = "2000.1", txt = "Arghgghhh!"},
-    [2] = {hours = 48, qid = "2000.2", txt = "Not again...!"},
-    [3] = {hours = 72, qid = "2000.3", txt = "Damn dream again!"},
-    [4] = {hours = 96, qid = "2000.4", txt = "WTF... This was different..."},
-    [5] = {hours = 120, qid = "2000.5", rmid = 100, txt = "I think this is important."},
-    [6] = {hours = 144, qid = "2000.6", rmid = 110, txt = "I think this is important."},
+    [1] = {hours = 36, qid = "2000.1", txt = "Arghgghhh!"},
+    [2] = {hours = 72, qid = "2000.2", txt = "Not again...!"},
+    [3] = {hours = 108, qid = "2000.3", txt = "Damn dream again!"},
+    [4] = {hours = 144, qid = "2000.4", txt = "WTF... This was different..."},
+    [5] = {hours = 180, qid = "2000.5", rmid = 100, txt = "I think this is important."},
+    [6] = {hours = 216, qid = "2000.6", rmid = 110, txt = "I think this is important."},
 }
 
 local proximityRevealMap = {

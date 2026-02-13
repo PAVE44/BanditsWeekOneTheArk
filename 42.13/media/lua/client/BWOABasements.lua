@@ -105,6 +105,7 @@ local procedural_basement_spawn_locations = {
     {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_49_east"}}, -- hunter house
     -- {x=8113, y=12221, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_44_east"}}, -- fisherman  house
     {x=8340, y=11755, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_06_F_east"}}, -- farmer house
+    {x=10862, y=10033, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_57"}}, -- doc house
     {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
 
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},

@@ -9,18 +9,7 @@ ZombieActions.Cry.onStart = function(zombie, task)
         emitter:playSound("EmmaCry")
     end
 
-    local lines = {
-        "No!",
-        "This can't be true!",
-        "I can't take it anymore!",
-        "We are doomed!",
-        "Please, I want this over!",
-        "God! Help me please!",
-    }
-
-    -- i almost cried myself when i coded this...
-    local line = BanditUtils.Choice(lines)
-    zombie:addLineChatElement(line, 0.2, 0.8, 0.1)
+    Bandit.Say(zombie, "CRY")
 
     return true
 end

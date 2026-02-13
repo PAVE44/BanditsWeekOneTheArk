@@ -59,7 +59,7 @@ BWOABuildTools.Wall = function(x, y, z, spriteName)
     buildUtil.setHaveConstruction(square, true)
 end
 
-BWOABuildTools.Door = function(x, y, z, north, sprite)
+BWOABuildTools.Door = function(x, y, z, north, sprite, locked)
     local cell = getCell()
     local square = getCell():getOrCreateGridSquare(x, y, z)
     
@@ -77,6 +77,12 @@ BWOABuildTools.Door = function(x, y, z, north, sprite)
         obj:transmitCompleteItemToServer()
         buildUtil.setHaveConstruction(square, true)
         square:setSquareChanged()
+
+        if locked then
+            obj:setLocked(true)
+            obj:setLockedByKey(true)
+            obj:setIsLocked(true)
+        end
     end
 end
 

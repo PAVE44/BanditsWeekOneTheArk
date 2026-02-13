@@ -64,9 +64,18 @@ BanditUtils.GetScheduledActivity = function(schedule)
     local gameTime = getGameTime()
     local hour = gameTime:getHour()
     local minute = gameTime:getMinutes()
+    local wa = getGameTime():getWorldAgeHours()
 
     for activity, boundary in pairs(schedule) do
-        if hour >= boundary.hourMin and hour <= boundary.hourMax and minute >= boundary.minuteMin and minute <= boundary.minuteMax then
+
+        if not boundary.hourMin then boundary.hourMin = 0 end
+        if not boundary.hourMax then boundary.hourMax = 24 end
+        if not boundary.minuteMin then boundary.minuteMin = 0 end
+        if not boundary.minuteMax then boundary.minuteMax = 60 end
+        if not boundary.waMin then boundary.waMin = 0 end
+        if not boundary.waMax then boundary.waMax = math.huge end
+
+        if hour >= boundary.hourMin and hour < boundary.hourMax and minute >= boundary.minuteMin and minute < boundary.minuteMax and wa >= boundary.waMin and wa < boundary.waMax then
             return activity
         end
     end

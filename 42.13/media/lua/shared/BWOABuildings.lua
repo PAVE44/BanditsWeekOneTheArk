@@ -12,6 +12,8 @@ BWOABuildings.exceptions = {
     "5537-12440", -- Secret Lab
     "9156-12147", -- Dave and Martha's House
     "10164-12633", -- MR Cinema
+    "10860-10032", -- Doc house
+    
     -- "10164-12633", -- hunter house
     -- "10164-12633", -- fisherman house
     -- "10164-12633", -- farmer house

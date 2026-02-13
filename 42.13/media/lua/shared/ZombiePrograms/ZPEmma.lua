@@ -111,6 +111,20 @@ ZombiePrograms.Emma.Main = function(bandit)
                 hourMax = 6,
                 minuteMin = 0,
                 minuteMax = 60
+            },
+            radio = {
+                hourMin = 10,
+                hourMax = 12,
+                minuteMin = 0,
+                minuteMax = 60,
+                waMin = 0.5,
+                waMax = 32
+            },
+            readbook = {
+                hourMin = 12,
+                hourMax = 14,
+                minuteMin = 0,
+                minuteMax = 60
             }
         }
 
@@ -141,7 +155,7 @@ ZombiePrograms.Emma.Main = function(bandit)
                         for _, subTask in pairs(subTasks) do
                             table.insert(tasks, subTask)
                         end
-                        return {status=true, next="Main", tasks=tasks}
+                        return {status=true, next="Main", twaasks=tasks}
                     end
                 end
             elseif activity == "sleep1" or activity == "sleep2" then
@@ -152,6 +166,32 @@ ZombiePrograms.Emma.Main = function(bandit)
                     local facing = bed:getSprite():getProperties():get("Facing")
                     -- local eoffset = bed:getSprite():getProperties():get("Eoffset")
                     local task = {action="SleepLong", x=obj.x, y=obj.y, z=obj.z, facing=facing, time=3000}
+                    local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                    if #subTasks > 0 then
+                        for _, subTask in pairs(subTasks) do
+                            table.insert(tasks, subTask)
+                        end
+                        return {status=true, next="Main", tasks=tasks}
+                    end
+                end
+            elseif activity == "radio" then
+                -- bandit:addLineChatElement("ACTIVITY: RADIO", 0, 0, 1)
+                local obj, dist = BWOABaseObjects.FindClosestObject({"Radio"}, {x=bx, y=by})
+                if obj then
+                    local task = {action="UseRadio", time=600, fx=obj.x, fy=obj.y}
+                    local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                    if #subTasks > 0 then
+                        for _, subTask in pairs(subTasks) do
+                            table.insert(tasks, subTask)
+                        end
+                        return {status=true, next="Main", tasks=tasks}
+                    end
+                end
+            elseif activity == "readbook" then
+                bandit:addLineChatElement("ACTIVITY: READ BOOK", 0, 0, 1)
+                local obj, dist = BWOABaseObjects.FindClosestObject({"Couch"}, {x=bx, y=by})
+                if obj then
+                    local task = {action="SitInChair", anim="SitInChairRead", sound="PageFlipBook", item="Bandits.Book", left=true, x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=100}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
                     if #subTasks > 0 then
                         for _, subTask in pairs(subTasks) do
@@ -173,7 +213,7 @@ ZombiePrograms.Emma.Main = function(bandit)
             if closestPlayer.x and closestPlayer.y and closestPlayer.z and closestPlayer.dist > 4 then
                 Bandit.Say(bandit, "WAITTALK")
                 BWOADialogues.Reveal(ZombiePrograms.name, "4")
-                table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Run", closestPlayer.dist, false))
+                table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Walk", closestPlayer.dist, false))
                 return {status=true, next="Main", tasks=tasks}
             end
         end

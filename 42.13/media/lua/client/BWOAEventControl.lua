@@ -10,6 +10,14 @@ local schedule = {
         [2] = {"Chapter", {tex = "chapter_1"}},
         [3] = {"SayPlayer", {txt = "What the hell?"}},
     },
+    [1] = {
+        [7] = {"Spooky", {cnt = 1}},
+        [8] = {"SayPlayer", {txt = "Shit..."}},
+    },
+    [2] = {
+        [17] = {"Spooky", {cnt = 5}},
+        [18] = {"SayPlayer", {txt = "Damn..."}},
+    },
     [22] = {
         [39] = {"Horde", {intensity = 12}},
     },

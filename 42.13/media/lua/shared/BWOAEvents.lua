@@ -48,6 +48,18 @@ BWOAEvents.Chapter = function(params)
     BWOATex.alpha = 2.4
 end
 
+BWOAEvents.Spooky = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    BWOASound.PlayPlayer({sound=params.sound, volume = params.volume})
+    
+    BWOATex.tex = getTexture("media/textures/" .. params.tex .. ".png")
+    BWOATex.speed = params.speed
+    BWOATex.mode = "center"
+    BWOATex.alpha = params.alpha
+end
+
 BWOAEvents.Teleport = function(params)
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do

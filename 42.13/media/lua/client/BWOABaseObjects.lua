@@ -75,11 +75,16 @@ local function analyze(x, y, z)
             if props:has("CustomName") then
                 local customName = props:get("CustomName")
                 if customName then
+                    local facing
+                    if props:has("Facing") then
+                        facing = props:get("Facing")
+                    end
                     temp.objects[oid] = {
                         x = x,
                         y = y,
                         z = z,
-                        cn = customName
+                        cn = customName,
+                        f = facing
                     }
                 end
             end

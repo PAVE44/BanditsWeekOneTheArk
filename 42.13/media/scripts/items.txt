@@ -251,4 +251,13 @@ module Bandits
         WeaponSprite = Bone,
     }
 
+    item LabSyringe {
+        DisplayCategory     = FirstAid,
+        ItemType            = base:normal,
+        Icon                = LabSyringe,
+        Weight              = 0.01,
+        Tooltip             = Tooltip_LabSyringe,
+        WorldStaticModel    = Item_LabSyringe,
+    }
+
 }

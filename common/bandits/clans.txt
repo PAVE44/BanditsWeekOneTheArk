@@ -126,3 +126,35 @@
 	spawn: groupMax = 1
 	spawn: zone = 0
 
+[4724a709-f1ac-499c-9b14-85f3a3a1b81f]
+	general: name = W1A_RobeClan
+	spawn: friendly = false
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 10
+	spawn: zone = 0
+
+[06419731-fb8f-463f-98a3-d99c1fa0ef58]
+	general: name = W1A_SCBA
+	spawn: friendly = false
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 10
+	spawn: zone = 0
+

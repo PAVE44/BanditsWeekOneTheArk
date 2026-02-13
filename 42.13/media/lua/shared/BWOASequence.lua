@@ -52,7 +52,7 @@ BWOASequence.Start = function(params)
         z = Bandit.emmaStart.z,
         program = "Emma",
         size = 1,
-        voice = 1,
+        voice = 21,
     }
 
     BWOAEventControl.Add("SpawnGroup", emma, 2100)
@@ -152,17 +152,17 @@ end
 
 BWOASequence.Assault = function(params)
     local player = getSpecificPlayer(0)
+    local cell = getCell()
 
-    local coords = {
-        x = 9931,
-        y = 12625,
-        z = 0,
-        size = 1.5
-    }
+    local coords = {x = 9931, y = 12625, z = 0, size = 1.5}
+    local doors = {}
 
     if player:getZ() == -4 and (player:getX() >= 9965 or player:getY() >= 12636) then
-        coords = {
-            x=9930, y=12625, z=-4, size=1,
+        coords = {x=9930, y=12625, z=-4, size=1}
+
+        doors = {
+            {x = 9926, y = 12626, z = 0},
+            {x = 9924, y = 12626, z = -4},
         }
     end
 
@@ -174,6 +174,20 @@ BWOASequence.Assault = function(params)
         program = "Bandit",
         size = params.intensity * coords.size,
     }
+
+    for _, doorConf in ipairs(doors) do
+        local square = cell:getGridSquare(doorConf.x, doorConf.y, doorConf.z)
+        if square then
+            local objects = square:getObjects()
+            if objects:size() > 1 then
+                local object = objects:get(1)
+                if instanceof(object, "IsoDoor") and not object:IsOpen() then
+                    IsoDoor.toggleGarageDoor(object, true)
+                end
+            end
+        end
+    end
+
     BWOAEventControl.Add("SpawnGroup", group, 2000)
 end
 
@@ -207,5 +221,20 @@ BWOASequence.Decontamination = function(params)
         end
 
         BWOAEventControl.Add("DecontaminatePost", params, 6000)
+    end
+end
+
+BWOASequence.Spooky = function(params)
+    local time = 0
+    for i = 1, params.cnt do
+        local params = {
+            tex = "spooky_1",
+            sound = "Spooky1",
+            volume = 0.2 * i,
+            alpha = 0.3 * i,
+            speed = 1 / i
+        }
+        time = time + 200 + ZombRand(200)
+        BWOAEventControl.Add("Spooky", params, time)
     end
 end

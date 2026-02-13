@@ -76,14 +76,18 @@ end
 
 BWOASound.PlayPlayer = function(tab)
     local player = getSpecificPlayer(0)
-    player:playSound(tab.sound)
+    local volume = tab.volume or 1
+    local emitter = player:getEmitter()
+    local id = emitter:playSound(tab.sound)
+    emitter:setVolume(id, fixVolume(volume))
 end
 
 BWOASound.PlayCharacter = function(tab)
     local character = tab.character
     local emitter = character:getEmitter()
     local id = emitter:playSound(tab.sound)
-    emitter:setVolume(id, fixVolume(1))
+    local volume = tab.volume or 1
+    emitter:setVolume(id, fixVolume(volume))
 end
 
 BWOASound.PlayLocation = function(tab)

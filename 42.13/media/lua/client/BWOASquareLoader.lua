@@ -31,6 +31,12 @@ BWOASquareLoader.burnMap = {
     ["Base.Pickup"]           = "Base.PickupBurnt",
 }
 
+BWOASquareLoader.replacements = {
+    ["Cast Iron Plant"] = "vegetation_indoor_01_36", -- empty pot
+    ["Dragon Tree"] = "vegetation_indoor_01_36", -- empty pot
+    ["Snake Plant"] = "vegetation_indoor_01_36", -- empty pot
+}
+
 BWOASquareLoader.burnExclusion = {
     ["Base.PickUpTruckLightsFossoil"] = true
 }

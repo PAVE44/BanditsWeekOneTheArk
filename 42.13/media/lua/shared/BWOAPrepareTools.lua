@@ -148,6 +148,7 @@ BWOAPrepareTools.AddHumanCorpse = function(x, y, z, outfits, femaleChance)
 
         -- zombie:setForceFakeDead(true)
         BanditCompatibility.Splash(zombie, fakeItem, fakeZombie)
+
         zombie:getInventory():clear()
         zombie:Hit(fakeItem, fakeZombie, 50, false, 1, false)
         
@@ -155,10 +156,13 @@ BWOAPrepareTools.AddHumanCorpse = function(x, y, z, outfits, femaleChance)
 end
 
 BWOAPrepareTools.AddHumanCorpseDetail = function(x, y, z, female, clothing, items)
+    local fakeItem = BanditCompatibility.InstanceItem("Base.AssaultRifle")
+    local fakeZombie = getCell():getFakeZombieForHit()
     local bandit = createZombie(x, y, z, nil, 0, IsoDirections.getRandom())
     local id = BanditUtils.GetCharacterID(bandit)
     local r = 1 + math.abs(id) % 5 
     bandit:setFemale(female)
+    BanditCompatibility.Splash(bandit, fakeItem, fakeZombie)
 
     local hv = bandit:getHumanVisual()
     if female then
@@ -202,6 +206,9 @@ BWOAPrepareTools.AddHumanCorpseDetail = function(x, y, z, female, clothing, item
             inventory:AddItem(item)
         end
     end
+
+    
+    -- getCell():getGridSquare(x, y, z):getChunk():addBloodSplat(x, y, z, 20)
 
     bandit:removeFromSquare()
     bandit:removeFromWorld()

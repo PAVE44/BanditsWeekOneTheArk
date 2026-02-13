@@ -21,12 +21,12 @@ BWOAChat.personConf = BWOAChat.personConf or {}
 
 BWOAChat.personConf["Emma_Robinson"] = {
     perLetter = 30, -- time per letter
-    minimal = 1100, -- minimal time per sentence
+    minimal = 850, -- minimal time per sentence
 }
 
 BWOAChat.personConf["Father_James"] = {
     perLetter = 50, -- time per letter
-    minimal = 1300, -- minimal time per sentence
+    minimal = 950, -- minimal time per sentence
 }
 
 BWOAChat.Give = function(params)
