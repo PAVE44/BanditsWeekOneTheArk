@@ -46,7 +46,7 @@ BWOARooms.Incinerator.Build = function ()
     BWOABuildTools.RemoveObject(9966, 12640, -4, "Shelves")
 
     BWOABuildTools.Generic(9966, 12637, -4, "industry_02_55")
-    BWOABuildTools.Generic(9966, 12638, -4, "industry_02_54")
+    BWOABuildTools.Generic(9966, 12638, -4, "theark_01_8")
     BWOABuildTools.Generic(9966, 12639, -4, "industry_02_62")
     BWOABuildTools.Generic(9966, 12640, -4, "industry_02_16")
 

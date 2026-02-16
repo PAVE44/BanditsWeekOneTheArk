@@ -18,6 +18,11 @@ option BWOA.ShelterOccurance  = {
     page = BWOA, translation = BWOA.ShelterOccurance, valueTranslation=BWOA.ShelterOccurance,
 }
 
+option BWOA.ResidueScrap  = {
+    type = enum, numValues=5, default = 4,
+    page = BWOA, translation = BWOA.ResidueScrap, valueTranslation=BWOA.ResidueScrap,
+}
+
 option BWOA.AngelProximity = {
     type = boolean, default = true,
     page = BWOA, translation = BWOA.AngelProximity,

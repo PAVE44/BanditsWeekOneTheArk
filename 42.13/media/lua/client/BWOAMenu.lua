@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.67"
+BWOAMenu.version = "0.69"
 
 BWOAMenu.blinking = {}
 
@@ -276,7 +276,8 @@ end
 
 function BWOAMenu.Teleport(player)
     --local x, y, z = 9962, 12609, -4
-    local x, y, z = 9961, 12622, -4
+    local x, y, z = 9961, 12622, -4 -- ark
+    -- local x, y, z = 5574, 12492, -13 -- secret base
     
     player:setX(x)
     player:setY(y)
@@ -404,6 +405,21 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     print ("Hatch count: " .. tostring(i - 4))
 
     if isDebugEnabled() or isAdmin() then
+
+        -- BWOARooms.Infirmary.SetFlickers()
+
+        BWOAAnims.Add({
+            x = 9966, 
+            y = 12638, 
+            z = -4, 
+            objName = "Incinerator",
+            frameList = {
+                "theark_01_9",
+                "theark_01_10",
+                "theark_01_11",
+                "theark_01_12",
+            }
+        })
 
         --[[
         for x = px - 40, px + 40 do

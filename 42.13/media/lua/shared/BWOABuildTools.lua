@@ -6,9 +6,10 @@ BWOABuildTools.Floor = function(x, y, z, spriteName)
     if square == nil and getWorld():isValidSquare(x, y, z) then
         square = cell:createNewGridSquare(x, y, z, true)
     end
-    local obj = IsoObject.new(square, spriteName, "")
+    if not square or not square:getChunk() then return end
 
-        obj:setAttachedAnimSprite(ArrayList.new())
+    local obj = IsoObject.new(square, spriteName, "")
+    obj:setAttachedAnimSprite(ArrayList.new())
 
     if ZombRand(3) == 0 then
         local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
@@ -28,6 +29,7 @@ end
 
 BWOABuildTools.Wall = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, spriteName, "")
     if not obj then return end
 
@@ -62,6 +64,7 @@ end
 BWOABuildTools.Door = function(x, y, z, north, sprite, locked)
     local cell = getCell()
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     
     for s, number in string.gmatch(sprite, "(.+)_(%d+)") do
 
@@ -88,6 +91,7 @@ end
 
 BWOABuildTools.Generic = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, spriteName, "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -97,6 +101,7 @@ end
 BWOABuildTools.Stove = function(x, y, z, spriteName)
     local cell = getCell()
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoStove.new(cell, square, getSprite(spriteName))
     obj:createContainersFromSpriteProperties()
     square:AddSpecialObject(obj)
@@ -107,6 +112,7 @@ end
 BWOABuildTools.WasherDryer = function(x, y, z, spriteName, activated)
     local cell = getCell()
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoCombinationWasherDryer.new(cell, square, getSprite(spriteName))
     obj:setMovedThumpable(true)
     obj:createContainersFromSpriteProperties()
@@ -119,6 +125,7 @@ end
 BWOABuildTools.Jukebox = function(x, y, z, spriteName, activated)
     local cell = getCell()
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoJukebox.new(cell, square, getSprite(spriteName))
     obj:setMovedThumpable(true)
     obj:createContainersFromSpriteProperties()
@@ -131,6 +138,7 @@ end
 BWOABuildTools.Generator = function(x, y, z, fuel, condition, connected, active)
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local genItem = BanditCompatibility.InstanceItem("Base.Generator")
     local generator = IsoGenerator.new(genItem, cell, square)
     generator:setMovedThumpable(true)
@@ -144,6 +152,7 @@ BWOABuildTools.Mannequin = function(x, y, z, scriptName, dir)
     local spriteName = "location_shop_mall_01_68"
     local item = BanditCompatibility.InstanceItem("Moveables."..spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoMannequin.new(getCell(), square, getSprite(spriteName))
     obj:getCustomSettingsFromItem(item)
     obj:setDir(dir)
@@ -162,6 +171,7 @@ end
 
 BWOABuildTools.Fireplace = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoFireplace.new(getCell(), square, getSprite(spriteName))
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -173,6 +183,7 @@ end
 BWOABuildTools.WaterPump = function(x, y, z)
     local sprite = getSprite(WPIso.pumpSprites.ns)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local object = IsoClothingDryer.new(square:getCell(), square, sprite)
     object:setActivated(false)
     object:setMovedThumpable(true)
@@ -185,6 +196,7 @@ end
 BWOABuildTools.WaterPipe = function(x, y, z)
     local sprite = getSprite(WPIso.pipeSprites.ns)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local object = IsoObject.new(square:getCell(), square, sprite)
     square:AddSpecialObject(object)
     object:transmitCompleteItemToServer()
@@ -194,6 +206,7 @@ end
 BWOABuildTools.WaterValve = function(x, y, z)
     local sprite = getSprite(WPIso.valveSprites.ns)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local object = IsoObject.new(square:getCell(), square, sprite)
     square:AddSpecialObject(object)
     object:transmitCompleteItemToServer()
@@ -203,6 +216,7 @@ end
 BWOABuildTools.WaterSprinkler = function(x, y, z)
     local sprite = getSprite(WPIso.waterSprinklersSprites[1])
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local object = IsoObject.new(square:getCell(), square, sprite)
     square:AddSpecialObject(object)
     object:transmitCompleteItemToServer()
@@ -211,6 +225,7 @@ end
 
 BWOABuildTools.VentN = function(x, y, z)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, "rooftop_furniture_4", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -219,6 +234,7 @@ end
 
 BWOABuildTools.VentW = function(x, y, z)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, "rooftop_furniture_5", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -227,6 +243,7 @@ end
 
 BWOABuildTools.BookshelfW = function(x, y, z)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, "furniture_shelving_01_44", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -235,6 +252,7 @@ end
 
 BWOABuildTools.Fridge = function(x, y, z)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, "appliances_refrigeration_01_40", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -243,6 +261,7 @@ end
 
 BWOABuildTools.Skeleton = function (x, y, z)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local spriteName = "location_shop_mall_01_68"
 	local obj = IsoMannequin.new(getCell(), nil, getSprite(spriteName))
 	obj:setMannequinScriptName("MannequinSkeleton01")
@@ -253,6 +272,7 @@ end
 
 local container = function(x, y, z, spriteName, data)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, spriteName, "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -272,6 +292,8 @@ end
 local lamp = function(x, y, z, spriteName, data)
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
+
     local sprite = getSprite(spriteName)
     local spriteProps = sprite:getProperties()
     spriteProps:set("lightR", tostring(data.r))
@@ -405,6 +427,7 @@ end
 
 BWOABuildTools.TV = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoTelevision.new(getCell(), square, getSprite(spriteName))
     obj:getDeviceData():getDevicePresets():clearPresets()
     
@@ -416,6 +439,7 @@ end
 
 BWOABuildTools.FarmPlot = function(x, y, z, seedType)
     local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, "blends_natural_01_64", "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
@@ -482,6 +506,7 @@ end
 BWOABuildTools.ClearAll = function(x, y, z)
     local cell = getCell()
     local square = cell:getGridSquare(x, y, z)
+    if not square then return end
     local objects = square:getObjects()
     for i = objects:size()-1, 0, -1 do
         local object = objects:get(i)

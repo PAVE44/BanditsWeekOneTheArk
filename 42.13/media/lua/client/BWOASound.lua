@@ -167,7 +167,6 @@ local function onTick()
 
     local pemitter = player:getEmitter()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
-    local maxDist = BWOASound.maxDist
     
     local gmd = GetBWOAModData()
     local power = BWOABaseControl.power
@@ -240,6 +239,7 @@ local function onTick()
     for _, effect in ipairs(BWOASound.objects) do
         if effect.x and effect.y and effect.z then
 
+            local maxDist = effect.maxDist or BWOASound.maxDist
             if math.abs(effect.x - px) < maxDist and math.abs(effect.y - py) < maxDist and math.abs(effect.z - pz) < 1 then
 
                 if not effect.emitter then

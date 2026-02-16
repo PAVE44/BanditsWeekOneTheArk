@@ -1,4 +1,53 @@
+module Base {
+    sound LightBulbAmbiance
+    {
+        category = World,
+        master = Ambient,
+        loop = true,
+        clip
+        {}
+    }
+}
+
 module Bandits {
+
+    sound AmbientBulbFlicker {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/flicker_1.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/flicker_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/flicker_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/flicker_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/flicker_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/flicker_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/flicker_7.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/flicker_8.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
 
     sound AmbientHorn {
         category = Object, 
@@ -71,6 +120,18 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/geiger_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientAlarmSecretLab {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/secretlab_evacuate.ogg,
+            distanceMax = 1,
+            distanceMax = 100,
             reverbFactor = 0.6, 
         } 
     }
@@ -422,7 +483,7 @@ module Bandits {
         } 
     }
 
-   sound Spooky1{
+    sound Spooky1{
         category = Object, 
         loop = false,
         is3D = true,
@@ -433,4 +494,5 @@ module Bandits {
             reverbFactor = 0.7, 
         } 
     }
+    
 }

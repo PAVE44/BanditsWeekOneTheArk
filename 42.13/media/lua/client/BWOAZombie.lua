@@ -42,6 +42,10 @@ local function onZombieUpdate(zombie)
     ]]
 
     if zombie:getVariableBoolean("Bandit") then return end
+
+    if zombie:getZ() <= -2 then return end
+
+    if zombie:isSkeleton() then return end
     
     local hv = zombie:getHumanVisual()
 
@@ -64,7 +68,7 @@ local function onZombieUpdate(zombie)
     local color = ImmutableColor.new(c, c, c, 1)
 
     if skin ~= newskin then
-
+        
         hv:setSkinTextureName(newskin)
 
         if newhair then
@@ -92,9 +96,11 @@ local function onZombieUpdate(zombie)
                 if item then
                     item:setDirt(part, 1)
                     local tint = item:getTint()
-                    local r, g, b = tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat()
-                    local newtint = ImmutableColor.new(r * 0.3, g * 0.3, b * 0.3, 1)
-                    item:setTint(newtint)
+                    if tint then
+                        local r, g, b = tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat()
+                        local newtint = ImmutableColor.new(r * 0.3, g * 0.3, b * 0.3, 1)
+                        item:setTint(newtint)
+                    end
                 end
             end
 

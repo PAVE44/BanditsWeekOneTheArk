@@ -35,6 +35,9 @@ BWOABaseAPI.GeneratorsUpdate = function()
             else
                 generator:setCondition(100)
                 generator:setFuel(100)
+
+                local chunk = square:getChunk()
+                chunk:removeObjectAmbientEmitter(generator)
             end
         else
             cell:getOrCreateGridSquare(coords.x, coords.y, coords.z)

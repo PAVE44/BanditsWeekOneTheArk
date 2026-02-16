@@ -71,7 +71,6 @@ BWOARooms.Lab.Build = function ()
 
     BWOABuildTools.Generic(9961, 12636, -4, "location_community_medical_01_11") -- poster
     BWOABuildTools.Generic(9961, 12636, -4, "location_community_medical_01_136") -- microscope
-    BWOABuildTools.LampDeskYellowN(9962, 12643, -4)
     BWOABuildTools.Generic(9963, 12636, -4, "appliances_com_01_72") -- computer
     BWOABuildTools.Generic(9963, 12637, -4, "furniture_seating_indoor_01_51") -- chair
 

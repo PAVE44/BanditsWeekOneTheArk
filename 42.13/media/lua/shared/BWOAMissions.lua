@@ -63,7 +63,7 @@ BWOAMissions.missions = {
     },
     [110] = {
         name = "Go to the secret lab",
-        desc = "The voice in your dream points you now to the secret lab near March Ridge Ruins.",
+        desc = "The voice in your dream points you now to the secret lab near Rosewood Ruins.",
         chapter = "chapter_3",
     },
     [111] = {

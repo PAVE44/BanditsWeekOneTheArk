@@ -36,6 +36,14 @@ Sandbox_EN = {
     Sandbox_BWOA.ShelterOccurance_option4 = "Often"
     Sandbox_BWOA.ShelterOccurance_option5 = "Very Often"
 
+    Sandbox_BWOA.ResidueScrap = "Residue Scrap"
+    Sandbox_BWOA.ResidueScrap_tooltip = "Controls how much scrap materials exist in the world."
+    Sandbox_BWOA.ResidueScrap_option1 = "None"    
+    Sandbox_BWOA.ResidueScrap_option2 = "Very little"
+    Sandbox_BWOA.ResidueScrap_option3 = "Little"
+    Sandbox_BWOA.ResidueScrap_option4 = "Normal"
+    Sandbox_BWOA.ResidueScrap_option5 = "Plenty"
+
     Sandbox_BWOA.AngelProximity = "Angel Extra Guidance"
     Sandbox_BWOA.AngelProximity_tooltip = "Extra help in discovering unique points of interest." 
 

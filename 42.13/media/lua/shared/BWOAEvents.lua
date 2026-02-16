@@ -188,6 +188,7 @@ end
 BWOAEvents.PrepareRoom = function(params)
     if params.roomName then
         BWOARooms[params.roomName].Prepare()
+        --[[
         if BWOARooms[params.roomName].SetEmitters then
             BWOARooms[params.roomName].SetEmitters()
         end
@@ -197,6 +198,7 @@ BWOAEvents.PrepareRoom = function(params)
         if BWOARooms[params.roomName].SetAnims then
             BWOARooms[params.roomName].SetAnims()
         end
+        ]]
     end
 end
 
@@ -391,15 +393,13 @@ BWOAEvents.WallCrack = function(params)
                 wall:getAttachedAnimSprite():add(getSprite(spriteName):newInstance())
                 
 
-                local lightSwitch = BanditUtils.GetLightSwitch(x, y, z)
+                local lightSwitch = BanditUtils.GetLightSwitchMain(x, y, z)
                 if lightSwitch and lightSwitch:hasLightBulb() then
                     lightSwitch:setActive(false, false, true)
                     lightSwitch:removeLightBulb(cell:getFakeZombieForHit())
-                    local emitter = world:getFreeEmitter(x, y, z)
-                    if emitter then
-                        local id = emitter:playSound("LightFlicker")
-                        emitter:setVolume(id, volume)
-                    end
+
+                    local tab = {x = x, y = y, z = z, sound = "AmbientBulbFlicker"}
+                    BWOASound.PlayLocation(tab)
                 end
             end
         end

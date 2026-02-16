@@ -6,7 +6,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_attention.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -18,7 +18,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_storage_area_four.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -30,7 +30,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_error.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -42,7 +42,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_power_down.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -54,7 +54,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_bio.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -66,7 +66,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_fire.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -78,7 +78,19 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_structural.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahStructuralEvacuate {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_structural_evacuate.ogg, 
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -90,7 +102,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_unauthorized.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -102,7 +114,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_decontamination.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -114,7 +126,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_decontamination_complete.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -126,7 +138,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_generator_failure.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -138,7 +150,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_generator_fuel_low.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -150,7 +162,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_co2.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -162,7 +174,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_water_failure.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -174,7 +186,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_airvent_room.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -186,7 +198,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_armory.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -198,7 +210,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_bathroom.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -210,7 +222,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_bedroom.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -222,7 +234,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_chapel.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -234,7 +246,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_control_room.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -246,7 +258,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_generator_room.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -258,7 +270,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_food_garden.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -270,7 +282,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_incinerator_room.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -282,7 +294,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_infirmary.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -294,7 +306,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_laboratory.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -306,7 +318,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_library.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -318,7 +330,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_entrance.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -330,7 +342,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_decontamination_chamber.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -342,7 +354,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_meeting_room.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -354,7 +366,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_messhall.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -366,7 +378,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_living_room.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -378,7 +390,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_storage_area_one.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -390,7 +402,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_storage_area_two.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -402,7 +414,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_storage_area_three.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
@@ -414,7 +426,7 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/noah_storage_area_four.ogg, 
-            distanceMax = 1,
+            distanceMin = 1,
             distanceMax = 100,
             reverbFactor = 0.6, 
         } 
