@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.69"
+BWOAMenu.version = "0.71"
 
 BWOAMenu.blinking = {}
 
@@ -408,6 +408,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         -- BWOARooms.Infirmary.SetFlickers()
 
+        --[[
         BWOAAnims.Add({
             x = 9966, 
             y = 12638, 
@@ -420,6 +421,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
                 "theark_01_12",
             }
         })
+            ]]
 
         --[[
         for x = px - 40, px + 40 do

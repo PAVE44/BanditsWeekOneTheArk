@@ -223,12 +223,30 @@ special quests:
     
 
 
-overall storyline
+FIXES:
+ - make basement bandits spawn in random squares
+ 
+EMMA:
+ - play piano
+ - cook
+ - watch tv together
+ - play game together(checkers?)
 
- - player meets Emma
- - player learns surroundings
+IDEAS:
+ - fire
+ - earthwuake will lead to a room to collapse - evacute message
 
- task system:
-  mission 1: get dressed
-  mission 2: have breakfast
 
+CHAPTERS
+
+CHAPTER 5: ENDURE
+ - noah failure
+ - discover secret noah program
+ - learn about other arks
+ - communicate with other arks
+ - visitors from another ark - friendly on comms but later they're not
+ - visitors come by chopper?
+
+
+
+ 
