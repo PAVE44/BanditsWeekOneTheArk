@@ -267,6 +267,17 @@ BWOAEvents.Shaker = function(params)
     BWOAShaker.SetStatus(params.status)
 end
 
+BWOAEvents.Fire = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local cell = getCell()
+    local square = cell:getGridSquare(params.x, params.y, params.z)
+    if square then
+        IsoFireManager.StartFire(cell, square, true, 500000, 500)
+    end
+end
+
 BWOAEvents.DecontaminatePre = function(params)
     BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION})
 
@@ -380,7 +391,7 @@ BWOAEvents.WallCrack = function(params)
         if wall then
 
             local x, y, z = wall:getX(), wall:getY(), wall:getZ()
-            BWOASound.PlayLocation({x = x, y = y, z = z, sound="AmbientWallcrack"})
+            
 
             if ZombRand(3) == 0 then
                 
@@ -391,7 +402,7 @@ BWOAEvents.WallCrack = function(params)
                     wall:setAttachedAnimSprite(ArrayList.new())
                 end
                 wall:getAttachedAnimSprite():add(getSprite(spriteName):newInstance())
-                
+                BWOASound.PlayLocation({x = x, y = y, z = z, sound="AmbientWallcrack"})
 
                 local lightSwitch = BanditUtils.GetLightSwitchMain(x, y, z)
                 if lightSwitch and lightSwitch:hasLightBulb() then
@@ -432,3 +443,48 @@ BWOAEvents.HordeAt = function(params)
     end
 end
 
+BWOAEvents.SpawnVehicle = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local vtype = "Base.SUV"
+
+    local vehicle = addVehicle(params.vtype, params.x, params.y, 0)
+    if not vehicle then return end
+
+    vehicle:setAngles(0, -90, 0) -- to west
+    vehicle:setGeneralPartCondition(0.8, 0)
+    vehicle:setRust(100)
+
+    for i = 0, vehicle:getPartCount() - 1 do
+        local container = vehicle:getPartByIndex(i):getItemContainer()
+        if container then
+            container:removeAllItems()
+        end
+    end
+
+    vehicle:addKeyToGloveBox()
+
+    local loot = Bandit.raidCarLootItems
+    local container = vehicle:getTrunkPart():getItemContainer()
+    if container then
+        for _, itemType in ipairs(loot) do
+            local rnd = ZombRand(100)
+            if rnd > 70 then
+                local item = container:AddItem(itemType)
+                if item then
+                    container:addItemOnServer(item)
+                end
+            end
+        end
+    end
+end
+
+BWOAEvents.ArkNetworkStatus = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local arkId = params.arkId
+
+    BWOABaseAPI.NetworkArkReveal(arkId)
+end

@@ -471,6 +471,18 @@ module Bandits {
         } 
     }
 
+    sound ExplosionFar1 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/explosion_far_1.ogg,
+            reverbFactor = 1, 
+            distanceMin = 1,
+            distanceMax = 100,
+        } 
+    }
+
     sound MusicJuke1 {
         category = Object, 
         loop = true,

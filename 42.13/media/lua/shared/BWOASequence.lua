@@ -103,7 +103,7 @@ BWOASequence.Earthquake = function(params)
 
     d = 1000
     local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
-    if target.dist < BWOAChat.talkDist then
+    if target.dist < BWOAChat.talkDist * 2 then
         local anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
         local tab = {id=target.id, txt="Earthquake!", anim=anim}
         BWOAEventControl.Add("SayBandit", tab, d)
@@ -135,6 +135,58 @@ BWOASequence.Earthquake = function(params)
 
     d = d + 200
     BWOAEventControl.Add("Shaker", {status = false}, d)
+
+    
+    if params.fire then
+
+        local d = 0
+        local coords = {
+            {x = 9944, y = 12634, z = -4},
+            {x = 9945, y = 12634, z = -4},
+            {x = 9944, y = 12635, z = -4},
+            {x = 9945, y = 12635, z = -4},
+            {x = 9945, y = 12633, z = -4},
+            {x = 9945, y = 12632, z = -4},
+            {x = 9946, y = 12634, z = -4},
+            {x = 9947, y = 12634, z = -4},
+            {x = 9947, y = 12633, z = -4},
+            {x = 9948, y = 12634, z = -4},
+            {x = 9948, y = 12634, z = -4},
+            {x = 9949, y = 12634, z = -4},
+            {x = 9950, y = 12634, z = -4},
+            {x = 9951, y = 12634, z = -4},
+            {x = 9952, y = 12634, z = -4},
+            {x = 9953, y = 12634, z = -4},
+            {x = 9953, y = 12633, z = -4},
+            {x = 9953, y = 12632, z = -4},
+            {x = 9953, y = 12635, z = -4},
+            {x = 9953, y = 12631, z = -4},
+            {x = 9954, y = 12632, z = -4},
+            {x = 9953, y = 12630, z = -4},
+            {x = 9953, y = 12630, z = -4},
+        }
+
+        local first = true
+        for _, c in ipairs(coords) do
+            local params = {
+                x = c.x + ZombRand(2),
+                y = c.y + ZombRand(2),
+                z = c.z,
+            }
+            BWOAEventControl.Add("Fire", params, d)
+            d = d + 30 + ZombRand(110)
+
+            if first then
+                BWOASound.PlayLocation({
+                    sound = "ExplosionFar1",
+                    x = c.x,
+                    y = c.y,
+                    z = c.z
+                })
+                first = false
+            end
+        end
+    end
 end
 
 BWOASequence.Horde = function(params)
@@ -187,8 +239,33 @@ BWOASequence.Assault = function(params)
             end
         end
     end
-
     BWOAEventControl.Add("SpawnGroup", group, 2000)
+
+    if params.vtype then
+
+        local x
+        for i = 0, 10 do
+            local testx = 9975 - (i * 6)
+            local square = cell:getGridSquare(testx, 12693, 0)
+            local vehicle = square:getVehicleContainer()
+            if not vehicle then
+                x = testx
+                break
+            end
+        end
+
+        if x then
+            local carParams = {
+                vtype = params.vtype,
+                x = x,
+                y = 12693,
+                z = 0
+            }
+            BWOAEventControl.Add("SpawnVehicle", carParams, 2100)
+        end
+    end
+
+    
 end
 
 BWOASequence.Decontamination = function(params)

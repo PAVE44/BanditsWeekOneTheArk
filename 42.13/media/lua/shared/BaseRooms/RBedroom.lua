@@ -51,11 +51,11 @@ BWOARooms.Bedroom.Build = function ()
     BWOABuildTools.VentN(9944, 12636, -4)
 
     for x = 9947, 9955, 2 do
-        BWOABuildTools.Generic(x, 12636, -4, "furniture_bedding_01_1")
-        BWOABuildTools.Generic(x, 12637, -4, "furniture_bedding_01_0")
+        BWOABuildTools.Bed(x, 12636, -4, "furniture_bedding_01_1")
+        BWOABuildTools.Bed(x, 12637, -4, "furniture_bedding_01_0")
 
-        BWOABuildTools.Generic(x, 12641, -4, "furniture_bedding_01_69")
-        BWOABuildTools.Generic(x, 12642, -4, "furniture_bedding_01_68")
+        BWOABuildTools.Bed(x, 12641, -4, "furniture_bedding_01_69")
+        BWOABuildTools.Bed(x, 12642, -4, "furniture_bedding_01_68")
     end
 
     for x = 9948, 9956, 2 do

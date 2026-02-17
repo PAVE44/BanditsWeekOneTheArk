@@ -208,6 +208,92 @@ BWOABaseAPI.AirIntakeUpdate = function(active, airintakes)
     end
 end
 
+BWOABaseAPI.IsNetworkPlayerArkDeclared = function()
+    local gmd = GetBWOAModData()
+    local network = gmd.arkNetwork
+    for _, ark in ipairs(network) do
+        if ark.player and ark.status == 1 then
+            return true
+        end
+    end
+
+    return false
+end
+
+BWOABaseAPI.GetHostileNetworkArks = function(hours)
+    local gmd = GetBWOAModData()
+    local network = gmd.arkNetwork
+    local hostile = {}
+    for _, ark in ipairs(network) do
+        if ark.status == 1 and not ark.player and ark.raidAgeStart and hours > ark.raidAgeStart and ark.raidAgeEnd and hours < ark.raidAgeEnd then
+            table.insert(hostile, ark)
+        end
+    end
+
+    return hostile
+end
+
+BWOABaseAPI.GetNetworkPlayerArk = function()
+    local gmd = GetBWOAModData()
+    local network = gmd.arkNetwork
+    for _, ark in ipairs(network) do
+        if ark.player then
+            return ark
+        end
+    end
+
+    return nil
+end
+
+BWOABaseAPI.SwitchNetworkPlayerArkConcealment = function()
+    local gmd = GetBWOAModData()
+    local network = gmd.arkNetwork
+    for _, ark in ipairs(network) do
+        if ark.player then
+            BWOASound.ClearNoah()
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+            if ark.status == 0 then
+                ark.status = 1
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.ARKDECLARED})
+            else
+                ark.status = 0
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.ARKCONCEALED})
+            end
+            break
+        end
+    end
+end
+
+BWOABaseAPI.NetworkArkReveal = function(arkId)
+    local gmd = GetBWOAModData()
+    local wa = getGameTime():getWorldAgeHours() - 10
+    local network = gmd.arkNetwork
+
+    local playerDeclared = false
+    for _, ark in ipairs(network) do
+        if ark.player then
+            if ark.status == 1 then
+                playerDeclared = true
+                break
+            end
+        end
+    end
+
+    for _, ark in ipairs(network) do
+        if ark.id == arkId then
+            ark.status = 1
+            ark.raidAgeStart = wa + 5
+            ark.raidAgeEnd = 4000
+
+            if playerDeclared then
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.ARKREVEALED})
+            end
+            break
+        end
+    end
+end
+
 BWOABaseAPI.WaterOn = function()
 
 end

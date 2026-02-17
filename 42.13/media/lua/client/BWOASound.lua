@@ -58,6 +58,9 @@ BWOASound.noahSounds = {
     ["STORAGEAREATWO"] = "NoahStorageAreaTwo",
     ["STORAGEAREATHREE"] = "NoahStorageAreaThree",
     ["STORAGEAREAFOUR"] = "NoahStorageAreaFour",
+    ["ARKCONCEALED"] = "NoahArkConcealed",
+    ["ARKDECLARED"] = "NoahArkDeclared",
+    ["ARKREVEALED"] = "NoahArkRevealed",
 }
 
 local function fixVolume(volume)

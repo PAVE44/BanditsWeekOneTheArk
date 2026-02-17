@@ -12,8 +12,6 @@ BWOAEventControl = BWOAEventControl or {}
 BWOAEventControl.Events = {}
 
 local schedule = {
-    
-
     [0] = { -- D1 17.00
         [2] = {"Chapter", {tex = "chapter_1"}},
         [3] = {"SayPlayer", {txt = "What the hell?"}},
@@ -25,6 +23,9 @@ local schedule = {
     [2] = { -- D1 19.00
         [17] = {"Spooky", {cnt = 5}},
         [18] = {"SayPlayer", {txt = "Damn..."}},
+    },
+    [4] = {
+        [24] = {"ArkNetworkStatus", {arkId = 47}},
     },
     [22] = {
         [39] = {"Horde", {intensity = 12}},
@@ -53,8 +54,18 @@ local schedule = {
     [177] = {
         [30] = {"Assault", {intensity = 9}},
     },
+    [184] = {
+        [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true}},
+    },
     [200] = {
         [30] = {"Horde", {intensity = 50}},
+    },
+    [415] = {
+        [50] = {"ArkNetworkStatus", {arkId = 50}},
+    },
+    [521] = {
+        [26] = {"ArkNetworkStatus", {arkId = 49}},
+        [31] = {"ArkNetworkStatus", {arkId = 53}},
     },
 }
 
@@ -75,6 +86,7 @@ local function everyOneMinute()
 
     print ("H: " .. hours .. " M: " .. minutes)
 
+    -- time-fixed events
     if schedule[hours] and schedule[hours][minutes] then
         local event = schedule[hours][minutes]
         if event and event[1] and event[2] then
@@ -89,9 +101,8 @@ local function everyOneMinute()
     end
 
     -- place events
-
     local gmd = GetBWOAModData()
-    local px, py = player:getX(), player:getY()
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
     local placeEvents = gmd.placeEvents
     for k, event in pairs(placeEvents) do
         if not event.rendered then
@@ -108,6 +119,25 @@ local function everyOneMinute()
                     local color = {r=0.5, g=0.5, b=1}
                     local desc = "Point of Interest to Discover"
                     BanditEventMarkerHandler.set(getRandomUUID(), icon, 7200, event.x, event.y, color, desc)
+                end
+            end
+        end
+    end
+
+    -- hostile ark raids
+    local arkDeclared = BWOABaseAPI.IsNetworkPlayerArkDeclared()
+    if arkDeclared then
+        if pz == -4 then
+            local dist = BanditUtils.DistTo(px, py, Bandit.playerStart.x, Bandit.playerStart.y)
+            if dist < 80 then
+
+                local arks = BWOABaseAPI.GetHostileNetworkArks(hours)
+                for _, ark in ipairs(arks) do
+                    local rnd = ZombRand(1000)
+                    if rnd == 0 then
+                        BWOASequence.Assault({intensity = 5, vtype = "Base.VanSeats_Mural"})
+                        ark.status = 2
+                    end
                 end
             end
         end

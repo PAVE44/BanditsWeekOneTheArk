@@ -392,7 +392,7 @@ local skeletonPlacer = function(square)
     if not square:isOutside() then density = density * 5 end
 
     if density > 0 and shouldPlace(x, y, density, seed) then
-        -- local age = getGameTime():getWorldAgeHours()
+        -- local age = getGameTime():getWorldAgeHours() - 10
         local fakeItem = BanditCompatibility.InstanceItem("Base.Axe")
         local fakeZombie = getCell():getFakeZombieForHit()
 

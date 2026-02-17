@@ -121,6 +121,78 @@ function InitBWOAModData(isNewGame)
         globalData.permanentNPC = {}
     end
 
+    if not globalData.arkNetwork then 
+        globalData.arkNetwork = {
+            { -- Kentucky Ohio River Ark (PLAYER),
+                id = 46,
+                lat = 37.8825,
+                long = -86.0059,
+                player = true,
+                dist = 0,
+                status = 0, -- 0 = concealed, 1 = declared, 2 = offline
+                changed = 0,
+            },
+            { -- Southern Indiana Ark, 
+                id = 47,
+                lat = 38.5432, 
+                long = -86.1794,
+                dist = 55,
+                status = 0,
+                changed = 0,
+            },
+            { -- Eastern Kentucky Appalachian Ark
+                id = 48,
+                lat = 37.3467,
+                long = -83.2895,
+                dist = 170,
+                status = 2,
+                changed = 0,
+            },
+            { -- Western West Virginia Ark
+                id = 49,
+                lat = 38.2215,
+                long = -81.7983,
+                dist = 230,
+                status = 0,
+                changed = 0,
+            },
+            { -- Southern Illinois Shawnee Ark
+                id = 50,
+                lat = 37.5194,
+                long = -88.6782,
+                dist = 170,
+                status = 0,
+                changed = 0,
+            },
+            { -- Western Virginia Blue Ridge Ark
+                id = 51,
+                lat = 37.4831,
+                long = -79.6420,
+                dist = 350,
+                status = 2,
+                changed = 0,
+            },
+            { -- Northern Georgia Mountain Ark
+                id = 52,
+                lat = 34.8962,
+                long = -84.3177,
+                dist = 320,
+                status = 1,
+                changed = 0,
+                raidAgeStart = 300,
+                raidAgeEnd = 4000
+            },
+            { -- Central Pennsylvania Ridge Ark
+                id = 53,
+                lat = 40.4804,
+                long = -77.9021,
+                dist = 450,
+                status = 2,
+                changed = 0,
+            },
+        }
+    end
+
     BWOAGlobalData = globalData
 
 end

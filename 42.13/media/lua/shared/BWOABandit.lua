@@ -16,6 +16,35 @@ Bandit.emmaStart = {
     z = -4,
 }
 
+Bandit.raidCarLootItems = {
+    "Base.PetrolCan",
+    "Base.PetrolCan",
+    "Base.PetrolCan",
+    "Base.Bullets44Carton",
+    "Base.Bullets45Carton",
+    "Base.Bullets45Carton",
+    "Base.556Carton",
+    "Base.308Carton",
+    "Base.TinnedBeans_Box",
+    "Base.CannedCarrots_Box",
+    "Base.CannedChili_Box",
+    "Base.CannedCorn_Box",
+    "Base.CannedCornedBeef_Box",
+    "Base.CannedMilk_Box",
+    "Base.CannedPeas_Box",
+    "Base.CannedPotato_Box",
+    "Base.CannedSardines_Box",
+    "Base.CannedBolognese_Box",
+    "Base.CannedBolognese_Box",
+    "Base.CannedTomato_Box",
+    "Base.BandageBox",
+    "Base.BatteryBox",
+    "Base.DuctTapeBox",
+    "Base.BoxOfJars",
+    "Base.LightBulbBox",
+    "Base.ScrewsBox",
+}
+
 Bandit.clanMap = Bandit.clanMap or {}
 Bandit.clanMap.Emma = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
 Bandit.clanMap.James = "cb8880f8-d45c-4051-acb3-a9d7b7d598a7"

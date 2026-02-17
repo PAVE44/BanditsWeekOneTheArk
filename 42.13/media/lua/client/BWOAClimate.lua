@@ -93,7 +93,7 @@ end
 local function onClimateTick()
     local world = getWorld()
     local cm = world:getClimateManager()
-    local wa = getGameTime():getWorldAgeHours()
+    local wa = getGameTime():getWorldAgeHours() - 10
 
     updateForageZones()
 

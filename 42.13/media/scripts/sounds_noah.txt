@@ -431,4 +431,42 @@ module Bandits {
             reverbFactor = 0.6, 
         } 
     }
+
+    sound NoahArkConcealed {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_ark_concealed.ogg, 
+            distanceMin = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahArkDeclared {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_ark_declared.ogg, 
+            distanceMin = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound NoahArkRevealed {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_ark_revealed.ogg, 
+            distanceMin = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    
 }

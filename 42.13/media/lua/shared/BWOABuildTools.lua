@@ -98,6 +98,17 @@ BWOABuildTools.Generic = function(x, y, z, spriteName)
     square:setSquareChanged()
 end
 
+BWOABuildTools.Bed = function(x, y, z, spriteName)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
+    local obj = IsoObject.new(square, spriteName, "")
+    local props = obj:getSprite():getProperties()
+    props:unset(IsoFlagType.solidtrans)
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+end
+
 BWOABuildTools.Stove = function(x, y, z, spriteName)
     local cell = getCell()
     local square = getCell():getOrCreateGridSquare(x, y, z)

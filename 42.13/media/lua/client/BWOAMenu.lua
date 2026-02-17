@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.71"
+BWOAMenu.version = "0.72"
 
 BWOAMenu.blinking = {}
 
@@ -133,6 +133,10 @@ end
 
 function BWOAMenu.EventCracks(player)
     BWOASequence.Earthquake({intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4})
+end
+
+function BWOAMenu.EventFire(player)
+    BWOASequence.Earthquake({intensity = 60, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true})
 end
 
 function BWOAMenu.EventHorde(player)
@@ -277,7 +281,7 @@ end
 function BWOAMenu.Teleport(player)
     --local x, y, z = 9962, 12609, -4
     local x, y, z = 9961, 12622, -4 -- ark
-    -- local x, y, z = 5574, 12492, -13 -- secret base
+    -- local x, y, z = 5574, 12492, -13 -- secre t base
     
     player:setX(x)
     player:setY(y)
@@ -406,6 +410,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() or isAdmin() then
 
+
         -- BWOARooms.Infirmary.SetFlickers()
 
         --[[
@@ -492,6 +497,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addSubMenu(eventsOption, eventsMenu)
         eventsMenu:addOption("Event Chapter", player, BWOAMenu.EventChapter)
         eventsMenu:addOption("Event Earthquake", player, BWOAMenu.EventCracks)
+        eventsMenu:addOption("Event Earthquake + Fire", player, BWOAMenu.EventFire)
         eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
         eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)

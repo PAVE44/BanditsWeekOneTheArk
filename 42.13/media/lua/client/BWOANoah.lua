@@ -38,6 +38,9 @@ local function onPlayerUpdate(player)
 end
 
 local function onKeyPressed(keynum)
+    if keynum == 10000 then return end -- Ignore mouse lmb
+    if keynum == 10001 then return end -- Ignore mouse rmb
+
     local gmd = GetBWOAModData()
     local ventilation = gmd.ventilation
 
@@ -55,6 +58,7 @@ local function onKeyPressed(keynum)
         elseif keynum == Keyboard.KEY_4 then
             BWOANoah.screen = "Environmental"
         elseif keynum == Keyboard.KEY_5 then
+            BWOANoah.screen = "Network"
         elseif keynum == Keyboard.KEY_6 then
             BWOANoah.screen = "Alarms"
         elseif keynum == Keyboard.KEY_9 then
@@ -127,10 +131,16 @@ local function onKeyPressed(keynum)
         end
     elseif BWOANoah.screen == "PumpManual" then
         if keynum == Keyboard.KEY_9 then
-            BWOANoah.screen = "Generator"
+            BWOANoah.screen = "Hydraulics"
         end
     elseif BWOANoah.screen == "Environmental" then
         if keynum == Keyboard.KEY_9 then
+            BWOANoah.screen = "Main"
+        end
+    elseif BWOANoah.screen == "Network" then
+        if keynum == Keyboard.KEY_1 then
+            BWOABaseAPI.SwitchNetworkPlayerArkConcealment()
+        elseif keynum == Keyboard.KEY_9 then
             BWOANoah.screen = "Main"
         end
     elseif BWOANoah.screen == "Alarms" then
@@ -187,7 +197,7 @@ BWOANoah.Screens.Main = function()
     text[9] = "2. ATMOSPHERIC REGULATION"
     text[11] = "3. HYDRAULICS"
     text[13] = "4. ENVIRONMENTAL REPORT"
-    text[15] = "5. ACCESS CONTROL"
+    text[15] = "5. ARK NETWORK"
     text[17] = "6. ALARMS"
     text[25] = "9. EXIT"
     return text
@@ -495,6 +505,59 @@ BWOANoah.Screens.Environmental = function()
     text[9]   = "FOG INTENSITY: " .. string.format("%.1f", fogIntensity) .. "%"
     text[10]   = "RADIATION:     " .. string.format("%.1f", radiation) .. "mR"
     text[25]  = "9. RETURN"
+    return text
+end
+
+BWOANoah.Screens.Network = function()
+    local text = BWOANoah.ScreenTemplate()
+    
+    local gmd = GetBWOAModData()
+    local network = gmd.arkNetwork
+    local playerConcealed = false
+
+    local statuses = {
+        [0] = "CONCEALED",
+        [1] = "DECLARED",
+        [2] = "OFFLINE"
+    }
+    text[5]  = "ARK REGION NETWORK"
+
+    text[7]  = "YOUR ARK: "
+    for _, ark in ipairs(network) do
+        if ark.player then
+            if ark.status == 1 then
+                text[8]  = "ARK #" .. ark.id .. ": DECLARED: " .. ark.lat .. " " .. ark.long
+            else
+                text[8]  = "ARK #" .. ark.id .. ": " .. statuses[ark.status]
+                playerConcealed = true
+            end
+            break
+        end
+    end
+
+    text[10]  = "US-EAST-2: "
+    local i = 0
+    for _, ark in ipairs(network) do
+        if not ark.player then
+            if ark.status == 1 and not playerConcealed then
+                text[11 + i]  = "ARK #" .. ark.id .. ": DECLARED: " .. ark.lat .. " " .. ark.long
+            else
+                text[11 + i]  = "ARK #" .. ark.id .. ": " .. statuses[ark.status]
+            end
+            i = i + 1
+        end
+    end
+
+    text[20]  = "NOTE: ONLY DECLARED ARKS CAN SEE"
+    text[21]  = "      OTHER DECLARED ARKS."
+
+    if playerConcealed then
+        text[24]  = "1. REMOVE CONCEALMENT"
+    else
+        text[24]  = "1. ENABLE CONCEALMENT"
+    end
+
+    text[25] = "9. RETURN"
     return text
 end
 
