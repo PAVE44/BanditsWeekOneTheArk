@@ -44,8 +44,8 @@ UI_EN = {
     UI_quick_tip28 = "Hungry? Forage a worm, grow a cucumber, or try… human meat.",
     UI_quick_tip29 = "Sound travels far in the wasteland.",
     UI_quick_tip30 = "The dead aren't the only thing to fear.",
+    UI_quick_tip31 = "It's not about you only.",
 
-    UI_quick_tip31 = "Normal zombies too slow? You can turn on Sprinters in Sandbox.",
     UI_quick_tip32 = "Want a different challenge? Make your own fun by playing Sandbox.",
     UI_quick_tip33 = "Food can be frozen in a freezer - if it's powered - to last longer. Most frozen food has to be thawed before eating.",
     UI_quick_tip34 = "Sneaking uses more energy than walking, but makes you less likely to be spotted.",

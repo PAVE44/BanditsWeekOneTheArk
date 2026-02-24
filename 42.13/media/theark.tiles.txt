@@ -2781,6 +2781,16 @@ tileset
         container = campfire
         solid = 
     }
+    // theark_01_13
+    tile
+    {
+        xy = 5,1
+        BlocksPlacement = 
+        CustomItem = BanditsGenerator_Silent
+        CustomName = Generator
+        GeneratorSound = SilentGenerator
+        GroupName = Silent
+    }
 }
 tileset
 {

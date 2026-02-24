@@ -9,6 +9,8 @@ BWOAPlayer.tick = 0
 
 BWOAPlayer.dreamStage = 1
 BWOAPlayer.dreamNo = 1
+BWOAPlayer.inside = 0
+BWOAPlayer.outside = 0
 
 local bodyParts = {}
 table.insert(bodyParts, {bname=BloodBodyPartType.Head, name=BodyPartType.Head, chance=1000})
@@ -74,7 +76,6 @@ BWOAPlayer.itemMemoryRegain = {
     {itemType = "Axe", perk = "Axe", xp = 400, chance=40},
     {itemType = "HandAxe", perk = "Axe", xp = 300, chance=40},
     {itemType = "WoodAxe", perk = "Axe", xp = 400, chance=40},
-
 
     -- aiming
     {itemType = "Pistol", perk = "Aiming", xp = 600, chance=100},
@@ -368,7 +369,29 @@ local function everyOneMinute()
     local player = getSpecificPlayer(0)
     if not player then return end
 
+    local cell = getCell()
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    local gmd = GetBWOAModData()
+
     if not player:isAlive() then return end
+
+    -- music conductor
+    if player:isOutside() then
+        if BWOAPlayer.inside > 480 then
+            BWOAMusic.Play("MusicOutside", 0.6, 1)
+        end
+        BWOAPlayer.outside = BWOAPlayer.outside + 1
+        BWOAPlayer.inside = 0
+    elseif pz < -4 then
+        if BWOAPlayer.outside > 480 then
+            BWOAMusic.Play("MusicDepth", 0.6, 1)
+        end
+        BWOAPlayer.inside = BWOAPlayer.inside + 1
+        BWOAPlayer.outside = 0
+    else
+        BWOAPlayer.inside = BWOAPlayer.inside + 1
+    end
+    -- print ("INSIDE TIME: " .. tostring(BWOAPlayer.inside) .. " OUTSIDE TIME: " .. tostring(BWOAPlayer.outside))
 
     -- time memory regain
     local gt = getGameTime()
@@ -385,11 +408,8 @@ local function everyOneMinute()
     -- health management
     if player:isGodMod() then return end
 
-    local cell = getCell()
     local bodyDamage = player:getBodyDamage()
     local stats = player:getStats()
-    local px, py, pz = player:getX(), player:getY(), player:getZ()
-    local gmd = GetBWOAModData()
 
     local md = player:getModData()
     if not md.bwoa then md.bwoa = {} end
@@ -633,7 +653,7 @@ local function everyOneMinute()
 
     radiationBalance = radiationBalance - 0.5
     if md.bwoa.drug.PotassiumIodine and md.bwoa.drug.PotassiumIodine > 0 then
-        radiationBalance = radiationBalance - 1
+        radiationBalance = radiationBalance - 1.5
     end
 
     md.bwoa.radiation = md.bwoa.radiation + radiationBalance

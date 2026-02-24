@@ -517,7 +517,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "Sure thing! Every soul counts.",
         anim = "GestYes",
         req = {"100.1.2.2.1.1.1"},
-        hidden = true,
+        hidden = true, -- unlocked by time
     },
     ["300.3.1"] = {
         qst = "Thanks for taking care of me while I was in coma.",
@@ -532,14 +532,14 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "The central heating must be off. We should fix it before we freeze to death!",
         anim = "Gest1",
         req = {},
-        hidden = true
+        hidden = true -- unlocked by base condition
     },
     ["1000.2"] = {
         qst = "Is the power out?",
         ans = "Shit! We need to check the generator and fuel levels!",
         anim = "GestYes",
         req = {},
-        hidden = true
+        hidden = true -- unlocked by base condition
     },
     ["1000.3"] = {
         qst = "I feel sick. What's going on?",
@@ -559,14 +559,14 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "Check the CO2 levels and make sure the ventilation is working!",
         anim = "Gest1",
         req = {},
-        hidden = true,
+        hidden = true, -- unlocked by base condition
     },
     ["1000.5"] = {
         qst = "I've noticed CO2 levels are rising despite ventilation being turn on!",
         ans = "We need to check the air intake on the surface!",
         anim = "Gest1",
         req = {"100.2"},
-        hidden = true,
+        hidden = true, -- unlocked by base condition
         func = "RevealMission",
         funcParams = {missionId = 3},
     },
@@ -575,7 +575,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "Good! CO2 levels should be dropping now.",
         anim = "GestYes",
         req = {"1000.5"},
-        hidden = true,
+        hidden = true, -- unlocked by mission 3
     },
 
     -- dream related
@@ -584,21 +584,21 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "It's ok, it's just a dream. You're safe here.",
         anim = "Calm",
         req = {},
-        hidden = true,
+        hidden = true, -- unlocked by dream 1
     },
     ["2000.2"] = {
         qst = "I had a bad dream again. I am beginning to remember things...",
         ans = "Sorry to hear that, but on the bright side, your memories are returning.",
         anim = "Calm",
         req = {},
-        hidden = true,
+        hidden = true, -- unlocked by dream 2
     },
     ["2000.3"] = {
         qst = "Dream again. Now, I remember what happened to me.",
         ans = "What did you dream about exactly?",
         anim = "Calm",
         req = {},
-        hidden = true,
+        hidden = true, -- unlocked by dream 3
     },
     ["2000.3.1"] = {
         qst = "My last dream was about me surrounded by zombies with little chance of survival.",
@@ -611,7 +611,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "Take it easy. Your mind may still need time to adjust.",
         anim = "Calm",
         req = {},
-        hidden = true,
+        hidden = true, -- unlocked by dream 4
     },
     ["2000.4.1"] = {
         qst = "I'm not crazy. My dreams are not my imagination. It felt very real.",
@@ -630,13 +630,80 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "Stop! I don't want to hear that crazy stuff! You need to get back to reality!",
         anim = "Calm",
         req = {"2000.4.1.1"},
-        hidden = true,
+        hidden = true, -- unlocked by dream 5
     },
     ["2000.6"] = {
         qst = "I know you don't want to hear about my dreams, but... ",
         ans = "Stop! Get it together, ok? This is not helping anyone!",
         anim = "Calm",
-        req = {"2000.5"},
+        req = {},
+        hidden = true, -- unlocked by dream 6
+    },
+    ["2000.6.1"] = {
+        qst = "Emma, my dreams led me to a secret laboratory, and I learned something important about the virus. ",
+        ans = "What did you learn? Please, tell me.",
+        anim = "Gest1",
+        req = {"2000.6"},
+        hidden = true, -- unlocked by artifact early_mortuary_practice
+    },
+    ["2000.6.1.1"] = {
+        qst = "The virus isn't new. Ancient texts mention rituals that could be connected to it. ",
+        ans = "Connected? How so?",
+        anim = "Gest1",
+        req = {"2000.6.1"},
+    },
+    ["2000.6.1.1.1"] = {
+        qst = "The rituals weren't just symbolic. They had problems with the dead... ",
+        ans = "What kind of problems?",
+        anim = "Gest1",
+        req = {"2000.6.1.1"},
+    },
+    ["2000.6.2"] = {
+        qst = "I found out that Soviets investigated the area where the ancient culture performed the rituals. ",
+        ans = "Interesting. What did they find?",
+        anim = "Gest1",
+        req = {"2000.6.1.1.1"},
+        hidden = true, -- unlocked by artifact paleolithic_survey_group
+    },
+    ["2000.6.2.1"] = {
+        qst = "The Soviets conducted excavations there. In the permafrost, they discovered some kind of preserved organism. ",
+        ans = "And you think that's the same organism responsible for what happened here.",
+        anim = "Gest1",
+        req = {"2000.6.2"}, 
+        hidden = true, -- unlocked by artifact supplementary_excavation_log
+    },
+    ["2000.6.2.1.1"] = {
+        qst = "I know that the Soviet research was later studied here, in the lab I visited. ",
+        ans = "Did you find anything more concrete in that lab? If not, it might be worth investigating further.",
+        anim = "Gest1",
+        req = {"2000.6.2.1"},
+    },
+    ["2000.6.3"] = {
+        qst = "Emma, I saw the documents. I have proof they brought the virus here!",
+        ans = "Shit! I knew it! There's always a bunch of assholes who screw everything up.",
+        anim = "Gest1",
+        req = {"2000.6.2.1.1"},
+        hidden = true, -- unlocked by artifact 7-Q-17
+    },
+    ["2000.6.3.1"] = {
+        qst = "Apparently, our government had an agent in the Soviet excavation group.",
+        ans = "Well... that's taxpayer money at work. First the Soviets, now our own idiots. ",
+        anim = "Gest1",
+        req = {"2000.6.3"},
+    },
+    ["2000.6.4"] = {
+        qst = "I have a list of all the assholes who worked at that lab.",
+        ans = "Do you think this's relevant?",
+        anim = "Gest1",
+        req = {"2000.6.2.1.1"}, -- unlocked by artifact science_team
         hidden = true,
+    },
+    ["2000.6.4.1"] = {
+        qst = "One of the doctors from the lab was named Cortman. He had a clinic in Muldraugh.",
+        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
+        anim = "Gest1",
+        req = {"2000.6.4"},
+        func = "RevealMission",
+        funcParams = {missionId = 111},
     },
 }

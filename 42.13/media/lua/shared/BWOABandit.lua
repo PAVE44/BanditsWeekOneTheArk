@@ -69,6 +69,7 @@ Bandit.banditMap.Emma = {}
 Bandit.banditMap.Emma.Bunker = "d944d8a7-9ad6-4f65-87e6-0a2d55eac4cb"
 Bandit.banditMap.Emma.Hazmat = "d3564264-60ca-4629-ae2f-574ea772df23"
 Bandit.banditMap.Emma.Defend = "e97500bf-0534-401a-822a-7891dc8881d5"
+Bandit.banditMap.Emma.Sport =  "2e682bd5-8bc3-4380-a302-02d7201b8aeb"
 
 -- maps AI to dialogues
 Bandit.prg2person = {}

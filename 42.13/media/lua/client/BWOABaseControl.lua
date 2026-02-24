@@ -45,7 +45,8 @@ local function onGameStart()
 end
 
 local function onPreMapLoad()
-    BWOAMusic.Play("MusicEndure", 1, 1)
+    getSoundManager():setMusicState("PauseMenu")
+    BWOAMusic.Play("MusicEndure", 0.6, 1)
 end
 
 

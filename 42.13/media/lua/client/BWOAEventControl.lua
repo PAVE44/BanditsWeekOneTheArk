@@ -112,6 +112,10 @@ local function everyOneMinute()
             if BanditUtils.DistTo(px, py, event.x, event.y) < event.renderDist then
                 BWOAPlaceEvents.Render(event)
 
+                if event.music then
+                    BWOAMusic.Play(event.music, 0.6, 1)
+                end
+
                 if SandboxVars.BWOA.AngelProximity then
                     BWOASound.PlayPlayer({sound="AngelProximity"})
 

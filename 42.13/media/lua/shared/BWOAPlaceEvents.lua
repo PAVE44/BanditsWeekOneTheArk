@@ -9,6 +9,7 @@ BWOAPlaceEvents.events = {
         revealDialoguePerson = "Emma_Robinson",
         revealDialogueId = "100.1.2.2.1.1.1",
         renderDist = 40,
+        music = "MusicFuelTruck",
     },
     ["Toolbag"] = {
         scene = "Toolbag",
@@ -52,6 +53,7 @@ BWOAPlaceEvents.events = {
         y = 9925,
         z = 0,
         renderDist = 40,
+        music = "MusicEkronChurch",
     },
     ["Cinema"] = {
         scene = "Cinema",

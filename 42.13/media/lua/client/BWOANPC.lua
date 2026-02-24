@@ -26,7 +26,7 @@ local function manageNPC()
                     brain.bladder = 0
                 end
                 if not brain.hunger then
-                    brain.hunger = 0
+                    brain.hunger = 10
                 end
                 if not brain.thirst then
                     brain.thirst = 0
@@ -36,6 +36,7 @@ local function manageNPC()
                 end
 
                 brain.bladder = brain.bladder + 0.1
+                brain.hunger = brain.hunger + 0.1
                 brain.sadness = brain.sadness - 1
 
                 if brain.bladder > 100 then

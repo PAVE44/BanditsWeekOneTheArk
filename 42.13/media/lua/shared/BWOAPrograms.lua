@@ -189,3 +189,22 @@ BWOAPrograms.GoAndDo = function(bandit, point, task)
         return tasks
     end
 end
+
+BWOAPrograms.Jog = function(bandit)
+    local tasks = {}
+    
+    local bx, by = bandit:getX(), bandit:getY()
+    local tx, ty = 0, 0
+    if bx >= 9959 and bx < 9973 and by >= 12608 and by < 12610 then
+        tx, ty = 9958.5, 12609.5
+    elseif bx >= 9957 and bx < 9959 and by >= 12608 and by < 12641 then
+        tx, ty = 9958.5, 12641.5
+    elseif bx >= 9957 and bx < 9971 and by >= 12641 and by < 12643 then
+        tx, ty = 9971.5, 12641.5
+    else
+        tx, ty = 9971.5, 12609.5
+    end
+
+    table.insert(tasks, BanditUtils.GetMoveTask(0, tx, ty, -4, "Run", 10, false))
+    return tasks
+end

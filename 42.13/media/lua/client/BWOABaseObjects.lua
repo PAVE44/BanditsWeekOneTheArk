@@ -98,11 +98,13 @@ local function analyze(x, y, z)
             for i=0, items:size()-1 do
                 local item = items:get(i)
                 local ftype = item:getFullType()
+                local food = item:isFood() and not item:isPoison()
                 temp.items[oid] = {
                     x = x,
                     y = y,
                     z = z,
-                    ftype = ftype
+                    ftype = ftype,
+                    f = food
                 }
             end
         end
@@ -113,11 +115,14 @@ local function analyze(x, y, z)
         local o = wobs:get(i)
         local item = o:getItem()
         local ftype = item:getFullType() 
+        local food = item:isFood() and not item:isPoison()
         temp.items[oid] = {
             x = x,
             y = y,
             z = z,
-            ftype = ftype
+            ftype = ftype,
+            f = food,
+            g = true
         }
     end
 end
@@ -201,6 +206,50 @@ BWOABaseObjects.GetIsoObject = function(obj)
             end
         end
     end
+end
+
+BWOABaseObjects.FindClosestItemTypes = function(fullTypesList, point, opts)
+    local distBest = math.huge
+    local itemBest
+    local items = database.items
+
+    for id, item in pairs(items) do
+        for _, fullType in pairs(fullTypesList) do
+            if item.ftype == fullType then
+                local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
+                if distSq < distBest then
+                    itemBest = item
+                    distBest = distSq
+                end
+            end
+        end
+    end
+
+    if itemBest then
+        return itemBest, math.sqrt(distBest)
+    end
+    return nil, nil
+end
+
+BWOABaseObjects.FindClosestItemFood = function(point, opts)
+    local distBest = math.huge
+    local itemBest
+    local items = database.items
+
+    for id, item in pairs(items) do
+        if item.f then
+            local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
+            if distSq < distBest then
+                itemBest = item
+                distBest = distSq
+            end
+        end
+    end
+
+    if itemBest then
+        return itemBest, math.sqrt(distBest)
+    end
+    return nil, nil
 end
 
 Events.OnGameStart.Remove(onGameStart)

@@ -11,6 +11,49 @@ ZombiePrograms.Emma.Prepare = function(bandit)
     return {status=true, next="Main", tasks=tasks}
 end
 
+ZombiePrograms.Emma.mainSchedule = {
+    --[[
+    shower = {
+        hourMin = 16,
+        hourMax = 16,
+        minuteMin = 0,
+        minuteMax = 40
+    },
+    ]]
+    sleep1 = {
+        hourMin = 23,
+        hourMax = 24,
+        minuteMin = 20,
+        minuteMax = 60
+    },
+    sleep2 = {
+        hourMin = 0,
+        hourMax = 6,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    jog = {
+        hourMin = 6,
+        hourMax = 7,
+        minuteMin = 15,
+        minuteMax = 60
+    },
+    radio = {
+        hourMin = 10,
+        hourMax = 12,
+        minuteMin = 0,
+        minuteMax = 60,
+        waMin = 0.5,
+        waMax = 32
+    },
+    readbook = {
+        hourMin = 12,
+        hourMax = 14,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+}
+
 local switchStage = function(bandit)
     local brain = BanditBrain.Get(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
@@ -66,13 +109,6 @@ ZombiePrograms.Emma.Main = function(bandit)
         return {status=true, next=newStage, tasks=tasks}
     end
 
-    local expectedBid = Bandit.banditMap.Emma.Bunker
-    local reoutfitTask = switchOutfit(bandit, expectedBid)
-    if reoutfitTask then
-        table.insert(tasks, reoutfitTask)
-        return {status=true, next="Main", tasks=tasks}
-    end
-
     if brain.mode and brain.mode == "follow" then
         local subTasks = BWOAPrograms.FollowMaster(bandit)
         if #subTasks > 0 then
@@ -90,44 +126,8 @@ ZombiePrograms.Emma.Main = function(bandit)
             return {status=true, next="Main", tasks=tasks}
         end
     else
-    
-        local schedule = {
-            --[[
-            shower = {
-                hourMin = 16,
-                hourMax = 16,
-                minuteMin = 0,
-                minuteMax = 40
-            },
-            sleep1 = {
-                hourMin = 23,
-                hourMax = 23,
-                minuteMin = 20,
-                minuteMax = 60
-            },
-            ]]
-            sleep2 = {
-                hourMin = 0,
-                hourMax = 6,
-                minuteMin = 0,
-                minuteMax = 60
-            },
-            radio = {
-                hourMin = 10,
-                hourMax = 12,
-                minuteMin = 0,
-                minuteMax = 60,
-                waMin = 0.5,
-                waMax = 32
-            },
-            readbook = {
-                hourMin = 12,
-                hourMax = 14,
-                minuteMin = 0,
-                minuteMax = 60
-            }
-        }
 
+        -- basic needs
         if brain.bladder and brain.bladder > 20 then
             bandit:addLineChatElement("ACTIVITY: TOILET", 0, 0, 1)
             local obj, dist = BWOABaseObjects.FindClosestObject({"Toilet"}, {x=bx, y=by})
@@ -141,8 +141,35 @@ ZombiePrograms.Emma.Main = function(bandit)
                     return {status=true, next="Main", tasks=tasks}
                 end
             end
+        elseif brain.hunger and brain.hunger > 10 then
+            local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+            if reoutfitTask then
+                table.insert(tasks, reoutfitTask)
+                return {status=true, next="Main", tasks=tasks}
+            end
+            -- bandit:addLineChatElement("ACTIVITY: FOOD HUNT", 0, 0, 1)
+            local foodConf = BWOAPermaInv.GetFood(bandit)
+            if foodConf then
+                local task = {action="Eat", time=300}
+                table.insert(tasks, task)
+                return {status=true, next="Main", tasks=tasks}
+            end
+
+            local item, dist = BWOABaseObjects.FindClosestItemFood({x=bx, y=by}, {})
+            if item then
+                local task = {action="Collect", time=300, item=item}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
+                if #subTasks > 0 then
+                    for _, subTask in pairs(subTasks) do
+                        table.insert(tasks, subTask)
+                    end
+                    return {status=true, next="Main", tasks=tasks}
+                end
+            end
         end
 
+        -- timed activities
+        local schedule = ZombiePrograms.Emma.mainSchedule
         local activity = BanditUtils.GetScheduledActivity(schedule)
         if activity then
             if activity == "shower" then
@@ -155,11 +182,16 @@ ZombiePrograms.Emma.Main = function(bandit)
                         for _, subTask in pairs(subTasks) do
                             table.insert(tasks, subTask)
                         end
-                        return {status=true, next="Main", twaasks=tasks}
+                        return {status=true, next="Main", tasks=tasks}
                     end
                 end
             elseif activity == "sleep1" or activity == "sleep2" then
                 bandit:addLineChatElement("ACTIVITY: SLEEP", 0, 0, 1)
+                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+                if reoutfitTask then
+                    table.insert(tasks, reoutfitTask)
+                    return {status=true, next="Main", tasks=tasks}
+                end
                 local obj, dist = BWOABaseObjects.FindClosestObject({"Beds", "Bed"}, {x=bx, y=by})
                 if obj then
                     local bed = BWOABaseObjects.GetIsoObject(obj)
@@ -174,8 +206,27 @@ ZombiePrograms.Emma.Main = function(bandit)
                         return {status=true, next="Main", tasks=tasks}
                     end
                 end
+            elseif activity == "jog" then
+                bandit:addLineChatElement("ACTIVITY: JOG", 0, 0, 1)
+                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Sport)
+                if reoutfitTask then
+                    table.insert(tasks, reoutfitTask)
+                    return {status=true, next="Main", tasks=tasks}
+                end
+                local subTasks = BWOAPrograms.Jog(bandit)
+                if #subTasks > 0 then
+                    for _, subTask in pairs(subTasks) do
+                        table.insert(tasks, subTask)
+                    end
+                    return {status=true, next="Main", tasks=tasks}
+                end
             elseif activity == "radio" then
                 -- bandit:addLineChatElement("ACTIVITY: RADIO", 0, 0, 1)
+                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+                if reoutfitTask then
+                    table.insert(tasks, reoutfitTask)
+                    return {status=true, next="Main", tasks=tasks}
+                end
                 local obj, dist = BWOABaseObjects.FindClosestObject({"Radio"}, {x=bx, y=by})
                 if obj then
                     local task = {action="UseRadio", time=600, fx=obj.x, fy=obj.y}
@@ -189,6 +240,11 @@ ZombiePrograms.Emma.Main = function(bandit)
                 end
             elseif activity == "readbook" then
                 bandit:addLineChatElement("ACTIVITY: READ BOOK", 0, 0, 1)
+                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+                if reoutfitTask then
+                    table.insert(tasks, reoutfitTask)
+                    return {status=true, next="Main", tasks=tasks}
+                end
                 local obj, dist = BWOABaseObjects.FindClosestObject({"Couch"}, {x=bx, y=by})
                 if obj then
                     local task = {action="SitInChair", anim="SitInChairRead", sound="PageFlipBook", item="Bandits.Book", left=true, x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=100}
@@ -201,6 +257,12 @@ ZombiePrograms.Emma.Main = function(bandit)
                     end
                 end
             end
+        end
+
+        local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+        if reoutfitTask then
+            table.insert(tasks, reoutfitTask)
+            return {status=true, next="Main", tasks=tasks}
         end
 
         local config = {}
@@ -217,6 +279,12 @@ ZombiePrograms.Emma.Main = function(bandit)
                 return {status=true, next="Main", tasks=tasks}
             end
         end
+    end
+
+    local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+    if reoutfitTask then
+        table.insert(tasks, reoutfitTask)
+        return {status=true, next="Main", tasks=tasks}
     end
 
     local subTasks = BWOAPrograms.IdleEmma(bandit)

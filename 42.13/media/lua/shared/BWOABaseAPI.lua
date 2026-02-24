@@ -23,21 +23,27 @@ BWOABaseAPI.GeneratorsUpdate = function()
         if square and square:getChunk() then
             local generator = square:getGenerator()
             if not generator then
-                local genItem = BanditCompatibility.InstanceItem("Base.Generator")
+                local genItem = BanditCompatibility.InstanceItem("Base.Generator_Old")
                 local generator = IsoGenerator.new(genItem, cell, square)
-                generator:setSprite(nil)
                 generator:transmitCompleteItemToClients()
                 generator:setCondition(100)
                 generator:setFuel(100)
                 generator:setConnected(true)
+
+                local props = generator:getProperties()
+                props:set("GeneratorSound", "silenced")
+
                 cell:addToProcessIsoObjectRemove(generator)
                 square:setSquareChanged()
+                
+
             else
                 generator:setCondition(100)
                 generator:setFuel(100)
+                local props = generator:getProperties()
+                props:set("GeneratorSound", "silenced")
 
-                local chunk = square:getChunk()
-                chunk:removeObjectAmbientEmitter(generator)
+
             end
         else
             cell:getOrCreateGridSquare(coords.x, coords.y, coords.z)

@@ -1,0 +1,2712 @@
+sound Dial_emma_1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.1.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.1.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.1.1_4 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.1.1_4.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.1.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.1.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.1.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.1.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.1.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.1.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.1.4_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.1.4_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.1.4_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.1.4_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1.1.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1.1.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.10_4 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.10_4.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.2_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.2_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.3_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.3_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.4.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.4.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.4_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.4_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.4_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.4_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.5.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.5.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.5_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.5_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.5_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.5_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.6_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.6_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.7.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.7.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.7.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.7.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.7.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.7.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.7_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.7_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1.1_4 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1.1_4.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1.1_5 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1.1_5.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.8_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.8_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.9_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.9_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.9_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.9_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_100.9_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_100.9_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.3.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.3.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.3_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.3_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.4_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.4_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.5.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.5.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1000.5_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1000.5_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.2_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.2_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.3.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.3.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2.3.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2.3.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.1.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.1.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.1.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.1.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_200.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_200.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.3.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.3.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.3.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.3.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.3.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.3.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.4.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.4.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.4.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.4.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.4.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.4.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.4_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.4_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.5_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.5_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.5_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.5_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.5_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.5_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.2.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.2.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.2.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.2.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.3.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.3.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.3.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.3.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.3.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.3.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.3_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.3_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.3_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.3_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.4.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.4.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.4.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.4.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.4.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.4.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6.4_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6.4_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2000.6_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2000.6_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_2_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_2_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.2.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.2.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.2.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.2.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.2.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.2.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.2.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.2.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3.2_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3.2_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.2.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.2.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.2.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.2.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.2.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.2.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.2_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.2_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.2_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.2_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.2_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.2_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.3.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.3.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.3.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.3.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_300.3_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_300.3_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_3_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_3_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_4_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_4_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_4_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_4_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_4_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_4_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1.1_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1.1_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1.1_4 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1.1_4.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5.1_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5.1_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_5_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_5_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_10 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_10.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_4 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_4.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_5 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_5.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_6 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_6.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_7 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_7.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_8 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_8.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_radiocall_9 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_radiocall_9.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_wait_talk_1 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_wait_talk_1.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_wait_talk_2 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_wait_talk_2.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_wait_talk_3 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_wait_talk_3.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+
+sound Dial_emma_wait_talk_4 {
+    category = Object,
+    loop = false,
+    is3D = true,
+    clip {
+        file = media/sound/emma/emma_wait_talk_4.ogg,
+        distanceMin = 1,
+        distanceMax = 7,
+        reverbFactor = 0.6,
+    }
+}
+

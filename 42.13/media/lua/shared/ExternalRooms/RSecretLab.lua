@@ -124,18 +124,27 @@ BWOARooms.SecretLab.Prepare = function ()
     note2a:setCanBeWrite(false)
     note2a:setName("On Environmental Determinants of Early Mortuary Practice")
     note2a:getModData().printContent = "early_mortuary_practice"
+    note2a:getModData().BWOA = {}
+    note2a:getModData().BWOA.revealDialogueId = "2000.6.1"
+    note2a:getModData().BWOA.revealDialoguePerson = "Emma_Robinson"
     BWOAPrepareTools.AddWorldItemSpecial(5571, 12502, -13, note2a, {x=0.66, y=0.40, z=0.35, rx=0, ry=0, rz=0})
 
     local note2b = BanditCompatibility.InstanceItem("Bandits.Note")
     note2b:setCanBeWrite(false)
     note2b:setName("Report on the Composition of the Paleolithic Survey Group")
     note2b:getModData().printContent = "paleolithic_survey_group"
+    note2b:getModData().BWOA = {}
+    note2b:getModData().BWOA.revealDialogueId = "2000.6.2"
+    note2b:getModData().BWOA.revealDialoguePerson = "Emma_Robinson"
     BWOAPrepareTools.AddWorldItemSpecial(5571, 12502, -13, note2b, {x=0.79, y=0.40, z=0.35, rx=0, ry=0, rz=0})
 
     local note2c = BanditCompatibility.InstanceItem("Bandits.Note")
     note2c:setCanBeWrite(false)
     note2c:setName("Supplementary Excavation Log Site C-17 (Substratum)")
     note2c:getModData().printContent = "supplementary_excavation_log"
+    note2c:getModData().BWOA = {}
+    note2c:getModData().BWOA.revealDialogueId = "2000.6.2.1"
+    note2c:getModData().BWOA.revealDialoguePerson = "Emma_Robinson"
     BWOAPrepareTools.AddWorldItemSpecial(5571, 12502, -13, note2c, {x=0.94, y=0.47, z=0.35, rx=0, ry=0, rz=0})
 
     local note2d = BanditCompatibility.InstanceItem("Bandits.NoteBook")
@@ -149,6 +158,9 @@ BWOARooms.SecretLab.Prepare = function ()
     note3:setCanBeWrite(false) 
     note3:setName("7-Q-17")
     note3:getModData().printContent = "7Q17"
+    note3:getModData().BWOA = {}
+    note3:getModData().BWOA.revealDialogueId = "2000.6.3"
+    note3:getModData().BWOA.revealDialoguePerson = "Emma_Robinson"
     BWOAPrepareTools.AddWorldItemSpecial(5583, 12494, -13, note3, {x=0.38, y=0.61, z=0.35, rx=0, ry=0, rz=0})
 
     -- control room
@@ -159,7 +171,8 @@ BWOARooms.SecretLab.Prepare = function ()
     md.printContent = "science_team"
     md.BWOA = {}
     md.BWOA.accomplishMissionId = 110
-    md.BWOA.revealMissionId = 111
+    md.BWOA.revealDialogueId = "2000.6.4"
+    md.BWOA.revealDialoguePerson = "Emma_Robinson"
 
     BWOAPrepareTools.AddItemsToContainer(5552, 12488, -13, {note4}, "Cabinet", true)
 end
@@ -198,9 +211,9 @@ BWOARooms.SecretLab.PrepareCorpses = function ()
 
     soldierLocations = {
         {x = 5584, y = 12483, z = 0},
-        {x = 5519, y = 12511, z = 0},
-        {x = 5517, y = 12513, z = 0},
-        {x = 5517, y = 12513, z = 0},
+        -- {x = 5519, y = 12511, z = 0},
+        -- {x = 5517, y = 12513, z = 0},
+        -- {x = 5517, y = 12513, z = 0},
         {x = 5545, y = 12468, z = -1},
     }
 

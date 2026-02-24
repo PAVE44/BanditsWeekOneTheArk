@@ -2129,6 +2129,34 @@ tileset
         Surface = 30
         solidtrans = 
     }
+    // industry_burnt_02_268
+    tile
+    {
+        xy = 4,33
+        BlocksPlacement = 
+        solidtrans = 
+    }
+    // industry_burnt_02_269
+    tile
+    {
+        xy = 5,33
+        BlocksPlacement = 
+        solidtrans = 
+    }
+    // industry_burnt_02_270
+    tile
+    {
+        xy = 6,33
+        BlocksPlacement = 
+        solidtrans = 
+    }
+    // industry_burnt_02_271
+    tile
+    {
+        xy = 7,33
+        BlocksPlacement = 
+        solidtrans = 
+    }
 }
 tileset
 {
@@ -2752,6 +2780,16 @@ tileset
         Material2 = MetalScrap
         container = campfire
         solid = 
+    }
+    // theark_01_13
+    tile
+    {
+        xy = 5,1
+        BlocksPlacement = 
+        CustomItem = BaseGenerator_Silent
+        CustomName = Generator
+        GeneratorSound = SilentGenerator
+        GroupName = Silent
     }
 }
 tileset

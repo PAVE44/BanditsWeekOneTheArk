@@ -1,5 +1,22 @@
 module Bandits
 {
+    item Generator_Silent
+    {
+        DisplayCategory = Electronics,
+        ItemType = base:normal,
+        Weight = 40.0,
+        Icon = Generator4,
+        ConditionMax = 100,
+        MetalValue = 500.0,
+        RequiresEquippedBothHands = true,
+        Tooltip = Tooltip_Generator,
+        Tags = base:heavyitem;base:generator;base:hasmetal;base:ignorezombiedensity;base:showcondition,
+        WorldObjectSprite = theark_01_13,
+        ConditionLowerChanceOneIn = 25,
+        SoundRadius = 0,
+        SoundVolume = 1,
+    }
+
     item Note
     {
         ItemType = base:literature,

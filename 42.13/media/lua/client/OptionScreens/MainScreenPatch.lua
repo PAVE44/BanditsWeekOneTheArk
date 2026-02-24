@@ -61,8 +61,8 @@ MainScreenInitialise = MainScreen.initialise
 
 function MainScreen:initialise()
 	MainScreenInitialise(self)
-    self.titleTextureLight = getTexture("media/textures/title_light.png")
-    self.titleTextureDark = getTexture("media/textures/title_dark.png")
+    self.titleTextureLight = getTexture("media/textures/w1title.png")
+    -- self.titleTextureDark = getTexture("media/textures/w1title.png")
     self.alphaBG = 0
     if not self.inGame and not isDemo() then
         BWOAMusic.Play("MusicIntro", 1, 1)
@@ -73,6 +73,8 @@ MainScreenPrerender = MainScreen.prerender
 
 function MainScreen:prerender()
     MainScreenPrerender(self)
+    getCore():setOptionUIRenderFPS(60)
+    getSoundManager():setMusicState("PauseMenu")
 
     if not self.inGame then
         if MainScreen.start then
@@ -89,6 +91,7 @@ function MainScreen:prerender()
                 if MainScreen.alphaBG > 1 then 
                     MainScreen.alphaBG = 1
                 end
+                --[[
                 local rnd = ZombRand(1000)
                 if rnd == 1 then
                     MainScreen.titleTextureNow = 2
@@ -98,6 +101,7 @@ function MainScreen:prerender()
                         emitter:playSound("UILightFlicker")
                     end
                 end
+                ]]
             elseif MainScreen.titleTextureNow == 2 then
                 MainScreen.alphaBG = MainScreen.alphaBG - 0.05
                 if MainScreen.alphaBG < 0 then 
@@ -114,7 +118,7 @@ function MainScreen:prerender()
                     end
                 end
             end
-            UIManager.DrawTexture(self.titleTextureDark, 0, 0, self.width, self.height, 1)
+            -- UIManager.DrawTexture(self.titleTextureDark, 0, 0, self.width, self.height, 1)
             UIManager.DrawTexture(self.titleTextureLight, 0, 0, self.width, self.height, MainScreen.alphaBG)
         end
     end

@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.72"
+BWOAMenu.version = "0.76"
 
 BWOAMenu.blinking = {}
 
@@ -147,6 +147,14 @@ function BWOAMenu.EventAssault(player)
     BWOASequence.Assault({intensity = 6})
 end
 
+function BWOAMenu.EventRainbow(player)
+    BWOAMusic.Play("MusicFinale", 1, 1)
+    BWOATex.tex = getTexture("media/textures/rainbow.png")
+    BWOATex.speed = 0.000001
+    BWOATex.mode = "full"
+    BWOATex.alpha = 0.3
+end
+
 function BWOAMenu.EventAbyss(player, square)
     local cell = getCell()
     local xmin = square:getX() - 5
@@ -226,9 +234,18 @@ end
 
 function BWOAMenu.MakeBasement(player, square)
 
-    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom(), "family")
+    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom(), "generic")
     basement:build()
 
+end
+
+function BWOAMenu.EmmaAction(player, bandit, action)
+    if action == "GiveCarrot" then
+        local item = BanditCompatibility.InstanceItem("Base.Carrots")
+        BWOAPermaInv.Add(bandit, item)
+    elseif action == "GetInventory" then
+        local permaInv = BWOAPermaInv.Get(bandit)
+    end
 end
 
 function BWOAMenu.LocateBasement(player)
@@ -392,6 +409,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local room = square:getRoom()
+    local zombie = square:getZombie()
 
     -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
@@ -410,6 +428,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() or isAdmin() then
 
+
+        -- BWOADialogues.Reveal("Emma_Robinson", "2000.6")
 
         -- BWOARooms.Infirmary.SetFlickers()
 
@@ -465,9 +485,17 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             end
         end]]
 
-        -- print (SandboxVars.Basement.SpawnFrequency)
-        local test = SandboxVars
-        local vehicle = square:getVehicleContainer()
+        if zombie then
+            local brain = BanditBrain.Get(zombie)
+            if brain and brain.program and brain.program.name == "Emma" then
+                local emmaOption = context:addOption("Emma Robinson")
+                local emmaMenu = context:getNew(context)
+                context:addSubMenu(emmaOption, emmaMenu)
+                emmaMenu:addOption("Give Carrot", player, BWOAMenu.EmmaAction, zombie, "GiveCarrot")
+                emmaMenu:addOption("Get Inventory", player, BWOAMenu.EmmaAction, zombie, "GetInventory")
+            end
+        end
+
 
         local building = square:getBuilding()
         if building then
@@ -501,6 +529,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
         eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
+        eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
+        
 
         local scenesOption = context:addOption("Scenes")
         local scenesMenu = context:getNew(context)

@@ -325,15 +325,30 @@ function BWOABasements.Generic:populate()
     local player = getSpecificPlayer(0)
     if not player then return end
 
-    local args = {}
-    args.cid = self.cid
-    args.x = self.x + 5
-    args.y = self.y + 3
-    args.z = self.z
-    args.program = "Basement"
-    args.size = 4
-    -- args.permanent = true
-    if args.cid then
+    if not self.cid then return end
+
+    local options = {}
+    for x = self.x , self.x + self.dx - 1 do
+        for y = self.y , self.y + self.dy - 1 do
+            local square = getCell():getGridSquare(x, y, self.z)
+            if square then
+                table.insert(options, {x=x, y=y, z=self.z})
+            end
+        end
+    end
+
+    for i = 1, 4 do
+        local choice = BanditUtils.Choice(options)
+        local x, y, z = choice.x, choice.y, choice.z
+        local args = {}
+        args.cid = self.cid
+        args.x = x
+        args.y = y
+        args.z = z
+        args.program = "Basement"
+        args.size = 1
+        -- args.permanent = true
+        
         sendClientCommand(player, 'Spawner', 'Clan', args)
     end
 end

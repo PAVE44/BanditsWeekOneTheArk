@@ -96,7 +96,7 @@ BWOASequence.Earthquake = function(params)
     local player = getSpecificPlayer(0)
 
     local d = 1
-    BWOAEventControl.Add("PlayPlayer", {sound = "AmbientRumble"}, d)
+    BWOAMusic.Play("MusicEarthquake", 0.8, 1)
     
     d = 750
     BWOAEventControl.Add("Shaker", {status = true}, d)
@@ -223,7 +223,7 @@ BWOASequence.Assault = function(params)
         x = coords.x,
         y = coords.y,
         z = coords.z,
-        program = "Bandit",
+        program = "Assault",
         size = params.intensity * coords.size,
     }
 

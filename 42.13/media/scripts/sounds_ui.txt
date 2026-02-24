@@ -1,3 +1,37 @@
+module Base {
+
+    
+    sound UIActivatePlayButton
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/dream_2_end.ogg,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+           
+        }
+    }
+
+    sound UIClickToStart
+    {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/dream_2_end.ogg,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+           
+        }
+    }
+}
+
 module Bandits {
 
     sound UIKey {

@@ -68,7 +68,7 @@ BWOAMusic.Process = function()
         -- fade out orig
         local sm = getSoundManager()
         local origVolume = sm:getMusicVolume()
-        local newVolume = origVolume - 0.1
+        local newVolume = origVolume - 0.25
         if newVolume < 0 then newVolume = 0 end
         sm:setMusicVolume(newVolume)
         getCore():setOptionMusicVolume(newVolume * 10)

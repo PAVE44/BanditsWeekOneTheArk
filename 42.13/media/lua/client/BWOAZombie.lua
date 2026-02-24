@@ -120,5 +120,19 @@ local function onZombieUpdate(zombie)
 
 end
 
+local function onDeadBodySpawn(body)
+    local md = body:getModData()
+    if not md.BWOA then md.BWOA = {} end
+
+    if body:isSkeleton() and not md.BWOA.reanimated and ZombRand(50) == 0 then
+        local age = getGameTime():getWorldAgeHours()
+        body:setReanimateTime(age + ZombRandFloat(0.1, 0.7)) -- now plus 6 - 42 minutes
+        md.BWOA.reanimated = true
+    end
+end
+
 Events.OnZombieUpdate.Remove(onZombieUpdate)
 Events.OnZombieUpdate.Add(onZombieUpdate)
+
+Events.OnDeadBodySpawn.Remove(onDeadBodySpawn)
+Events.OnDeadBodySpawn.Add(onDeadBodySpawn)
