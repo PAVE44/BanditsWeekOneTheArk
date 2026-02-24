@@ -261,6 +261,11 @@ function BWOAScenes.Cinema:placeItems()
         local item = BanditCompatibility.InstanceItem("Base.VHS_Retail")
         local mediaData = mediaRecorder:getMediaData(tapeConf.id)
         item:setRecordedMediaData(mediaData)
+        local md = item:getModData()
+        md.BWOA = {}
+        md.BWOA.accomplishMissionId = 13
+        md.BWOA.hideDialogueId = "300.4.1.3"
+        md.BWOA.hideDialoguePerson = "Emma_Robinson"
         BWOAPrepareTools.AddItemsToContainer(10186, 12633, -1, {item}, "Shelves", preserve)
         preserve = true
     end
@@ -270,6 +275,11 @@ function BWOAScenes.Cinema:placeItems()
         local item = BanditCompatibility.InstanceItem("Base.VHS_Retail")
         local mediaData = mediaRecorder:getMediaData(tapeConf.id)
         item:setRecordedMediaData(mediaData)
+        local md = item:getModData()
+        md.BWOA = {}
+        md.BWOA.accomplishMissionId = 13
+        md.BWOA.hideDialogueId = "300.4.1.3"
+        md.BWOA.hideDialoguePerson = "Emma_Robinson"
         BWOAPrepareTools.AddItemsToContainer(10187, 12633, -1, {item}, "Shelves", preserve)
         preserve = true
     end

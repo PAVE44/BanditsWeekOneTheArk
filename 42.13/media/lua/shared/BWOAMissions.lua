@@ -42,7 +42,19 @@ BWOAMissions.missions = {
     },
     [10] = {
         name = "Find the car",
-        desc = "You've found a car key. It suggests a working vehicle may be nearby.",
+        desc = "You've found a car key.\nIt suggests a working vehicle may be nearby.",
+    },
+    [11] = {
+        name = "Find a jukebox",
+        desc = "Emma wants some music.\nBring a working jukebox to the Ark.",
+    },
+    [12] = {
+        name = "Find the piano",
+        desc = "Emma mentioned she plays the piano.\nFind one, and bring it to the Ark.",
+    },
+    [13] = {
+        name = "Find more VHS tapes",
+        desc = "Bringing more VHS tapes to the Ark will help you and Emma chill together.",
     },
     [100] = {
         name = "Go to church in Fallas Lake",

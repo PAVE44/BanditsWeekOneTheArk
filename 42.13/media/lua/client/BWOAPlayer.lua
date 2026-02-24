@@ -28,6 +28,7 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_
 local timeRevealMap = {
     [1] = {hours = 29, person = "Emma_Robinson", qid = "300.1"},
     [2] = {hours = 65, person = "Emma_Robinson", qid = "300.3"},
+    [2] = {hours = 168, person = "Emma_Robinson", qid = "300.4"},
 }
 
 local roomRevealMap = {
@@ -853,6 +854,9 @@ local onTimedActionPerform = function(data)
                 end
                 if md.BWOA.revealDialogueId and md.BWOA.revealDialoguePerson then
                     BWOADialogues.Reveal(md.BWOA.revealDialoguePerson, md.BWOA.revealDialogueId)
+                end
+                if md.BWOA.hideDialogueId and md.BWOA.hideDialoguePerson then
+                    BWOADialogues.Hide(md.BWOA.hideDialogueId, md.BWOA.hideDialoguePerson)
                 end
             end
 

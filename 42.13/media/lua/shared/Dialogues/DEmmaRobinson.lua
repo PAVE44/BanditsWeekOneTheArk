@@ -525,6 +525,43 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         anim = "GestYes",
         req = {"300.3"},
     },
+    ["300.4"] = {
+        qst = "You've been here quite a bit. Aren't you bored?",
+        ans = "I've busy with various things most of the time. But I have to admit, I miss other fun activities.",
+        anim = "Gest1",
+        req = {"100.1.2.2.1.1.1"},
+        hidden = true, -- unlocked by time
+    },
+    ["300.4.1"] = {
+        qst = "What fun activities are you missing in here?",
+        ans = "Oh you know, I love books and I've been reading them here for some time. However I miss music and dancing. I used to go to clubs and dance the night away. I miss that a lot.",
+        anim = "Gest1",
+        req = {"300.4"},
+    },
+    ["300.4.1.1"] = {
+        qst = "Why can't you dance in here?",
+        ans = "I could, but without music, it's not the same. I wish we had music in here.",
+        anim = "GestNo",
+        req = {"300.4.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 11},
+    },
+    ["300.4.1.2"] = {
+        qst = "Besides books and clubbing, is there anything else you like to do for fun?",
+        ans = "Piano. I used to play the piano. I wish we had one here!",
+        anim = "GestYes",
+        req = {"300.4.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 12},
+    },
+    ["300.4.1.3"] = {
+        qst = "What about movies? Do you like to watch them too?",
+        ans = "Sure. But we only have a few in here and I've already watched them millions of times. I wish we had more.",
+        anim = "GestYes",
+        req = {"300.4.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 13},
+    },
 
     -- base condition dependent
     ["1000.1"] = {
