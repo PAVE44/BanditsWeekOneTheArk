@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.78"
+BWOAMenu.version = "0.80"
 
 BWOAMenu.blinking = {}
 
@@ -123,6 +123,18 @@ BWOAMenu.specialObjectsHighlight = {
         destroyable = true,
     },
 }
+
+function BWOAMenu.JukeboxOptions(player, square, option)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    local jukebox = BWOAJukebox.Get(x, y, z)
+    if jukebox then
+        if option == "on" then
+            BWOAJukebox.TurnOn(x, y, z)
+        elseif option == "off" then
+            BWOAJukebox.TurnOff(x, y, z)
+        end
+    end
+end
 
 local chapter = 1
 function BWOAMenu.EventChapter(player)
@@ -410,6 +422,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local room = square:getRoom()
     local zombie = square:getZombie()
+    local body = square:getDeadBody()
 
     -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
@@ -424,11 +437,28 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             end
         end
     end 
-    print ("Hatch count: " .. tostring(i - 4))
+    
+    local isoJukebox = BWOABaseObjects.GetIsoObject({x = sx, y = sy, z = sz, cn = "Jukebox"})
+    if isoJukebox then
+        local jukebox = BWOAJukebox.Get(sx, sy, sz)
+        if not jukebox then
+            jukebox = BWOAJukebox.Add(sx, sy, sz)
+        end
+        if jukebox.on then
+            context:addOption("Stop Music", player, BWOAMenu.JukeboxOptions, square, "off")
+        else
+            context:addOption("Play Music", player, BWOAMenu.JukeboxOptions, square, "on")
+        end
+    end
 
     if isDebugEnabled() or isAdmin() then
 
 
+        if body then
+            body:setZ(body:getZ() + 0.05)
+            body:setForwardDirectionAngle(-2)
+            local angle = body:getAngle()
+        end
         -- BWOADialogues.Reveal("Emma_Robinson", "2000.6")
 
         -- BWOARooms.Infirmary.SetFlickers()

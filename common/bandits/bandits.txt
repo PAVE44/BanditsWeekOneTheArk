@@ -1724,4 +1724,31 @@
 	tint: Hat = 16777215
 	tint: TankTop = 16777215
 	tint: Shoes = 16777215
+	weapons: melee = Base.Pencil
+
+[19a4a644-5029-4343-ae6d-271bf11bb906]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Dance
+	general: female = true
+	general: skin = 2
+	general: hairType = 20
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Dress = Base.Dress_SmallStraps
+	clothing: UnderwearExtra1 = Base.StockingsBlackTrans
+	clothing: Shoes = Base.Shoes_CowboyBoots_Fancy
+	clothing: MakeUp_EyesShadow = Base.MakeUp_EyesShadowWhite
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	tint: Dress = 8408371
+	tint: Shoes = 16777215
+	weapons: melee = Base.Pencil
 

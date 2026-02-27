@@ -35,7 +35,7 @@ local function manageNPC()
                     brain.sadness = 0
                 end
 
-                brain.bladder = brain.bladder + 0.1
+                brain.bladder = brain.bladder + 0.07
                 brain.hunger = brain.hunger + 0.1
                 brain.sadness = brain.sadness - 1
 

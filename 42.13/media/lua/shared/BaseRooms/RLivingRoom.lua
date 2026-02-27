@@ -46,15 +46,49 @@ BWOARooms.LivingRoom.Build = function ()
     BWOABuildTools.LampOvalE(9980, 12623, -4)
     BWOABuildTools.LampOvalN(9975, 12618, -4)
 
-    -- equipment
+    -- tv area
     BWOABuildTools.RemoveObject(9977, 12628, -4, "Couch")
     BWOABuildTools.RemoveObject(9978, 12628, -4, "Couch")
     BWOABuildTools.RemoveObject(9980, 12630, -4, "Television")
-    BWOABuildTools.RemoveObject(9981, 12628, -4, "Lights")
+    BWOABuildTools.RemoveObject(9980, 12628, -4, "Lights")
 
     BWOABuildTools.Generic(9977, 12628, -4, "furniture_tables_low_01_19")
     BWOABuildTools.TV(9977, 12628, -4, "appliances_television_01_4")
     BWOABuildTools.LampCustom(9976, 12632, -4, "lighting_indoor_01_58")
+
+    -- gym
+    BWOABuildTools.RemoveObject(9975, 12619, -4, "Table")
+    BWOABuildTools.RemoveObject(9975, 12620, -4, "Table")
+    BWOABuildTools.RemoveObject(9974, 12619, -4, "Chair")
+    BWOABuildTools.RemoveObject(9974, 12620, -4, "Chair")
+    BWOABuildTools.RemoveObject(9976, 12619, -4, "Chair")
+    BWOABuildTools.RemoveObject(9976, 12620, -4, "Chair")
+    BWOABuildTools.RemoveObject(9979, 12619, -4, "Table")
+    BWOABuildTools.RemoveObject(9979, 12620, -4, "Table")
+    BWOABuildTools.RemoveObject(9978, 12619, -4, "Chair")
+    BWOABuildTools.RemoveObject(9978, 12620, -4, "Chair")
+    BWOABuildTools.RemoveObject(9980, 12619, -4, "Chair")
+    BWOABuildTools.RemoveObject(9980, 12620, -4, "Chair")
+    BWOABuildTools.RemoveObject(9979, 12622, -4, "Table")
+    BWOABuildTools.RemoveObject(9979, 12623, -4, "Table")
+    BWOABuildTools.RemoveObject(9978, 12622, -4, "Chair")
+    BWOABuildTools.RemoveObject(9978, 12623, -4, "Chair")
+    BWOABuildTools.RemoveObject(9980, 12622, -4, "Chair")
+    BWOABuildTools.RemoveObject(9980, 12623, -4, "Chair")
+
+    for x = 9974, 9980 do
+        BWOABuildTools.Generic(x, 12618, -4, "recreational_sports_01_35")
+        BWOABuildTools.Generic(x, 12619, -4, "recreational_sports_01_34")
+        BWOABuildTools.Generic(x, 12620, -4, "recreational_sports_01_35")
+        BWOABuildTools.Generic(x, 12621, -4, "recreational_sports_01_34")
+    end
+
+    BWOABuildTools.Generic(9977, 12619, -4, "recreational_sports_01_41")
+    BWOABuildTools.Generic(9977, 12620, -4, "recreational_sports_01_40")
+
+    BWOABuildTools.Generic(9979, 12619, -4, "recreational_sports_01_31")
+    BWOABuildTools.Generic(9979, 12620, -4, "recreational_sports_01_30")
+
     return true
 end
 
@@ -68,6 +102,7 @@ end
 BWOARooms.LivingRoom.Prepare = function ()
     BWOARooms.LivingRoom.Init()
 
+    -- tv area
     local tapesSeries = {
         {id="f3e24301-7b24-4daf-ab00-e9502d8dfb22"}, -- Ballincoolin S1.01
         {id="1a5d1e8a-67a0-4526-a216-92641fe98009"}, -- Ballincoolin S1.02
@@ -85,6 +120,11 @@ BWOARooms.LivingRoom.Prepare = function ()
         BWOAPrepareTools.AddItemsToContainer(9980, 12631, -4, {item}, "Shelves", preserve)
         preserve = true
     end
+
+    -- gym
+    BWOAPrepareTools.AddWorldItem(9975, 12619, -4, "Base.BarBell", {x=0.59, y=0.75, z=0})
+    BWOAPrepareTools.AddWorldItem(9974, 12618, -4, "Base.DumbBell", {x=0.94, y=0.46, z=0})
+    BWOAPrepareTools.AddWorldItem(9975, 12618, -4, "Base.DumbBell", {x=0.97, y=0.63, z=0})
 end
 
 

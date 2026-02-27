@@ -258,7 +258,7 @@ local function onTick()
                     end
 
                     if not effect.elec or power then
-                        effect.emitter:setVolumeAll(volume)
+                        effect.emitter:setVolumeAll(volume * (effect.volume or 1))
                     else
                         effect.emitter:setVolumeAll(0)
                     end

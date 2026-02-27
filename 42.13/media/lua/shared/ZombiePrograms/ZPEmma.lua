@@ -47,7 +47,7 @@ ZombiePrograms.Emma.mainSchedule = {
     },
     readbook = {
         hourMin = 12,
-        hourMax = 14,
+        hourMax = 13,
         minuteMin = 0,
         minuteMax = 60
     },
@@ -307,17 +307,17 @@ ZombiePrograms.Emma.Main = function(bandit)
             end
         end
 
-        local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-        if reoutfitTask then
-            table.insert(tasks, reoutfitTask)
-            return {status=true, next="Main", tasks=tasks}
-        end
-
         local config = {}
         config.mustSee = false
         config.hearDist = 50
 
         if not BWOAMissions.IsAccomplished(1) then
+            local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+            if reoutfitTask then
+                table.insert(tasks, reoutfitTask)
+                return {status=true, next="Main", tasks=tasks}
+            end
+
             local closestPlayer = BanditUtils.GetClosestPlayerLocation(bandit, config)
 
             if closestPlayer.x and closestPlayer.y and closestPlayer.z and closestPlayer.dist > 4 then
@@ -325,7 +325,28 @@ ZombiePrograms.Emma.Main = function(bandit)
                 BWOADialogues.Reveal(ZombiePrograms.name, "4")
                 table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Walk", closestPlayer.dist, false))
                 return {status=true, next="Main", tasks=tasks}
+            else
+                local tasks = BWOAPrograms.IdleEmma(bandit)
+                if #tasks > 0 then return {status=true, next="Main", tasks=tasks} end
             end
+        end
+    end
+
+    local jukebox, dist = BWOAJukebox.FindClosest(bx, by, bz)
+    if jukebox and dist < 21 then
+        local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Dance)
+        if reoutfitTask then
+            table.insert(tasks, reoutfitTask)
+            return {status=true, next="Main", tasks=tasks}
+        end
+        if dist < 6 then
+            local anim = BanditUtils.Choice({"Dance1", "Dance2", "Dance3", "Dance4"})
+            local task = {action="Single", time=500, anim=anim}
+            local tasks = BWOAPrograms.GoAndDo(bandit, jukebox, task)
+            if #tasks > 0 then return {status=true, next="Main", tasks=tasks} end
+        else
+            table.insert(tasks, BanditUtils.GetMoveTask(0, jukebox.x, jukebox.y, jukebox.z, "Walk", dist, false))
+            return {status=true, next="Main", tasks=tasks}
         end
     end
 
@@ -335,13 +356,8 @@ ZombiePrograms.Emma.Main = function(bandit)
         return {status=true, next="Main", tasks=tasks}
     end
 
-    local subTasks = BWOAPrograms.IdleEmma(bandit)
-    if #subTasks > 0 then
-        for _, subTask in pairs(subTasks) do
-            table.insert(tasks, subTask)
-        end
-        return {status=true, next="Main", tasks=tasks}
-    end
+    local idleTasks = BWOAPrograms.IdleEmma(bandit)
+    if #idleTasks > 0 then return {status=true, next="Main", tasks=idleTasks} end
 
     return {status=true, next="Main", tasks=tasks}
 end
@@ -350,6 +366,7 @@ ZombiePrograms.Emma.Defend = function(bandit)
     local tasks = {}
     local cell = getCell()
     local brain = BanditBrain.Get(bandit)
+    local weapons = Bandit.GetWeapons(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
 
     local newStage = switchStage(bandit)
@@ -362,6 +379,27 @@ ZombiePrograms.Emma.Defend = function(bandit)
     if reoutfitTask then
         table.insert(tasks, reoutfitTask)
         return {status=true, next="Defend", tasks=tasks}
+    end
+
+    local primary = bandit:getPrimaryHandItem()
+    if not primary then
+        local itemName
+        if weapons.primary and weapons.primary.name then
+            itemName = weapons.primary.name
+        elseif weapons.secondary and weapons.secondary.name then
+            itemName = weapons.secondary.name
+        elseif weapons.melee then
+            itemName = weapons.melee
+        end
+        if itemName then
+            local new = BanditCompatibility.InstanceItem(itemName)
+            if new then
+                local sound = new:getEquipSound()
+                local task = {action="Equip", sound=sound, itemPrimary=itemName}
+                table.insert(tasks, task)
+                return {status=true, next="Main", tasks=tasks}
+            end
+        end
     end
 
     if brain.follow then

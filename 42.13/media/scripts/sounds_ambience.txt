@@ -483,18 +483,6 @@ module Bandits {
         } 
     }
 
-    sound MusicJuke1 {
-        category = Object, 
-        loop = true,
-        is3D = true,
-        clip { 
-            file = media/sound/music_juke_1.ogg,
-            distanceMin = 3,
-            distanceMax = 30,
-            reverbFactor = 0.2, 
-        } 
-    }
-
     sound Spooky1{
         category = Object, 
         loop = false,

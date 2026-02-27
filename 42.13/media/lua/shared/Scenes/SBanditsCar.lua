@@ -31,7 +31,8 @@ function BWOAScenes.BanditsCar:placeObjects()
     BWOABuildTools.Generic(8335, 11614, -2, "recreational_01_2")
     BWOABuildTools.Generic(8336, 11614, -2, "recreational_01_3")
     BWOABuildTools.Generic(8334, 11616, -2, "recreational_01_0")
-    BWOASound.AddToObject({x=8334.5, y=11616, z=-2, sound="MusicJuke1"})
+    BWOAJukebox.Add(8334, 11616, -2)
+    BWOAJukebox.TurnOn(8334, 11616, -2)
 
     -- trash area
     BWOABuildTools.Generic(8338, 11616, -2, "trash_01_44")

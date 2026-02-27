@@ -246,7 +246,9 @@ CHAPTER 5: ENDURE
  - communicate with other arks
  - visitors from another ark - friendly on comms but later they're not
  - visitors come by chopper?
-
+ - beds still impassable after reload
+ - music jukebox needs walkto action
+ 
 
 
  

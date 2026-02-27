@@ -62,15 +62,22 @@ function BWOAScenes.Doc:placeItems()
     local md = note:getModData()
     md.printContent = "doc_note"
     md.BWOA = {}
-    md.BWOA.accomplishMissionId = 111
+    md.BWOA.revealDialogueId = "2000.6.4.1.2"
 
     BWOAPrepareTools.AddItemsToContainer(10868, 10036, -1, {note}, "Shelves", true)
 
-    items = {["Bandits.LabSyringe"] = 6}
-    BWOAPrepareTools.AddItemsToContainer(10865, 10044, -1, items, "Fridge")
+    for i=1, 6 do
+        local syringe = BanditCompatibility.InstanceItem("Bandits.LabSyringe")
+        local md = syringe:getModData()
+        md.BWOA = {}
+        md.BWOA.accomplishMissionId = 111
+        md.BWOA.revealMissionId = 112
+        md.BWOA.revealDialogueId = "2000.6.4.1.2"
+        BWOAPrepareTools.AddItemsToContainer(10865, 10044, -1, {syringe}, "Fridge")
+    end
 
-    items = {["Bandits.LabSyringe"] = 5}
-    BWOAPrepareTools.AddItemsToContainer(10866, 10044, -1, items, "Fridge")
+    -- items = {["Bandits.LabSyringe"] = 5}
+    -- BWOAPrepareTools.AddItemsToContainer(10866, 10044, -1, items, "Fridge")
 end
 
 function BWOAScenes.Doc:placeCorpses()

@@ -47,19 +47,19 @@ module Base
 		physicsChassisShape = 1.0871 0.708 4.164,
 		centerOfMassOffset = 0.0000 0.349 -0.35,
 		extentsOffset = 1.0 1.0,
-		engineForce = 6700,
+		engineForce = 4000,
 		engineQuality = 70,
 		engineLoudness = 100,
-		maxSpeed = 60f,
-		brakingForce = 50,
+		maxSpeed = 50f,
+		brakingForce = 80,
 		gearRatioCount = 4,
 		gearRatioR = 4.7,
 		gearRatio1 = 4.6,
 		gearRatio2 = 3.2,
 		gearRatio3 = 1.3,
 		gearRatio4 = 1.0,
-		stoppingMovementForce = 1.1f,
-		rollInfluence = 0.1f,
+		stoppingMovementForce = 13.0,
+		rollInfluence = 0.1,
 		steeringIncrement = 0.04,
 		steeringClamp = 0.3,
 		suspensionStiffness = 40,
@@ -85,7 +85,7 @@ module Base
 
 			position outside
 			{
-				offset = 0.6294 -0.5765 0.4235,
+				offset = 0.5294 -0.5765 0.4235,
 				rotate = 0.0000 0.0000 0.0000,
 				area = SeatFrontLeft,
 			}
@@ -101,7 +101,7 @@ module Base
 
 			position outside
 			{
-				offset = -0.6294 -0.5765 0.4235,
+				offset = -0.5294 -0.5765 0.4235,
 				rotate = 0.0000 0.0000 0.0000,
 				area = SeatFrontRight,
 			}
