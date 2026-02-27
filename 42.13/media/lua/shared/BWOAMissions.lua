@@ -80,7 +80,11 @@ BWOAMissions.missions = {
     },
     [111] = {
         name = "Find the doctor's house",
-        desc = "One of the research team's home addresses points to a location that can be reached.",
+        desc = "One of the research team's home addresses points to a location that can be reached.\nConduct thorough investigation of the house.",
+    },
+    [112] = {
+        name = "Bring the syringe to Emma",
+        desc = "You found some syringes with an unknown substance. Bring them back to Emma.",
     },
 }
 
