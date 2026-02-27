@@ -16,8 +16,16 @@ BWOAPermaInv.Add = function (bandit, item)
 
     local itemConf = {}
     itemConf.fullType = itemFullType
+
     if item:isFood() and not item:isPoison() then
         itemConf.hc = -math.floor(item:getHungerChange() * 100)
+    end
+
+    if item:isRecordedMedia() then
+        local md = item:getMediaData()
+        if md then
+            itemConf.mid = md:getId()
+        end
     end
     table.insert(brain.permaInv, itemConf)
 
@@ -37,11 +45,24 @@ BWOAPermaInv.Remove = function (bandit, itemFullType)
     end
 end
 
-BWOAPermaInv.Get = function (bandit)
+BWOAPermaInv.GetAll = function (bandit)
     local brain = BanditBrain.Get(bandit)
     if not brain or not brain.permaInv then return {} end
 
     return brain.permaInv
+end
+
+BWOAPermaInv.GetType = function (bandit, itemFullType)
+    local brain = BanditBrain.Get(bandit)
+    if not brain or not brain.permaInv then return nil end
+
+    for i, itemConf in pairs(brain.permaInv) do
+        if itemConf.fullType == itemFullType then
+            return itemConf
+        end
+    end
+
+    return nil
 end
 
 BWOAPermaInv.GetFood = function (bandit)

@@ -39,6 +39,17 @@ function BWOAScenes.FuelTruck:placeVehicles()
     md.BWOA = {}
     md.BWOA.fuel = 982
     -- vehicle:putKeyInIgnition(vehicle:createVehicleKey())
+
+    local partNames = {"DoorFrontLeft", "DoorFrontRight"}
+    for _, partName in ipairs(partNames) do
+        local part = vehicle:getPartById(partName)
+        if part then
+            local door = part:getDoor()
+            if door then
+                door:setLockBroken(false)
+            end
+        end
+    end
 end
 
 function BWOAScenes.FuelTruck:populate()

@@ -245,7 +245,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         funcParams = {missionId = 4},
     },
     ["5.1.1.1.1"] = {
-        qst = "I found the basement. What a mess!",
+        qst = "I found a basement. What a mess!",
         ans = "I know, it's ugly. This is the reality now. ",
         anim = "Gest1",
         req = {"5.1.1.1"},
@@ -527,9 +527,9 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["300.4"] = {
         qst = "You've been here quite a bit. Aren't you bored?",
-        ans = "I've busy with various things most of the time. But I have to admit, I miss other fun activities.",
+        ans = "I've been busy with various things most of the time. But I have to admit, I miss other fun activities.",
         anim = "Gest1",
-        req = {"100.1.2.2.1.1.1"},
+        req = {},
         hidden = true, -- unlocked by time
     },
     ["300.4.1"] = {
@@ -540,7 +540,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["300.4.1.1"] = {
         qst = "Why can't you dance in here?",
-        ans = "I could, but without music, it's not the same. I wish we had music in here.",
+        ans = "I could, but without music, it's not the same. I wish we had music in here!",
         anim = "GestNo",
         req = {"300.4.1"},
         func = "RevealMission",
@@ -548,7 +548,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["300.4.1.2"] = {
         qst = "Besides books and clubbing, is there anything else you like to do for fun?",
-        ans = "Piano. I used to play the piano. I wish we had one here!",
+        ans = "Piano. I used to play the piano. How I wish we had one here!",
         anim = "GestYes",
         req = {"300.4.1"},
         func = "RevealMission",

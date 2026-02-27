@@ -19,13 +19,12 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMin = 0,
         minuteMax = 40
     },
-    ]]
     sleep1 = {
         hourMin = 23,
         hourMax = 24,
         minuteMin = 20,
         minuteMax = 60
-    },
+    },    ]]
     sleep2 = {
         hourMin = 0,
         hourMax = 6,
@@ -49,6 +48,12 @@ ZombiePrograms.Emma.mainSchedule = {
     readbook = {
         hourMin = 12,
         hourMax = 14,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    watchtv = {
+        hourMin = 19,
+        hourMax = 23,
         minuteMin = 0,
         minuteMax = 60
     },
@@ -141,7 +146,7 @@ ZombiePrograms.Emma.Main = function(bandit)
                     return {status=true, next="Main", tasks=tasks}
                 end
             end
-        elseif brain.hunger and brain.hunger > 10 then
+        elseif brain.hunger and brain.hunger >= 40 then
             local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
             if reoutfitTask then
                 table.insert(tasks, reoutfitTask)
@@ -254,6 +259,49 @@ ZombiePrograms.Emma.Main = function(bandit)
                             table.insert(tasks, subTask)
                         end
                         return {status=true, next="Main", tasks=tasks}
+                    end
+                end
+            elseif activity == "watchtv" then
+                bandit:addLineChatElement("ACTIVITY: WATCH TV", 0, 0, 1)
+                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+                if reoutfitTask then
+                    table.insert(tasks, reoutfitTask)
+                    return {status=true, next="Main", tasks=tasks}
+                end
+                local obj, dist = BWOABaseObjects.FindClosestObject({"Television"}, {x=bx, y=by})
+                if obj then
+                    local tv = BWOABaseObjects.GetIsoObject(obj)
+                    local dd = tv:getDeviceData()
+                    local md = dd:getMediaData()
+                    if md then
+                        if dd:getIsTurnedOn() and dd:isPlayingMedia() then
+                            local obj, dist = BWOABaseObjects.FindClosestObject({"Couch"}, {x=bx, y=by})
+                            if obj and dist < 10 then
+                                local task = {action="SitInChair", anim="SitInChairTalk", x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
+                                local tasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                                if #tasks > 0 then return {status=true, next="Main", tasks=tasks} end
+                            else
+                                bandit:faceLocationF(obj.x, obj.y)
+                            end
+                        else
+                            local task = {action="PlayVHS", time=600, obj=obj}
+                            local tasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                            if #tasks > 0 then return {status=true, next="Main", tasks=tasks} end
+                        end
+                    else
+                        local hasVHS = BWOAPermaInv.Has(bandit, "Base.VHS_Retail")
+                        if hasVHS then
+                            local task = {action="InsertVHS", time=600, obj=obj}
+                            local tasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                            if #tasks > 0 then return {status=true, next="Main", tasks=tasks} end
+                        else
+                            local item, dist = BWOABaseObjects.FindClosestItemTypes({"Base.VHS_Retail"}, {x=bx, y=by}, {})
+                            if item then
+                                local task = {action="Collect", time=300, item=item}
+                                local tasks = BWOAPrograms.GoAndDo(bandit, item, task)
+                                if #tasks > 0 then return {status=true, next="Main", tasks=tasks} end
+                            end
+                        end
                     end
                 end
             end
