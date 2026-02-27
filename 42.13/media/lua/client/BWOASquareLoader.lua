@@ -221,7 +221,7 @@ local burnSquare = function(square)
 
     local replacements = BWOASquareLoader.replacements
     local dirtyMap = BWOASquareLoader.dirtyMap
-    local residuleScrapChance = BWOASquareLoader.scrapChancePercent[SandboxVars.BWOA.ShelterOccurance]
+    local residuleScrapChance = BWOASquareLoader.scrapChancePercent[SandboxVars.BWOA.ResidueScrap]
     local residuleMaterialToItems = BWOASquareLoader.materialToItems
     local addNavDestruction = false
     if BanditUtils.HasZoneType(x, y, z, "Nav") then

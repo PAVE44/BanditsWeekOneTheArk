@@ -328,6 +328,14 @@ local onPlayerUpdate = function(player)
     end
 
     if dreamShouldStart then
+
+        -- autosave
+        local world = getWorld()
+        local gameSaveWorld = world:getWorld()
+        world:setWorld("AUTOSAVE")
+        GameWindow.save()
+        world:setWorld(gameSaveWorld)
+
         BWOAPlayer.soundStart = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "Start"
         BWOAPlayer.soundEnd = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "End"
         emitter:playSound(BWOAPlayer.soundStart)

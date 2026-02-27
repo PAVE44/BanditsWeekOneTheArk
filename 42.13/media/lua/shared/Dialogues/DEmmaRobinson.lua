@@ -743,4 +743,28 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         func = "RevealMission",
         funcParams = {missionId = 111},
     },
+    ["2000.6.4.1"] = {
+        qst = "One of the doctors from the lab was named Cortman. He had a clinic in Muldraugh.",
+        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
+        anim = "Gest1",
+        req = {"2000.6.4"},
+        func = "RevealMission",
+        funcParams = {missionId = 111},
+    },
+    ["2000.6.4.1.1"] = {
+        qst = "I found out that Cortman injected himself with some suspicious substance. ",
+        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
+        anim = "Gest1",
+        req = {"2000.6.4"},
+        func = "RevealMission",
+        funcParams = {missionId = 111},
+    },
+    ["2000.6.4.1.1"] = {
+        qst = "Cortman's house had a secret room and I think I might have found the substance he injected himself with.",
+        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
+        anim = "Gest1",
+        req = {"2000.6.4"},
+        func = "RevealMission",
+        funcParams = {missionId = 111},
+    },
 }
