@@ -885,6 +885,22 @@ local onTimedActionPerform = function(data)
             BWOAMissions.Accomplish(103)
         end
 
+    elseif action == "ISMoveablesAction" then
+        local mode = data.mode
+        local origSpriteName = data.origSpriteName
+        if mode and origSpriteName then
+            
+            if origSpriteName == "recreational_01_0" or origSpriteName == "recreational_01_1" then
+
+                if mode == "place" then
+                    if character:getX() >= 9940 and character:getX() < 10000 and character:getY() > 12590 and character:getY() < 12660 then
+                        BWOAMissions.Accomplish(11)
+                    end
+
+                end
+            end
+        end
+
     elseif action == "TABAS_TakeShower" then
 
         local radiationBalance = 0.5 * md.bwoa.radiation
