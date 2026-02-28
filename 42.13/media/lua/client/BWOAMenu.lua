@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.80"
+BWOAMenu.version = "0.81"
 
 BWOAMenu.blinking = {}
 

@@ -19,8 +19,9 @@ function BWOAScenes.FallasChurch:placeItems()
     local md = note:getModData()
     md.printContent = "church_gathering_note"
     md.BWOA = {}
-    md.BWOA.accomplishMissionId = 100
-    md.BWOA.revealMissionId = 101
+    md.BWOA.onTaken = {}
+    md.BWOA.onTaken.accomplishMissionId = 100
+    md.BWOA.onTaken.revealMissionId = 101
     BWOAPrepareTools.AddWorldItemSpecial(7384, 8349, -1, note, {x=0.6, y=0.6, z=0.35})
 
 end

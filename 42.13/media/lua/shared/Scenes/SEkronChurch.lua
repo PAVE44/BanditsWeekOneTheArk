@@ -39,8 +39,9 @@ function BWOAScenes.EkronChurch:placeItems()
     local md = note:getModData()
     md.printContent = "sacred_incense"
     md.BWOA = {}
-    md.BWOA.accomplishMissionId = 101
-    md.BWOA.revealMissionId = 102
+    md.BWOA.onTaken = {}
+    md.BWOA.onTaken.accomplishMissionId = 101
+    md.BWOA.onTaken.revealMissionId = 102
     BWOAPrepareTools.AddWorldItemSpecial(439, 9925, -2, note, {x=0.80, y=0.66, z=0.33})
 
 end

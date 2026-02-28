@@ -23,10 +23,12 @@ function BWOAScenes.Toolbag:placeItems()
     end
 
     local bag = BanditCompatibility.InstanceItem("Base.Bag_Military")
-    bag:getModData().BWOA = {}
-    bag:getModData().BWOA.accomplishMissionId = 7
-    bag:getModData().BWOA.revealDialoguePerson = "Emma_Robinson"
-    bag:getModData().BWOA.revealDialogueId = "100.10.1"
+    local md = bag:getModData()
+    md.BWOA = {}
+    md.BWOA.onTaken = {}
+    md.BWOA.onTaken.accomplishMissionId = 7
+    md.BWOA.onTaken.revealDialoguePerson = "Emma_Robinson"
+    md.BWOA.onTaken.revealDialogueId = "100.10.1"
 
     local tools = {"Base.Sledgehammer", "Base.Crowbar", "Base.BoltCutters", "Base.Hammer", "Base.Screwdriver"}
     local container = bag:getItemContainer()

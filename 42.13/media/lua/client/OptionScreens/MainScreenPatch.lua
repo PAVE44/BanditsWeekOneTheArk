@@ -1,8 +1,16 @@
 require "MainScreen"
 
-MainScreen.titleTextureNow = 1
-MainScreen.start = true
 MainScreen.alphaBG = 0
+MainScreen.alphaPZLogo = 0
+MainScreen.alphaTheArkLogo = 0
+
+local function playLogoSound()
+    local emitter = getSoundManager():getUIEmitter()
+    if MainScreen.instance and (not MainScreen.instance.inGame) then
+        emitter:setPos(0, 0, 0)
+        emitter:playSound("UIActivatePlayButton")
+    end
+end
 
 local mainScreenInstantiate = MainScreen.instantiate
 
@@ -60,10 +68,15 @@ end
 MainScreenInitialise = MainScreen.initialise
 
 function MainScreen:initialise()
+    getSoundManager():setMusicState("PauseMenu")
 	MainScreenInitialise(self)
-    self.titleTextureLight = getTexture("media/textures/w1title.png")
-    -- self.titleTextureDark = getTexture("media/textures/w1title.png")
+    getSoundManager():setMusicState("PauseMenu")
+    self.titleTextureBG = getTexture("media/textures/w1title.png")
+    self.titleTexturePZLogo = getTexture("media/textures/pzlogo.png")
+    self.titleTextureTheArkLogo = getTexture("media/textures/thearklogo.png")
     self.alphaBG = 0
+    self.alphaPZLogo = 0
+    self.alphaTheArkLogo = 0
     if not self.inGame and not isDemo() then
         BWOAMusic.Play("MusicIntro", 1, 1)
     end
@@ -77,49 +90,39 @@ function MainScreen:prerender()
     getSoundManager():setMusicState("PauseMenu")
 
     if not self.inGame then
-        if MainScreen.start then
-            MainScreen.alphaBG = MainScreen.alphaBG + 0.0005
-            if MainScreen.alphaBG > 1 then 
-                MainScreen.alphaBG = 1 
-                MainScreen.start = false
-            end
-            UIManager.DrawTexture(self.titleTextureLight, 0, 0, self.width, self.height, MainScreen.alphaBG)
-        else
-
-            if MainScreen.titleTextureNow == 1 then
-                MainScreen.alphaBG = MainScreen.alphaBG + 0.025
-                if MainScreen.alphaBG > 1 then 
-                    MainScreen.alphaBG = 1
-                end
-                --[[
-                local rnd = ZombRand(1000)
-                if rnd == 1 then
-                    MainScreen.titleTextureNow = 2
-                    local emitter = getSoundManager():getUIEmitter()
-                    if MainScreen.instance and (not MainScreen.instance.inGame) then
-                        emitter:setPos(0, 0, 0)
-                        emitter:playSound("UILightFlicker")
-                    end
-                end
-                ]]
-            elseif MainScreen.titleTextureNow == 2 then
-                MainScreen.alphaBG = MainScreen.alphaBG - 0.05
-                if MainScreen.alphaBG < 0 then 
-                    MainScreen.alphaBG = 0
-                end
-
-                local rnd = ZombRand(200)
-                if rnd == 1 then
-                    MainScreen.titleTextureNow = 1
-                    local emitter = getSoundManager():getUIEmitter()
-                    if MainScreen.instance and (not MainScreen.instance.inGame) then
-                        emitter:setPos(0, 0, 0)
-                        emitter:playSound("UILightFlicker")
-                    end
-                end
-            end
-            -- UIManager.DrawTexture(self.titleTextureDark, 0, 0, self.width, self.height, 1)
-            UIManager.DrawTexture(self.titleTextureLight, 0, 0, self.width, self.height, MainScreen.alphaBG)
+        MainScreen.alphaBG = MainScreen.alphaBG + 0.00075
+        if MainScreen.alphaBG > 1 then 
+            MainScreen.alphaBG = 1 
         end
+
+        if MainScreen.alphaBG > 0.99 then
+            if MainScreen.alphaPZLogo == 0 then
+                -- playLogoSound()
+            end
+
+            MainScreen.alphaPZLogo = MainScreen.alphaPZLogo + 0.0025
+            if MainScreen.alphaPZLogo > 1 then 
+                MainScreen.alphaPZLogo = 1 
+            end
+
+            if MainScreen.alphaPZLogo > 0.25 then
+                if MainScreen.alphaTheArkLogo == 0 then
+                    playLogoSound()
+                end
+
+                MainScreen.alphaTheArkLogo = MainScreen.alphaTheArkLogo + 0.0035
+                if MainScreen.alphaTheArkLogo > 1 then 
+                    MainScreen.alphaTheArkLogo = 1 
+                end
+            end
+        end
+        UIManager.DrawTexture(self.titleTextureBG, 0, 0, self.width, self.height, MainScreen.alphaBG)
+
+        local x = self.bottomPanel:getX() / 3
+        local height = self.bottomPanel:getY()
+        local scale = height / 672
+
+        UIManager.DrawTexture(self.titleTexturePZLogo, x, 20 * scale, 632 * scale, 418 * scale, MainScreen.alphaPZLogo)
+        UIManager.DrawTexture(self.titleTextureTheArkLogo, x + 37 * scale, 450 * scale, 558 * scale, 234 * scale, MainScreen.alphaTheArkLogo)
     end
 end

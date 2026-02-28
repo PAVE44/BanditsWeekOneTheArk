@@ -173,7 +173,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         anim = "Gest1",
         req = {"3.2.1.1"},
         func = "SwitchMission",
-        funcParams = {missionAccomplishId = 1, missionRevelaId = 2},
+        funcParams = {missionAccomplishId = 1, missionRevealId = 2},
     },
     ["3.2.1.2"] = {
         qst = "I don't remember who I was.",
@@ -743,28 +743,20 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         func = "RevealMission",
         funcParams = {missionId = 111},
     },
-    ["2000.6.4.1"] = {
-        qst = "One of the doctors from the lab was named Cortman. He had a clinic in Muldraugh.",
-        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
-        anim = "Gest1",
-        req = {"2000.6.4"},
-        func = "RevealMission",
-        funcParams = {missionId = 111},
-    },
     ["2000.6.4.1.1"] = {
         qst = "I found out that Cortman injected himself with some suspicious substance. ",
-        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
+        ans = "Do you know what it was? Did you find any tracer of that substance there?",
         anim = "Gest1",
-        req = {"2000.6.4"},
-        func = "RevealMission",
-        funcParams = {missionId = 111},
+        req = {"2000.6.4.1"},
+        hidden = true, -- unlocked by artifact Dr. Andrew Cortman's Note
     },
-    ["2000.6.4.1.1"] = {
+    ["2000.6.4.1.2"] = {
         qst = "Cortman's house had a secret room and I think I might have found the substance he injected himself with.",
-        ans = "That super old rich prick? Interesting. I wonder if you should pay him a visit.",
+        ans = "I need to investigate it. Put it in the lab. This may lead us somewhere.",
         anim = "Gest1",
-        req = {"2000.6.4"},
-        func = "RevealMission",
-        funcParams = {missionId = 111},
+        req = {"2000.6.4.1.1"},
+        hidden = true, -- unlocked by artifact LabSyringe
+        func = "SwitchMission",
+        funcParams = {missionAccomplishId = 112, missionRevealId = 113},
     },
 }

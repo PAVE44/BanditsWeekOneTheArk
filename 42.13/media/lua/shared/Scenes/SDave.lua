@@ -50,7 +50,8 @@ function BWOAScenes.Dave:placeItems()
 
     local bag = BanditCompatibility.InstanceItem("Base.Bag_ProtectiveCase")
     bag:getModData().BWOA = {}
-    bag:getModData().BWOA.accomplishMissionId = 8
+    bag:getModData().BWOA.onTaken = {}
+    bag:getModData().BWOA.onTaken.accomplishMissionId = 8
 
     local container = bag:getItemContainer()
     for _, itemType in ipairs(seedsItems) do

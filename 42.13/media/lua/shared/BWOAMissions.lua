@@ -29,7 +29,7 @@ BWOAMissions.missions = {
         desc = "Fuel truck is located on Dixie Highway leading to Muldraugh Ruins.\nBring the truck home and pump the fuel to the underground tank.",
     },
     [7] = {
-        name = "Find the missing tool bag",
+        name = "Find and bring back the missing tool bag",
         desc = "The bag is located in the remainings of the Community Center in March Ridge Ruins.",
     },
     [8] = {
@@ -86,6 +86,10 @@ BWOAMissions.missions = {
         name = "Bring the syringe to Emma",
         desc = "You found some syringes with an unknown substance. Bring them back to Emma.",
     },
+    [113] = {
+        name = "Leave the syringe in the lab",
+        desc = "Place the syringe with the unknown substance somewhere in the lab.",
+    },
 }
 
 BWOAMissions.LoadMissions = function()
@@ -99,8 +103,14 @@ BWOAMissions.GetRevealed = function()
     local missionsRevealed = {}
 
     for i, mission in pairs(missions) do
-        if mission.revealed then
-            missionsRevealed[i] = mission
+        if mission.revealed and not mission.accomplished then
+            table.insert(missionsRevealed, mission)
+        end
+    end
+
+    for i, mission in pairs(missions) do
+        if mission.revealed and mission.accomplished then
+            table.insert(missionsRevealed, mission)
         end
     end
 

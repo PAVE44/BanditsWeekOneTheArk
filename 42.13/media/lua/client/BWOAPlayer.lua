@@ -296,6 +296,7 @@ local onPlayerUpdate = function(player)
     local dreamShouldStart = false
     local dreamShouldEnd = false
     if player:isAsleep() then
+        getCore():setOptionUIRenderFPS(60)
         nh = math.floor(getGameTime():getTimeOfDay()) + 2
         if (nh >= 24) then
             nh = nh - 24
@@ -329,12 +330,15 @@ local onPlayerUpdate = function(player)
 
     if dreamShouldStart then
 
-        -- autosave
+        -- autosave: wont work for now - need to have copyWorld function but its not exposed
+        --[[
+
         local world = getWorld()
         local gameSaveWorld = world:getWorld()
-        world:setWorld("AUTOSAVE")
-        GameWindow.save()
-        world:setWorld(gameSaveWorld)
+        local newGameSaveWorld = gameSaveWorld .. "_autosave"
+        world:setWorld(newGameSaveWorld)
+        createWorld(newGameSaveWorld)
+        ]]
 
         BWOAPlayer.soundStart = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "Start"
         BWOAPlayer.soundEnd = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "End"
@@ -811,6 +815,8 @@ local onTimedActionPerform = function(data)
 
     local gmd = GetBWOAModData()
 
+    local cx, cy, cz = character:getX(), character:getY(), character:getZ()
+
     if action == "ISTakePillAction" then
         if not md.bwoa.drug then md.bwoa.drug = {} end
 
@@ -853,18 +859,19 @@ local onTimedActionPerform = function(data)
 
             -- mission or dialogue reveal
             local md = item:getModData()
-            if md.BWOA then
-                if md.BWOA.accomplishMissionId then
-                    BWOAMissions.Accomplish(md.BWOA.accomplishMissionId)
+            if md.BWOA and md.BWOA.onTaken then
+                local onTaken = md.BWOA.onTaken
+                if onTaken.accomplishMissionId then
+                    BWOAMissions.Accomplish(onTaken.accomplishMissionId)
                 end
-                if md.BWOA.revealMissionId then
-                    BWOAMissions.Reveal(md.BWOA.revealMissionId)
+                if onTaken.revealMissionId then
+                    BWOAMissions.Reveal(onTaken.revealMissionId)
                 end
-                if md.BWOA.revealDialogueId and md.BWOA.revealDialoguePerson then
-                    BWOADialogues.Reveal(md.BWOA.revealDialoguePerson, md.BWOA.revealDialogueId)
+                if onTaken.revealDialogueId and onTaken.revealDialoguePerson then
+                    BWOADialogues.Reveal(onTaken.revealDialoguePerson, onTaken.revealDialogueId)
                 end
-                if md.BWOA.hideDialogueId and md.BWOA.hideDialoguePerson then
-                    BWOADialogues.Hide(md.BWOA.hideDialogueId, md.BWOA.hideDialoguePerson)
+                if onTaken.hideDialogueId and onTaken.hideDialoguePerson then
+                    BWOADialogues.Hide(onTaken.hideDialogueId, onTaken.hideDialoguePerson)
                 end
             end
 
@@ -879,6 +886,25 @@ local onTimedActionPerform = function(data)
                         BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
                     end
                     regainConf.used = true
+                end
+            end
+        elseif data.destContainer:getType() == "floor" then -- this means dropping things
+            local md = item:getModData()
+            if md.BWOA and md.BWOA.onDropArea then
+                local dropArea = md.BWOA.onDropArea
+                if cx >= dropArea.x1 and cx <= dropArea.x2 and cy >= dropArea.y1 and cy <= dropArea.y2 and cz == dropArea.z then
+                    if dropArea.accomplishMissionId then
+                        BWOAMissions.Accomplish(dropArea.accomplishMissionId)
+                    end
+                    if dropArea.revealMissionId then
+                        BWOAMissions.Reveal(dropArea.revealMissionId)
+                    end
+                    if dropArea.revealDialogueId and dropArea.revealDialoguePerson then
+                        BWOADialogues.Reveal(dropArea.revealDialoguePerson, dropArea.revealDialogueId)
+                    end
+                    if dropArea.hideDialogueId and dropArea.hideDialoguePerson then
+                        BWOADialogues.Hide(dropArea.hideDialogueId, dropArea.hideDialoguePerson)
+                    end
                 end
             end
         end

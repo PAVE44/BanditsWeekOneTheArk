@@ -67,10 +67,10 @@ BWOAChat.SwitchMission = function(params)
     if not player then return end
 
     if not params.missionAccomplishId then return end
-    if not params.missionRevelaId then return end
+    if not params.missionRevealId then return end
 
     BWOAMissions.Accomplish(params.missionAccomplishId)
-    BWOAMissions.Reveal(params.missionRevelaId)
+    BWOAMissions.Reveal(params.missionRevealId)
 end
 
 --[[

@@ -46,6 +46,8 @@ local function onZombieUpdate(zombie)
     if zombie:getZ() <= -2 then return end
 
     if zombie:isSkeleton() then return end
+
+    if zombie:getModData().isDeadBandit then return end
     
     local hv = zombie:getHumanVisual()
 

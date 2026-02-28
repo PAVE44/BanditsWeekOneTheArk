@@ -28,7 +28,7 @@ function BWOAScenes.Doc:placeObjects()
     BWOABuildTools.RemoveObject(10866, 10044, -1, "Shelves")
 
     BWOABuildTools.Generic(10865, 10042, -1, "walls_exterior_wooden_01_24") -- WALL
-    BWOABuildTools.Generic(10865, 10042, -1, "walls_exterior_wooden_01_24") -- WALL
+    BWOABuildTools.Generic(10865, 10043, -1, "walls_exterior_wooden_01_24") -- WALL
 
 
     BWOABuildTools.Door (10865, 10045, -1, false, "fixtures_doors_01_32", true)
@@ -62,18 +62,31 @@ function BWOAScenes.Doc:placeItems()
     local md = note:getModData()
     md.printContent = "doc_note"
     md.BWOA = {}
-    md.BWOA.revealDialogueId = "2000.6.4.1.2"
+    md.BWOA.onTaken = {}
+    md.BWOA.onTaken.revealDialogueId = "2000.6.4.1.1"
+    md.BWOA.onTaken.revealDialoguePerson = "Emma_Robinson"
 
     BWOAPrepareTools.AddItemsToContainer(10868, 10036, -1, {note}, "Shelves", true)
 
+    local preserve = false
     for i=1, 6 do
         local syringe = BanditCompatibility.InstanceItem("Bandits.LabSyringe")
         local md = syringe:getModData()
         md.BWOA = {}
-        md.BWOA.accomplishMissionId = 111
-        md.BWOA.revealMissionId = 112
-        md.BWOA.revealDialogueId = "2000.6.4.1.2"
-        BWOAPrepareTools.AddItemsToContainer(10865, 10044, -1, {syringe}, "Fridge")
+        md.BWOA.onTaken = {}
+        md.BWOA.onTaken.accomplishMissionId = 111
+        md.BWOA.onTaken.revealMissionId = 112
+        md.BWOA.onTaken.revealDialogueId = "2000.6.4.1.2"
+        md.BWOA.onTaken.revealDialoguePerson = "Emma_Robinson"
+        md.BWOA.onDropArea = {}
+        md.BWOA.onDropArea.x1 = 9959
+        md.BWOA.onDropArea.y1 = 12636
+        md.BWOA.onDropArea.x2 = 9965
+        md.BWOA.onDropArea.y2 = 12640
+        md.BWOA.onDropArea.accomplishMissionId = 113
+
+        BWOAPrepareTools.AddItemsToContainer(10865, 10044, -1, {syringe}, "Fridge", preserve)
+        preserve = true
     end
 
     -- items = {["Bandits.LabSyringe"] = 5}

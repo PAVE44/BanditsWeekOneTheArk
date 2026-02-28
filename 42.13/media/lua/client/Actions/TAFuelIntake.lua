@@ -45,7 +45,7 @@ function TAFuelIntake:update()
         
         local gmd = GetBWOAModData()
 
-        local step = 0.05
+        local step = 0.2
         for _, generator in pairs(gmd.generators) do
             local missing = 100 - generator.fuel
             if missing > 0 then

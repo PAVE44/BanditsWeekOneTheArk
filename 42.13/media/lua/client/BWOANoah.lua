@@ -41,12 +41,11 @@ local function onKeyPressed(keynum)
     if keynum == 10000 then return end -- Ignore mouse lmb
     if keynum == 10001 then return end -- Ignore mouse rmb
 
+    if not BWOANoah.shown or not BWOANoah.modal then return end
     local gmd = GetBWOAModData()
     local ventilation = gmd.ventilation
 
-    if BWOANoah.shown and BWOANoah.modal then 
-        getSpecificPlayer(0):playSound("UIKey")
-    end
+    getSpecificPlayer(0):playSound("UIKey")
 
     if BWOANoah.screen == "Main" then
         if keynum == Keyboard.KEY_1 then

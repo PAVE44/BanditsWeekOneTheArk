@@ -289,7 +289,8 @@ function BWOAScenes.BanditsCar:placeVehicles()
 
     local key = vehicle:createVehicleKey()
     key:getModData().BWOA = {}
-    key:getModData().BWOA.revealMissionId = 10
+    key:getModData().BWOA.onTaken = {}
+    key:getModData().BWOA.onTaken.revealMissionId = 10
     BWOAPrepareTools.AddWorldItemSpecial(keySquare:getX(), keySquare:getY(), keySquare:getZ(), key, {x=0.5, y=0.5, z=0})
 
     local md = vehicle:getModData()
