@@ -45,10 +45,17 @@ local function onZombieUpdate(zombie)
 
     if zombie:getZ() <= -2 then return end
 
-    if zombie:isSkeleton() then return end
-
     if zombie:getModData().isDeadBandit then return end
-    
+
+    if zombie:isSkeleton() then 
+        if zombie:getHealth() > 0.1 then
+            zombie:setHealth(0.1)
+        end
+        return
+    end
+
+    -- zombie:addLineChatElement(tostring(zombie:getHealth()), 0.5, 0.5, 0.5)
+
     local hv = zombie:getHumanVisual()
 
     local skin = hv:getSkinTexture()
@@ -71,6 +78,7 @@ local function onZombieUpdate(zombie)
 
     if skin ~= newskin then
         
+        zombie:setHealth(zombie:getHealth() * 0.6)
         hv:setSkinTextureName(newskin)
 
         if newhair then
@@ -126,7 +134,7 @@ local function onDeadBodySpawn(body)
     local md = body:getModData()
     if not md.BWOA then md.BWOA = {} end
 
-    if body:isSkeleton() and not md.BWOA.reanimated and ZombRand(25) == 0 then
+    if body:isSkeleton() and not md.BWOA.reanimated and ZombRand(30) == 0 then
         local age = getGameTime():getWorldAgeHours()
         body:setReanimateTime(age + ZombRandFloat(0.1, 2.0)) -- now plus 6 - 120 minutes
         md.BWOA.reanimated = true

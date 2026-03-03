@@ -58,11 +58,11 @@ BWOARooms.Bedroom.Build = function ()
         BWOABuildTools.Bed(x, 12642, -4, "furniture_bedding_01_68")
     end
 
-    for x = 9948, 9956, 2 do
+    for x = 9948, 9954, 2 do
         BWOABuildTools.Generic(x, 12636, -4, "furniture_storage_01_33")
         BWOABuildTools.Generic(x, 12642, -4, "furniture_storage_01_35")
     end
-    BWOABuildTools.Generic(9956, 12636, -4, "vegetation_indoor_01_1")
+    -- BWOABuildTools.Generic(9956, 12636, -4, "vegetation_indoor_01_1")
 
     BWOABuildTools.Generic(9946, 12636, -4, "walls_decoration_02_23")
     BWOABuildTools.Generic(9948, 12636, -4, "walls_decoration_02_70")
@@ -138,9 +138,9 @@ BWOARooms.Bedroom.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.Pen", {x=0.6, y=0.6, z=0.36})
     BWOAPrepareTools.AddWorldItem(9954, 12636, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.36})
 
-    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.62, y=0.55, z=0.36})
-    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.74, y=0.59, z=0.36})
-    BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Pills", {x=0.66, y=0.64, z=0.36})
+    -- BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.62, y=0.55, z=0.36})
+    -- BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Cube", {x=0.74, y=0.59, z=0.36})
+    -- BWOAPrepareTools.AddWorldItem(9956, 12636, -4, "Base.Pills", {x=0.66, y=0.64, z=0.36})
 
     
     BWOAPrepareTools.AddWorldItem(9948, 12642, -4, "Base.MugWhite", {x=0.4, y=0.7, z=0.36})
@@ -157,9 +157,9 @@ BWOARooms.Bedroom.Prepare = function ()
     BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.MagazineWordsearch", {x=0.6, y=0.6, z=0.36})
     BWOAPrepareTools.AddWorldItem(9954, 12642, -4, "Base.MagazineWordsearch", {x=0.5, y=0.5, z=0.36})
 
-    BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.Pencil", {x=0.62, y=0.55, z=0.3})
-    BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.TissueBox", {x=0.74, y=0.59, z=0.3})
-    BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.Pills", {x=0.66, y=0.64, z=0.3})
+    -- BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.Pencil", {x=0.62, y=0.55, z=0.3})
+    -- BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.TissueBox", {x=0.74, y=0.59, z=0.3})
+    -- BWOAPrepareTools.AddWorldItem(9956, 12642, -4, "Base.Pills", {x=0.66, y=0.64, z=0.3})
 
     -- drawers
 

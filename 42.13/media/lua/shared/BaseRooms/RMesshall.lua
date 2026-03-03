@@ -42,6 +42,7 @@ end
 BWOARooms.Messhall.Build = function ()
     BWOARooms.Messhall.Init()
     BWOAPrepareTools.DarkenLight(9959, 12616, -4)
+    BWOAPrepareTools.DarkenLight(9970, 12616, -4)
 
     BWOABuildTools.ELS(BWOARooms.Messhall.els)
 

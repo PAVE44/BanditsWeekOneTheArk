@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.81"
+BWOAMenu.version = "0.82"
 
 BWOAMenu.blinking = {}
 
@@ -126,13 +126,8 @@ BWOAMenu.specialObjectsHighlight = {
 
 function BWOAMenu.JukeboxOptions(player, square, option)
     local x, y, z = square:getX(), square:getY(), square:getZ()
-    local jukebox = BWOAJukebox.Get(x, y, z)
-    if jukebox then
-        if option == "on" then
-            BWOAJukebox.TurnOn(x, y, z)
-        elseif option == "off" then
-            BWOAJukebox.TurnOff(x, y, z)
-        end
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(TAJukebox:new(player, square, option))
     end
 end
 
@@ -515,6 +510,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             end
         end]]
 
+        -- GameSounds.fix3DListenerPosition(true)
+
         if zombie then
             local brain = BanditBrain.Get(zombie)
             if brain and brain.program and brain.program.name == "Emma" then
@@ -534,7 +531,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         end
 
         Bandit.EnsureWhitelistedBandits()
-        -- saveItems(square)
+        saveItems(square)
 
         context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
         

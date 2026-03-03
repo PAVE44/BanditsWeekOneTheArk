@@ -65,7 +65,7 @@ BWOAPlaceEvents.events = {
     ["Hunter"] = {
         scene = "Hunter",
         x = 9814,
-        y = 12918,
+        y = 12926,
         z = 0,
         renderDist = 70,
     },

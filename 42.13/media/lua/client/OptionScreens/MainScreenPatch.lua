@@ -6,6 +6,8 @@ MainScreen.alphaTheArkLogo = 0
 
 local function playLogoSound()
     local emitter = getSoundManager():getUIEmitter()
+    emitter:setPos(0, 0, 0)
+
     if MainScreen.instance and (not MainScreen.instance.inGame) then
         emitter:setPos(0, 0, 0)
         emitter:playSound("UIActivatePlayButton")
@@ -68,9 +70,11 @@ end
 MainScreenInitialise = MainScreen.initialise
 
 function MainScreen:initialise()
-    getSoundManager():setMusicState("PauseMenu")
+    local emitter = getSoundManager():getUIEmitter()
+    emitter:setPos(0, 0, 0)
+
+    -- getSoundManager():setMusicState("PauseMenu") -- disabled here as it messes up the sound after save load
 	MainScreenInitialise(self)
-    getSoundManager():setMusicState("PauseMenu")
     self.titleTextureBG = getTexture("media/textures/w1title.png")
     self.titleTexturePZLogo = getTexture("media/textures/pzlogo.png")
     self.titleTextureTheArkLogo = getTexture("media/textures/thearklogo.png")
