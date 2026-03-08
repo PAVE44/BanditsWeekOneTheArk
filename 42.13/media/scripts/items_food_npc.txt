@@ -1,5 +1,167 @@
 module Bandits {
 
+    item CannedBolognese_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedCarrots_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedChili_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedCornedBeef_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedCorn_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedFruitCocktail_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedMilk_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedMushroomSoup_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedPeaches_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedPeas_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedPineapple_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedPotato_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item CannedSardines_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Small,
+        Weight = 1.5,
+        Icon = Parcel_Small_Food,
+    }
+
+    item CannedTomato_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item Dogfood_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item TinnedBeans_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item TinnedSoup_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Medium,
+        Weight = 4.0,
+        Icon = Parcel_Medium_Food,
+    }
+
+    item TunaTin_Box
+    {
+        ItemType = base:weapon,
+        DisplayCategory = FoodWeapon,
+        WeaponSprite = Parcel_Food_Small,
+        Weight = 1.5,
+        Icon = Parcel_Small_Food,
+    }
+
     item PanFriedVegetablesForged
     {
         ItemType = base:weapon,
@@ -2475,9 +2637,9 @@ module Bandits {
         ItemType = base:weapon,
         DisplayCategory = FoodWeapon,
         DisplayName = Cereal,
-        WeaponSprite = Cereal;Cereal2;Cereal3;Cereal4;Cereal5,
+        WeaponSpritesByIndex = Cereal;Cereal2;Cereal3;Cereal4;Cereal5,
         Weight = 0.2,
-        Icon = Cereal_SunBallz;Cereal_CornFlakes;Cereal_Muesli;Cereal_HappyCurios;Cereal_OatRings,
+        IconsForTexture = Cereal_SunBallz;Cereal_CornFlakes;Cereal_Muesli;Cereal_HappyCurios;Cereal_OatRings,
     }
 
     item CerealBowl
@@ -3285,9 +3447,9 @@ module Bandits {
         ItemType = base:weapon,
         DisplayCategory = FoodWeapon,
         DisplayName = HotDrink,
-        WeaponSprite = Mug;MugRed;MugWhite;MugBlue;MugYellow,
+        WeaponSpritesByIndex = Mug;MugRed;MugWhite;MugBlue;MugYellow,
         Weight = 0.5,
-        Icon = MugFulll;MugRedFull;MugWhite_Full;MugBlue_Full;MugYellow_Full,
+        IconsForTexture = MugFulll;MugRedFull;MugWhite_Full;MugBlue_Full;MugYellow_Full,
     }
 
     item HotDrinkClay

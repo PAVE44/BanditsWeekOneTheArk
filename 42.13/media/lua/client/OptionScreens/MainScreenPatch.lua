@@ -4,18 +4,7 @@ MainScreen.alphaBG = 0
 MainScreen.alphaPZLogo = 0
 MainScreen.alphaTheArkLogo = 0
 
-local function playLogoSound()
-    local emitter = getSoundManager():getUIEmitter()
-    emitter:setPos(0, 0, 0)
-
-    if MainScreen.instance and (not MainScreen.instance.inGame) then
-        emitter:setPos(0, 0, 0)
-        emitter:playSound("UIActivatePlayButton")
-    end
-end
-
 local mainScreenInstantiate = MainScreen.instantiate
-
 function MainScreen:instantiate()
     mainScreenInstantiate(self)
 
@@ -31,7 +20,6 @@ function MainScreen:instantiate()
         self.arkSettingsMain.backgroundColor = {r=0, g=0, b=0, a=0.8}
         self.arkSettingsMain.borderColor = {r=1, g=1, b=1, a=0.5}
         self:addChild(self.arkSettingsMain)
-    
 
         local w = getCore():getScreenWidth();
 	    local h = getCore():getScreenHeight();
@@ -58,17 +46,23 @@ function MainScreen:instantiate()
 
         self.arkSettingsMain:create()
     end
+
+    if self.resetLua then
+        self.resetLua.onclick = function()
+            BWOAMusic.Stop()
+            getCore():ResetLua("default", "Force")
+        end
+    end
 end
 
 local mainScreenGetAllUIs = MainScreen.getAllUIs
-
 function MainScreen:getAllUIs()
     local ret = mainScreenGetAllUIs(self)
     table.insert(ret, self.arkSettingsMain)
+    return ret
 end
 
 MainScreenInitialise = MainScreen.initialise
-
 function MainScreen:initialise()
     local emitter = getSoundManager():getUIEmitter()
     emitter:setPos(0, 0, 0)
@@ -87,11 +81,20 @@ function MainScreen:initialise()
 end
 
 MainScreenPrerender = MainScreen.prerender
-
 function MainScreen:prerender()
     MainScreenPrerender(self)
     getCore():setOptionUIRenderFPS(60)
     getSoundManager():setMusicState("PauseMenu")
+
+    local function playLogoSound()
+        local emitter = getSoundManager():getUIEmitter()
+        emitter:setPos(0, 0, 0)
+
+        if MainScreen.instance and (not MainScreen.instance.inGame) then
+            emitter:setPos(0, 0, 0)
+            emitter:playSound("UIActivatePlayButton")
+        end
+    end
 
     if not self.inGame then
         MainScreen.alphaBG = MainScreen.alphaBG + 0.00075

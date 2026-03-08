@@ -9,7 +9,7 @@ ZombieActions.Collect = {}
 ZombieActions.Collect.onStart = function(zombie, task)
     
     local anim
-    if task.item.g then
+    if task.item.ground then
         anim = "LootLow"
     else
         anim = "Loot"
@@ -22,7 +22,7 @@ ZombieActions.Collect.onStart = function(zombie, task)
 end
 
 ZombieActions.Collect.onWorking = function(zombie, task)
-    if not task.item.g then
+    if not task.item.ground then
         zombie:faceLocationF(task.item.x, task.item.y)
     end
     if zombie:getBumpType() ~= task.anim then return true end
@@ -33,7 +33,7 @@ ZombieActions.Collect.onComplete = function(zombie, task)
     local square = zombie:getCell():getGridSquare(task.item.x, task.item.y, task.item.z)
     if not square then return true end
 
-    if task.item.g then
+    if task.item.ground then
         local wobs = square:getWorldObjects()
         local cnt = 0
         for i=0, wobs:size()-1 do

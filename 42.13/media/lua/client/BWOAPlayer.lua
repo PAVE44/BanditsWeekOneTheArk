@@ -49,12 +49,12 @@ local traitRevealMap = {
 }
 
 local dreamRevealMap = {
-    [1] = {hours = 36, qid = "2000.1", txt = "Arghgghhh!"},
+    [1] = {hours = 36, nid=1, qid = "2000.1", txt = "Arghgghhh!"},
     [2] = {hours = 72, qid = "2000.2", txt = "Not again...!"},
     [3] = {hours = 108, qid = "2000.3", txt = "Damn dream again!"},
     [4] = {hours = 144, qid = "2000.4", txt = "WTF... This was different..."},
     [5] = {hours = 180, qid = "2000.5", rmid = 100, txt = "I think this is important."},
-    [6] = {hours = 216, qid = "2000.6", rmid = 110, txt = "I think this is important."},
+    [6] = {hours = 216, nid=1, qid = "2000.6", rmid = 110, txt = "This cannot be happening!!!"},
 }
 
 local proximityRevealMap = {
@@ -221,6 +221,30 @@ local onPlayerUpdate = function(player)
 
     local px, py, pz = player:getX(), player:getY(), player:getZ()
 
+    -- lava
+    if BWOAPlayer.tick % 16 == 0 then
+        if not player:getVehicle() then
+            local square = player:getSquare()
+            if square then
+                local objects = square:getObjects()
+                for i=0, objects:size()-1 do
+                    local object = objects:get(i)                
+                    local sprite = object:getSprite()
+                    if sprite then
+                        local props = sprite:getProperties()
+                        if props:has("CustomName") then
+                            local customName = props:get("CustomName")
+                            if customName and customName == "Lava" then
+                                player:SetOnFire()
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+
     -- room discovery
     if BWOAPlayer.tick % 32 == 0 then
         local room = BWOAUtils.GetRoom(px, py, pz)
@@ -367,6 +391,10 @@ local onPlayerUpdate = function(player)
                 if dreamData.txt then
                     BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 100)
                 end
+                if dreamData.nid then
+                    BWOANightmares.id = dreamData.nid
+                    BWOANightmares.active = true
+                end
                 break
             end
         end
@@ -387,6 +415,8 @@ local function everyOneMinute()
     local gmd = GetBWOAModData()
 
     if not player:isAlive() then return end
+
+    if BWOANightmares.active then return end
 
     -- music conductor
     if player:isOutside() then
@@ -850,64 +880,6 @@ local onTimedActionPerform = function(data)
             if not md.bwoa.drug[drug.name] then md.bwoa.drug[drug.name] = 0 end
             md.bwoa.drug[drug.name] = md.bwoa.drug[drug.name] + drug.dose
         end
-    elseif action == "ISInventoryTransferAction" then
-        local item = data.item
-        local destContainerParent = data.destContainer:getParent()
-
-        -- that means taking things
-        if instanceof(destContainerParent, "IsoPlayer") then 
-
-            -- mission or dialogue reveal
-            local md = item:getModData()
-            if md.BWOA and md.BWOA.onTaken then
-                local onTaken = md.BWOA.onTaken
-                if onTaken.accomplishMissionId then
-                    BWOAMissions.Accomplish(onTaken.accomplishMissionId)
-                end
-                if onTaken.revealMissionId then
-                    BWOAMissions.Reveal(onTaken.revealMissionId)
-                end
-                if onTaken.revealDialogueId and onTaken.revealDialoguePerson then
-                    BWOADialogues.Reveal(onTaken.revealDialoguePerson, onTaken.revealDialogueId)
-                end
-                if onTaken.hideDialogueId and onTaken.hideDialoguePerson then
-                    BWOADialogues.Hide(onTaken.hideDialogueId, onTaken.hideDialoguePerson)
-                end
-            end
-
-            -- items triggering memory regain
-            local itemMemoryRegain = gmd.itemMemoryRegain
-            local itemType = item:getType()
-            for _, regainConf in ipairs(itemMemoryRegain) do
-                if not regainConf.used and regainConf.itemType == itemType then
-                    local rnd = ZombRand(100)
-                    if rnd < regainConf.chance then
-                        BWOAEventControl.Add("HaloPlayer", {txt = "Memory Regain"}, 100)
-                        BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
-                    end
-                    regainConf.used = true
-                end
-            end
-        elseif data.destContainer:getType() == "floor" then -- this means dropping things
-            local md = item:getModData()
-            if md.BWOA and md.BWOA.onDropArea then
-                local dropArea = md.BWOA.onDropArea
-                if cx >= dropArea.x1 and cx <= dropArea.x2 and cy >= dropArea.y1 and cy <= dropArea.y2 and cz == dropArea.z then
-                    if dropArea.accomplishMissionId then
-                        BWOAMissions.Accomplish(dropArea.accomplishMissionId)
-                    end
-                    if dropArea.revealMissionId then
-                        BWOAMissions.Reveal(dropArea.revealMissionId)
-                    end
-                    if dropArea.revealDialogueId and dropArea.revealDialoguePerson then
-                        BWOADialogues.Reveal(dropArea.revealDialoguePerson, dropArea.revealDialogueId)
-                    end
-                    if dropArea.hideDialogueId and dropArea.hideDialoguePerson then
-                        BWOADialogues.Hide(dropArea.hideDialogueId, dropArea.hideDialoguePerson)
-                    end
-                end
-            end
-        end
 
     elseif action == "ISSeedActionNew" then
         if data.typeOfSeed == "Comfrey" then
@@ -943,6 +915,71 @@ local onTimedActionPerform = function(data)
     end
 end
 
+local onTransferItem = function(data, item)
+    local gmd = GetBWOAModData()
+    local destContainerParent = data.destContainer:getParent()
+    local player = data.character
+    local cx, cy, cz = player:getX(), player:getY(), player:getZ()
+
+    -- that means taking things
+    if instanceof(destContainerParent, "IsoPlayer") then 
+
+        -- mission or dialogue triggering
+        local md = item:getModData()
+        if md.BWOA and md.BWOA.onTaken then
+            local onTaken = md.BWOA.onTaken
+            if onTaken.accomplishMissionId then
+                BWOAMissions.Accomplish(onTaken.accomplishMissionId)
+            end
+            if onTaken.revealMissionId then
+                BWOAMissions.Reveal(onTaken.revealMissionId)
+            end
+            if onTaken.revealDialogueId and onTaken.revealDialoguePerson then
+                BWOADialogues.Reveal(onTaken.revealDialoguePerson, onTaken.revealDialogueId)
+            end
+            if onTaken.hideDialogueId and onTaken.hideDialoguePerson then
+                BWOADialogues.Hide(onTaken.hideDialogueId, onTaken.hideDialoguePerson)
+            end
+        end
+
+        -- items triggering memory regain
+        local itemMemoryRegain = gmd.itemMemoryRegain
+        local itemType = item:getType()
+        for _, regainConf in ipairs(itemMemoryRegain) do
+            if not regainConf.used and regainConf.itemType == itemType then
+                local rnd = ZombRand(100)
+                if rnd < regainConf.chance then
+                    BWOAEventControl.Add("HaloPlayer", {txt = "Memory Regain"}, 100)
+                    BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+                end
+                regainConf.used = true
+            end
+        end
+
+    -- this means dropping things or putting in container
+    else 
+        -- mission or dialogue triggering
+        local md = item:getModData()
+        if md.BWOA and md.BWOA.onDropArea then
+            local dropArea = md.BWOA.onDropArea
+            if cx >= dropArea.x1 and cx <= dropArea.x2 and cy >= dropArea.y1 and cy <= dropArea.y2 and cz == dropArea.z and cz == dropArea.z then
+                if dropArea.accomplishMissionId then
+                    BWOAMissions.Accomplish(dropArea.accomplishMissionId)
+                end
+                if dropArea.revealMissionId then
+                    BWOAMissions.Reveal(dropArea.revealMissionId)
+                end
+                if dropArea.revealDialogueId and dropArea.revealDialoguePerson then
+                    BWOADialogues.Reveal(dropArea.revealDialoguePerson, dropArea.revealDialogueId)
+                end
+                if dropArea.hideDialogueId and dropArea.hideDialoguePerson then
+                    BWOADialogues.Hide(dropArea.hideDialogueId, dropArea.hideDialoguePerson)
+                end
+            end
+        end
+    end
+end
+
 Events.OnPlayerUpdate.Remove(onPlayerUpdate)
 Events.OnPlayerUpdate.Add(onPlayerUpdate)
 
@@ -952,3 +989,5 @@ Events.EveryOneMinute.Add(everyOneMinute)
 Events.OnTimedActionPerform.Remove(onTimedActionPerform)
 Events.OnTimedActionPerform.Add(onTimedActionPerform)
 
+Events.OnTransferItem.Remove(onTransferItem)
+Events.OnTransferItem.Add(onTransferItem)

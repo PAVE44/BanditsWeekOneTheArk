@@ -37,7 +37,7 @@ function BWOAScenes.FuelTruck:placeVehicles()
     
     local md = vehicle:getModData()
     md.BWOA = {}
-    md.BWOA.fuel = 982
+    md.BWOA.fuel = 2000
     -- vehicle:putKeyInIgnition(vehicle:createVehicleKey())
 
     local partNames = {"DoorFrontLeft", "DoorFrontRight"}

@@ -1,11 +1,15 @@
-local femaleHairChoices = {
+BWOAZombie = BWOAZombie or {}
+
+BWOAZombie.tick = 0
+
+BWOAZombie.femaleHairChoices = {
     "Bald",
     "Bald",
     "Bald",
     "Bald",
     "Long",
 }
-local maleHairChoices = {
+BWOAZombie.maleHairChoices = {
     "Bald",
     "Bald",
     "Bald",
@@ -20,7 +24,7 @@ local maleHairChoices = {
     "Long",
 }
 
-local beardChoices = {
+BWOAZombie.beardChoices = {
     "",
     "",
     "",
@@ -34,17 +38,39 @@ local beardChoices = {
 
 local function onZombieUpdate(zombie)
 
-    --[[
-    local md = zombie:getModData()
-    if not md.BWOA then md.BWOA = {} end
+    if BWOAZombie.tick >= 64 then
+        BWOAZombie.tick = 0
+    end
 
-    if md.BWOA.beautified then return end
-    ]]
+    -- lava
+    if BWOAZombie.tick % 16 == 0 then
+        local square = zombie:getSquare()
+        local objects = square:getObjects()
+        for i=0, objects:size()-1 do
+            local object = objects:get(i)                
+            local sprite = object:getSprite()
+            if sprite then
+                local props = sprite:getProperties()
+                if props:has("CustomName") then
+                    local customName = props:get("CustomName")
+                    if customName and customName == "Lava" then
+                        zombie:SetOnFire()
+                        break
+                    end
+                end
+            end
+        end
 
+        if zombie:isOnFire() then 
+            zombie:setHealth(zombie:getHealth() - 0.1)
+        end
+    end
+
+    BWOAZombie.tick = BWOAZombie.tick + 1
+    
+    -- zombie beaufication
     if zombie:getVariableBoolean("Bandit") then return end
-
     if zombie:getZ() <= -2 then return end
-
     if zombie:getModData().isDeadBandit then return end
 
     if zombie:isSkeleton() then 
@@ -56,28 +82,26 @@ local function onZombieUpdate(zombie)
 
     -- zombie:addLineChatElement(tostring(zombie:getHealth()), 0.5, 0.5, 0.5)
 
-    local hv = zombie:getHumanVisual()
-
-    local skin = hv:getSkinTexture()
     local newskin
     local newhair
     local newbeard
+
+    local hv = zombie:getHumanVisual()
+    local skin = hv:getSkinTexture()
+
     if zombie:isFemale() then
-        -- newskin = "F_ZedBody04_level3"
-        newskin = "M_ZedBody_Burnt"
-        newhair = BanditUtils.Choice(femaleHairChoices)
+        newskin = "M_ZedBody_Burnt" -- fixme (make female texture)
+        newhair = BanditUtils.Choice(BWOAZombie.femaleHairChoices)
     else
-        -- newskin = "M_ZedBody04_level3"
         newskin = "M_ZedBody_Burnt"
-        newhair = BanditUtils.Choice(maleHairChoices)
-        newbeard = BanditUtils.Choice(beardChoices)
+        newhair = BanditUtils.Choice(BWOAZombie.maleHairChoices)
+        newbeard = BanditUtils.Choice(BWOAZombie.beardChoices)
     end
 
     local c = ZombRandFloat(0.1, 0.45)
     local color = ImmutableColor.new(c, c, c, 1)
 
     if skin ~= newskin then
-        
         zombie:setHealth(zombie:getHealth() * 0.6)
         hv:setSkinTextureName(newskin)
 
@@ -120,12 +144,8 @@ local function onZombieUpdate(zombie)
             zombie:addRandomVisualDamages()
         end
 
-        
-
         zombie:resetModelNextFrame()
         zombie:resetModel()
-
-
     end
 
 end
@@ -134,10 +154,13 @@ local function onDeadBodySpawn(body)
     local md = body:getModData()
     if not md.BWOA then md.BWOA = {} end
 
-    if body:isSkeleton() and not md.BWOA.reanimated and ZombRand(30) == 0 then
-        local age = getGameTime():getWorldAgeHours()
-        body:setReanimateTime(age + ZombRandFloat(0.1, 2.0)) -- now plus 6 - 120 minutes
-        md.BWOA.reanimated = true
+    if SandboxVars.BWOA.SkeletonReanimation then
+        -- note: skeletons may lead to crashes if players aim at them with guns
+        if body:isSkeleton() and not md.BWOA.reanimated and ZombRand(30) == 0 then
+            local age = getGameTime():getWorldAgeHours()
+            body:setReanimateTime(age + ZombRandFloat(0.1, 2.0)) -- now plus 6 - 120 minutes
+            md.BWOA.reanimated = true
+        end
     end
 end
 

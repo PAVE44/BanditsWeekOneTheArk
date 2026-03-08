@@ -480,6 +480,14 @@ BWOAEvents.SpawnVehicle = function(params)
     end
 end
 
+BWOAEvents.LavaLake = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local blueprint = BWOALakes.Medium1()
+    BWOABuildTools.LavaLake(params.x, params.y, blueprint)
+end
+
 BWOAEvents.ArkNetworkStatus = function(params)
     local player = getSpecificPlayer(0)
     if not player then return end
@@ -487,4 +495,11 @@ BWOAEvents.ArkNetworkStatus = function(params)
     local arkId = params.arkId
 
     BWOABaseAPI.NetworkArkReveal(arkId)
+end
+
+BWOAEvents.GodModSwitch = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    player:setGodMod(params.on, true)
 end

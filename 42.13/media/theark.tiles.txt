@@ -2788,7 +2788,7 @@ tileset
         BlocksPlacement = 
         CustomItem = BanditsGenerator_Silent
         CustomName = Generator
-        GeneratorSound = SilentGenerator
+        GeneratorSound = OldGenerator
         GroupName = Silent
     }
 }
@@ -2858,8 +2858,120 @@ tileset
     {
         xy = 0,0
         CustomName = Lava
-        ForceAmbient = 
-        LightRadius = 4
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_1
+    tile
+    {
+        xy = 1,0
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_2
+    tile
+    {
+        xy = 2,0
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_3
+    tile
+    {
+        xy = 3,0
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_4
+    tile
+    {
+        xy = 4,0
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_8
+    tile
+    {
+        xy = 0,1
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_9
+    tile
+    {
+        xy = 1,1
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_10
+    tile
+    {
+        xy = 2,1
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
+        PhysicsShape = Floor
+        RenderLayer = Floor
+        exterior = 
+        lightR = 255
+        lightswitch = 
+        solidfloor = 
+    }
+    // theark_02_11
+    tile
+    {
+        xy = 3,1
+        CustomName = Lava
+        IsLow = 
+        LightRadius = 2
         PhysicsShape = Floor
         RenderLayer = Floor
         exterior = 

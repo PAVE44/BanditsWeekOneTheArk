@@ -12,27 +12,24 @@ BWOAPermaInv.Add = function (bandit, item)
 
     brain.permaInv = brain.permaInv or {}
 
-    local itemFullType = item:getFullType()
-
     local itemConf = {}
-    itemConf.fullType = itemFullType
+    itemConf.fullType = item:getFullType()
+    itemConf.class = BWOAItems.GetItemClass(item)
 
-    if item:isFood() and not item:isPoison() then
-        itemConf.hc = -math.floor(item:getHungerChange() * 100)
+    if itemConf.class == "food" then
+        itemConf.hc = math.floor(item:getHungerChange() * 100)
+    elseif itemConf.class == "drink" then
+        itemConf.tc = 100
+    elseif itemConf.class == "media" then
+        itemConf.mid = item:getMediaData():getId()
     end
 
-    if item:isRecordedMedia() then
-        local md = item:getMediaData()
-        if md then
-            itemConf.mid = md:getId()
-        end
-    end
     table.insert(brain.permaInv, itemConf)
 
     sync(bandit, brain.permaInv)
 end
 
-BWOAPermaInv.Remove = function (bandit, itemFullType)
+BWOAPermaInv.RemoveOneOfType = function (bandit, itemFullType)
     local brain = BanditBrain.Get(bandit)
     if not brain or not brain.permaInv then return end
 
@@ -65,24 +62,45 @@ BWOAPermaInv.GetType = function (bandit, itemFullType)
     return nil
 end
 
-BWOAPermaInv.GetFood = function (bandit)
-    local brain = BanditBrain.Get(bandit)
-    if not brain or not brain.permaInv then return false end
-
-    for _, itemConf in pairs(brain.permaInv) do
-        if itemConf.hc then
-            return itemConf
-        end
-    end
-end
-
-BWOAPermaInv.Has = function (bandit, itemFullType)
+BWOAPermaInv.HasType = function (bandit, itemFullType)
     local brain = BanditBrain.Get(bandit)
     if not brain or not brain.permaInv then return false end
 
     for _, itemConf in pairs(brain.permaInv) do
         if itemConf.fullType == itemFullType then
             return true
+        end
+    end
+
+    return false
+end
+
+BWOAPermaInv.GetClass = function (bandit, class)
+    local brain = BanditBrain.Get(bandit)
+    if not brain or not brain.permaInv then return false end
+
+    for _, itemConf in pairs(brain.permaInv) do
+        local item = BanditCompatibility.InstanceItem(itemConf.fullType)
+        if item then
+            local itemClass = BWOAItems.GetItemClass(item)
+            if itemClass == class then
+                return itemConf
+            end
+        end
+    end
+end
+
+BWOAPermaInv.HasClass = function (bandit, class)
+    local brain = BanditBrain.Get(bandit)
+    if not brain or not brain.permaInv then return false end
+
+    for _, itemConf in pairs(brain.permaInv) do
+        local item = BanditCompatibility.InstanceItem(itemConf.fullType)
+        if item then
+            local itemClass = BWOAItems.GetItemClass(item)
+            if itemClass == class then
+                return true
+            end
         end
     end
 

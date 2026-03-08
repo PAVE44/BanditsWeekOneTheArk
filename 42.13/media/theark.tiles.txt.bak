@@ -2786,7 +2786,7 @@ tileset
     {
         xy = 5,1
         BlocksPlacement = 
-        CustomItem = BaseGenerator_Silent
+        CustomItem = BanditsGenerator_Silent
         CustomName = Generator
         GeneratorSound = SilentGenerator
         GroupName = Silent

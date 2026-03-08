@@ -43,6 +43,14 @@ BWOAMusic.Play = function(music, volumeTarget, volumeStart)
     end
 end
 
+BWOAMusic.Stop = function()
+    if BWOAMusic.customId and BWOAMusic.emitter then
+        BWOAMusic.emitter:stopSound(BWOAMusic.customId)
+        BWOAMusic.customId = nil
+        BWOAMusic.customCurrentVolume = 0
+    end
+end
+
 BWOAMusic.Process = function()
     
     if not BWOAMusic.emitter then return end

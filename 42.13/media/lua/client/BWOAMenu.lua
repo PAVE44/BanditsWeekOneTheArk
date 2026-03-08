@@ -10,7 +10,7 @@ local TAFixIntake = require("Actions/TAFixIntake")
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.82"
+BWOAMenu.version = "0.85"
 
 BWOAMenu.blinking = {}
 
@@ -162,6 +162,10 @@ function BWOAMenu.EventRainbow(player)
     BWOATex.alpha = 0.3
 end
 
+function BWOAMenu.EventNightmare(player)
+    BWOANightmares.Activate()
+end
+
 function BWOAMenu.EventAbyss(player, square)
     local cell = getCell()
     local xmin = square:getX() - 5
@@ -280,26 +284,66 @@ function BWOAMenu.LocateBasement(player)
     end
 end
 
+function BWOAMenu.MakeLakeData(player, square)
+    local cell = getCell()
+    local sx, sy, sz = square:getX(), square:getY(), square:getZ()
+
+    local map = {
+        ["blends_natural_02_0"] = "theark_02_0",
+        ["blends_natural_02_1"] = "theark_02_1",
+        ["blends_natural_02_2"] = "theark_02_2",
+        ["blends_natural_02_3"] = "theark_02_3",
+        ["blends_natural_02_4"] = "theark_02_4",
+        ["blends_natural_02_5"] = "theark_02_0",
+        ["blends_natural_02_6"] = "theark_02_0",
+        ["blends_natural_02_7"] = "theark_02_0",
+        ["blends_natural_02_8"] = "theark_02_8",
+        ["blends_natural_02_9"] = "theark_02_9",
+        ["blends_natural_02_10"] = "theark_02_10",
+        ["blends_natural_02_11"] = "theark_02_11",
+    }
+
+    local fileWriter = getFileWriter("lake-" .. sx .. "-" .. sy .. ".txt", true, true)
+
+    local lines = {}
+    table.insert(lines, "local map = {\n")
+    for x = sx, sx + 40 do
+        for y = sy, sy + 40 do
+            local square = cell:getGridSquare(x, y, sz)
+            if square then
+                local objects = square:getObjects()
+                for i=objects:size()-1, 0, -1 do
+                    local object = objects:get(i)
+                    local sprite = object:getSprite()
+                    local spriteName = sprite:getName()
+                    if map[spriteName] then
+                        table.insert(lines, "    {x = " .. (x - sx) .. ", y = " .. (y - sy) .. ", sprite = \"" .. map[spriteName] .. "\"},\n")
+                        -- table.insert(lines, "BWOABuildTools.Generic(x + " .. tostring(x - sx) .. ", y + " .. tostring(y - sy) .. ", " .. tostring(sz) .. ", \"" .. map[spriteName] .. "\")\n")
+                    end 
+                end
+            end
+        end
+    end
+    table.insert(lines, "}\n")
+    table.insert(lines, "return map\n")
+
+    local output = ""
+    for k, v in pairs(lines) do
+        output = output .. v
+    end
+    print (output)
+    fileWriter:write(output)
+    fileWriter:close()
+end
+
 function BWOAMenu.LavaLake(player, square)
     local cell = getCell()
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
     local r = 10
 
-    BWOABuildTools.Generator(sx, sy, sz - 3, 100, 100, true, true)
-
-    for x = sx - r, sx + r do
-        for y = sy - r, sy + r do
-            if BWOAUtils.IsInCircle(x, y, sx, sy, r) then
-                BWOABuildTools.Generic (x, y, sz, "theark_02_0")
-                -- if x % 2 == 0 and y % 2 == 0 then
-                    local heatsource = IsoHeatSource.new(x, y, sz, 7, 200)
-                    cell:addHeatSource(heatsource)
-                -- end
-            end
-        end
-    end
-
-    
+    local blueprint = BWOALakes.Medium1()
+    BWOABuildTools.LavaLake(sx, sy, blueprint)
+   
 end
 
 function BWOAMenu.Teleport(player)
@@ -448,7 +492,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() or isAdmin() then
 
-
+        local test = forageSystem.forageDefinitions
         if body then
             body:setZ(body:getZ() + 0.05)
             body:setForwardDirectionAngle(-2)
@@ -544,7 +588,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
-        context:addOption("Locate Nearest Hatch", player, BWOAMenu.LocateBasement, player)
+        context:addOption("Locate Nearest Hatch", player, BWOAMenu.LocateBasement)
+        context:addOption("Save Lake Blueprint", player, BWOAMenu.MakeLakeData, square)
         context:addOption("Lava Lake", player, BWOAMenu.LavaLake, square)
 
         local eventsOption = context:addOption("Events")
@@ -557,6 +602,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
         eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
         eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
+        eventsMenu:addOption("Event Nightmare", player, BWOAMenu.EventNightmare)
         
 
         local scenesOption = context:addOption("Scenes")

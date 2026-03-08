@@ -83,6 +83,8 @@ function BWOAScenes.Doc:placeItems()
         md.BWOA.onDropArea.y1 = 12636
         md.BWOA.onDropArea.x2 = 9965
         md.BWOA.onDropArea.y2 = 12640
+        md.BWOA.onDropArea.z = -4
+
         md.BWOA.onDropArea.accomplishMissionId = 113
 
         BWOAPrepareTools.AddItemsToContainer(10865, 10044, -1, {syringe}, "Fridge", preserve)

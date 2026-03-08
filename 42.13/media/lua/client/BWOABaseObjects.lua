@@ -98,13 +98,14 @@ local function analyze(x, y, z)
             for i=0, items:size()-1 do
                 local item = items:get(i)
                 local ftype = item:getFullType()
-                local food = item:isFood() and not item:isPoison()
+
+                local class = BWOAItems.GetItemClass(item)
                 temp.items[oid] = {
                     x = x,
                     y = y,
                     z = z,
                     ftype = ftype,
-                    f = food
+                    class = class
                 }
             end
         end
@@ -115,14 +116,15 @@ local function analyze(x, y, z)
         local o = wobs:get(i)
         local item = o:getItem()
         local ftype = item:getFullType() 
-        local food = item:isFood() and not item:isPoison()
+
+        local class = BWOAItems.GetItemClass(item)
         temp.items[oid] = {
             x = x,
             y = y,
             z = z,
             ftype = ftype,
-            f = food,
-            g = true
+            class = class,
+            ground = true
         }
     end
 end
@@ -231,13 +233,13 @@ BWOABaseObjects.FindClosestItemTypes = function(fullTypesList, point, opts)
     return nil, nil
 end
 
-BWOABaseObjects.FindClosestItemFood = function(point, opts)
+BWOABaseObjects.FindClosestItemClass = function(class, point, opts)
     local distBest = math.huge
     local itemBest
     local items = database.items
 
     for id, item in pairs(items) do
-        if item.f then
+        if item.class == class then
             local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
             if distSq < distBest then
                 itemBest = item

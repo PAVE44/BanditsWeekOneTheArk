@@ -526,6 +526,58 @@ BWOABuildTools.ClearAll = function(x, y, z)
     square:setSquareChanged()
 end
 
+BWOABuildTools.ClearVegetation = function(x, y, z)
+    local cell = getCell()
+    local square = cell:getGridSquare(x, y, z)
+    if not square then return end
+    local objects = square:getObjects()
+    for i = objects:size()-1, 0, -1 do
+        local object = objects:get(i)
+        local sprite = object:getSprite()
+        if sprite then
+            local props = sprite:getProperties()
+            if props:has(IsoFlagType.canBeRemoved) then
+                square:transmitRemoveItemFromSquare(object)
+            end
+        end
+    end
+    square:setSquareChanged()
+end
+
+-- blueprint builder for lava lakes
+BWOABuildTools.LavaLake = function(x, y, blueprint)
+    local cell = getCell()
+
+    local xmin, xmax, ymin, ymax = math.huge, 0, math.huge, 0
+    for _, el in pairs(blueprint) do
+        BWOABuildTools.ClearVegetation(x + el.x, y + el.y, 0)
+        BWOABuildTools.Generic(x + el.x, y + el.y, 0, el.sprite)
+        local heatsource = IsoHeatSource.new(x + el.x, y + el.y, 0, 7, 200)
+        cell:addHeatSource(heatsource)
+
+        if el.x < xmin then xmin = el.x end
+        if el.x > xmax then xmax = el.x end
+        if el.y < ymin then ymin = el.y end
+        if el.y > ymax then ymax = el.y end
+    end
+
+    local gx = math.floor((xmin + xmax) / 2)
+    local gy = math.floor((ymin + ymax) / 2)
+
+    local square = cell:getOrCreateGridSquare(x + gx, y + gy, -2)
+    if square and square:getChunk() then
+        local genItem = BanditCompatibility.InstanceItem("Base.Generator_Old")
+        local generator = IsoGenerator.new(genItem, cell, square)
+        generator:transmitCompleteItemToClients()
+        generator:setCondition(100)
+        generator:setFuel(100)
+        generator:setConnected(true)
+        generator:setActivated(true)
+        cell:addToProcessIsoObjectRemove(generator)
+        square:setSquareChanged()
+    end
+end
+
 -- advanced builder
 BWOABuildTools.BuildMap = function(x, y, z, map, dict)
     local cursor = {x = 0, y = 0}

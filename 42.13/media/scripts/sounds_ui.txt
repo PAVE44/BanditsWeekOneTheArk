@@ -3,7 +3,7 @@ module Base {
     
     sound UIActivatePlayButton
     {
-        category = Object,
+        category = UI,
         loop = false,
         is3D = true,
         clip
@@ -18,7 +18,7 @@ module Base {
 
     sound UIClickToStart
     {
-        category = Object,
+        category = UI,
         loop = false,
         is3D = true,
         clip
@@ -28,6 +28,34 @@ module Base {
             distanceMax = 4,
             reverbFactor = 0.6, 
            
+        }
+    }
+
+    sound UIHighlightMainMenuItem
+    {
+        category = UI,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/ui_mainmenu_highlight.ogg,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound UIActivateMainMenuItem
+    {
+        category = UI,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/ui_mainmenu_activate.ogg,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
         }
     }
 }

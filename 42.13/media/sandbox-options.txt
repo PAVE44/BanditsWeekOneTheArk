@@ -23,6 +23,11 @@ option BWOA.ResidueScrap  = {
     page = BWOA, translation = BWOA.ResidueScrap, valueTranslation=BWOA.ResidueScrap,
 }
 
+option BWOA.SkeletonReanimation  = {
+    type = boolean, default = false,
+    page = BWOA, translation = BWOA.SkeletonReanimation,
+}
+
 option BWOA.AngelProximity = {
     type = boolean, default = true,
     page = BWOA, translation = BWOA.AngelProximity,

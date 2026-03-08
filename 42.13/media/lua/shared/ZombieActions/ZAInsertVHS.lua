@@ -38,7 +38,7 @@ ZombieActions.InsertVHS.onComplete = function(zombie, task)
     item:setRecordedMediaData(mediaData)
     dd:addMediaItem(item)
 
-    BWOAPermaInv.Remove(zombie, "Base.VHS_Retail")
+    BWOAPermaInv.RemoveOneOfType(zombie, "Base.VHS_Retail")
 
     return true
 end

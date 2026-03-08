@@ -141,6 +141,10 @@ BWOASquareLoader.materialToItems = {
     ["Pipes"] = {cnt = 1, items = {"Base.MetalPipe_Broken", "Base.MetalPipe_Broken", "Base.MetalPipe"}},
 }
 
+BWOASquareLoader.lavaEpicenters = {
+    {x=9950, y=11300, r=700},
+}
+
 local hasMaterial = function(props, material)
     local material1 = props:get("Material")
     local material2 = props:get("Material2")
@@ -418,6 +422,29 @@ local skeletonPlacer = function(square)
     end
 end
 
+local lavaPlacer = function(square)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    
+    if z ~= 0 then return end
+
+    local isInEpicenter = false
+    local lavaEpicenters = BWOASquareLoader.lavaEpicenters
+    for _, epicenter in ipairs(lavaEpicenters) do
+        if BWOAUtils.IsInCircle(x, y, epicenter.x, epicenter.y, epicenter.r) then
+            isInEpicenter = true
+            break
+        end
+    end
+    if not isInEpicenter then return end
+
+    local seed = 12346
+    local density = 0.0005
+
+    if density > 0 and shouldPlace(x, y, density, seed) then
+        BWOAEventControl.Add("LavaLake", {x = x, y = y}, 2000)
+    end
+end
+
 local isExcluded = function(square)
     local x, y, z = square:getX(), square:getY(), square:getZ()
 
@@ -447,6 +474,8 @@ local processSquare = function(square)
         end
 
         skeletonPlacer(square)
+
+        lavaPlacer(square)
 
         md.BWO.processed = true
     end

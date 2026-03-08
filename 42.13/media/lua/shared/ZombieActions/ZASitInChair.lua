@@ -60,9 +60,10 @@ end
 
 ZombieActions.SitInChair.onWorking = function(zombie, task)
     zombie:faceLocationF(task.fx, task.fy)
+
     local bumpType = zombie:getBumpType()
     if bumpType ~= task.anim then
-        return true
+        zombie:setBumpType(task.anim)
     end
 
     return false
