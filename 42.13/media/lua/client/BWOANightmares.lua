@@ -11,7 +11,7 @@ BWOANightmares.Activate = function()
 end
 
 local function onPlayerUpdate(player)
-    if not player or not player:isLocalPlayer() then return end
+    if not player then return end
 
     if not BWOANightmares.active then return end
 
@@ -37,17 +37,12 @@ local function onPlayerUpdate(player)
         player:setLastY(5000)
         player:setLastZ(20)
 
-        local test2 = BWOANightmares.returnData
-
         BWOANightmares.state = "cycle"
         getWorld():update()
     end
 
     if state == "cycle" then
-        if player:isGodMod() then
-            print ("godmode")
-        end
-        if player:getZ() < 2 then
+        if player:getZ() < 5 then
             player:setX(8000)
             player:setY(5000)
             player:setZ(30)
