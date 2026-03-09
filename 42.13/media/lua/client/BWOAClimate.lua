@@ -5,32 +5,50 @@ local PEAK_POINT = 0.65 -- 65% into the fallout period
 local TEMP_LERP = -50          -- Maximum temperature drop
 local RAD_LERP = 5000
 
-if SandboxVars.BWOA.FalloutStarted then
-    local optionMap = {
-        -168, -744, -2208, -4416, -8832, -17664
-    }
-    FALLOUT_START = optionMap[SandboxVars.BWOA.FalloutStarted]
-end
-
-if SandboxVars.BWOA.FalloutEnds then
-    local optionMap = {
-        168, 744, 2208, 4416, 8832, 17664
-    }
-    FALLOUT_END = optionMap[SandboxVars.BWOA.FalloutEnds]
-end
-
-if SandboxVars.BWOA.FalloutCurve then
-    local optionMap = {
-        0.2, 0.35, 0.5, 0.65, 0.8
-    }
-    PEAK_POINT = optionMap[SandboxVars.BWOA.FalloutCurve]
-end
-
 BWOAClimate = BWOAClimate or {}
 BWOAClimate.temp = 0
 BWOAClimate.radiation = 0
 BWOAClimate.tick = 0
 BWOAClimate.lastQuake = 0
+
+BWOAClimate.falloutStartedOptionMap = {
+    -168, -744, -2208, -4416, -8832, -17664
+}
+
+BWOAClimate.falloutEndsOptionMap = {
+    168, 744, 2208, 4416, 8832, 17664
+}
+
+BWOAClimate.falloutCurveOptionMap = {
+    0.2, 0.35, 0.5, 0.65, 0.8
+}
+
+BWOAClimate.temperatureDropOptionMap = {
+    -15, -30, -50, -60, -70
+}
+
+BWOAClimate.GetRadiationAndTemp = function(wa, falloutStart, falloutEnd, peakPoint, radLerp, tempLerp)
+    local radiation = 0
+    local overrideTemp = 0
+    if wa >= falloutStart and wa <= falloutEnd then
+        local duration = falloutEnd - falloutStart
+        local t = (wa - falloutStart) / duration
+
+        local s
+        if t <= peakPoint then
+            s = math.sin((t / peakPoint) * (math.pi / 2))
+        else
+            s = math.sin(
+                (math.pi / 2) +
+                ((t - peakPoint) / (1 - peakPoint)) * (math.pi / 2)
+            )
+        end
+
+        radiation = s * radLerp
+        overrideTemp = s * tempLerp
+    end
+    return radiation, overrideTemp
+end
 
 local function updateForageZones()
 
@@ -97,6 +115,11 @@ local function onClimateTick()
 
     updateForageZones()
 
+    FALLOUT_START = BWOAClimate.falloutStartedOptionMap[SandboxVars.BWOA.FalloutStarted] or -2208
+    FALLOUT_END = BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds] or 4416
+    PEAK_POINT = BWOAClimate.falloutCurveOptionMap[SandboxVars.BWOA.FalloutCurve] or 0.65
+    TEMP_LERP = BWOAClimate.temperatureDropOptionMap[SandboxVars.BWOA.TemperatureDrop] or -50
+
     local ambient = cm:getClimateFloat(ClimateManager.FLOAT_AMBIENT)
     local desaturation = cm:getClimateFloat(ClimateManager.FLOAT_DESATURATION)
     local fogIntensity = cm:getClimateFloat(ClimateManager.FLOAT_FOG_INTENSITY)
@@ -108,25 +131,7 @@ local function onClimateTick()
     snow:setEnableOverride(false)
 
     -- calculate temperature and radiation
-    local radiation = 0
-    local overrideTemp = 0
-    if wa >= FALLOUT_START and wa <= FALLOUT_END then
-        local duration = FALLOUT_END - FALLOUT_START
-        local t = (wa - FALLOUT_START) / duration
-
-        local s
-        if t <= PEAK_POINT then
-            s = math.sin((t / PEAK_POINT) * (math.pi / 2))
-        else
-            s = math.sin(
-                (math.pi / 2) +
-                ((t - PEAK_POINT) / (1 - PEAK_POINT)) * (math.pi / 2)
-            )
-        end
-
-        radiation = s * RAD_LERP
-        overrideTemp = s * TEMP_LERP
-    end
+    local radiation, overrideTemp = BWOAClimate.GetRadiationAndTemp(wa, FALLOUT_START, FALLOUT_END, PEAK_POINT, RAD_LERP, TEMP_LERP)
 
     BWOAClimate.radiation = radiation
 
@@ -161,7 +166,7 @@ local function onClimateTick()
         windIntensity:setOverride(windValue, 1)
 
         -- renderer not ready for this updates right after game start
-        if BWOAClimate.tick > 3 then
+        if BWOAClimate.tick >= 0 then
             ImprovedFog.setEnableEditing(true)
             ImprovedFog.setBaseAlpha(0.75)
             ImprovedFog.setSecondLayerAlpha(0.4)
@@ -170,20 +175,34 @@ local function onClimateTick()
             ImprovedFog.setAlphaCircleAlpha(0.25)
             ImprovedFog.setAlphaCircleRad(4)
 
+            -- apply radiation tint
+
+            local radiationNormalized = radiation / RAD_LERP
+            local rshift = 1
+            local bshift = BanditUtils.Lerp(radiationNormalized, 0, 1, 1, 1.3334) 
+            local gshift = BanditUtils.Lerp(radiationNormalized, 0, 1, 1, 1.7334)
+
+
             local dls = cm:getDayLightStrength()
-            local r = math.floor(BanditUtils.Lerp(dls, 0, 1, 0.15, 0.6) * 100) / 100
-            local g = math.floor(BanditUtils.Lerp(dls, 0, 1, 0.26, 0.9) * 100) / 100
-            local b = math.floor(BanditUtils.Lerp(dls, 0, 1, 0.20, 0.72) * 100) / 100
+            local dlsNormalized = BanditUtils.Lerp(dls, 0, 1, 0.15, 0.6)
+
+            local r = math.floor(dlsNormalized * rshift * 100) / 100
+            local g = math.floor(dlsNormalized * gshift * 100) / 100
+            local b = math.floor(dlsNormalized * bshift * 100) / 100
+
+
             print ("DLS: " .. dls .. " R: " .. r .. " G: " .. g .. " B: " .. b)
             ImprovedFog.setColorR(r)
             ImprovedFog.setColorG(g)
             ImprovedFog.setColorB(b)
         end
 
-        if isClient() then
-            getClimateManager():transmitTriggerStorm(10)
-        else
-            getClimateManager():triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
+        if radiation > 90 then
+            if isClient() then
+                getClimateManager():transmitTriggerStorm(10)
+            else
+                getClimateManager():triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
+            end
         end
 
         BWOAClimate.tick = BWOAClimate.tick + 1

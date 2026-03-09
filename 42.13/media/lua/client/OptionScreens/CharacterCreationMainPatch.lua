@@ -19,6 +19,7 @@ function CharacterCreationMain:onOptionMouseDown2(button, x, y)
         if MainScreen.instance and (not MainScreen.instance.inGame) then
             local joypadData = JoypadState.getMainMenuJoypad() or CoopCharacterCreation.getJoypad()
             MainScreen.instance.arkSettingsMain:setVisible(true, joypadData)
+			MainScreen.instance.arkSettingsMain:updateSettings()
         else
             CoopCharacterCreation.instance:accept()
         end

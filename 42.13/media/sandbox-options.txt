@@ -12,6 +12,10 @@ option BWOA.FalloutCurve  = {
     type = enum, numValues=5, default = 4,
     page = BWOA, translation = BWOA.FalloutCurve, valueTranslation=BWOA.FalloutCurve,
 }
+option BWOA.TemperatureDrop  = {
+    type = enum, numValues=5, default = 3,
+    page = BWOA, translation = BWOA.TemperatureDrop, valueTranslation=BWOA.TemperatureDrop,
+}
 
 option BWOA.ShelterOccurance  = {
     type = enum, numValues=5, default = 4,

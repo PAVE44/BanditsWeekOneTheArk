@@ -97,6 +97,10 @@ function MainScreen:prerender()
     end
 
     if not self.inGame then
+
+        if not BWOAMusic.IsPlaying() then
+            BWOAMusic.Play("MusicMenu", 1, 1)
+        end
         MainScreen.alphaBG = MainScreen.alphaBG + 0.00075
         if MainScreen.alphaBG > 1 then 
             MainScreen.alphaBG = 1 

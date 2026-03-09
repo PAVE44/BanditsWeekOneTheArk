@@ -366,7 +366,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["100.6.1.1.1"] = {
         qst = "What are your virus research results so far?",
-        ans = "I need fresh specimen to continue my research.",
+        ans = "I need a fresh specimen to continue my research.",
         anim = "Gest1",
         req = {"100.6.1.1"},
         func = "RevealMission",

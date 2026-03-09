@@ -28,6 +28,14 @@ Sandbox_EN = {
     Sandbox_BWOA.FalloutCurve_option4 = "Slow rise + fast decay"
     Sandbox_BWOA.FalloutCurve_option5 = "Very slow rise + very fast decay"
 
+    Sandbox_BWOA.TemperatureDrop = "Temperature Drop"
+    Sandbox_BWOA.TemperatureDrop_tooltip = "Controls how cold the nuclear winter is."
+    Sandbox_BWOA.TemperatureDrop_option1 = "Minimal"
+    Sandbox_BWOA.TemperatureDrop_option2 = "Low"
+    Sandbox_BWOA.TemperatureDrop_option3 = "Moderate"
+    Sandbox_BWOA.TemperatureDrop_option4 = "High"
+    Sandbox_BWOA.TemperatureDrop_option5 = "Extreme"
+
     Sandbox_BWOA.ShelterOccurance = "Shelter Occurance"
     Sandbox_BWOA.ShelterOccurance_tooltip = "Impacts how often random procedurally generated basements will occur. These are independent from normal basements."
     Sandbox_BWOA.ShelterOccurance_option1 = "Extremely Rare"    

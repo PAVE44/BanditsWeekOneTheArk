@@ -10,6 +10,16 @@ module Bandits {
         }
     }
 
+    sound MusicMenu {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/radiation_angel_loop.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
     sound MusicEndure {
         category = Object, 
         loop = false,
