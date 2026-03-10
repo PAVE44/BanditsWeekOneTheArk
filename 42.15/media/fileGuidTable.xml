@@ -8,8 +8,18 @@
 		<path>media/clothing/clothingItems/AngelWings.xml</path>
 		<guid>b79be591-efc4-42bf-b87b-5dd3a9818be7</guid>
 	</files>
-
-
+	<files>
+		<path>media/clothing/clothingItems/Hat_DevilHorns.xml</path>
+		<guid>69713dea-a90b-4407-a6ea-dd9173499376</guid>
+	</files>
+	<files>
+		<path>media/clothing/clothingItems/Wings.xml</path>
+		<guid>9930e9d3-3e9f-4b59-a624-86e327f039f3</guid>
+	</files>
+	<files>
+		<path>media/clothing/clothingItems/DevilTail.xml</path>
+		<guid>805b6d4b-72a2-40a7-9d4c-843a3cd9057a</guid>
+	</files>
 	<files>
 		<path>media/clothing/clothingItems/Vest_BulletBlack.xml</path>
 		<guid>f2787efaa-3132-49fe-8ff5-2ec02a0bd5a0</guid>

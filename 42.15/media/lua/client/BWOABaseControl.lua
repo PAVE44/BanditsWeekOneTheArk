@@ -141,7 +141,7 @@ local function managePower()
     else
         newPower = false
     end
-    
+
     if newPower ~= BWOABaseControl.power then
         BWOABaseControl.power = newPower
         BWOASound.ClearNoah()
@@ -175,7 +175,7 @@ local function managePower()
 
                 local diff = gmd.ventilation.tempTarget - BWOAClimate.temp
                 if diff > 0 then
-                    
+
                     if diff > 80 then
                         diff = 80
                     end
@@ -282,7 +282,7 @@ local function manageVentilation()
     local airintakes = gmd.airintakes
     local co2Reduction = 0
     if ventilation.active then
-        
+
         for _, airintake in pairs(airintakes) do
             if not airintake.broken then
                 co2Reduction = co2Reduction + 4

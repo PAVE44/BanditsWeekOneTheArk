@@ -193,47 +193,20 @@ special quests:
 
  -- chat
 
- Emma:
-
- - who are you?
-    - my name is Emma Robinson. I'm a survivor just like you.
-        - how did you get in here?
-            - its a long story, and you won't believe it anyway
-
-    - where are the others?
-        - they had to go out for multiple reasons
-            - why did the others had to leave?
-                - we are having multiple issues with this place here but dont worry, things are getting handled, they will be coming home soon.
-
-            - when will the other come back
-                - soon I hope, don't worry we maintain radio contact
-
- - where am I?
-    - you're safe, don't worry. You are in a shelter bunker
-        - tell me more about this place?
-            - ...
-
- - what happened to me?
-    - how long was I in coma?
-        - it's been a couple of weeks, 
-    - am I alright?
-        - you had a head trauma when we found you, you're lucky we have a surgeon here, your head may still ache a little
-            - what did you do to my head?
-                - you had internal bleeding under your skull, [fixme]
-    
+ 
 
 
 FIXES:
- - make basement bandits spawn in random squares
+ + make basement bandits spawn in random squares
  
 EMMA:
  - play piano
  - cook
- - watch tv together
+ + watch tv together
  - play game together(checkers?)
 
 IDEAS:
- - fire
+ + fire
  - earthwuake will lead to a room to collapse - evacute message
 
 
@@ -247,8 +220,14 @@ CHAPTER 5: ENDURE
  - visitors from another ark - friendly on comms but later they're not
  - visitors come by chopper?
  - beds still impassable after reload
- - music jukebox needs walkto action
+ + music jukebox needs walkto action
  
 
 
  
+
+ CHAPTER 4: I AM NOT BOB
+
+ dream 
+    -> angel who gives you a mushroom
+    -> mushrrom invokes a nightmare where you go to finnegan building to discover truth

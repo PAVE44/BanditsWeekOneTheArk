@@ -2,11 +2,10 @@ module Base
 {
     item AngelWings
     {
-        ItemType = base:clothing,
+        ItemType = base:container,
         DisplayCategory = Bag,
         WeightReduction	= 10,
         Weight = 1.5,
-        ItemType = base:container,
         Capacity = 4,
         DisplayName = Angel Wings,
         Icon = AngelWings,
@@ -35,4 +34,50 @@ module Base
         ChanceToFall = 0,
         Insulation = 0.0,
     }
-}    
+
+    item Wings
+    {
+        ItemType = base:container,
+        DisplayCategory = Bag,
+        WeightReduction	= 10,
+        Weight = 1.5,
+        Type = Container,
+        Capacity = 4,
+        DisplayName	= Devil Wings,
+        Icon = Wings,
+        CanBeEquipped = base:back,
+        OpenSound = OpenBag,
+        CloseSound = CloseBag,
+        PutInSound = PutItemInBag,
+        ClothingItem = Wings,
+        BloodLocation = Bag,
+        RunSpeedModifier = 0.95,
+        AttachmentReplacement = Bag,
+    }
+
+    item DevilTail
+    {
+        ItemType = base:clothing,
+        DisplayCategory = Accessory,
+        DisplayName = Devil Tail,
+        ClothingItem = DevilTail,
+        BodyLocation = base:tail,
+        Icon = DevilTail,
+    }
+
+    item Hat_DevilHorns
+	{
+		ItemType = base:clothing,
+		DisplayName = Devil Horns,
+		ClothingItem = Hat_DevilHorns,
+		BodyLocation = base:hat,
+		Icon = Hat_DevilHorns,
+		CanHaveHoles = false,
+		BloodLocation = Head,
+		BiteDefense = 100,
+		ScratchDefense = 100,
+		ChanceToFall = 0,
+		Insulation = 0.0,
+		WaterResistance = 0.2,
+	}
+}

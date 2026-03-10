@@ -28,7 +28,7 @@ local function onTick()
         if square then
             local objects = square:getObjects()
             for i=0, objects:size()-1 do
-                local object = objects:get(i)                
+                local object = objects:get(i)
                 local sprite = object:getSprite()
                 if sprite then
                     local props = sprite:getProperties()
