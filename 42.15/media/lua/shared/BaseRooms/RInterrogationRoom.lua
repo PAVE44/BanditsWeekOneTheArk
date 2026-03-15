@@ -88,6 +88,12 @@ BWOARooms.InterrogationRoom.Prepare = function ()
 
     BWOAPrepareTools.AddWorldItem(9965, 12631, -4, "Base.Extinguisher", {x=0.61, y=0.20, z=0.00, rx=0, ry=0, rz=0})
 
+    local key = BanditCompatibility.InstanceItem("Base.Key1")
+    local keyid = getCell():getGridSquare(9969, 12634, -5):getBuildingDef():getKeyId()
+    key:setKeyId(keyid)
+    key:setName("Service Tunnels Key")
+    BWOAPrepareTools.AddItemsToContainer(9959, 12635, -4, {key}, "Cabinet")
+
     local item = BanditCompatibility.InstanceItem("Base.VHS_Home")
     local mediaRecorder = ZomboidRadio.getInstance():getRecordedMedia()
     local mediaData = mediaRecorder:getMediaData("d5fe3df0-5e3b-0146-0001-000000000000")

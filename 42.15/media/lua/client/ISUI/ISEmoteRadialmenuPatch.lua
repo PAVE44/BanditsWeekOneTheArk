@@ -27,6 +27,7 @@ function ISEmoteRadialMenu:init()
     ISEmoteRadialMenu.defaultMenu["play"].name = getText("Play")
 	ISEmoteRadialMenu.defaultMenu["play"].subMenu = {}
 	ISEmoteRadialMenu.defaultMenu["play"].subMenu["moveout"] = "Tag"
+    ISEmoteRadialMenu.defaultMenu["play"].subMenu["dance"] = "Dance"
     
     ISEmoteRadialMenu.variants = {}
 
@@ -39,6 +40,7 @@ function ISEmoteRadialMenu:init()
 
     ISEmoteRadialMenu.icons["play"] = getTexture("media/ui/emotes/moveout.png");
     ISEmoteRadialMenu.icons["moveout"] = getTexture("media/ui/emotes/moveout.png");
+    ISEmoteRadialMenu.icons["dance"] = getTexture("media/ui/emotes/moveout.png");
 
     ISEmoteRadialMenu.menu = ISEmoteRadialMenu.defaultMenu
 

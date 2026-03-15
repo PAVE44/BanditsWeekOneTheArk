@@ -68,8 +68,10 @@ BWOARooms.Generator.Build = function ()
 
     for x = 9951, 9956 do
         for y = 12615, 12620 do
-            BWOABuildTools.RemoveObject(x, y, -4, "floors_exterior_street_01_0")
-            BWOABuildTools.Floor(x, y, -4, "industry_01_39")
+            if not (x == 9954 and y == 12615) then
+                BWOABuildTools.RemoveObject(x, y, -4, "floors_exterior_street_01_0")
+                BWOABuildTools.Floor(x, y, -4, "industry_01_39")
+            end
         end
     end
     

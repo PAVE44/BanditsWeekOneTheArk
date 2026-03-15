@@ -71,6 +71,22 @@ module Bandits
         Tags = base:consumable,
     }
 
+    item NBCTablets
+    {
+        ItemType = base:drainable,
+        DisplayCategory = Chemical,
+        Type = Drainable,
+        Weight = 0.2,
+        Icon = NBCTablets,
+        Medical = true,
+        Tooltip = Tooltip_NBCTablets,
+        UseDelta = 0.1,
+        UseWhileEquipped = false,
+        StaticModel = PillBottle,
+        WorldStaticModel = PillBottleGround,
+        Tags = base:consumable,bandits:nbctablets
+    }
+
     item PillsPentoxifylline
     {
         ItemType = base:drainable,

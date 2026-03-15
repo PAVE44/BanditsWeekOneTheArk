@@ -26,10 +26,10 @@ BWOARooms.ServiceTunnels.Build = function ()
     BWOABuildTools.Generic(9962, 12622, -5, "industry_02_165")
 
     -- under generator room
-    BWOABuildTools.LampBatteryWeak(9953, 12620, -5, "lighting_indoor_02_46")
-    BWOABuildTools.LampBatteryWeak(9954, 12620, -5, "lighting_indoor_02_46")
+    -- BWOABuildTools.LampBatteryWeak(9953, 12620, -5, "lighting_indoor_02_46")
+    -- BWOABuildTools.LampBatteryWeak(9954, 12620, -5, "lighting_indoor_02_46")
     BWOABuildTools.LampBatteryWeak(9953, 12615, -5, "lighting_indoor_02_45")
-    BWOABuildTools.LampBatteryWeak(9954, 12615, -5, "lighting_indoor_02_45")
+    -- BWOABuildTools.LampBatteryWeak(9954, 12615, -5, "lighting_indoor_02_45")
     
     -- corridors
     BWOABuildTools.LampBatteryWeak(9969, 12638, -5, "lighting_indoor_02_44")
@@ -38,8 +38,21 @@ BWOARooms.ServiceTunnels.Build = function ()
     BWOABuildTools.LampBatteryWeak(9962, 12626, -5, "lighting_indoor_02_45")
     BWOABuildTools.LampBatteryWeak(9954, 12623, -5, "lighting_indoor_02_45")
     BWOABuildTools.LampBatteryWeak(9951, 12623, -5, "lighting_indoor_02_44")
-    BWOABuildTools.LampBatteryWeak(9957, 12603, -5, "lighting_indoor_02_44")
+    BWOABuildTools.LampBatteryWeak(9962, 12619, -5, "lighting_indoor_02_45")
+    BWOABuildTools.LampBatteryWeak(9965, 12608, -5, "lighting_indoor_02_44")
 
+    -- water tanks
+    BWOABuildTools.LampBatteryWeak(9951, 12603, -5, "lighting_indoor_03_18")
+    BWOABuildTools.LampBatteryWeak(9958, 12603, -5, "lighting_indoor_03_18")
+    BWOABuildTools.LampBatteryWeak(9951, 12611, -5, "lighting_indoor_03_18")
+    BWOABuildTools.LampBatteryWeak(9958, 12611, -5, "lighting_indoor_03_18")
+    BWOABuildTools.LampBatteryWeak(9959, 12600, -7, "lighting_indoor_02_45")
+    BWOABuildTools.LampBatteryWeak(9952, 12600, -7, "lighting_indoor_02_45")
+    BWOABuildTools.LampBatteryWeak(9959, 12614, -7, "lighting_indoor_02_46")
+    BWOABuildTools.LampBatteryWeak(9952, 12614, -7, "lighting_indoor_02_46")
+
+    -- storage room
+    BWOABuildTools.LampBatteryWeak(9957, 12616, -5, "lighting_indoor_02_44")
 
 end
 
@@ -58,5 +71,11 @@ end
 
 BWOARooms.ServiceTunnels.Prepare = function ()
     BWOARooms.ServiceTunnels.Init()
+
+    local items
+    items = {
+        ["Bandits.NBCTablets"] = 20
+    }
+    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, items, "Locker")
 end
 

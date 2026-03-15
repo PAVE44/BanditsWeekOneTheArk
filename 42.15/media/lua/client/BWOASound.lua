@@ -124,7 +124,7 @@ BWOASound.AddToObject = function(tab)
 
     local duplicate = false
     for i, effect in ipairs(BWOASound.objects) do
-        if effect.x == tab.x and effect.y == tab.y and effect.z == tab.z and (tab.sound == effect.sound or not tab.sound) then
+        if effect.x == tab.x and effect.y == tab.y and effect.z == tab.z then
             duplicate = true
             break
         end
@@ -137,7 +137,7 @@ end
 
 BWOASound.RemoveFromObject = function(tab)
     for i, effect in ipairs(BWOASound.objects) do
-        if effect.x == tab.x and effect.y == tab.y and effect.z == tab.z and (tab.sound == effect.sound or not tab.sound) then
+        if effect.x == tab.x and effect.y == tab.y and effect.z == tab.z then
             if effect.emitter then
                 effect.emitter:stopAll()
             end

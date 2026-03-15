@@ -153,73 +153,106 @@ BWOAChat.Say = function(qid, question, person)
 end
 
 local emoteActions = {
-    ["hey!"] = function(target)
-        local tab = {}
-        tab.id = target.id
-        if target.dist < 2.1 then
-            tab.anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
-            tab.txt = "You scared me!"
-            BWOAEventControl.Add("SayBandit", tab, 1)
-        else
+    ["hey!"] = {
+        needNPC = "Emma", 
+        func = function(player, target)
+            local tab = {}
+            tab.id = target.id
+            if target.dist < 2.1 then
+                tab.anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
+                tab.txt = "You scared me!"
+                BWOAEventControl.Add("SayBandit", tab, 1)
+            else
+                tab.anim = "WaveHi"
+                tab.txt = "Hey!"
+                tab.sound = "VoiceFemaleShoutHey"
+                BWOAEventControl.Add("SayBandit", tab, 250)
+            end
+        end,
+    },
+    ["hey"] = {
+        needNPC = "Emma", 
+        func = function(player, target)
+            local tab = {}
+            tab.id = target.id
+            if ZombRand(3) == 0 then
+                tab.txt = "psst"
+                tab.sound = "VoiceFemaleWhisperPsst"
+            else
+                tab.txt = "hey"
+                tab.sound = "VoiceFemaleWhisperHey"
+            end
+            BWOAEventControl.Add("SayBandit", tab, 250)
+        end,
+    },
+    ["wavehi"] = {
+        needNPC = "Emma", 
+        func = function(player, target)
+            local tab = {}
+            tab.id = target.id
             tab.anim = "WaveHi"
-            tab.txt = "Hey!"
+            tab.txt = "Hi!"
             tab.sound = "VoiceFemaleShoutHey"
             BWOAEventControl.Add("SayBandit", tab, 250)
+        end,
+    },
+    ["followme"] = {
+        needNPC = "Emma", 
+        func = function(player, target)
+            BWOANPC.ModBrain(player, target.id, "mode", "follow")
+            local tab = {}
+            tab.id = target.id
+            tab.anim = "Yes"
+            tab.txt = "Okay, let's go!"
+            BWOAEventControl.Add("SayBandit", tab, 250)
+        end,
+    },
+    ["stop"] = {
+        needNPC = "Emma", 
+        func = function(player, target)
+            BWOANPC.ModBrain(target.id, "mode", nil)
+            local tab = {}
+            tab.id = target.id
+            tab.anim = "Yes"
+            tab.txt = "Okay!"
+            BWOAEventControl.Add("SayBandit", tab, 250)
+        end,
+    },
+    ["moveout"] = {
+        needNPC = "Emma", 
+        func = function(player, target)
+            BWOANPC.ModBrain(target.id, "mode", "taggame")
+            local tab = {}
+            tab.id = target.id
+            tab.txt = "Catch me if you can!"
+            BWOAEventControl.Add("SayBandit", tab, 250)
+        end,
+    },
+    ["dance"] = {
+        needNPC = false, 
+        func = function(player, target)
+            local px, py, pz = player:getX(), player:getY(), player:getZ()
+            local jukebox, dist = BWOAJukebox.FindClosest(px, py, pz)
+            if jukebox and jukebox.on and dist < 21 then
+                BWOAEventControl.Add("SayPlayer", {txt = "Let's dance!"}, 1)
+                ISTimedActionQueue.add(TADance:new(player))
+            else
+                BWOAEventControl.Add("SayPlayer", {txt = "I need music to dance!"}, 1)
+            end
         end
-    end,
-    ["hey"] = function(target)
-        local tab = {}
-        tab.id = target.id
-        if ZombRand(3) == 0 then
-            tab.txt = "psst"
-            tab.sound = "VoiceFemaleWhisperPsst"
-        else
-            tab.txt = "hey"
-            tab.sound = "VoiceFemaleWhisperHey"
-        end
-        BWOAEventControl.Add("SayBandit", tab, 250)
-    end,
-    ["wavehi"] = function(target)
-        local tab = {}
-        tab.id = target.id
-        tab.anim = "WaveHi"
-        tab.txt = "Hi!"
-        tab.sound = "VoiceFemaleShoutHey"
-        BWOAEventControl.Add("SayBandit", tab, 250)
-    end,
-    ["followme"] = function(target)
-        BWOANPC.ModBrain(target.id, "mode", "follow")
-        local tab = {}
-        tab.id = target.id
-        tab.anim = "Yes"
-        tab.txt = "Okay, let's go!"
-        BWOAEventControl.Add("SayBandit", tab, 250)
-    end,
-    ["stop"] = function(target)
-        BWOANPC.ModBrain(target.id, "mode", nil)
-        local tab = {}
-        tab.id = target.id
-        tab.anim = "Yes"
-        tab.txt = "Okay!"
-        BWOAEventControl.Add("SayBandit", tab, 250)
-    end,
-    ["moveout"] = function(target)
-        BWOANPC.ModBrain(target.id, "mode", "taggame")
-        local tab = {}
-        tab.id = target.id
-        tab.txt = "Catch me if you can!"
-        BWOAEventControl.Add("SayBandit", tab, 250)
-    end
-
-
+    },
 }
 
 local function onEmote(player, emote)
-    local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma"}, "Main")
-    if target.dist < BWOAChat.talkDist then
-        if emoteActions[emote] then
-            return emoteActions[emote](target)
-        end
+    local action = emoteActions[emote]
+    if not action then return end
+
+    if action.needNPC then
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {action.needNPC}, "Main")
+        if not target or target.dist > BWOAChat.talkDist then return end
+        action.func(player, target)
+    else
+        action.func(player, nil)
     end
 end
 

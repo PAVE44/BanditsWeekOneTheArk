@@ -4,10 +4,10 @@ BWOABaseAPI.power = true
 BWOABaseAPI.alarm = false
 
 BWOABaseAPI.generators = {
-    {x=9950, y=12600, z=-6},
+    {x=9950, y=12599, z=-6},
     {x=9950, y=12625, z=-6},
     {x=9950, y=12650, z=-6},
-    {x=9975, y=12600, z=-6},
+    {x=9975, y=12599, z=-6},
     {x=9975, y=12625, z=-6},
     {x=9975, y=12650, z=-6},
 }

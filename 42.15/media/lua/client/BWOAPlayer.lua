@@ -758,6 +758,16 @@ local updateRadiationEffects = function(player)
     print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO: " .. md.bwoa.timeRadiated)
 end
 
+local updateSewerEffects = function(player)
+    --[[
+    if not player:isProtectedFromToxic() then
+        local smell = player:getCorpseSicknessRate()
+        smell = smell + 50
+        player:setCorpseSicknessRate(smell)
+    end
+    ]]
+end
+
 local applyCO2IntoxicationPlayer = function(player, dose)
     local bodyDamage = player:getBodyDamage()
     local stats = player:getStats()
@@ -820,6 +830,12 @@ local applyCO2IntoxicationPlayer = function(player, dose)
 
     if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 and headAcheExpected then
         headAcheExpected = headAcheExpected / 2
+    end
+
+    if md.bwoa.drug.NBCTablets and md.bwoa.drug.NBCTablets > 0 then
+        sickExpected = 100
+        headAcheExpected = 100
+        drunkExpected = 100
     end
 
     if md.bwoa.drug.Pentoxifylline and md.bwoa.drug.Pentoxifylline > 0 and fatigueExpected and enduranceExpected then
@@ -953,6 +969,8 @@ local function everyOneMinute()
 
     updateRadiationEffects(player)
 
+    updateSewerEffects(player)
+
     -- co2 intoxication simlation
     if suffocation then
         applyCO2IntoxicationPlayer(player, 60001)
@@ -1004,6 +1022,10 @@ local onTimedActionPerform = function(data)
             },
             ["PillsNikethamide"] = { -- helps in hypotermia
                 name = "Nikethamide",
+                dose = 480
+            },
+            ["NBCTablets"] = { -- it's not for eating!
+                name = "NBCTablets",
                 dose = 480
             },
         }

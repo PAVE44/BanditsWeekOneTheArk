@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.95"
+BWOAMenu.version = "0.96"
 
 BWOAMenu.blinking = {}
 
@@ -24,6 +24,10 @@ end
 
 BWOAMenu.specialObjectsCanHighlight.Vent = function(player)
     return BWOAMissions.IsActive(3)
+end
+
+BWOAMenu.specialObjectsCanHighlight.NBCMixer = function(player)
+    return true
 end
 
 BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
@@ -78,6 +82,13 @@ BWOAMenu.specialObjectsVerify.Vent = function(player)
     return hasItem, hasItem and "" or "You need a Screwdriver."
 end
 
+BWOAMenu.specialObjectsVerify.NBCMixer = function(player)
+    local test = BWOARegistries.ItemTags
+    local inventory = player:getInventory()
+    local hasItem = inventory:containsTypeRecurse("Bandits.NBCTablets")
+    return hasItem, hasItem and "" or "You need NBC Tablets."
+end
+
 BWOAMenu.specialObjectsVerify.FuelIntake = function(player)
     return true, ""
 end
@@ -105,6 +116,12 @@ end
 BWOAMenu.specialObjectsAction.Vent = function(player, square)
     if luautils.walkAdj(player, square) then
         ISTimedActionQueue.add(TAFixIntake:new(player, square))
+    end
+end
+
+BWOAMenu.specialObjectsAction.NBCMixer = function(player, square)
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(TAAddNBCMixer:new(player, square))
     end
 end
 
@@ -142,6 +159,12 @@ BWOAMenu.specialObjectsHighlight = {
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Vent,
         verifyFunc = BWOAMenu.specialObjectsVerify.Vent,
         actionFunc = BWOAMenu.specialObjectsAction.Vent
+    },
+    ["NBCMixer"] = {
+        x = 9948, y = 12622, z = -5, spriteName = "rooftop_furniture_1", option = "Add NBC Tablets", 
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.NBCMixer,
+        verifyFunc = BWOAMenu.specialObjectsVerify.NBCMixer,
+        actionFunc = BWOAMenu.specialObjectsAction.NBCMixer
     },
     ["Fuel1"] = {
         x = 9927, y = 12617, z = 0, spriteName = "theark_01_7", option = "Drain Fuel", 
@@ -495,7 +518,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local room = square:getRoom()
     local zombie = square:getZombie()
     local body = square:getDeadBody()
-
+    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, items, "Locker")
     -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
 
@@ -739,8 +762,8 @@ local updateHighlight = function()
             for i=0, playerList:size()-1 do
                 local player = playerList:get(i)
                 if player then
-                    local px, py = player:getX(), player:getY()
-                    if math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then 
+                    local px, py, pz = player:getX(), player:getY(), player:getZ()
+                    if pz == sobject.z and math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then
                         local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
                         if square then
                             local objects = square:getObjects()

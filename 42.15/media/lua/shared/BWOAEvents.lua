@@ -95,6 +95,12 @@ BWOAEvents.PlayerSetup = function(params)
             wornItems:setItem(gownLocation, gown)
             player:setWornItems(wornItems)
 
+            if isDebugEnabled() or isAdmin() then
+                local flashlight = BanditCompatibility.InstanceItem("Base.Torch")
+                inv:AddItem(flashlight)
+                player:setPrimaryHandItem(flashlight)
+            end
+
             local humanVisual = player:getHumanVisual()
             humanVisual:setHairModel("Bald")
             if not player:isFemale() then
@@ -303,6 +309,14 @@ end
 
 BWOAEvents.DecontaminatePost = function(params)
     BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION_COMPLETE})
+
+    local gmd = GetBWOAModData()
+    local decontaminator = gmd.decontaminator
+    if decontaminator.concentration <= 0 then return end
+
+    decontaminator.concentration = decontaminator.concentration - 5
+    if decontaminator.concentration < 0 then decontaminator.concentration = 0 end
+
     local cell = getCell()
     for y = params.y1, params.y2 do
         for x = params.x1, params.x2 do

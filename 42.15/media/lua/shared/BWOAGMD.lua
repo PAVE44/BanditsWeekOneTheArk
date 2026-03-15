@@ -87,6 +87,25 @@ function InitBWOAModData(isNewGame)
         }
     end
 
+    if not globalData.decontaminator then 
+        globalData.decontaminator = {
+            x = 9948,
+            y = 12622,
+            z = -5,
+            concentration = 85,
+        }
+    end
+
+    if not globalData.alerting then 
+        globalData.alerting = {
+            generatorFuelAlert = 10,
+            generatorConditionAlert = 10,
+            radiationAlert = 10,
+            co2Alert = 10,
+            waterPumpConditionAlert = 10,
+        }
+    end
+
     if not globalData.alerting then 
         globalData.alerting = {
             generatorFuelAlert = 10,

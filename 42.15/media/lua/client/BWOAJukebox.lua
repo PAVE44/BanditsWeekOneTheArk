@@ -4,6 +4,8 @@ BWOAJukebox.jukeboxes = {}
 
 BWOAJukebox.playlist = {
     {clip = "Jukebox1", title = "Rhythm of 93"},
+    {clip = "Jukebox2", title = "Neon Rewind"},
+    {clip = "Jukebox3", title = "Neon Nights"},
 }
 
 BWOAJukebox.Add = function (x, y, z)

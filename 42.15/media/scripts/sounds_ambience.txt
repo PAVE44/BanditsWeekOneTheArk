@@ -483,6 +483,18 @@ module Bandits {
         } 
     }
 
+    sound DropOnWater {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/drop_on_water.ogg,
+            distanceMin = 3,
+            distanceMax = 30,
+            reverbFactor = 0.7, 
+        } 
+    }
+
     sound OpenHatch {
         category = Object, 
         loop = false,
