@@ -52,9 +52,11 @@ BWOAMusic.Stop = function()
 end
 
 BWOAMusic.IsPlaying = function()
+    if BWOAMusic.customId then return true end
+    --[[
     if BWOAMusic.customId and BWOAMusic.emitter then
         return BWOAMusic.emitter:isPlaying(BWOAMusic.customId)
-    end
+    end]]
     return false
 end
 

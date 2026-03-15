@@ -1,6 +1,6 @@
 BWOABuildTools = BWOABuildTools or {}
 
-BWOABuildTools.Floor = function(x, y, z, spriteName)
+BWOABuildTools.Floor = function(x, y, z, spriteName, cracks, blood)
     local cell = getCell()
     local square = cell:getGridSquare(x, y, z)
     if square == nil and getWorld():isValidSquare(x, y, z) then
@@ -11,12 +11,12 @@ BWOABuildTools.Floor = function(x, y, z, spriteName)
     local obj = IsoObject.new(square, spriteName, "")
     obj:setAttachedAnimSprite(ArrayList.new())
 
-    if ZombRand(3) == 0 then
+    if cracks and ZombRand(3) == 0 then
         local crackSprite = "floors_overlay_street_01_" .. tostring(1 + ZombRand(43))
         obj:getAttachedAnimSprite():add(getSprite(crackSprite):newInstance())
     end
 
-    if ZombRand(3) == 0 then
+    if blood and ZombRand(3) == 0 then
         local bloodSprite = "overlay_blood_floor_01_" .. tostring(1 + ZombRand(13))
         obj:getAttachedAnimSprite():add(getSprite(bloodSprite):newInstance())
     end
@@ -266,6 +266,20 @@ BWOABuildTools.Fridge = function(x, y, z)
     if not square or not square:getChunk() then return end
     local obj = IsoObject.new(square, "appliances_refrigeration_01_40", "")
     square:AddSpecialObject(obj)
+    local fridgeContainer = obj:getContainerByType("fridge")
+    if fridgeContainer then
+        fridgeContainer:setExplored(true)
+        fridgeContainer:clear()
+        fridgeContainer:removeAllItems()
+    end
+
+    local freezerContainer = obj:getContainerByType("freezer")
+    if freezerContainer then
+        freezerContainer:setExplored(true)
+        freezerContainer:clear()
+        freezerContainer:removeAllItems()
+    end
+
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
 end
@@ -334,6 +348,11 @@ local lamp = function(x, y, z, spriteName, data)
     -- ls:transmitCompleteItemToServer()
     square:setSquareChanged()
 
+end
+
+BWOABuildTools.LampBatteryWeak = function(x, y, z, spriteName)
+    local data = {r = 40, g = 40, b = 255, d=4, active=true, battery=true}
+    lamp(x, y, z, spriteName, data)
 end
 
 BWOABuildTools.LampBattery = function(x, y, z, spriteName)
@@ -548,34 +567,32 @@ end
 BWOABuildTools.LavaLake = function(x, y, blueprint)
     local cell = getCell()
 
-    local xmin, xmax, ymin, ymax = math.huge, 0, math.huge, 0
+
     for _, el in pairs(blueprint) do
         BWOABuildTools.ClearVegetation(x + el.x, y + el.y, 0)
         BWOABuildTools.Generic(x + el.x, y + el.y, 0, el.sprite)
         local heatsource = IsoHeatSource.new(x + el.x, y + el.y, 0, 7, 200)
         cell:addHeatSource(heatsource)
 
-        if el.x < xmin then xmin = el.x end
-        if el.x > xmax then xmax = el.x end
-        if el.y < ymin then ymin = el.y end
-        if el.y > ymax then ymax = el.y end
+        if math.abs(el.x) % 10 == 0 and math.abs(el.y) % 10 == 0 then
+            local square = cell:getOrCreateGridSquare(x + el.x, y + el.y, -2)
+            if square and square:getChunk() then
+                local genItem = BanditCompatibility.InstanceItem("Base.Generator_Old")
+                local generator = IsoGenerator.new(genItem, cell, square)
+                generator:transmitCompleteItemToClients()
+                generator:setCondition(100)
+                generator:setFuel(100)
+                generator:setConnected(true)
+                generator:setActivated(true)
+                cell:addToProcessIsoObjectRemove(generator)
+                square:setSquareChanged()
+            end
+        end
+
+
     end
 
-    local gx = math.floor((xmin + xmax) / 2)
-    local gy = math.floor((ymin + ymax) / 2)
 
-    local square = cell:getOrCreateGridSquare(x + gx, y + gy, -2)
-    if square and square:getChunk() then
-        local genItem = BanditCompatibility.InstanceItem("Base.Generator_Old")
-        local generator = IsoGenerator.new(genItem, cell, square)
-        generator:transmitCompleteItemToClients()
-        generator:setCondition(100)
-        generator:setFuel(100)
-        generator:setConnected(true)
-        generator:setActivated(true)
-        cell:addToProcessIsoObjectRemove(generator)
-        square:setSquareChanged()
-    end
 end
 
 -- advanced builder

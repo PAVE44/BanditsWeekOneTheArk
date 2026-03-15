@@ -6,11 +6,13 @@
 -- ********************************
 --
 
-local TAFixIntake = require("Actions/TAFixIntake")
+local function predicateAll(item)
+	return true
+end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.90"
+BWOAMenu.version = "0.95"
 
 BWOAMenu.blinking = {}
 
@@ -56,12 +58,40 @@ BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
     return false
 end
 
-BWOAMenu.specialObjectsCanHighlight.Wall = function()
+BWOAMenu.specialObjectsCanHighlight.Wall = function(player)
     return true
 end
 
-BWOAMenu.specialObjectsCanHighlight.Hatch = function()
+BWOAMenu.specialObjectsCanHighlight.Hatch = function(player)
     return true
+end
+
+BWOAMenu.specialObjectsVerify = {}
+
+BWOAMenu.specialObjectsVerify.Noah = function(player)
+    return true, ""
+end
+
+BWOAMenu.specialObjectsVerify.Vent = function(player)
+    local inventory = player:getInventory()
+    local hasItem = inventory:containsTagRecurse(ItemTag.SCREWDRIVER)
+    return hasItem, hasItem and "" or "You need a Screwdriver."
+end
+
+BWOAMenu.specialObjectsVerify.FuelIntake = function(player)
+    return true, ""
+end
+
+BWOAMenu.specialObjectsVerify.Wall = function(player)
+    local inventory = player:getInventory()
+    local hasItem = inventory:containsTagRecurse(ItemTag.SLEDGEHAMMER)
+    return hasItem, hasItem and "" or "You need a Sledgehammer."
+end
+
+BWOAMenu.specialObjectsVerify.Hatch = function(player)
+    local inventory = player:getInventory()
+    local hasItem = inventory:containsTagRecurse(ItemTag.CROWBAR)
+    return hasItem, hasItem and "" or "You need a Crowbar."
 end
 
 BWOAMenu.specialObjectsAction = {}
@@ -103,22 +133,26 @@ BWOAMenu.specialObjectsHighlight = {
     ["Noah"] = {
         x = 9961, y = 12621, z = -4, spriteName = "theark_01_4", option = "Use Noah",
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Noah,
+        verifyFunc = BWOAMenu.specialObjectsVerify.Noah,
         actionFunc = BWOAMenu.specialObjectsAction.Noah,
 
     },
     ["Vent"] = {
         x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", option = "Fix Vent", 
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Vent,
+        verifyFunc = BWOAMenu.specialObjectsVerify.Vent,
         actionFunc = BWOAMenu.specialObjectsAction.Vent
     },
     ["Fuel1"] = {
         x = 9927, y = 12617, z = 0, spriteName = "theark_01_7", option = "Drain Fuel", 
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.FuelIntake,
+        verifyFunc = BWOAMenu.specialObjectsVerify.FuelIntake,
         actionFunc = BWOAMenu.specialObjectsAction.FuelIntake
     },
     ["Wall"] = {
         x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1", option = "Destroy", 
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Wall,
+        verifyFunc = BWOAMenu.specialObjectsVerify.Wall,
         actionFunc = BWOAMenu.specialObjectsAction.Wall,
         destroyable = true,
     },
@@ -151,7 +185,7 @@ function BWOAMenu.EventHorde(player)
 end
 
 function BWOAMenu.EventAssault(player)
-    BWOASequence.Assault({intensity = 6})
+    BWOASequence.Assault({intensity = 6, cid = Bandit.clanMap.Surface2})
 end
 
 function BWOAMenu.EventRainbow(player)
@@ -162,8 +196,8 @@ function BWOAMenu.EventRainbow(player)
     BWOATex.alpha = 0.3
 end
 
-function BWOAMenu.EventNightmare(player)
-    BWOANightmares.Activate()
+function BWOAMenu.EventNightmare(player, variant)
+    BWOANightmares.Activate(variant)
 end
 
 function BWOAMenu.EventAbyss(player, square)
@@ -275,7 +309,6 @@ function BWOAMenu.LocateBasement(player)
         end
     end
 
-
     if dx and dy then
         local icon = "media/ui/defend.png"
         local color = {r=0.5, g=0.5, b=0.5}
@@ -307,8 +340,8 @@ function BWOAMenu.MakeLakeData(player, square)
 
     local lines = {}
     table.insert(lines, "local map = {\n")
-    for x = sx, sx + 40 do
-        for y = sy, sy + 40 do
+    for x = sx-120, sx + 120 do
+        for y = sy-120, sy + 120 do
             local square = cell:getGridSquare(x, y, sz)
             if square then
                 local objects = square:getObjects()
@@ -341,7 +374,7 @@ function BWOAMenu.LavaLake(player, square)
     local sx, sy, sz = square:getX(), square:getY(), square:getZ()
     local r = 10
 
-    local blueprint = BWOALakes.Medium1()
+    local blueprint = BWOALakes.Island()
     BWOABuildTools.LavaLake(sx, sy, blueprint)
    
 end
@@ -472,7 +505,16 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         i = i + 1
         if sobject.x == sx and sobject.y == sy and sobject.z == sz then
             if sobject.highLightFunc(player) then
-                context:addOption(sobject.option, player, sobject.actionFunc, square)
+                local option = context:addOption(sobject.option, player, sobject.actionFunc, square)
+                if sobject.verifyFunc then
+                    local allowed, reason = sobject.verifyFunc(player)
+                    if not allowed then
+                        local tooltip = ISToolTip:new()
+                        option.notAvailable = true
+                        tooltip.description = reason
+                        option.toolTip = tooltip
+                    end
+                end
             end
         end
     end 
@@ -491,6 +533,10 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     end
 
     if isDebugEnabled() or isAdmin() then
+
+        -- BWOABuildTools.Fridge(9961, 12610, -4)
+        -- square:removeGrime()
+        -- player:setZ(-5)
 
         local test = forageSystem.forageDefinitions
         if body then
@@ -585,6 +631,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addSubMenu(spawnOption, spawnMenu)
         spawnMenu:addOption("Emma", player, BWOAMenu.Spawn, square, "Emma", Bandit.clanMap.Emma)
         spawnMenu:addOption("James", player, BWOAMenu.Spawn, square, "James", Bandit.clanMap.James)
+        spawnMenu:addOption("Angel", player, BWOAMenu.Spawn, square, "Angel", Bandit.clanMap.Angel)
 
         context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
@@ -602,8 +649,13 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
         eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
         eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
-        eventsMenu:addOption("Event Nightmare", player, BWOAMenu.EventNightmare)
-        
+
+        local nightmaresOption = context:addOption("Nightmares")
+        local nightmaresMenu = context:getNew(context)
+        context:addSubMenu(nightmaresOption, nightmaresMenu)
+        nightmaresMenu:addOption("The Fall", player, BWOAMenu.EventNightmare, "Fall")
+        nightmaresMenu:addOption("Angel", player, BWOAMenu.EventNightmare, "Angel")
+        nightmaresMenu:addOption("Island", player, BWOAMenu.EventNightmare, "Island")
 
         local scenesOption = context:addOption("Scenes")
         local scenesMenu = context:getNew(context)

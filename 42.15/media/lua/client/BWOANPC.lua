@@ -22,6 +22,8 @@ local function manageNPC()
                     t = 0
                 }
 
+                brain.voice = Bandit.emmaStart.voiceId
+
                 if not brain.bladder then
                     brain.bladder = 0
                 end

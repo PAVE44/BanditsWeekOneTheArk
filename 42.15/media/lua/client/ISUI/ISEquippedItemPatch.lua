@@ -4,6 +4,7 @@ require "BWOAMissions"
 local UI_BORDER_SPACING = 10
 local TEXTURE_WIDTH = 0
 local TEXTURE_HEIGHT = 0
+local modal = nil
 
 local function setTextureWidth()
     local size = getCore():getOptionSidebarSize()
@@ -30,7 +31,10 @@ local ISEquippedItemOnOptionMouseDown = ISEquippedItem.onOptionMouseDown
 function ISEquippedItem:onOptionMouseDown(button, x, y)
     ISEquippedItemOnOptionMouseDown(self, button, x, y)
     if button.internal == "MISSIONS" then
-        local modal = UIMissions:new(0, 0, 400, 600, getSpecificPlayer(0))
+        if modal then
+            modal:removeFromUIManager()
+        end
+        modal = UIMissions:new(0, 0, 400, 600, getSpecificPlayer(0))
         modal:initialise();
         modal:addToUIManager();
     end

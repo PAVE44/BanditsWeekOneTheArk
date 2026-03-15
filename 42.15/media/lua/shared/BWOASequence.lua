@@ -52,7 +52,7 @@ BWOASequence.Start = function(params)
         z = Bandit.emmaStart.z,
         program = "Emma",
         size = 1,
-        voice = 21,
+        voice = Bandit.emmaStart.voiceId,
     }
 
     BWOAEventControl.Add("SpawnGroup", emma, 2100)
@@ -219,7 +219,7 @@ BWOASequence.Assault = function(params)
     end
 
     local group = {
-        cid = Bandit.clanMap.Surface1,
+        cid = params.cid,
         x = coords.x,
         y = coords.y,
         z = coords.z,

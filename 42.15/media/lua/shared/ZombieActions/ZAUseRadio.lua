@@ -2,14 +2,16 @@ ZombieActions = ZombieActions or {}
 
 ZombieActions.UseRadio = {}
 ZombieActions.UseRadio.onStart = function(zombie, task)
-
+    task.anim = "Give"
+    zombie:setBumpType(task.anim)
     Bandit.Say(zombie, "RADIOCALL")
 
     return true
 end
 
 ZombieActions.UseRadio.onWorking = function(zombie, task)
-    zombie:faceLocation(task.fx, task.fy)
+    zombie:faceLocationF(task.fx, task.fy)
+
     if task.time <= 0 then
        return true
     end

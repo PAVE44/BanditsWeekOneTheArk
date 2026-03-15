@@ -3,7 +3,7 @@ BanditPlayer.CheckFriendlyFire = function(bandit, attacker)
     return
 end
 
-BWOAPlayer = BWOPlayer or {}
+BWOAPlayer = BWOAPlayer or {}
 
 BWOAPlayer.tick = 0
 
@@ -28,7 +28,7 @@ table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_
 local timeRevealMap = {
     [1] = {hours = 29, person = "Emma_Robinson", qid = "300.1"},
     [2] = {hours = 65, person = "Emma_Robinson", qid = "300.3"},
-    [2] = {hours = 168, person = "Emma_Robinson", qid = "300.4"},
+    [3] = {hours = 168, person = "Emma_Robinson", qid = "300.4"},
 }
 
 local roomRevealMap = {
@@ -49,12 +49,12 @@ local traitRevealMap = {
 }
 
 local dreamRevealMap = {
-    [1] = {hours = 36, nid=1, qid = "2000.1", txt = "Arghgghhh!"},
-    [2] = {hours = 72, qid = "2000.2", txt = "Not again...!"},
-    [3] = {hours = 108, qid = "2000.3", txt = "Damn dream again!"},
-    [4] = {hours = 144, qid = "2000.4", txt = "WTF... This was different..."},
+    [1] = {hours = 36, nid = "Fall", qid = "2000.1", txt = "This cannot be happening!!!"},
+    [2] = {hours = 72, qid = "2000.2", txt = "Damn dreams..."},
+    [3] = {hours = 108, nid = "Island", qid = "2000.3", txt = "Where am I?"},
+    [4] = {hours = 144, qid = "2000.4", txt = "This was different..."},
     [5] = {hours = 180, qid = "2000.5", rmid = 100, txt = "I think this is important."},
-    [6] = {hours = 216, nid=1, qid = "2000.6", rmid = 110, txt = "This cannot be happening!!!"},
+    [6] = {hours = 216, nid = "Fall", qid = "2000.6", rmid = 110, txt = "This cannot be happening!!!"},
 }
 
 local proximityRevealMap = {
@@ -321,7 +321,7 @@ local onPlayerUpdate = function(player)
     local dreamShouldEnd = false
     if player:isAsleep() then
         getCore():setOptionUIRenderFPS(60)
-        nh = math.floor(getGameTime():getTimeOfDay()) + 2
+        local nh = math.floor(getGameTime():getTimeOfDay()) + 2
         if (nh >= 24) then
             nh = nh - 24
         end
@@ -392,8 +392,7 @@ local onPlayerUpdate = function(player)
                     BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 100)
                 end
                 if dreamData.nid then
-                    BWOANightmares.id = dreamData.nid
-                    BWOANightmares.active = true
+                    BWOANightmares.Activate(dreamData.nid)
                 end
                 break
             end
@@ -406,17 +405,509 @@ local onPlayerUpdate = function(player)
     BWOAPlayer.tick = BWOAPlayer.tick + 1
 end
 
+local getClothingStats = function(player)
+    local immuneRadiation = 0
+    local dyspnoea = false
+    local suffocation = false
+    local hasGoodMask = false
+
+    local suitFull = player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD)
+    if suitFull and suitFull:hasTag(ItemTag.HAZMAT_SUIT) then
+        local itemVisual = suitFull:getVisual()
+        local suitHoles = itemVisual:getHolesNumber()
+        immuneRadiation = 100 - (suitHoles * 10)
+
+        if suitFull:canBeActivated() and suitFull:isActivated() then
+            local oxygen = suitFull:getUsedDelta()
+            if oxygen < 0.1 then
+                suffocation = true
+            elseif oxygen < 0.2 then
+                dyspnoea = true
+            else
+                hasGoodMask = true
+            end
+
+        else
+            suffocation = true
+        end
+
+    else
+        local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
+        if suit and suit:hasTag(ItemTag.HAZMAT_SUIT) then
+            local itemVisual = suit:getVisual()
+            local suitHoles = itemVisual:getHolesNumber()
+            immuneRadiation = 70 - (suitHoles * 10)
+        end
+
+        local mask = player:getWornItem(ItemBodyLocation.MASK_EYES)
+                     or player:getWornItem(ItemBodyLocation.FULL_HAT)
+                     or player:getWornItem(ItemBodyLocation.SCBA)
+
+        if mask then
+            if mask:hasTag(ItemTag.GAS_MASK) then
+                local filter = mask:getUsedDelta()
+                filter = filter - 0.00125
+                mask:setUsedDelta(filter)
+                if filter < 0.1 then
+                    suffocation = true
+                elseif filter < 0.2 then
+                    dyspnoea = true
+                else
+                    hasGoodMask = true
+                end
+                if filter > 0 then
+                    immuneRadiation = immuneRadiation + 30
+                end
+            elseif mask:hasTag(ItemTag.SCBA) then
+                if mask:canBeActivated() and mask:isActivated() then
+                    local oxygen = mask:getUsedDelta()
+                    if oxygen < 0.1 then
+                        suffocation = true
+                    elseif oxygen < 0.2 then
+                        dyspnoea = true
+                    else
+                        hasGoodMask = true
+                    end
+
+                else
+                    suffocation = true
+                end
+            end
+        end
+    end
+    
+    immuneRadiation = PZMath.clamp(immuneRadiation, 1, 100)
+
+    return immuneRadiation, hasGoodMask, dyspnoea, suffocation
+end
+
+local manageGeigerEffect = function(player, radiation)
+
+    local hasGeiger = false
+
+    local function isGeiger(item)
+        return item and item:getType() == "GeigerCounter"
+    end
+
+    local slots = {
+        "Walkie Belt Left",
+        "Walkie Belt Right",
+        "Webbing Left Walkie",
+        "Webbing Right Walkie"
+    }
+
+    for _, slot in ipairs(slots) do
+        if isGeiger(player:getAttachedItem(slot)) then
+            hasGeiger = true
+            break
+        end
+    end
+
+    if not hasGeiger and isGeiger(player:getPrimaryHandItem()) then
+        hasGeiger = true
+    end
+
+    if not hasGeiger and isGeiger(player:getSecondaryHandItem()) then
+        hasGeiger = true
+    end
+    
+    if hasGeiger then
+        local intensity = BanditUtils.Lerp(radiation, 0, 4000, 0, 6)
+        intensity = math.floor(intensity + 0.5)
+        if intensity > 6 then intensity = 6 end
+        BWOAEventControl.Add("PlayPlayer", {sound = "AmbientGeiger" .. intensity}, 1)
+    end
+end
+
+local getRadiationForPlayer = function(player)
+    local cell = getCell()
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    local radiation = BWOAClimate.radiation
+    local multiplier = 1
+    if pz <= -2 then 
+        multiplier = 0
+    elseif pz > -2 and pz < 0 then
+        multiplier = 0.2
+    end
+    if not player:isOutside() then multiplier = multiplier * 0.8 end
+    radiation = radiation * multiplier
+
+    -- radiation from items in inventory
+    local items = ArrayList.new()
+    local inventory = player:getInventory()
+    inventory:getAllEvalRecurse(predicateAll, items)
+    for i=0, items:size()-1 do
+        local item = items:get(i)
+        if item:getModData().radiated then
+            radiation = radiation + 30
+        end
+    end
+
+    -- radiation from items on ground
+    local groundItems = {}
+    for y = py - 1, py + 1 do
+        for x = px - 1, px + 1 do
+            local square = cell:getGridSquare(x, y, pz)
+            if square then
+                local wobs = square:getWorldObjects()
+                for i = 0, wobs:size()-1 do
+                    local o = wobs:get(i)
+                    local groundItem = o:getItem()
+                    if groundItem then
+                        table.insert(groundItems, groundItem)
+                    end
+                end
+
+                local objects = square:getStaticMovingObjects()
+                for i=0, objects:size()-1 do
+                    local object = objects:get(i)
+                    if instanceof (object, "IsoDeadBody") then
+                        local inventory = object:getContainer()
+                        if inventory then
+                            local items = ArrayList.new()
+                            inventory:getAllEvalRecurse(predicateAll, items)
+                            for j=0, items:size()-1 do
+                                local item = items:get(j)
+                                table.insert(groundItems, item)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    for _, groundItem in ipairs(groundItems) do
+        if groundItem:getModData().radiated then
+            radiation = radiation + 20
+        end
+    end
+    return radiation
+end
+
+local applyRadiationToItems = function(player)
+    local cell = getCell()
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+
+    local hasSuit = (player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD) and player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD):hasTag(ItemTag.HAZMAT_SUIT))
+                    or (player:getWornItem(ItemBodyLocation.BOILERSUIT) and player:getWornItem(ItemBodyLocation.BOILERSUIT):hasTag(ItemTag.HAZMAT_SUIT))
+    
+    local items = ArrayList.new()
+    local inventory = player:getInventory()
+    inventory:getAllEvalRecurse(predicateAll, items)
+    for i=0, items:size()-1 do
+        local item = items:get(i)
+        local ftype = item:getFullType()
+        if hasSuit then
+            if instanceof(item, "Clothing") then
+                if item:hasTag(ItemTag.HAZMAT_SUIT) or item:hasTag(ItemTag.GAS_MASK) then
+                    item:getModData().radiated = true
+                end
+                if not item:isWorn() then
+                    item:getModData().radiated = true
+                end
+            else
+                item:getModData().radiated = true
+            end
+        else
+            item:getModData().radiated = true
+        end
+    end
+
+    local groundItems = {}
+    for y = py - 1, py + 1 do
+        for x = px - 1, px + 1 do
+            local square = cell:getGridSquare(x, y, pz)
+            if square then
+                local wobs = square:getWorldObjects()
+                for i = 0, wobs:size()-1 do
+                    local o = wobs:get(i)
+                    local groundItem = o:getItem()
+                    if groundItem then
+                        table.insert(groundItems, groundItem)
+                    end
+                end
+
+                local objects = square:getStaticMovingObjects()
+                for i=0, objects:size()-1 do
+                    local object = objects:get(i)
+                    if instanceof (object, "IsoDeadBody") then
+                        local inventory = object:getContainer()
+                        if inventory then
+                            inventory:getAllEvalRecurse(predicateAll, items)
+                            for j=0, items:size()-1 do
+                                local item = items:get(j)
+                                table.insert(groundItems, item)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    for _, groundItem in ipairs(groundItems) do
+        groundItem:getModData().radiated = true
+    end
+
+end
+
+local applyRadiationPlayer = function(player, dose)
+    if player:isGodMod() then return end
+
+    local md = player:getModData()
+
+    -- organism fighting back
+    dose = dose - 0.5
+    if md.bwoa.drug.PotassiumIodine and md.bwoa.drug.PotassiumIodine > 0 then
+        dose = dose - 1.5
+    end
+
+    -- update player radiation level
+    md.bwoa.radiation = md.bwoa.radiation + dose
+
+    -- full recovery
+    if md.bwoa.radiation < 0 then
+        dose = 0
+        md.bwoa.radiation = 0
+        md.bwoa.timeRadiated = 0
+    end
+
+    if dose >= 0.5 then
+        HaloTextHelper.addTextWithArrow(player, "Radiation +" .. string.format("%.1f", dose), true, HaloTextHelper.getColorRed())
+    elseif dose <= -0.5 then
+        HaloTextHelper.addTextWithArrow(player, "Radiation " .. string.format("%.1f", dose), false, HaloTextHelper.getColorGreen())
+    end
+
+    -- update time radiated
+    if md.bwoa.radiation >= 100 then
+        md.bwoa.timeRadiated = md.bwoa.timeRadiated + 1
+    end
+end
+
+local updateRadiationEffects = function(player)
+    local md = player:getModData()
+    local bodyDamage = player:getBodyDamage()
+    local stats = player:getStats()
+
+    if md.bwoa.radiation >= 3000 then -- Central nervous system syndrome
+        for _, sbp in ipairs(bodyParts) do
+            local burnBodyPart = bodyDamage:getBodyPart(sbp.name)
+            if ZombRand(16) == 1 and not burnBodyPart:isBurnt() then
+                burnBodyPart:setBurned()
+                local sound = player:getDescriptor():getVoicePrefix() .. "DeathFall" -- "DeathAlone" or "DeathEaten"
+                local emitter = player:getEmitter()
+                if not emitter:isPlaying(sound) then
+                    emitter:playSound(sound)
+                end
+            end
+        end
+    elseif md.bwoa.radiation >= 100 and md.bwoa.radiation < 3000 then  -- Hematopoietic syndrome phase
+        -- md.bwoa.timeRadiated = 1500
+
+        if md.bwoa.timeRadiated > 1440 then -- latent subphase
+            local sick = stats:get(CharacterStat.FOOD_SICKNESS)
+            local sickExpected = md.bwoa.radiation / 10
+            if sick < sickExpected then
+                stats:set(CharacterStat.FOOD_SICKNESS, sick + 5)
+            end
+
+            if ZombRand(20) == 0 then
+                player:StopAllActionQueue()
+                player:playEmote("feelfeint")
+                local sound = player:getDescriptor():getVoicePrefix() .. "PainFromGlassCut"
+                player:getEmitter():playVocals(sound)
+                BWOADialogues.Reveal("Emma_Robinson", "1000.3")
+            end
+        end
+
+        if md.bwoa.timeRadiated > 480 and md.bwoa.timeRadiated < 2100 then -- prodromal subphase
+            local fatigue = stats:get(CharacterStat.FATIGUE)
+            local fatigueExpected = md.bwoa.radiation / 1000
+            if fatigue < fatigueExpected then
+                stats:set(CharacterStat.FATIGUE, fatigue + 0.1)
+            end
+
+            local head = bodyDamage:getBodyPart(BodyPartType.Head)
+            local pain = head:getAdditionalPain()
+            local painExpected = md.bwoa.radiation / 10
+            if pain < painExpected then 
+                head:setAdditionalPain(pain + 2)
+            end
+
+            if ZombRand(20) == 0 then
+                player:StopAllActionQueue()
+                player:playEmote("vomit")
+                local sound = player:getDescriptor():getVoicePrefix() .. "Vomit"
+                player:getEmitter():playVocals(sound)
+                for i = 1, 12 do
+                    local bx = player:getX() - 0.5 + ZombRandFloat(0.1, 0.9)
+                    local by = player:getY() - 0.5 + ZombRandFloat(0.1, 0.9)
+                    local bz = player:getZ()
+                    player:getChunk():addBloodSplat(bx, by, bz, ZombRand(20))
+                end
+                BWOADialogues.Reveal("Emma_Robinson", "1000.3")
+            end
+        end
+
+    elseif md.bwoa.radiation < 16 then -- all good my boy
+        --[[
+        md.bwoa.timeRadiated = md.bwoa.timeRadiated - 1
+        if md.bwoa.timeRadiated < 0 then md.bwoa.timeRadiated = 0 end
+
+        ]]
+    end
+    print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO: " .. md.bwoa.timeRadiated)
+end
+
+local applyCO2IntoxicationPlayer = function(player, dose)
+    local bodyDamage = player:getBodyDamage()
+    local stats = player:getStats()
+    local md = player:getModData()
+    local head = bodyDamage:getBodyPart(BodyPartType.Head)
+    local health = bodyDamage:getOverallBodyHealth()
+    local sick = stats:get(CharacterStat.FOOD_SICKNESS)
+    local headAche = stats:get(CharacterStat.PAIN)
+    local fatigue = stats:get(CharacterStat.FATIGUE)
+    local drunk = stats:get(CharacterStat.INTOXICATION)
+    local endurance = stats:get(CharacterStat.ENDURANCE)
+    local panic = stats:get(CharacterStat.PANIC)
+
+    local healthExpected
+    local sickExpected
+    local headAcheExpected
+    local fatigueExpected
+    local drunkExpected
+    local enduranceExpected
+    local panicExpected
+    local coughChance = 0
+
+    if dose > 60000 then
+        healthExpected = 0
+        sickExpected = 100
+        headAcheExpected = 100
+        fatigueExpected = 0.9
+        drunkExpected = 100
+        enduranceExpected = 0.30
+        panicExpected = 70
+        coughChance = 100
+    elseif dose > 30000 then
+        sickExpected = 55
+        headAcheExpected = 80
+        fatigueExpected = 0.9
+        drunkExpected = 80
+        enduranceExpected = 0.55
+        panicExpected = 50
+        coughChance = 50
+    elseif dose > 10000 then
+        sickExpected = 55
+        headAcheExpected = 60
+        fatigueExpected = 0.85
+        drunkExpected = 20
+        enduranceExpected = 0.65
+        panicExpected = 20
+        coughChance = 20
+    elseif dose > 5000 then
+        BWOADialogues.Reveal("Emma_Robinson", "1000.4")
+        sickExpected = 55
+        headAcheExpected = 55
+        fatigueExpected = 0.80
+        enduranceExpected = 0.70
+    elseif dose > 2000 then
+        headAcheExpected = 50
+        fatigueExpected = 0.72
+    elseif dose > 1000 then
+        fatigueExpected = 0.61
+    end
+
+    if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 and headAcheExpected then
+        headAcheExpected = headAcheExpected / 2
+    end
+
+    if md.bwoa.drug.Pentoxifylline and md.bwoa.drug.Pentoxifylline > 0 and fatigueExpected and enduranceExpected then
+        fatigueExpected = fatigueExpected / 3
+        enduranceExpected = enduranceExpected / 3
+    end
+
+    if healthExpected then
+        if health > healthExpected then 
+            bodyDamage:setOverallBodyHealth(health - 12)
+        end
+    end
+    if sickExpected then
+        if sick < sickExpected then 
+            stats:set(CharacterStat.FOOD_SICKNESS, sick + 5)
+        end
+    end
+    if headAcheExpected then
+        if headAche < headAcheExpected then 
+            stats:set(CharacterStat.PAIN, headAche + 2)
+        end
+    end
+    if fatigueExpected then
+        if fatigue < fatigueExpected then 
+            stats:set(CharacterStat.FATIGUE, fatigue + 0.05)
+        end
+    end
+    if drunkExpected then
+        if drunk < drunkExpected then 
+            stats:set(CharacterStat.INTOXICATION, drunk + 10)
+        end
+    end
+    if enduranceExpected then
+        if endurance > enduranceExpected then 
+            stats:set(CharacterStat.ENDURANCE, endurance - 0.05)
+        end
+    end
+    if panicExpected then
+        if panic < panicExpected then 
+            stats:set(CharacterStat.PANIC, panicExpected)
+        end
+    end
+
+    local rnd = ZombRand(100)
+    if rnd < coughChance then
+        local sound = player:getDescriptor():getVoicePrefix() .. "Cough"
+        local emitter = player:getEmitter()
+        if not emitter:isPlaying(sound) then
+            emitter:playSound(sound)
+        end
+    end
+end
+
+local applyDrugEffects = function(player)
+    local bodyDamage = player:getBodyDamage()
+    local md = player:getModData()
+    if md.bwoa.drug then
+        if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 then
+            local cs = bodyDamage:getColdStrength()
+            cs = cs - 0.8
+            if cs < 0 then cs = 0 end
+            bodyDamage:setColdStrength(cs)
+        end
+
+        -- drug in organism depletion
+        for drug, dose in pairs(md.bwoa.drug) do
+            dose = dose - 1
+            if dose < 0 then dose = 0 end
+            md.bwoa.drug[drug] = dose
+        end
+    end
+end
+
 local function everyOneMinute()
     local player = getSpecificPlayer(0)
     if not player then return end
+    if not player:isAlive() then return end
+
+    if BWOANightmares.active then return end
 
     local cell = getCell()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local gmd = GetBWOAModData()
-
-    if not player:isAlive() then return end
-
-    if BWOANightmares.active then return end
+    local md = player:getModData()
+    if not md.bwoa then md.bwoa = {} end
+    if not md.bwoa.drug then md.bwoa.drug = {} end
+    if not md.bwoa.radiation then md.bwoa.radiation = 0 end
+    if not md.bwoa.timeRadiated then md.bwoa.timeRadiated = 0 end
 
     -- music conductor
     if player:isOutside() then
@@ -448,387 +939,31 @@ local function everyOneMinute()
         end
     end
 
-    -- health management
-    if player:isGodMod() then return end
+    -- radiation simulation
+    local radiation = getRadiationForPlayer(player)
+    local immuneRadiation, hasGoodMask, dyspnoea, suffocation = getClothingStats(player)
 
-    local bodyDamage = player:getBodyDamage()
-    local stats = player:getStats()
-
-    local md = player:getModData()
-    if not md.bwoa then md.bwoa = {} end
-    if not md.bwoa.drug then md.bwoa.drug = {} end
-
-    local hasSuit
-    local hasMask
-
-    local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
-    if suit then
-        if suit:hasTag(ItemTag.HAZMAT_SUIT) then 
-            hasSuit = true
-        end
-    end
-
-    local mask = player:getWornItem(ItemBodyLocation.MASK_EYES)
-    if not mask then
-         mask = player:getWornItem(ItemBodyLocation.FULL_HAT)
-    end
-    if not mask then
-         mask = player:getWornItem(ItemBodyLocation.SCBA)
-    end
-    if mask then
-        if mask:hasTag(ItemTag.GAS_MASK) or mask:hasTag(ItemTag.SCBA) then
-            hasMask = true
-            local filter = mask:getUsedDelta()
-            filter = filter - 0.001
-            if filter < 0.1 and ZombRand(5) == 1 then
-                local sound = player:getDescriptor():getVoicePrefix() .. "Cough"
-                player:getEmitter():playVocals(sound)
-            end
-            if filter < 0 then 
-                filter = 0 
-                hasMask = false
-            end
-            mask:setUsedDelta(filter)
-        end
-    end
-
-    local suitFull = player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD)
-    if suitFull then
-        if suitFull:hasTag(ItemTag.HAZMAT_SUIT) then 
-            hasSuit = true
-            hasMask = true
-        end
-    end
-
-    -- Geiger counter check
-    local hasGeiger = false
-
-    local function isGeiger(item)
-        return item and item:getType() == "GeigerCounter"
-    end
-
-    local slots = {
-        "Walkie Belt Left",
-        "Walkie Belt Right",
-        "Webbing Left Walkie",
-        "Webbing Right Walkie"
-    }
-
-    for _, slot in ipairs(slots) do
-        if isGeiger(player:getAttachedItem(slot)) then
-            hasGeiger = true
-            break
-        end
-    end
-
-    if not hasGeiger and isGeiger(player:getPrimaryHandItem()) then
-        hasGeiger = true
-    end
-
-    if not hasGeiger and isGeiger(player:getSecondaryHandItem()) then
-        hasGeiger = true
-    end
-
-    -- radiation effect simulation
-    if not md.bwoa.radiation then md.bwoa.radiation = 0 end
-    if not md.bwoa.timeRadiatedHematopoietic then md.bwoa.timeRadiatedHematopoietic = 0 end
-    if not md.bwoa.timeRadiatedGastrointernal then md.bwoa.timeRadiatedGastrointernal = 0 end
-
-    local radiationBalance = 0
-    local immuneRadiation = false
-    if hasSuit and hasMask then immuneRadiation = true end
-
-    local radiation = BWOAClimate.radiation
-    local multiplayer = 1
-    if pz <= -2 then 
-        multiplayer = 0
-    elseif pz > -2 and pz < 0 then
-        multiplayer = 0.2
-    end
-    if not player:isOutside() then multiplayer = multiplayer * 0.8 end
-    radiation = radiation * multiplayer
-
-    -- radiation from items
-    local items = ArrayList.new()
-    local inventory = player:getInventory()
-    inventory:getAllEvalRecurse(predicateAll, items)
-    for i=0, items:size()-1 do
-        local item = items:get(i)
-        if item:getModData().radiated then
-            radiation = radiation + 30
-        end
-    end
-
-    local groundItems = {}
-    for y = py - 1, py + 1 do
-        for x = px - 1, px + 1 do
-            local square = cell:getGridSquare(x, y, pz)
-            if square then
-                local wobs = square:getWorldObjects()
-                for i = 0, wobs:size()-1 do
-                    local o = wobs:get(i)
-                    local groundItem = o:getItem()
-                    table.insert(groundItems, groundItem)
-                end
-            end
-        end
-    end
-    for _, groundItem in ipairs(groundItems) do
-        if groundItem:getModData().radiated then
-            radiation = radiation + 20
-        end
-    end
-
+    local dose = 0
     if radiation > 0 then
-        local dose = math.floor(radiation / 60)
-        if not immuneRadiation then
-            radiationBalance = radiationBalance + dose
-        end
-
-        -- geiger effect
-        if hasGeiger then
-            local intensity = BanditUtils.Lerp(radiation, 0, 4000, 0, 6)
-            intensity = math.floor(intensity + 0.5)
-            if intensity > 6 then intensity = 6 end
-            BWOAEventControl.Add("PlayPlayer", {sound = "AmbientGeiger" .. intensity}, 1)
-        end
-
-        -- item contamination
-        if multiplayer > 0 then
-            for i=0, items:size()-1 do
-                local item = items:get(i)
-                local ftype = item:getFullType()
-                if suit then
-                    if instanceof(item, "Clothing") then
-                        if item:hasTag(ItemTag.HAZMAT_SUIT) then
-                            item:getModData().radiated = true
-                        end
-                    else
-                        item:getModData().radiated = true
-                    end
-                else
-                    item:getModData().radiated = true
-                end
-            end
-
-            for _, groundItem in ipairs(groundItems) do
-                groundItem:getModData().radiated = true
-            end
-        end
+        manageGeigerEffect(player, radiation)
+        applyRadiationToItems(player)
+        dose = ((100 - immuneRadiation) / 100) * math.floor(radiation / 50)
     end
+    applyRadiationPlayer(player, dose)
 
-    if not immuneRadiation and md.bwoa.radiation >= 100 and md.bwoa.radiation < 3000 then
-        md.bwoa.timeRadiatedHematopoietic = md.bwoa.timeRadiatedHematopoietic + 1
-    end
-
-    -- md.bwoa.radiation = 700
-
-    if md.bwoa.radiation >= 3000 then -- Central nervous system syndrome
-        local scream = false
-        for _, sbp in ipairs(bodyParts) do
-            local burnBodyPart = bodyDamage:getBodyPart(sbp.name)
-            if ZombRand(16) == 1 and not burnBodyPart:isBurnt() then
-                burnBodyPart:setBurned()
-                if not scream then
-                    local sound = player:getDescriptor():getVoicePrefix() .. "DeathFall" -- "DeathAlone" or "DeathEaten"
-                    player:getEmitter():playVocals(sound)
-                    scream = true
-                end
-            end
-        end
-    elseif md.bwoa.radiation >= 100 and md.bwoa.radiation < 3000 then  -- Hematopoietic syndrome phase
-        -- md.bwoa.timeRadiatedHematopoietic = 1500
-
-        if md.bwoa.timeRadiatedHematopoietic > 1440 then -- latent subphase
-            local sick = stats:get(CharacterStat.FOOD_SICKNESS)
-            local sickExpected = md.bwoa.radiation / 10
-            if sick < sickExpected then
-                stats:set(CharacterStat.FOOD_SICKNESS, sick + 5)
-            end
-
-            if ZombRand(20) == 0 then
-                player:StopAllActionQueue()
-                player:playEmote("feelfeint")
-                local sound = player:getDescriptor():getVoicePrefix() .. "PainFromGlassCut"
-                player:getEmitter():playVocals(sound)
-                BWOADialogues.Reveal("Emma_Robinson", "1000.3")
-            end
-        end
-
-        if md.bwoa.timeRadiatedHematopoietic > 480 and md.bwoa.timeRadiatedHematopoietic < 2100 then -- prodromal subphase
-            local fatigue = stats:get(CharacterStat.FATIGUE)
-            local fatigueExpected = md.bwoa.radiation / 1000
-            if fatigue < fatigueExpected then
-                stats:set(CharacterStat.FATIGUE, fatigue + 0.1)
-            end
-
-            local head = bodyDamage:getBodyPart(BodyPartType.Head)
-            local pain = head:getAdditionalPain()
-            local painExpected = md.bwoa.radiation / 10
-            if pain < painExpected then 
-                head:setAdditionalPain(pain + 2)
-            end
-
-            if ZombRand(20) == 0 then
-                player:StopAllActionQueue()
-                player:playEmote("vomit")
-                local sound = player:getDescriptor():getVoicePrefix() .. "Vomit"
-                player:getEmitter():playVocals(sound)
-                for i = 1, 12 do
-                    local bx = player:getX() - 0.5 + ZombRandFloat(0.1, 0.9)
-                    local by = player:getY() - 0.5 + ZombRandFloat(0.1, 0.9)
-                    local bz = player:getZ()
-                    player:getChunk():addBloodSplat(bx, by, bz, ZombRand(20))
-                end
-                BWOADialogues.Reveal("Emma_Robinson", "1000.3")
-            end
-        end
-
-    elseif md.bwoa.radiation < 16 then
-        --[[
-        md.bwoa.timeRadiatedHematopoietic = md.bwoa.timeRadiatedHematopoietic - 1
-        if md.bwoa.timeRadiatedHematopoietic < 0 then md.bwoa.timeRadiatedHematopoietic = 0 end
-
-        md.bwoa.timeRadiatedGastrointernal = md.bwoa.timeRadiatedGastrointernal - 1
-        if md.bwoa.timeRadiatedGastrointernal < 0 then md.bwoa.timeRadiatedGastrointernal = 0 end
-        ]]
-    end
-
-    radiationBalance = radiationBalance - 0.5
-    if md.bwoa.drug.PotassiumIodine and md.bwoa.drug.PotassiumIodine > 0 then
-        radiationBalance = radiationBalance - 1.5
-    end
-
-    md.bwoa.radiation = md.bwoa.radiation + radiationBalance
-    if md.bwoa.radiation < 0 then
-        radiationBalance = 0
-        md.bwoa.radiation = 0
-        md.bwoa.timeRadiatedHematopoietic = 0
-        md.bwoa.timeRadiatedGastrointernal = 0
-    end
-
-    if radiationBalance >= 0.5 then
-        HaloTextHelper.addTextWithArrow(player, "Radiation +" .. radiationBalance, true, HaloTextHelper.getColorRed())
-    elseif radiationBalance <= -0.5 then
-        HaloTextHelper.addTextWithArrow(player, "Radiation " .. radiationBalance, false, HaloTextHelper.getColorGreen())
-    end
-
-    print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO HEMA: " .. md.bwoa.timeRadiatedHematopoietic .. " EXPO GAST: " .. md.bwoa.timeRadiatedGastrointernal)
+    updateRadiationEffects(player)
 
     -- co2 intoxication simlation
-    if pz < -2 and px >= 9900 and py >= 12590 and px < 9990 and py < 12660 and not hasMask then
+    if suffocation then
+        applyCO2IntoxicationPlayer(player, 60001)
+    elseif dyspnoea then
+        applyCO2IntoxicationPlayer(player, 10001)
+    elseif pz < -2 and px >= 9900 and py >= 12590 and px < 9990 and py < 12660 and not hasGoodMask then
         local ventilation = gmd.ventilation
-        local head = bodyDamage:getBodyPart(BodyPartType.Head)
-        local health = bodyDamage:getOverallBodyHealth()
-        local sick = stats:get(CharacterStat.FOOD_SICKNESS)
-        local headAche = stats:get(CharacterStat.PAIN)
-        local fatigue = stats:get(CharacterStat.FATIGUE)
-        local drunk = stats:get(CharacterStat.INTOXICATION)
-        local endurance = stats:get(CharacterStat.ENDURANCE)
-        local panic = stats:get(CharacterStat.PANIC)
-
-        local healthExpected
-        local sickExpected
-        local headAcheExpected
-        local fatigueExpected
-        local drunkExpected
-        local enduranceExpected
-        local panicExpected
-
-        if ventilation.co2 > 60000 then
-            healthExpected = 0
-            sickExpected = 55
-            headAcheExpected = 80
-            fatigueExpected = 0.9
-            drunkExpected = 100
-            enduranceExpected = 0.3
-            panicExpected = 0.6
-        elseif ventilation.co2 > 30000 then
-            healthExpected = 50
-            sickExpected = 55
-            headAcheExpected = 80
-            fatigueExpected = 0.9
-            drunkExpected = 80
-            enduranceExpected = 0.3
-            panicExpected = 0.4
-        elseif ventilation.co2 > 10000 then
-            sickExpected = 55
-            headAcheExpected = 60
-            fatigueExpected = 0.85
-            enduranceExpected = 0.3
-            panicExpected = 0.2
-        elseif ventilation.co2 > 5000 then
-            BWOADialogues.Reveal("Emma_Robinson", "1000.4")
-            sickExpected = 55
-            headAcheExpected = 55
-            fatigueExpected = 0.80
-            enduranceExpected = 0.3
-        elseif ventilation.co2 > 2000 then
-            headAcheExpected = 50
-            fatigueExpected = 0.75
-        elseif ventilation.co2 > 1000 then
-            fatigueExpected = 0.65
-        end
-
-        if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 and headAcheExpected then
-            headAcheExpected = headAcheExpected / 2
-        end
-
-        if md.bwoa.drug.Pentoxifylline and md.bwoa.drug.Pentoxifylline > 0 and fatigueExpected and enduranceExpected then
-            fatigueExpected = fatigueExpected / 3
-            enduranceExpected = enduranceExpected / 3
-        end
-
-        if healthExpected then
-            if health < healthExpected then 
-                bodyDamage:getOverallBodyHealth(health - 1)
-            end
-        end
-        if sickExpected then
-            if sick < sickExpected then 
-                stats:set(CharacterStat.FOOD_SICKNESS, sick + 5)
-            end
-        end
-        if headAcheExpected then
-            if headAche < headAcheExpected then 
-                stats:set(CharacterStat.PAIN, headAche + 2)
-            end
-        end
-        if fatigueExpected then
-            if fatigue < fatigueExpected then 
-                stats:set(CharacterStat.FATIGUE, fatigue + 0.05)
-            end
-        end
-        if drunkExpected then
-            if drunk < drunkExpected then 
-                stats:set(CharacterStat.INTOXICATION, drunk + 1)
-            end
-        end
-        if enduranceExpected then
-            if endurance < enduranceExpected then 
-                stats:set(CharacterStat.ENDURANCE, endurance + 0.05)
-            end
-        end
-        if panicExpected then
-            if panic < panicExpected then 
-                stats:set(CharacterStat.PANIC, panic + 0.05)
-            end
-        end
+        applyCO2IntoxicationPlayer(player, ventilation.co2)
     end
 
-    if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 then
-        local cs = bodyDamage:getColdStrength()
-        cs = cs - 0.8
-        if cs < 0 then cs = 0 end
-        bodyDamage:setColdStrength(cs)
-    end
-
-    -- drug in organism depletion
-    for drug, dose in pairs(md.bwoa.drug) do
-        dose = dose - 1
-        if dose < 0 then dose = 0 end
-        md.bwoa.drug[drug] = dose
-    end
+    applyDrugEffects(player)
 
 end
 
@@ -962,7 +1097,7 @@ local onTransferItem = function(data, item)
         local md = item:getModData()
         if md.BWOA and md.BWOA.onDropArea then
             local dropArea = md.BWOA.onDropArea
-            if cx >= dropArea.x1 and cx <= dropArea.x2 and cy >= dropArea.y1 and cy <= dropArea.y2 and cz == dropArea.z and cz == dropArea.z then
+            if cx >= dropArea.x1 and cx <= dropArea.x2 and cy >= dropArea.y1 and cy <= dropArea.y2 and cz == dropArea.z then
                 if dropArea.accomplishMissionId then
                     BWOAMissions.Accomplish(dropArea.accomplishMissionId)
                 end

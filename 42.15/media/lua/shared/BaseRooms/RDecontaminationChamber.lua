@@ -27,6 +27,11 @@ BWOARooms.DecontaminationChamber.Build = function ()
 
     BWOABuildTools.LampOvalW(9948, 12625, -4)
     BWOABuildTools.LampOvalE(9945, 12625, -4)
+
+    BWOABuildTools.Generic(9946, 12624, -4, "street_decoration_01_14")
+    BWOABuildTools.Generic(9947, 12624, -4, "street_decoration_01_14")
+    BWOABuildTools.Generic(9946, 12626, -4, "street_decoration_01_14")
+    BWOABuildTools.Generic(9947, 12626, -4, "street_decoration_01_14")
 end
 
 BWOARooms.DecontaminationChamber.SetEmitters = function ()

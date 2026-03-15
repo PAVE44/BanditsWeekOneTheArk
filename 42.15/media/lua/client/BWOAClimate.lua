@@ -6,6 +6,7 @@ local TEMP_LERP = -50          -- Maximum temperature drop
 local RAD_LERP = 5000
 
 BWOAClimate = BWOAClimate or {}
+BWOAClimate.enabled = true
 BWOAClimate.temp = 0
 BWOAClimate.radiation = 0
 BWOAClimate.tick = 0
@@ -30,6 +31,11 @@ BWOAClimate.temperatureDropOptionMap = {
 BWOAClimate.GetRadiationAndTemp = function(wa, falloutStart, falloutEnd, peakPoint, radLerp, tempLerp)
     local radiation = 0
     local overrideTemp = 0
+
+    if not BWOAClimate.enabled then
+        return radiation, overrideTemp
+    end
+
     if wa >= falloutStart and wa <= falloutEnd then
         local duration = falloutEnd - falloutStart
         local t = (wa - falloutStart) / duration
@@ -109,11 +115,10 @@ local function updateForageZones()
 end
 
 local function onClimateTick()
+
     local world = getWorld()
     local cm = world:getClimateManager()
     local wa = getGameTime():getWorldAgeHours() - 10
-
-    updateForageZones()
 
     FALLOUT_START = BWOAClimate.falloutStartedOptionMap[SandboxVars.BWOA.FalloutStarted] or -2208
     FALLOUT_END = BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds] or 4416
@@ -134,6 +139,8 @@ local function onClimateTick()
     local radiation, overrideTemp = BWOAClimate.GetRadiationAndTemp(wa, FALLOUT_START, FALLOUT_END, PEAK_POINT, RAD_LERP, TEMP_LERP)
 
     BWOAClimate.radiation = radiation
+
+    updateForageZones()
 
     if radiation > 0 then
         
@@ -190,7 +197,6 @@ local function onClimateTick()
             local g = math.floor(dlsNormalized * gshift * 100) / 100
             local b = math.floor(dlsNormalized * bshift * 100) / 100
 
-
             print ("DLS: " .. dls .. " R: " .. r .. " G: " .. g .. " B: " .. b)
             ImprovedFog.setColorR(r)
             ImprovedFog.setColorG(g)
@@ -198,10 +204,8 @@ local function onClimateTick()
         end
 
         if radiation > 90 then
-            if isClient() then
-                getClimateManager():transmitTriggerStorm(10)
-            else
-                getClimateManager():triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
+            if BWOAClimate.enabled then
+                cm:triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
             end
         end
 
@@ -222,7 +226,6 @@ local function onClimateTick()
         BWOAClimate.lastQuake = BWOAClimate.lastQuake + 1
 
     else
-
         ambient:setEnableOverride(false)
         desaturation:setEnableOverride(false)
         fogIntensity:setEnableOverride(false)
@@ -230,6 +233,20 @@ local function onClimateTick()
     end
 
     
+end
+
+BWOAClimate.Tick = function()
+    onClimateTick()
+end
+
+BWOAClimate.Disable = function()
+    BWOAClimate.enabled = false
+    onClimateTick()
+end
+
+BWOAClimate.Enable = function()
+    BWOAClimate.enabled = true
+    onClimateTick()
 end
 
 Events.OnClimateTick.Add(onClimateTick)

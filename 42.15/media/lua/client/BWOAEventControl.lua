@@ -31,7 +31,7 @@ local schedule = {
         [39] = {"Horde", {intensity = 12}},
     },
     [34] = {
-        [39] = {"Assault", {intensity = 3}},
+        [39] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 4}},
     },
     [45] = {
         [17] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
@@ -40,25 +40,39 @@ local schedule = {
         [2] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [79] = {
-        [14] = {"Assault", {intensity = 4}},
+        [14] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
     },
     [132] = {
-        [30] = {"Assault", {intensity = 2}},
-        [31] = {"Assault", {intensity = 2}},
-        [32] = {"Assault", {intensity = 2}},
+        [30] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
+        [31] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
+        [32] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [135] = {
         [30] = {"Horde", {intensity = 40}},
     },
     [177] = {
-        [30] = {"Assault", {intensity = 9}},
+        [30] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 11}},
     },
     [184] = {
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true}},
     },
+    [190] = {
+        [41] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
+        [42] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
+        [43] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 6}},
+        [44] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
+    },
     [200] = {
         [30] = {"Horde", {intensity = 50}},
+    },
+    [242] = {
+        [41] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 1}},
+        [42] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
+        [43] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 6}},
+        [44] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
     },
     [415] = {
         [50] = {"ArkNetworkStatus", {arkId = 50}},
@@ -139,7 +153,11 @@ local function everyOneMinute()
                 for _, ark in ipairs(arks) do
                     local rnd = ZombRand(1000)
                     if rnd == 0 then
-                        BWOASequence.Assault({intensity = 5, vtype = "Base.VanSeats_Mural"})
+                        BWOASequence.Assault({
+                            cid = Bandit.clanMap.Surface2,
+                            intensity = 6, 
+                            vtype = "Base.VanSeats_Mural"
+                        })
                         ark.status = 2
                     end
                 end

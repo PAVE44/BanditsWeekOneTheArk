@@ -49,6 +49,9 @@ function MainScreen:instantiate()
 
     if self.resetLua then
         self.resetLua.onclick = function()
+            MainScreen.alphaBG = 0
+            MainScreen.alphaPZLogo = 0
+            MainScreen.alphaTheArkLogo = 0
             BWOAMusic.Stop()
             getCore():ResetLua("default", "Force")
         end
@@ -76,7 +79,9 @@ function MainScreen:initialise()
     self.alphaPZLogo = 0
     self.alphaTheArkLogo = 0
     if not self.inGame and not isDemo() then
-        BWOAMusic.Play("MusicIntro", 1, 1)
+        if not BWOAMusic.IsPlaying() then
+            BWOAMusic.Play("MusicIntro", 1, 1)
+        end
     end
 end
 
@@ -98,12 +103,13 @@ function MainScreen:prerender()
 
     if not self.inGame then
 
-        if not BWOAMusic.IsPlaying() then
-            BWOAMusic.Play("MusicMenu", 1, 1)
-        end
         MainScreen.alphaBG = MainScreen.alphaBG + 0.00075
         if MainScreen.alphaBG > 1 then 
             MainScreen.alphaBG = 1 
+        end
+
+        if not BWOAMusic.IsPlaying() and MainScreen.alphaTheArkLogo == 1 then
+            BWOAMusic.Play("MusicMenu", 1, 1)
         end
 
         if MainScreen.alphaBG > 0.99 then

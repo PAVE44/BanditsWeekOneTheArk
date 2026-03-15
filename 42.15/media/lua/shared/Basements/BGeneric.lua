@@ -10,7 +10,7 @@ function BWOABasements.Generic:buildFloors()
 
     for x = sx, sx + dx do
         for y = sy, sy + dy do
-            BWOABuildTools.Floor(x, y, sz, self.sprites.floor)
+            BWOABuildTools.Floor(x, y, sz, self.sprites.floor, true, true)
         end
     end
 end

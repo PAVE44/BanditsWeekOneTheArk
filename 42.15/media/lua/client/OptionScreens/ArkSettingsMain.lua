@@ -362,8 +362,6 @@ function ArkSettingsMain:prerender()
         self:drawRect(x, y, 2, 2, 1, 0.5, 1, 0.5)
         i = i + 1
     end
-
-
 end
 
 function ArkSettingsMain:render()

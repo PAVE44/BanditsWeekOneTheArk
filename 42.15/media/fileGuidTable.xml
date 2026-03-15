@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <fileGuidTable>
 	<files>
+		<path>media/clothing/clothingItems/AngelRobe.xml</path>
+		<guid>7fe37aeb-525f-4213-8b9c-d543577235d9</guid>
+	</files>
+	<files>
 		<path>media/clothing/clothingItems/Hat_Halo.xml</path>
 		<guid>8658f953-feed-4930-bb92-52ec2f3b38c5</guid>
 	</files>

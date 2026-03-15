@@ -206,7 +206,7 @@ ZombiePrograms.Emma.Main = function(bandit)
                 end
                 local obj, dist = BWOABaseObjects.FindClosestObject({"Radio"}, {x=bx, y=by})
                 if obj then
-                    local task = {action="UseRadio", time=600, fx=obj.x, fy=obj.y}
+                    local task = {action="UseRadio", time=500, fx=obj.x, fy=obj.y}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
                     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                 end
@@ -332,6 +332,8 @@ ZombiePrograms.Emma.Defend = function(bandit)
     local brain = BanditBrain.Get(bandit)
     local weapons = Bandit.GetWeapons(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+    local player = getSpecificPlayer(0)
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
 
     local newStage = switchStage(bandit)
     if newStage then
@@ -376,6 +378,7 @@ ZombiePrograms.Emma.Defend = function(bandit)
     config.hearDist = 70
     config.levelDiff = 0
 
+    
     local target, enemy = BanditUtils.GetTarget(bandit, config)
     
     -- engage with target
@@ -391,12 +394,20 @@ ZombiePrograms.Emma.Defend = function(bandit)
             if target.fx and target.fy and (enemy:isRunning()  or enemy:isSprinting()) then
                 tx, ty = target.fx, target.fy
             end
+
+            local playerDist = BanditUtils.DistTo(px, py, tx, ty)
+
+            if pz == bz and target.dist > playerDist and target.dist > 4 then
+                local walkType = "WalkAim"
+                table.insert(tasks, BanditUtils.GetMoveTaskTarget(endurance, tx, ty, tz, target.id, target.player, walkType, target.dist))
+                return {status=true, next="Main", tasks=tasks}
+            else
+                local task = {action="FaceLocation", anim="AimRifle", x = tx, y = ty, time=50}
+                table.insert(tasks, task)
+
+                return {status=true, next="Main", tasks=tasks}
+            end
         end
-
-        local walkType = "WalkAim"
-
-        table.insert(tasks, BanditUtils.GetMoveTaskTarget(endurance, tx, ty, tz, target.id, target.player, walkType, target.dist))
-        return {status=true, next="Main", tasks=tasks}
     end
 
     local subTasks = BWOAPrograms.IdleEmma(bandit)

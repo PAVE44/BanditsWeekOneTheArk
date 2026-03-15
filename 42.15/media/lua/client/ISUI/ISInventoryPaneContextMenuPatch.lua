@@ -1,6 +1,7 @@
 require "ISInventoryPaneContextMenu"
 
 local func = ISInventoryPaneContextMenu.readItem
+local modal = nil
 
 function ISInventoryPaneContextMenu.readItem(item, player)
 
@@ -9,9 +10,12 @@ function ISInventoryPaneContextMenu.readItem(item, player)
 	if md.printContent then
 		local playerObj = getSpecificPlayer(player)
 		ISInventoryPaneContextMenu.transferIfNeeded(playerObj, item)
-		local ui = UIPrintMedia:new(md.printContent, playerObj)
-		ui:initialise()
-		ui:addToUIManager()
+		if modal then
+			modal:removeFromUIManager()
+		end
+		modal = UIPrintMedia:new(md.printContent, playerObj)
+		modal:initialise()
+		modal:addToUIManager()
 	else
 		func(item, player)
 	end

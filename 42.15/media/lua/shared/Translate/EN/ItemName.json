@@ -1,15 +1,15 @@
 {
-    "ItemName_Base.Pills": "Bayer Aspirin",
-    "ItemName_Bandits.Book2": "Book",
-    "ItemName_Bandits.PillsPotassiumIodine": "Potassium Iodine",
-    "ItemName_Bandits.PillsPentoxifylline": "Pentoxifylline",
-    "ItemName_Bandits.PillsPrussianBlue": "Prussian Blue",
-    "ItemName_Bandits.PillsNikethamide": "Nikethamide",
-    "ItemName_Bandits.GeigerCounter": "Geiger Counter",
-    "ItemName_Bandits.HumanMeat": "Human Meat",
-    "ItemName_Bandits.MincedHumanMeat": "Minced Human Meat",
-    "ItemName_Bandits.HumanBrain": "Human Brain",
-    "ItemName_Bandits.HumanBone": "Human Bone",
-    "ItemName_Bandits.LabSyringe": "Syringe",
-    "ItemName_Bandits.AntiRadRobe": "Anti-Radiation Robe"
+    "Base.Pills": "Bayer Aspirin",
+    "Bandits.Book2": "Book",
+    "Bandits.PillsPotassiumIodine": "Potassium Iodine",
+    "Bandits.PillsPentoxifylline": "Pentoxifylline",
+    "Bandits.PillsPrussianBlue": "Prussian Blue",
+    "Bandits.PillsNikethamide": "Nikethamide",
+    "Bandits.GeigerCounter": "Geiger Counter",
+    "Bandits.HumanMeat": "Human Meat",
+    "Bandits.MincedHumanMeat": "Minced Human Meat",
+    "Bandits.HumanBrain": "Human Brain",
+    "Bandits.HumanBone": "Human Bone",
+    "Bandits.LabSyringe": "Syringe",
+    "Bandits.AntiRadRobe": "Anti-Radiation Robe"
 }

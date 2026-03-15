@@ -64,6 +64,7 @@ BWOARooms.Messhall.Build = function ()
 
     BWOABuildTools.RemoveObject(9961, 12610, -4, "Green Garbage Bin")
     BWOABuildTools.Fridge(9961, 12610, -4)
+
     BWOABuildTools.RemoveObject(9968, 12610, -4, "Green Garbage Bin")
     BWOABuildTools.Fridge(9968, 12610, -4)
 
@@ -101,6 +102,20 @@ BWOARooms.Messhall.Prepare = function ()
         ["Base.KitchenKnife"] = 2, ["Base.Whetstone"] = 1, 
     }
     BWOAPrepareTools.AddItemsToContainer(9965, 12612, -4, items, "Counter")
+
+    items = {
+        ["Base.Carrots"] = 6, ["Base.Tomato"] = 7, 
+        ["Base.Onion"] = 8, ["Base.Cabbage"] = 2, ["Base.Cucumber"] = 6, 
+        ["Base.BellPepper"] = 3, ["Base.Kale"] = 1, ["Base.Leek"] = 1,
+    }
+    BWOAPrepareTools.AddItemsToContainer(9961, 12610, -4, items, "Fridge")
+
+    items = {
+        ["Base.Lettuce"] = 1, ["Base.Spinach"] = 1, 
+        ["Base.Zucchini"] = 6, ["Base.Cauliflower"] = 1, 
+        ["Base.Broccoli"] = 2, 
+    }
+    BWOAPrepareTools.AddItemsToContainer(9968, 12610, -4, items, "Fridge")
 
     BWOAPrepareTools.AddWorldItem(9959, 12610, -4, "Base.BoxOfJars", {x=0.24, y=0.32, z=0.27, rx=0, ry=0, rz=0})
     BWOAPrepareTools.AddWorldItem(9959, 12610, -4, "Base.BoxOfJars", {x=0.24, y=0.73, z=0.27, rx=0, ry=0, rz=0})

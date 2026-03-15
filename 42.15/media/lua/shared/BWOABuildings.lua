@@ -30,6 +30,7 @@ BWOABuildings.LoadHatches = function()
         BWOAMenu.specialObjectsHighlight[k] = {
             x = hatch.x, y = hatch.y, z = 0, spriteName = "street_decoration_01_15", option = "Open Hatch", dist = 20,
             highLightFunc = BWOAMenu.specialObjectsCanHighlight.Hatch,
+            verifyFunc = BWOAMenu.specialObjectsVerify.Hatch,
             actionFunc = BWOAMenu.specialObjectsAction.Hatch
         }
     end

@@ -1,5 +1,7 @@
 BWOAChat = BWOAChat or {}
 
+local modal = nil
+
 function splitSentences(text)
     local sentences = {}
 
@@ -25,6 +27,11 @@ BWOAChat.personConf["Emma_Robinson"] = {
 }
 
 BWOAChat.personConf["Father_James"] = {
+    perLetter = 50, -- time per letter
+    minimal = 950, -- minimal time per sentence
+}
+
+BWOAChat.personConf["Angel"] = {
     perLetter = 50, -- time per letter
     minimal = 950, -- minimal time per sentence
 }
@@ -108,7 +115,7 @@ BWOAChat.Say = function(qid, question, person)
     else
         local answer = BWOADialogues.GetAnswer(person, question)
         if answer then
-            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma", "James"}, "Main")
+            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma", "James", "Angel"}, "Main")
             if target.dist < BWOAChat.talkDist then
                 if not anim then 
                     anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
@@ -224,11 +231,14 @@ local function onKeyPressed(keynum)
     local key = options:getOption("TALK"):getValue()
 
     if keynum == key then
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James"}, "Main")
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel"}, "Main")
         if target.dist < BWOAChat.talkDist then
-            local ui = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0), target.program)
-            ui:initialise()
-            ui:addToUIManager()
+            if modal then
+                modal:removeFromUIManager()
+            end
+            modal = UIDialogue:new(0, 0, 400, 600, getSpecificPlayer(0), target.program)
+            modal:initialise()
+            modal:addToUIManager()
         else
             BWOAEventControl.Add("SayPlayer", {txt = "There is nobody around to speak to."}, 1)
         end

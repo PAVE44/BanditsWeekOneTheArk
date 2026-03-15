@@ -6,7 +6,7 @@ local function show()
         local modalY = (screenHeight / 2) - (modalHeight / 2)
         local text = BWOANoah.Screens[BWOANoah.screen](BWOANoah.screenData)
 
-        modal = UINoah:new(modalX, modalY, modalWidth, modalHeight)
+        local modal = UINoah:new(modalX, modalY, modalWidth, modalHeight)
         modal:initialise()
         modal:setText(text)
         modal:addToUIManager()

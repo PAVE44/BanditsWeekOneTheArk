@@ -325,6 +325,30 @@ BWOAEvents.DecontaminatePost = function(params)
                     local item = o:getItem()
                     item:getModData().radiated = false
                 end
+
+                local objects = square:getStaticMovingObjects()
+                for i=0, objects:size()-1 do
+                    local object = objects:get(i)
+                    if instanceof (object, "IsoDeadBody") then
+                        local inventory = object:getContainer()
+                        if inventory then
+                            local items = ArrayList.new()
+                            inventory:getAllEvalRecurse(predicateAll, items)
+                            for j=0, items:size()-1 do
+                                local item = items:get(j)
+                                item:getModData().radiated = false
+                            end
+                        end
+                    end
+                end
+
+                local chrs = square:getMovingObjects()
+                for i=0, chrs:size()-1 do
+                    local chr = chrs:get(i)
+                    if instanceof(chr, "IsoZombie") then
+                        chr:getModData().radiated = false
+                    end
+                end
             end
         end
     end

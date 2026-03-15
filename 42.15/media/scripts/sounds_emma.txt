@@ -2883,6 +2883,66 @@ module Bandits
         }
     }
 
+    sound Dial_Emma_Robinson_2000.6.4.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_2000.6.4.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_2000.6.4.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_2000.6.4.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_2000.6.4.1.2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_2000.6.4.1.2_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_2000.6.4.1.2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_2000.6.4.1.2_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_2000.6.4.1.2_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_2000.6.4.1.2_3.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
     sound Dial_Emma_Robinson_2000.6.4_1 {
         category = Object,
         loop = false,

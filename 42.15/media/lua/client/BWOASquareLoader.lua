@@ -89,7 +89,23 @@ BWOASquareLoader.trashItems = {
     "Base.Socks_Ankle",
 }
 
-BWOASquareLoader.trashObjects ={
+BWOASquareLoader.trashObjects = {
+    "boulders_0",
+    "boulders_1",
+    "boulders_2",
+    "boulders_3",
+    "boulders_4",
+    "boulders_5",
+    "boulders_6",
+    "boulders_7",
+    "boulders_8",
+    "boulders_9",
+    "boulders_10",
+    "boulders_11",
+    "boulders_12",
+    "boulders_13",
+    "boulders_14",
+    "boulders_15",
     "furniture_seating_02_4",
     "furniture_seating_02_5",
     "furniture_seating_02_6",

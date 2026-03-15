@@ -36,10 +36,24 @@ BWOAZombie.beardChoices = {
     "Long",
 }
 
+local function predicateAll(item)
+    -- item:getType()
+	return true
+end
+
+
 local function onZombieUpdate(zombie)
 
     if BWOAZombie.tick >= 64 then
         BWOAZombie.tick = 0
+    end
+
+    -- radiation
+    local radiation = BWOAClimate.radiation
+    if radiation > 100 then
+        if zombie:getZ() >= 0 then
+            zombie:getModData().radiated = true
+        end
     end
 
     -- lava
@@ -153,6 +167,18 @@ end
 local function onDeadBodySpawn(body)
     local md = body:getModData()
     if not md.BWOA then md.BWOA = {} end
+
+    if md.radiated then
+        local inventory = body:getContainer()
+        if inventory then
+            local items = ArrayList.new()
+            inventory:getAllEvalRecurse(predicateAll, items)
+            for j=0, items:size()-1 do
+                local item = items:get(j)
+                item:getModData().radiated = true
+            end
+        end
+    end
 
     if SandboxVars.BWOA.SkeletonReanimation then
         -- note: skeletons may lead to crashes if players aim at them with guns

@@ -1,5 +1,21 @@
 module Base
 {
+
+    item Oxygen_Tank
+    {
+        DisplayCategory = Accessory,
+        ItemType = base:drainable,
+        Weight = 5.0,
+        WeightEmpty = 5.0,
+        Icon = OxygenTank,
+        UseDelta = 0.005,
+        UseWhileEquipped = false,
+        cantBeConsolided = true,
+        KeepOnDeplete = true,
+        WorldStaticModel = Oxygen_Tank_Ground,
+        Tags = base:hasmetal;base:oxygentank;base:smeltableironsmall,
+    }
+
     item CannedBolognese_Box
     {
         DisplayCategory = Food,

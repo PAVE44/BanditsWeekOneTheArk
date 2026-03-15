@@ -483,6 +483,18 @@ module Bandits {
         } 
     }
 
+    sound OpenHatch {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/open_hatch.ogg,
+            distanceMin = 3,
+            distanceMax = 30,
+            reverbFactor = 0.7, 
+        } 
+    }
+
     sound Spooky1{
         category = Object, 
         loop = false,

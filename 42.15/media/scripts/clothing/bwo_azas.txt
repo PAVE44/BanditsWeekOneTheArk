@@ -1,5 +1,21 @@
 module Base
 {
+    item AngelRobe
+    {
+        DisplayCategory         = Clothing,
+        ItemType                = base:Clothing,
+        DisplayName             = Angel Robe,
+        ClothingItem            = AngelRobe,
+        BodyLocation            = base:JacketHat_Bulky,
+        BloodLocation           = Trousers;Jumper;FullHelmet,
+        Icon                    = AngelRobe,
+        BiteDefense             = 0,
+        ScratchDefense          = 0,
+        Insulation              = 0.3,
+        WindResistance          = 0.2,
+        FabricType              = Leather,
+        WorldStaticModel        = Bathrobe_Ground,
+    }
     item AngelWings
     {
         ItemType = base:container,

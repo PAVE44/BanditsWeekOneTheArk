@@ -14,6 +14,7 @@ Bandit.emmaStart = {
     x = 9971,
     y = 12615,
     z = -4,
+    voiceId = 21,
 }
 
 Bandit.raidCarLootItems = {
@@ -48,14 +49,17 @@ Bandit.raidCarLootItems = {
 Bandit.clanMap = Bandit.clanMap or {}
 Bandit.clanMap.Emma = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
 Bandit.clanMap.James = "cb8880f8-d45c-4051-acb3-a9d7b7d598a7"
+Bandit.clanMap.Angel = "7f6bc195-edc6-4eb8-92ce-a40fc47de85f"
+Bandit.clanMap.Demon = "6b884749-39be-42a3-9fbf-c79a78d4f2af"
 Bandit.clanMap.BasementGeneric = "7830522d-7139-40f7-977e-f665bff000ee"
 Bandit.clanMap.BasementWicked = "a0ee0049-ee12-403e-9148-172d9029cc7c"
 Bandit.clanMap.BasementCannibals = "8ab03e52-9394-4ff4-a6a4-5640b6597e5e"
 Bandit.clanMap.BasementPreppers = "55da7b22-d9d5-49bd-9d76-a39459cb69e4"
 
-Bandit.clanMap.Surface1 = "2464da7c-5a04-4739-8237-e7b23f5ffa4a"
+Bandit.clanMap.Surface1 = "2464da7c-5a04-4739-8237-e7b23f5ffa4a" -- deathsquad
 Bandit.clanMap.Surface2 = "06419731-fb8f-463f-98a3-d99c1fa0ef58" -- scba
-Bandit.clanMap.Surface3 = "4724a709-f1ac-499c-9b14-85f3a3a1b81f" -- robe
+Bandit.clanMap.Surface3 = "4724a709-f1ac-499c-9b14-85f3a3a1b81f" -- robeclan
+Bandit.clanMap.Surface4 = "17519d85-03ee-4cb3-b8b3-579a31d0f6b3" -- old school sweepers
 
 -- the only clans that are allowed to spawn using bandits mod spawner
 Bandit.spawnWhitelist = {
@@ -76,6 +80,7 @@ Bandit.banditMap.Emma.Dance =  "19a4a644-5029-4343-ae6d-271bf11bb906"
 Bandit.prg2person = {}
 Bandit.prg2person["Emma"] = "Emma_Robinson"
 Bandit.prg2person["James"] = "Father_James"
+Bandit.prg2person["Angel"] = "Angel"
 
 Bandit.EnsureWhitelistedBandits = function()
     local clanData = BanditCustom.clanData

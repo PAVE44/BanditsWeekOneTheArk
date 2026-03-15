@@ -76,6 +76,42 @@ BWOARooms.Control.Build = function ()
     BWOABuildTools.RemoveObject(9963, 12626, -4, "location_business_office_generic_01_42")
     BWOABuildTools.RemoveObject(9964, 12626, -4, "location_business_office_generic_01_43")
 
+    for x = 9960, 9963 do
+        for y = 12622, 12625 do
+            BWOABuildTools.RemoveObject(x, y, -4, "floors_exterior_street_01_0")
+            BWOABuildTools.Floor(x, y, -4, "industry_01_39")
+        end
+    end
+
+    -- console
+    BWOABuildTools.Generic(9963, 12627, -4, "appliances_com_01_52")
+    BWOABuildTools.Generic(9964, 12627, -4, "appliances_com_01_52")
+    BWOABuildTools.Generic(9963, 12626, -4, "security_01_2")
+    BWOABuildTools.Generic(9964, 12626, -4, "security_01_2")
+    BWOABuildTools.Generic(9964, 12628, -4, "furniture_seating_indoor_01_51")
+
+
+    --[[
+    -- floor
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_01_39") -- floor
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "floors_interior_tilesandwood_01_29") -- floor bottom
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_01_48") -- metal pillar
+    --ventline
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_02_8") -- vertical
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_02_13") -- vertical
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_02_5") -- vertical x+1
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_02_3") -- vertical x+2
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_02_4") -- vertical x+2, y+1
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_02_6") -- vertical x+2, y+2
+
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_trucks_01_5") -- wallN
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_trucks_01_6") -- wallNW
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "industry_trucks_01_4") -- wallW
+
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "lighting_indoor_02_44") -- lamp W
+    BWOABuildTools.RemoveObject(9962, 12624, -4, "lighting_indoor_02_44") -- lamp W]]
+
+
 
 end
 

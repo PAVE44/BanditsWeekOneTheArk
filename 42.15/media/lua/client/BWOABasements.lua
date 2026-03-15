@@ -100,6 +100,11 @@ end
 
 --{x=9814, y=12927, stairDir="W", access={"ba_exterior_west_northside_01"}, choices={"lot_basement_house_49_east"}}, -- hunter house
 
+local procedural_basements = {
+    ark_underground_all = { width=28, height=50, stairx=0, stairy=0, stairDir="N" },
+    finnegan_research_group = { width=57, height=29, stairx=0, stairy=0, stairDir="" },
+}
+
 local procedural_basement_spawn_locations = {
     {x=10183, y=12634, stairDir="N", choices={"lot_basement_house_01"}}, -- vhs secret room
     {x=9814, y=12918, stairDir="N", choices={"lot_basement_house_49_east"}}, -- hunter house
@@ -108,6 +113,9 @@ local procedural_basement_spawn_locations = {
     {x=9814, y=12927, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_49_east"}}, -- hunter house
     {x=10862, y=10033, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_57"}}, -- doc house
     {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
+    -- {x=10360, y=12325, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
+    -- {x=9939, y=12606, z=-4, stairDir="N", choices={"ark_underground"}}, -- finnegan underground facility
+    {x=9948, y=12600, z=-4, stairDir="N", choices={"ark_underground_all"}}, -- finnegan underground facility
 
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},
 }
@@ -115,7 +123,7 @@ local procedural_basement_spawn_locations = {
 local function addBasements()
         local api = Basements.getAPIv1()
     -- api:addAccessDefinitions('Muldraugh, KY', procedural_basement_access)
-    -- api:addBasementDefinitions('Muldraugh, KY', procedural_basements)
+    api:addBasementDefinitions('Muldraugh, KY', procedural_basements)
     api:addSpawnLocations('Muldraugh, KY', procedural_basement_spawn_locations)
 end
 

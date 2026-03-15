@@ -468,8 +468,10 @@
 	clothing: Knee_Left = Base.Kneepad_Left_Tactical
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.L92_Carbine
 	weapons: secondary = Base.Pistol
 	weapons: melee = Base.BaseballBat
+	ammo: primary = 1
 	ammo: secondary = 1
 	bag: name = Base.Bag_SheetSlingBag
 
@@ -506,8 +508,10 @@
 	clothing: Knee_Left = Base.Kneepad_Left_Tactical
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.L94_Rifle
 	weapons: secondary = Base.Pistol
 	weapons: melee = Base.BaseballBat_Nails
+	ammo: primary = 2
 	ammo: secondary = 1
 
 [4c0c6179-2e7a-4558-bd86-96ac70ff3e22]
@@ -543,7 +547,9 @@
 	clothing: Knee_Left = Base.Kneepad_Left_Tactical
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.VarmintRifle
 	weapons: melee = Base.BlockMaul
+	ammo: primary = 1
 	bag: name = Base.Bag_Military
 
 [a61378ba-a0bb-4d6b-91c5-dd4934de0d30]
@@ -1067,7 +1073,7 @@
 	clothing: Shoes = Base.Shoes_ArmyBoots
 	tint: Scarf = 5069133
 	tint: TankTop = 16777215
-	weapons: primary = Base.AssaultRifle
+	weapons: primary = Base.MSR7T_Rifle
 	weapons: secondary = Base.Pistol
 	ammo: primary = 1
 	ammo: secondary = 1
@@ -1110,7 +1116,7 @@
 	clothing: Shoes = Base.Shoes_ArmyBoots
 	tint: Scarf = 5069133
 	tint: TankTop = 16777215
-	weapons: primary = Base.AssaultRifle
+	weapons: primary = Base.JS3T_Shotgun
 	weapons: secondary = Base.Pistol
 	ammo: primary = 1
 	ammo: secondary = 1
@@ -1197,7 +1203,7 @@
 	clothing: Shoes = Base.Shoes_ArmyBoots
 	tint: Scarf = 5069133
 	tint: TankTop = 16777215
-	weapons: primary = Base.HuntingRifle
+	weapons: primary = Base.L92_Carbine
 	weapons: secondary = Base.Pistol
 	weapons: melee = Base.HuntingKnife
 	ammo: primary = 2
@@ -1326,7 +1332,9 @@
 	clothing: Knee_Left = Base.Kneepad_Left_Tactical
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.AssaultRifle
 	weapons: melee = Base.Katana
+	ammo: primary = 1
 
 [4f49255b-b4ee-442f-a28f-5cf3c4c9a90f]
 	general: modid = BanditsWeekOneTheArk
@@ -1356,7 +1364,9 @@
 	clothing: Knee_Left = Base.Kneepad_Left_Tactical
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.JS3T_Shotgun
 	weapons: secondary = Base.Pistol2
+	ammo: primary = 2
 	ammo: secondary = 1
 
 [76112bd2-5943-4ebd-bb40-cccf5b5508ca]
@@ -1545,7 +1555,7 @@
 	clothing: BeltExtra = Base.HolsterSimple_Black
 	clothing: Socks = Base.Socks_Ankle_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
-	weapons: primary = Base.AssaultRifle
+	weapons: primary = Base.JS3T_Shotgun
 	weapons: secondary = Base.Pistol3
 	ammo: primary = 2
 	ammo: secondary = 1
@@ -1635,7 +1645,7 @@
 	clothing: BeltExtra = Base.HolsterSimple_Black
 	clothing: Socks = Base.Socks_Ankle_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
-	weapons: primary = Base.AssaultRifle
+	weapons: primary = Base.MSR7T_Rifle
 	weapons: secondary = Base.Pistol3
 	ammo: primary = 2
 	ammo: secondary = 1
@@ -1665,7 +1675,7 @@
 	clothing: BeltExtra = Base.HolsterSimple_Black
 	clothing: Socks = Base.Socks_Ankle_Black
 	clothing: Shoes = Base.Shoes_ArmyBoots
-	weapons: primary = Base.AssaultRifle
+	weapons: primary = Base.MSR7T_Rifle
 	weapons: secondary = Base.Pistol3
 	ammo: primary = 2
 	ammo: secondary = 1
@@ -1751,4 +1761,233 @@
 	tint: Dress = 8408371
 	tint: Shoes = 16777215
 	weapons: melee = Base.Pencil
+
+[893e7725-9e5a-4d95-8fc4-7b43664c69c6]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 7f6bc195-edc6-4eb8-92ce-a40fc47de85f
+	general: name = Angel_01
+	general: female = false
+	general: skin = 1
+	general: hairType = 11
+	general: beardType = 1
+	general: hairColor = 15
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Necklace = Base.Necklace_Crucifix
+	clothing: Necklace_Long = Base.NecklaceLong_Silver
+	clothing: LongDress = Base.Dress_Long_Crafted_Cotton
+	clothing: Left_MiddleFinger = Base.Ring_Left_MiddleFinger_SilverDiamond
+	clothing: Shoes = Base.Shoes_Sandals
+	weapons: melee = Base.Sword
+	bag: name = Base.AngelWings
+
+[14007cff-ca13-4726-8de4-c4af7ea53721]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 6b884749-39be-42a3-9fbf-c79a78d4f2af
+	general: name = Demon_01
+	general: female = false
+	general: skin = 5
+	general: hairType = 34
+	general: beardType = 1
+	general: hairColor = 12
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 12
+	general: exp2 = 9
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_Stovepipe_Black
+	clothing: MaskEyes = Base.Hat_HalloweenMaskMonster
+	clothing: Neck = Base.Necklace_Choker_Sapphire
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: JacketSuit = Base.Suit_JacketTINT
+	clothing: VestTexture = Base.Vest_WaistcoatTINT
+	clothing: Hands = Base.Gloves_WhiteTINT
+	clothing: Pants = Base.Trousers_WhiteTINT
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_FullFace = Base.MakeUp_SkullFace1
+	tint: Shirt = 8440960
+	tint: JacketSuit = 1710618
+	tint: VestTexture = 1710618
+	tint: Hands = 1710618
+	tint: Pants = 1710618
+	weapons: melee = Base.BucketMace_Metal
+
+[537e2a85-429f-4bde-93b8-2e6ada69bc1a]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 6b884749-39be-42a3-9fbf-c79a78d4f2af
+	general: name = Demon_02
+	general: female = false
+	general: skin = 5
+	general: hairType = 34
+	general: beardType = 1
+	general: hairColor = 12
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 12
+	general: exp2 = 9
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_Stovepipe_Black
+	clothing: MaskEyes = Base.Hat_HalloweenMaskDevil
+	clothing: Neck = Base.Necklace_Choker_Sapphire
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: JacketSuit = Base.Suit_JacketTINT
+	clothing: VestTexture = Base.Vest_WaistcoatTINT
+	clothing: Hands = Base.Gloves_WhiteTINT
+	clothing: Pants = Base.Trousers_WhiteTINT
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_FullFace = Base.MakeUp_SkullFace1
+	tint: Shirt = 10033690
+	tint: JacketSuit = 1710618
+	tint: VestTexture = 1710618
+	tint: Hands = 1710618
+	tint: Pants = 1710618
+
+[a9749077-f38b-4640-a9cd-1fae137f2141]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 6b884749-39be-42a3-9fbf-c79a78d4f2af
+	general: name = Demon_03
+	general: female = false
+	general: skin = 5
+	general: hairType = 34
+	general: beardType = 1
+	general: hairColor = 12
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 9
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_Stovepipe_Black
+	clothing: MaskEyes = Base.Hat_HalloweenMaskVampire
+	clothing: Neck = Base.Necklace_Choker_Sapphire
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: JacketSuit = Base.Suit_JacketTINT
+	clothing: VestTexture = Base.Vest_WaistcoatTINT
+	clothing: Hands = Base.Gloves_WhiteTINT
+	clothing: Pants = Base.Trousers_WhiteTINT
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_FullFace = Base.MakeUp_SkullFace1
+	tint: Shirt = 1710618
+	tint: JacketSuit = 1710618
+	tint: VestTexture = 1710618
+	tint: Hands = 1710618
+	tint: Pants = 1710618
+	weapons: melee = Base.FieldHockeyStick_Sawblade
+
+[0101e6b2-eea1-421c-b6fa-72fb4138d5a1]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
+	general: name = Sweeper_01
+	general: female = false
+	general: skin = 1
+	general: hairType = 1
+	general: beardType = 1
+	general: hairColor = 1
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 6
+	general: exp1 = 12
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: FullSuitHead = Base.HazmatSuit
+	clothing: Torso1Legs1 = Base.LongJohns
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.JS3T_Shotgun
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Machete
+	ammo: primary = 1
+	ammo: secondary = 1
+
+[8e90fed0-1ec7-47ca-929f-6e1321cca93c]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
+	general: name = Sweeper_02
+	general: female = false
+	general: skin = 1
+	general: hairType = 1
+	general: beardType = 1
+	general: hairColor = 1
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 6
+	general: exp1 = 12
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: FullSuitHead = Base.HazmatSuit
+	clothing: Torso1Legs1 = Base.LongJohns
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.AssaultRifle
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Machete
+	ammo: primary = 1
+	ammo: secondary = 1
+
+[68aee496-1bd9-4f9a-b796-943751856372]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
+	general: name = Sweeper_03
+	general: female = false
+	general: skin = 1
+	general: hairType = 1
+	general: beardType = 1
+	general: hairColor = 1
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 6
+	general: exp1 = 12
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: FullSuitHead = Base.HazmatSuit
+	clothing: Torso1Legs1 = Base.LongJohns
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.MSR7T_Rifle
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Machete
+	ammo: primary = 1
+	ammo: secondary = 1
+
+[58b505bb-d627-40ae-8f7a-467366ed3f97]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
+	general: name = Sweeper_04
+	general: female = true
+	general: skin = 1
+	general: hairType = 1
+	general: beardType = 1
+	general: hairColor = 1
+	general: health = 8
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 9
+	general: exp1 = 12
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: FullSuitHead = Base.HazmatSuit
+	clothing: Torso1Legs1 = Base.LongJohns
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_ArmyBoots
+	weapons: primary = Base.L92_Carbine
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Machete
+	ammo: primary = 1
+	ammo: secondary = 1
 

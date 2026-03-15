@@ -745,7 +745,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["2000.6.4.1.1"] = {
         qst = "I found out that Cortman injected himself with some suspicious substance. ",
-        ans = "Do you know what it was? Did you find any tracer of that substance there?",
+        ans = "Do you know what it was? Did you find any trace of that substance there?",
         anim = "Gest1",
         req = {"2000.6.4.1"},
         hidden = true, -- unlocked by artifact Dr. Andrew Cortman's Note
