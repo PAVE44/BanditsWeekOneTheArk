@@ -54,6 +54,14 @@ module Bandits {
             file = media/sound/music/new_world_5.ogg,
             reverbFactor = 0.6, 
         }
+        clip {
+            file = media/sound/music/new_world_6.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/agnus_dei.ogg,
+            reverbFactor = 0.6, 
+        }
     }
 
     sound MusicDepth {
