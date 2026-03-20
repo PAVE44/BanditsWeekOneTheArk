@@ -794,7 +794,7 @@ local applyCO2IntoxicationPlayer = function(player, dose)
         healthExpected = 0
         sickExpected = 100
         headAcheExpected = 100
-        fatigueExpected = 0.9
+        fatigueExpected = 0.90
         drunkExpected = 100
         enduranceExpected = 0.30
         panicExpected = 70
@@ -802,7 +802,7 @@ local applyCO2IntoxicationPlayer = function(player, dose)
     elseif dose > 30000 then
         sickExpected = 55
         headAcheExpected = 80
-        fatigueExpected = 0.9
+        fatigueExpected = 0.90
         drunkExpected = 80
         enduranceExpected = 0.55
         panicExpected = 50
@@ -810,7 +810,7 @@ local applyCO2IntoxicationPlayer = function(player, dose)
     elseif dose > 10000 then
         sickExpected = 55
         headAcheExpected = 60
-        fatigueExpected = 0.85
+        fatigueExpected = 0.86
         drunkExpected = 20
         enduranceExpected = 0.65
         panicExpected = 20
@@ -819,13 +819,13 @@ local applyCO2IntoxicationPlayer = function(player, dose)
         BWOADialogues.Reveal("Emma_Robinson", "1000.4")
         sickExpected = 55
         headAcheExpected = 55
-        fatigueExpected = 0.80
+        fatigueExpected = 0.74
         enduranceExpected = 0.70
     elseif dose > 2000 then
         headAcheExpected = 50
-        fatigueExpected = 0.72
+        fatigueExpected = 0.62
     elseif dose > 1000 then
-        fatigueExpected = 0.61
+        fatigueExpected = 0.40
     end
 
     if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 and headAcheExpected then
@@ -890,14 +890,25 @@ local applyCO2IntoxicationPlayer = function(player, dose)
 end
 
 local applyDrugEffects = function(player)
-    local bodyDamage = player:getBodyDamage()
     local md = player:getModData()
     if md.bwoa.drug then
+
+        local bodyDamage = player:getBodyDamage()
+        local stats = player:getStats()
+
         if md.bwoa.drug.Aspirin and md.bwoa.drug.Aspirin > 0 then
             local cs = bodyDamage:getColdStrength()
             cs = cs - 0.8
             if cs < 0 then cs = 0 end
             bodyDamage:setColdStrength(cs)
+        end
+
+        if md.bwoa.drug.Nikethamide and md.bwoa.drug.Nikethamide > 0 then
+            local bodyTemp = stats:get(CharacterStat.TEMPERATURE)
+            if bodyTemp < 36.5 then
+                bodyTemp = bodyTemp + 0.1
+                stats:set(CharacterStat.TEMPERATURE, bodyTemp)
+            end
         end
 
         -- drug in organism depletion
@@ -906,6 +917,7 @@ local applyDrugEffects = function(player)
             if dose < 0 then dose = 0 end
             md.bwoa.drug[drug] = dose
         end
+
     end
 end
 
@@ -944,14 +956,16 @@ local function everyOneMinute()
     -- print ("INSIDE TIME: " .. tostring(BWOAPlayer.inside) .. " OUTSIDE TIME: " .. tostring(BWOAPlayer.outside))
 
     -- time memory regain
-    local gt = getGameTime()
-    local hours = math.floor(gt:getWorldAgeHours()) - 10
-    local minutes = gt:getMinutes()
+    if SandboxVars.MemoryRegain then
+        local gt = getGameTime()
+        local hours = math.floor(gt:getWorldAgeHours()) - 10
+        local minutes = gt:getMinutes()
 
-    for _, regainConf in ipairs(timeMemoryRegain) do
-        if regainConf.hours == hours and regainConf.minutes == minutes then
-            BWOAEventControl.Add("HaloPlayer", {txt = regainConf.txt}, 100)
-            BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+        for _, regainConf in ipairs(timeMemoryRegain) do
+            if regainConf.hours == hours and regainConf.minutes == minutes then
+                BWOAEventControl.Add("HaloPlayer", {txt = regainConf.txt}, 100)
+                BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+            end
         end
     end
 
@@ -971,7 +985,7 @@ local function everyOneMinute()
 
     updateSewerEffects(player)
 
-    -- co2 intoxication simlation
+    -- co2 intoxication simulation
     if suffocation then
         applyCO2IntoxicationPlayer(player, 60001)
     elseif dyspnoea then
@@ -1022,7 +1036,7 @@ local onTimedActionPerform = function(data)
             },
             ["PillsNikethamide"] = { -- helps in hypotermia
                 name = "Nikethamide",
-                dose = 480
+                dose = 45
             },
             ["NBCTablets"] = { -- it's not for eating!
                 name = "NBCTablets",
@@ -1100,16 +1114,18 @@ local onTransferItem = function(data, item)
         end
 
         -- items triggering memory regain
-        local itemMemoryRegain = gmd.itemMemoryRegain
-        local itemType = item:getType()
-        for _, regainConf in ipairs(itemMemoryRegain) do
-            if not regainConf.used and regainConf.itemType == itemType then
-                local rnd = ZombRand(100)
-                if rnd < regainConf.chance then
-                    BWOAEventControl.Add("HaloPlayer", {txt = "Memory Regain"}, 100)
-                    BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+        if SandboxVars.MemoryRegain then
+            local itemMemoryRegain = gmd.itemMemoryRegain
+            local itemType = item:getType()
+            for _, regainConf in ipairs(itemMemoryRegain) do
+                if not regainConf.used and regainConf.itemType == itemType then
+                    local rnd = ZombRand(100)
+                    if rnd < regainConf.chance then
+                        BWOAEventControl.Add("HaloPlayer", {txt = "Memory Regain"}, 100)
+                        BWOAEventControl.Add("HaloPlayer", {perk = regainConf.perk, xp = regainConf.xp}, 300)
+                    end
+                    regainConf.used = true
                 end
-                regainConf.used = true
             end
         end
 
@@ -1137,6 +1153,11 @@ local onTransferItem = function(data, item)
     end
 end
 
+local function onDeath(player)
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+    BWOAChat.ChangeBrainParam({param="sadness", value=100, target = target})
+end
+
 Events.OnPlayerUpdate.Remove(onPlayerUpdate)
 Events.OnPlayerUpdate.Add(onPlayerUpdate)
 
@@ -1148,3 +1169,6 @@ Events.OnTimedActionPerform.Add(onTimedActionPerform)
 
 Events.OnTransferItem.Remove(onTransferItem)
 Events.OnTransferItem.Add(onTransferItem)
+
+Events.OnPlayerDeath.Remove(BanditPlayer.onDeath)
+Events.OnPlayerDeath.Add(BanditPlayer.onDeath)

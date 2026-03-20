@@ -49,6 +49,8 @@ end
 BWOARooms.DecontaminationChamber.Logic = function ()
     BWOARooms.DecontaminationChamber.Init()
 
+    if not BWOABaseControl.power then return end
+
     if BWOARooms.DecontaminationChamber.cooldown > 0 then
         BWOARooms.DecontaminationChamber.cooldown = BWOARooms.DecontaminationChamber.cooldown - 1
         return

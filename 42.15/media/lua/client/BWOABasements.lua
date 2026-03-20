@@ -113,8 +113,7 @@ local procedural_basement_spawn_locations = {
     {x=9814, y=12927, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_49_east"}}, -- hunter house
     {x=10862, y=10033, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_57"}}, -- doc house
     {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
-    -- {x=10360, y=12325, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
-    -- {x=9939, y=12606, z=-4, stairDir="N", choices={"ark_underground"}}, -- finnegan underground facility
+    {x=18000, y=4000, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
     {x=9948, y=12600, z=-4, stairDir="N", choices={"ark_underground_all"}}, -- finnegan underground facility
 
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},

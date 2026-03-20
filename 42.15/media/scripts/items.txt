@@ -59,7 +59,6 @@ module Bandits
     {
         ItemType = base:drainable,
         DisplayCategory = FirstAid,
-        Type = Drainable,
         Weight = 0.2,
         Icon = PillsPotassiumIodine,
         Medical = true,
@@ -75,7 +74,6 @@ module Bandits
     {
         ItemType = base:drainable,
         DisplayCategory = Chemical,
-        Type = Drainable,
         Weight = 0.2,
         Icon = NBCTablets,
         Medical = true,
@@ -87,11 +85,60 @@ module Bandits
         Tags = base:consumable,bandits:nbctablets
     }
 
+    item EngineCoolant
+    {
+        DisplayCategory = Household,
+        ItemType = base:normal,
+        Weight = 0.2,
+        Icon = EngineCoolant,
+        EatType = BleachBottle,
+        CustomContextMenu = Drink,
+        FillFromDispenserSound = GetWaterFromDispenserPlasticMedium,
+        FillFromLakeSound = GetWaterFromLakeBottle,
+        FillFromTapSound = GetWaterFromTapPlasticMedium,
+        StaticModel = BleachBottle,
+        WorldStaticModel = BleachBottle,
+        component FluidContainer
+        {
+            ContainerName = BottleEngineCoolant,
+            Capacity = 1.0,
+            CustomDrinkSound = DrinkingFromBottlePlastic,
+            Fluids
+            {
+                fluid = EngineCoolant:1.0,
+            }
+        }
+    }
+
+    item EngineLubricant
+    {
+        DisplayCategory = Household,
+        ItemType = base:normal,
+        Weight = 0.2,
+        Icon = EngineLubricant,
+        EatType = BleachBottle,
+        CustomContextMenu = Drink,
+        FillFromDispenserSound = GetWaterFromDispenserPlasticMedium,
+        FillFromLakeSound = GetWaterFromLakeBottle,
+        FillFromTapSound = GetWaterFromTapPlasticMedium,
+        StaticModel = BleachBottle,
+        WorldStaticModel = BleachBottle,
+        component FluidContainer
+        {
+            ContainerName = BottleEngineLubricant,
+            Capacity = 1.0,
+            CustomDrinkSound = DrinkingFromBottlePlastic,
+            Fluids
+            {
+                fluid = EngineLubricant:1.0,
+            }
+        }
+    }
+
     item PillsPentoxifylline
     {
         ItemType = base:drainable,
         DisplayCategory = FirstAid,
-        Type = Drainable,
         Weight = 0.2,
         Icon = PillsAntidepressant,
         Medical = true,
@@ -107,7 +154,6 @@ module Bandits
     {
         ItemType = base:drainable,
         DisplayCategory = FirstAid,
-        Type = Drainable,
         Weight = 0.2,
         Icon = PillsAntidepressant,
         Medical = true,
@@ -123,7 +169,6 @@ module Bandits
     {
         ItemType = base:drainable,
         DisplayCategory = FirstAid,
-        Type = Drainable,
         Weight = 0.2,
         Icon = PillsAntidepressant,
         Medical = true,

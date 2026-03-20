@@ -19,3 +19,25 @@ BWOAItems.GetItemClass = function(item)
     end
     return class
 end
+
+BWOAItems.GetFirstItemTypeWithFluid = function(fluidType)
+    local player = getSpecificPlayer(0)
+    if not player then return nil end
+
+    local predicateFluidType = function(item)
+        local fluidContainer = item:getFluidContainer()
+        if fluidContainer and fluidContainer:isPrimaryFluidType(fluidType) and not fluidContainer:isEmpty() then
+            return true
+        end
+        return false
+    end
+
+    local inventory = player:getInventory()
+    local items = ArrayList.new()
+    inventory:getAllEvalRecurse(predicateFluidType, items)
+    if items:size() >= 1 then
+        return items:get(0)
+    end
+
+    return nil
+end

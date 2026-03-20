@@ -129,6 +129,27 @@ BWOAPrepareTools.AddItemsToContainer = function(x, y, z, items, customName, pres
     end
 end
 
+BWOAPrepareTools.AddAnimalCorpse = function(x, y, z, animalType, race, size)
+    -- "boar", "landrace", 1
+    local square = getCell():getGridSquare(x, y, z)
+    local animal = IsoAnimal.new(getCell(), square:getX(), square:getY(), square:getZ(), animalType, race)
+    if animal then
+        animal:getData():setSizeForced(size)
+        local corpse = IsoDeadBody.new(animal, false)
+        if corpse then
+            square:addCorpse(corpse, false)
+            corpse:invalidateCorpse()
+            corpse:setInvalidateNextRender(true)
+            animal:remove()
+            corpse:setForwardDirectionAngle(0)
+            corpse:setX(x)
+            corpse:setY(y)
+            corpse:setZ(z)
+            sendCorpse(corpse)
+        end
+    end
+end
+
 BWOAPrepareTools.AddHumanCorpse = function(x, y, z, outfits, femaleChance)
     local fakeItem = BanditCompatibility.InstanceItem("Base.AssaultRifle")
     local fakeZombie = getCell():getFakeZombieForHit()

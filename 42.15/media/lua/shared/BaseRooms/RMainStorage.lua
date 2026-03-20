@@ -130,14 +130,14 @@ BWOARooms.MainStorage.Prepare = function ()
     items = {["Base.DriedLentils"] = 7, ["Base.DehydratedMeatStick"] = 9}
     BWOAPrepareTools.AddItemsToContainer(9956, 12630, -4, items, "Shelves")
 
-    items = {["Base.WaterRationCan"] = 60}
-    BWOAPrepareTools.AddItemsToContainer(9956, 12630, -4, items, "Shelves")
+    -- items = {["Base.WaterRationCan"] = 60}
+    -- BWOAPrepareTools.AddItemsToContainer(9956, 12630, -4, items, "Shelves")
 
     -- items = {["Base.WaterRationCan"] = 60}
     -- BWOAPrepareTools.AddItemsToContainer(9956, 12631, -4, items, "Shelves")
 
-    -- items = {["Base.Vodka"] = 20}
-    -- BWOAPrepareTools.AddItemsToContainer(9956, 12632, -4, items, "Shelves")
+    items = {["Base.Vodka"] = 20}
+    BWOAPrepareTools.AddItemsToContainer(9956, 12632, -4, items, "Shelves")
 
     
 end

@@ -97,6 +97,13 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 20,
     },
+    ["Finnegan"] = {
+        scene = "Finnegan",
+        x = 18030,
+        y = 4010,
+        z = 0,
+        renderDist = 60,
+    },
 
 }
 

@@ -28,10 +28,9 @@ BWOABuildings.LoadHatches = function()
     for id, hatch in pairs(gmd.hatches) do
         local k = "Hatch-" .. id
         BWOAMenu.specialObjectsHighlight[k] = {
-            x = hatch.x, y = hatch.y, z = 0, spriteName = "street_decoration_01_15", option = "Open Hatch", dist = 20,
+            x = hatch.x, y = hatch.y, z = 0, spriteName = "street_decoration_01_15", dist = 20,
             highLightFunc = BWOAMenu.specialObjectsCanHighlight.Hatch,
-            verifyFunc = BWOAMenu.specialObjectsVerify.Hatch,
-            actionFunc = BWOAMenu.specialObjectsAction.Hatch
+            menuFunc = BWOAMenu.specialObjectsMenu.Hatch,
         }
     end
 end

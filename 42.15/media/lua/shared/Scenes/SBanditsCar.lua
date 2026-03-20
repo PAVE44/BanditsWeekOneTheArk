@@ -93,7 +93,7 @@ function BWOAScenes.BanditsCar:placeItems()
         ["Base.Wrench"] = 1, ["Base.BallPeenHammer"] = 1, ["Base.BoltCutters"] = 1, ["Base.CarpentryChisel"] = 1,
         ["Base.HandSaw"] = 1, ["Base.Hatchet"] = 1, ["Base.MetalPipe"] = 1, ["Base.Shovel"] = 1,
         ["Base.File"] = 1, ["Base.Axe"] = 1, ["Base.HandAxe"] = 1, ["Base.PipeWrench"] = 1, ["Base.Screwdriver"] = 1,
-        ["Base.SheepShears"] = 1, ["Base.Brush"] = 1, ["Base.StoneChisel"] = 1, ["Base.ViseGrips"] = 1
+        ["Base.SheepShears"] = 1, ["Base.Brush"] = 1, ["Base.StoneChisel"] = 1, ["Base.ViseGrips"] = 1, ["Base.LongHandle"] = 2, ["Base.Handle"] = 2, ["Base.SmallHandle"] = 2
     }
     BWOAPrepareTools.AddItemsToContainer(8349, 11604, -1, items, "Shelves")
 
@@ -106,13 +106,13 @@ function BWOAScenes.BanditsCar:placeItems()
     BWOAPrepareTools.AddItemsToContainer(8349, 11603, -1, items, "Shelves")
 
     items = {
-        ["Base.CandleBox"] = 1, ["Base.HandTorch"] = 2, ["Base.BatteryBox"] = 2, ["Base.Generator"] = 1,
-        ["Base.ElectronicsScrap"] = 13, ["Base.DuctTapeBox"] = 1
+        ["Base.CandleBox"] = 1, ["Base.HandTorch"] = 2, ["Base.BatteryBox"] = 2, ["Base.Generator"] = 1, ["Bandits.EngineLubricant"] = 2,
+        ["Base.ElectronicsScrap"] = 13, ["Base.DuctTapeBox"] = 1, ["Base.EngineParts"] = 6,
     }
     BWOAPrepareTools.AddItemsToContainer(8347, 11604, -41, items, "Shelves")
 
     items = {
-        ["Base.Soap"] = 10, ["Base.RippedSheets"] = 12, ["Base.Bleach"] = 3, ["Base.Sponge"] = 3,
+        ["Base.Soap"] = 10, ["Base.RippedSheets"] = 12, ["Base.Bleach"] = 3, ["Base.Sponge"] = 3, ["Bandits.EngineCoolant"] = 2,
     }
     BWOAPrepareTools.AddItemsToContainer(8347, 11603, -1, items, "Shelves")
 

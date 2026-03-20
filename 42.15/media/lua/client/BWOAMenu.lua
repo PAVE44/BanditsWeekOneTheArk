@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.96"
+BWOAMenu.version = "0.99"
 
 BWOAMenu.blinking = {}
 
@@ -24,6 +24,10 @@ end
 
 BWOAMenu.specialObjectsCanHighlight.Vent = function(player)
     return BWOAMissions.IsActive(3)
+end
+
+BWOAMenu.specialObjectsCanHighlight.Generator = function(player)
+    return true
 end
 
 BWOAMenu.specialObjectsCanHighlight.NBCMixer = function(player)
@@ -70,113 +74,297 @@ BWOAMenu.specialObjectsCanHighlight.Hatch = function(player)
     return true
 end
 
-BWOAMenu.specialObjectsVerify = {}
+BWOAMenu.specialObjectsMenu = {}
 
-BWOAMenu.specialObjectsVerify.Noah = function(player)
-    return true, ""
-end
-
-BWOAMenu.specialObjectsVerify.Vent = function(player)
-    local inventory = player:getInventory()
-    local hasItem = inventory:containsTagRecurse(ItemTag.SCREWDRIVER)
-    return hasItem, hasItem and "" or "You need a Screwdriver."
-end
-
-BWOAMenu.specialObjectsVerify.NBCMixer = function(player)
-    local test = BWOARegistries.ItemTags
-    local inventory = player:getInventory()
-    local hasItem = inventory:containsTypeRecurse("Bandits.NBCTablets")
-    return hasItem, hasItem and "" or "You need NBC Tablets."
-end
-
-BWOAMenu.specialObjectsVerify.FuelIntake = function(player)
-    return true, ""
-end
-
-BWOAMenu.specialObjectsVerify.Wall = function(player)
-    local inventory = player:getInventory()
-    local hasItem = inventory:containsTagRecurse(ItemTag.SLEDGEHAMMER)
-    return hasItem, hasItem and "" or "You need a Sledgehammer."
-end
-
-BWOAMenu.specialObjectsVerify.Hatch = function(player)
-    local inventory = player:getInventory()
-    local hasItem = inventory:containsTagRecurse(ItemTag.CROWBAR)
-    return hasItem, hasItem and "" or "You need a Crowbar."
-end
-
-BWOAMenu.specialObjectsAction = {}
-
-BWOAMenu.specialObjectsAction.Noah = function(player, square)
-    if luautils.walkAdj(player, square) then
-        BWOANoah.Show()
+BWOAMenu.specialObjectsMenu.Noah = function(context, square, player)
+    local verifyFunc = function()
+        return true, ""
     end
-end
 
-BWOAMenu.specialObjectsAction.Vent = function(player, square)
-    if luautils.walkAdj(player, square) then
-        ISTimedActionQueue.add(TAFixIntake:new(player, square))
-    end
-end
-
-BWOAMenu.specialObjectsAction.NBCMixer = function(player, square)
-    if luautils.walkAdj(player, square) then
-        ISTimedActionQueue.add(TAAddNBCMixer:new(player, square))
-    end
-end
-
-BWOAMenu.specialObjectsAction.FuelIntake = function(player, square)
-    if luautils.walkAdj(player, square) then
-        ISTimedActionQueue.add(TAFuelIntake:new(player, square))
-    end    
-end
-
-BWOAMenu.specialObjectsAction.Wall = function(player, square)
-    if luautils.walkAdj(player, square) then
-        local wall = square:getWall()
-        if wall then
-            ISTimedActionQueue.add(ISDestroyStuffAction:new(player, wall, false))
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            BWOANoah.Show()
         end
-    end    
+    end
+
+    local option = context:addOption("Use Noah", player, actionFunc, square)
+    local allowed, reason = verifyFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
 end
 
-BWOAMenu.specialObjectsAction.Hatch = function(player, square)
-    if luautils.walkAdj(player, square) then
-        ISTimedActionQueue.add(TAOpenHatch:new(player, square))
+BWOAMenu.specialObjectsMenu.Vent = function(context, square, player)
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTagRecurse(ItemTag.SCREWDRIVER)
+        return hasItem, hasItem and "" or "You need a Screwdriver."
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item = inventory:getFirstTagRecurse(ItemTag.SCREWDRIVER)
+            local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+            ISTimedActionQueue.add(transferAction)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+            ISTimedActionQueue.add(TAFixIntake:new(player, square))
+        end
+    end
+
+    local option = context:addOption("Fix Air Vent", player, actionFunc, square)
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Generator = function(context, square, player)
+    local findGen = function(square)
+        local gmd = GetBWOAModData()
+        local generators = gmd.generators
+        for k, gen in pairs(generators) do
+            if gen.x == square:getX() and gen.y == square:getY() and gen.z == square:getZ() then
+                return gen
+            end
+        end
+        return nil
+    end
+
+    local verifyCollantFunc = function()
+        local item = BWOAItems.GetFirstItemTypeWithFluid("EngineCoolant")
+        if not item then
+            return false, "You need engine coolant."
+        end
+
+        local gen = findGen(square)
+        -- if not gen.coolant then gen.coolant = 0 end
+        if gen and gen.coolant > 99 then
+            return false, "Generator coolant is full."
+        end
+
+        return true
+    end
+    local verifyLubricantFunc = function()
+        local item = BWOAItems.GetFirstItemTypeWithFluid("EngineLubricant")
+        if not item then
+            return false, "You need engine lubricant."
+        end
+
+        local gen = findGen(square)
+        -- if not gen.lubricant then gen.lubricant = 0 end
+        if gen and gen.lubricant > 99 then
+            return false, "Generator lubricant is full."
+        end
+
+        if gen.active then
+            return false, "Generator must be shut down."
+        end
+        return true
+    end
+
+    local actionCoolantFunc = function()
+        if luautils.walkAdj(player, square) then
+            local item = BWOAItems.GetFirstItemTypeWithFluid("EngineCoolant")
+            if item then
+                local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+                ISTimedActionQueue.add(TAFixGX9:new(player, square, "addCoolant"))
+            end
+        end
+    end
+
+    local actionLubricantFunc = function()
+        if luautils.walkAdj(player, square) then
+            local item = BWOAItems.GetFirstItemTypeWithFluid("EngineLubricant")
+            if item then
+                local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+                ISTimedActionQueue.add(TAFixGX9:new(player, square, "addLubricant"))
+            end
+        end
+    end
+
+    local genOption = context:addOption("GX-9")
+    local genMenu = context:getNew(context)
+    context:addSubMenu(genOption, genMenu)
+
+    local optionCoolant = genMenu:addOption("Add Coolant", player, actionCoolantFunc, square)
+    local allowed, reason = verifyCollantFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        optionCoolant.notAvailable = true
+        tooltip.description = reason
+        optionCoolant.toolTip = tooltip
+    end
+
+    local optionLubricant = genMenu:addOption("Add Lubricant", player, actionLubricantFunc, square)
+    local allowed, reason = verifyLubricantFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        optionLubricant.notAvailable = true
+        tooltip.description = reason
+        optionLubricant.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player)
+    local findDecontaminator = function(square)
+        local gmd = GetBWOAModData()
+        local decontaminator = gmd.decontaminator
+        if decontaminator.x == square:getX() and decontaminator.y == square:getY() and decontaminator.z == square:getZ() then
+            return decontaminator
+        end
+
+        return nil
+    end
+
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTypeRecurse("Bandits.NBCTablets")
+        return hasItem, hasItem and "" or "You need NBC Tablets."
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item = inventory:getFirstTypeRecurse("Bandits.NBCTablets")
+            local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+            ISTimedActionQueue.add(transferAction)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+            ISTimedActionQueue.add(TAAddNBCMixer:new(player, square))
+        end
+    end
+
+    local option = context:addOption("Add NBC Tablets", player, actionFunc, square)
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.FuelIntake = function(context, square, player)
+    local verifyFunc = function()
+        return true, ""
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            ISTimedActionQueue.add(TAFuelIntake:new(player, square))
+        end
+    end
+
+    local option = context:addOption("Drain Fuel", player, actionFunc, square)
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Wall = function(context, square, player)
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTagRecurse(ItemTag.SLEDGEHAMMER)
+        return hasItem, hasItem and "" or "You need a Sledgehammer."
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local wall = square:getWall()
+            if wall then
+                local inventory = player:getInventory()
+                local item = inventory:getFirstTagRecurse(ItemTag.SLEDGEHAMMER)
+                local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+                ISTimedActionQueue.add(ISDestroyStuffAction:new(player, wall, false))
+            end
+        end    
+    end
+
+    local option = context:addOption("Destroy", player, actionFunc, square)
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player)
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTagRecurse(ItemTag.CROWBAR)
+        return hasItem, hasItem and "" or "You need a Crowbar."
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            ISTimedActionQueue.add(TAOpenHatch:new(player, square))
+        end
+    end
+
+    local option = context:addOption("Open Hatch", player, actionFunc, square)
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
     end
 end
 
 BWOAMenu.specialObjectsHighlight = {
     ["Noah"] = {
-        x = 9961, y = 12621, z = -4, spriteName = "theark_01_4", option = "Use Noah",
+        x = 9961, y = 12621, z = -4, spriteName = "theark_01_4",
+        menuFunc = BWOAMenu.specialObjectsMenu.Noah,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Noah,
-        verifyFunc = BWOAMenu.specialObjectsVerify.Noah,
-        actionFunc = BWOAMenu.specialObjectsAction.Noah,
 
     },
     ["Vent"] = {
-        x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", option = "Fix Vent", 
+        x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", 
+        menuFunc = BWOAMenu.specialObjectsMenu.Vent,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Vent,
-        verifyFunc = BWOAMenu.specialObjectsVerify.Vent,
-        actionFunc = BWOAMenu.specialObjectsAction.Vent
+    },
+    ["Generator1"] = {
+        x = 9947, y = 12621, z = -4, spriteName = "industry_02_67", 
+        menuFunc = BWOAMenu.specialObjectsMenu.Generator,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Generator,
+    },
+    ["Generator2"] = {
+        x = 9947, y = 12616, z = -4, spriteName = "industry_02_67",
+        menuFunc = BWOAMenu.specialObjectsMenu.Generator,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Generator,
     },
     ["NBCMixer"] = {
-        x = 9948, y = 12622, z = -5, spriteName = "rooftop_furniture_1", option = "Add NBC Tablets", 
+        x = 9948, y = 12622, z = -5, spriteName = "rooftop_furniture_1",
+        menuFunc = BWOAMenu.specialObjectsMenu.NBCMixer,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.NBCMixer,
-        verifyFunc = BWOAMenu.specialObjectsVerify.NBCMixer,
-        actionFunc = BWOAMenu.specialObjectsAction.NBCMixer
     },
     ["Fuel1"] = {
-        x = 9927, y = 12617, z = 0, spriteName = "theark_01_7", option = "Drain Fuel", 
+        x = 9927, y = 12617, z = 0, spriteName = "theark_01_7",
+        menuFunc = BWOAMenu.specialObjectsMenu.FuelIntake,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.FuelIntake,
-        verifyFunc = BWOAMenu.specialObjectsVerify.FuelIntake,
-        actionFunc = BWOAMenu.specialObjectsAction.FuelIntake
     },
     ["Wall"] = {
-        x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1", option = "Destroy", 
+        x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1",
+        menuFunc = BWOAMenu.specialObjectsMenu.Wall,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Wall,
-        verifyFunc = BWOAMenu.specialObjectsVerify.Wall,
-        actionFunc = BWOAMenu.specialObjectsAction.Wall,
         destroyable = true,
     },
 }
@@ -218,6 +406,160 @@ function BWOAMenu.EventRainbow(player)
     BWOATex.mode = "full"
     BWOATex.alpha = 0.3
 end
+
+function BWOAMenu.EventFinnegan(player)
+    local npcMap = {
+        [-6] = {
+            -- reception desk
+            {x = 18052.5, y = 4005.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}}, 
+
+            -- meeting room
+            {x = 18055.5, y = 4023.1, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="N"}},
+            {x = 18054.5, y = 4020.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
+            {x = 18055.5, y = 4020.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
+
+            -- coworking space
+            {x = 18030.5, y = 4006.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18027.5, y = 4010.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18027.5, y = 4006.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18027.5, y = 4002.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18024.5, y = 4010.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18024.5, y = 4002.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18021.5, y = 4014.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18021.5, y = 4010.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18021.5, y = 4002.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+
+        },
+        [-5] = {
+            -- cafeteria
+            {x = 18019.5, y = 4001.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="DrinkPopCan", itemSecondary="Bandits.Pop2", facing="S"}},
+            {x = 18030, y = 4000.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitEat", itemPrimary="Bandits.ChickenFried", facing="E"}},
+            {x = 18031.2, y = 4000.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="W"}},
+            {x = 18031.5, y = 4007, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitEat", itemPrimary="Bandits.Corndog", facing="S"}},
+            {x = 18031.5, y = 4008, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitEat", itemPrimary="Bandits.Sandwich", facing="N"}},
+
+            -- class room
+            {x = 18037.5, y = 4018.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="S"}},
+            {x = 18034.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18035.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18036.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18037.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18038.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18039.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18040.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18035.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18036.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18037.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18038.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18039.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18040.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18041.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18042.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18036.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18037.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18039.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18040.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18041.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18042.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18034.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18035.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18036.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18037.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18038.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18039.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18040.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18041.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18037.5, y = 4025.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18038.5, y = 4025.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18041.5, y = 4025.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+        },
+        [-4] = {
+            -- boss room
+            {x = 18016.5, y = 4002.7, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="S"}},
+            {x = 18016.5, y = 4005.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+
+            -- open space
+            {x = 18002.5, y = 4003.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
+            {x = 18003.5, y = 4012.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18005.5, y = 4012.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18006.5, y = 4019.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18012.5, y = 4023.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
+            {x = 18015.5, y = 4017.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18023.5, y = 4019.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+
+            -- openspace
+            {x = 18043.5, y = 4005.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
+            {x = 18043.5, y = 4002.7, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="S"}},
+            {x = 18054.5, y = 4002.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
+            {x = 18054.5, y = 4008.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
+
+            -- kitchen
+            {x = 18045.7, y = 4021.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="E"}},
+            {x = 18046.5, y = 4020.7, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="S"}},
+            {x = 18047.2, y = 4021.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="DrinkPopCan", itemSecondary="Bandits.Pop2", facing="W"}},
+
+            -- toilet smokers
+            {x = 18031.7, y = 4025.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Smoke", itemSecondary="Bandits.CigaretteSingle", facing="E"}},
+            {x = 18032.2, y = 4025.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Smoke", itemSecondary="Bandits.CigaretteRolled", facing="W"}},
+
+            -- toilet
+            {x = 18037.5, y = 4017.8, z = -4, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="S"}},
+            {x = 18038.5, y = 4017.8, z = -4, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="S"}},
+            {x = 18039.5, y = 4017.8, z = -4, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="S"}},
+        },
+        [-3] = {
+            -- reception
+            {x = 18041.5, y = 4009.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
+
+            -- security
+            {x = 18053.5, y = 4012.5, z = -3, cid = Bandit.clanMap.FinneganSecurity, occupation = {action="Sit", facing="N"}},
+
+            -- meeting room
+            {x = 18039.5, y = 4004.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
+            {x = 18039.5, y = 4003.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
+            {x = 18042.5, y = 4004.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="W"}},
+
+            -- small toilet
+            {x = 18009.7, y = 4010.5, z = -3, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="E"}},
+
+            -- small openspaced
+            {x = 18030.5, y = 4020.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18031.5, y = 4022.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
+
+            -- CEO office
+            {x = 18008.5, y = 4027.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
+            {x = 18009.5, y = 4027, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="N"}},
+            {x = 18010.5, y = 4026.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
+            {x = 18009.5, y = 4025, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="S"}},
+
+            -- labs
+            {x = 18016.5, y = 4011.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="Sit", facing="N"}},
+            {x = 18029.5, y = 4008.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="Making", itemPrimary="Base.Scalpel", itemSecondary="Bandits.Animal_Brain", facing="S"}},
+            {x = 18029.5, y = 4010.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="Making", itemPrimary="Base.Scalpel", itemSecondary="Bandits.Animal_Brain", facing="N"}},
+            {x = 18027.5, y = 4005.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="WashHands", facing="N"}},
+        }
+    }
+
+    for floor, npcs in pairs(npcMap) do
+        for _, npcData in pairs(npcs) do
+            local args = {}
+            args.cid = npcData.cid
+            args.x = npcData.x
+            args.y = npcData.y
+            args.z = npcData.z
+            args.program = "Finnegan"
+            args.size = 1
+
+            npcData.occupation.x = args.x
+            npcData.occupation.y = args.y
+            npcData.occupation.z = args.z
+            args.occupation = npcData.occupation
+
+            sendClientCommand(player, 'Spawner', 'Clan', args)
+        end
+    end
+end
+
 
 function BWOAMenu.EventNightmare(player, variant)
     BWOANightmares.Activate(variant)
@@ -440,6 +782,10 @@ function BWOAMenu.Spawn(player, square, program, cid)
     args.z = square:getZ()
     args.program = program
     args.size = 1
+    args.occupation = {
+        face = "N",
+        action = "Making"
+    }
     -- args.permanent = true
     sendClientCommand(player, 'Spawner', 'Clan', args)
 end
@@ -518,7 +864,6 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     local room = square:getRoom()
     local zombie = square:getZombie()
     local body = square:getDeadBody()
-    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, items, "Locker")
     -- print ("FREE: " .. tostring(square:isFree(false)))
     -- Debug options
 
@@ -527,17 +872,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     for sname, sobject in pairs(specialObjectsHighlight) do
         i = i + 1
         if sobject.x == sx and sobject.y == sy and sobject.z == sz then
-            if sobject.highLightFunc(player) then
-                local option = context:addOption(sobject.option, player, sobject.actionFunc, square)
-                if sobject.verifyFunc then
-                    local allowed, reason = sobject.verifyFunc(player)
-                    if not allowed then
-                        local tooltip = ISToolTip:new()
-                        option.notAvailable = true
-                        tooltip.description = reason
-                        option.toolTip = tooltip
-                    end
-                end
+            if sobject.menuFunc then
+                sobject.menuFunc(context, square, player)
             end
         end
     end 
@@ -561,12 +897,14 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         -- square:removeGrime()
         -- player:setZ(-5)
 
+        --[[
         local test = forageSystem.forageDefinitions
         if body then
             body:setZ(body:getZ() + 0.05)
             body:setForwardDirectionAngle(-2)
             local angle = body:getAngle()
         end
+        ]]
         -- BWOADialogues.Reveal("Emma_Robinson", "2000.6")
 
         -- BWOARooms.Infirmary.SetFlickers()
@@ -655,6 +993,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         spawnMenu:addOption("Emma", player, BWOAMenu.Spawn, square, "Emma", Bandit.clanMap.Emma)
         spawnMenu:addOption("James", player, BWOAMenu.Spawn, square, "James", Bandit.clanMap.James)
         spawnMenu:addOption("Angel", player, BWOAMenu.Spawn, square, "Angel", Bandit.clanMap.Angel)
+        spawnMenu:addOption("Finnegan Employee", player, BWOAMenu.Spawn, square, "Finnegan", Bandit.clanMap.FinneganGeneric)
 
         context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
         context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
@@ -672,6 +1011,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
         eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
         eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
+        eventsMenu:addOption("Event Finnegan NPC", player, BWOAMenu.EventFinnegan)
 
         local nightmaresOption = context:addOption("Nightmares")
         local nightmaresMenu = context:getNew(context)
@@ -679,6 +1019,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         nightmaresMenu:addOption("The Fall", player, BWOAMenu.EventNightmare, "Fall")
         nightmaresMenu:addOption("Angel", player, BWOAMenu.EventNightmare, "Angel")
         nightmaresMenu:addOption("Island", player, BWOAMenu.EventNightmare, "Island")
+        nightmaresMenu:addOption("Finnegan", player, BWOAMenu.EventNightmare, "Finnegan")
 
         local scenesOption = context:addOption("Scenes")
         local scenesMenu = context:getNew(context)
@@ -774,12 +1115,10 @@ local updateHighlight = function()
                                 if sprite then
                                     spriteName = sprite:getName()
                                     if spriteName == sobject.spriteName then
-                                        if sobject.highLightFunc(player) then
-                                            BWOAMenu.blinking[id] = object
-                                            object:setHighlighted(0, true)
-                                            object:setHighlightColor(1, 0.5, 0, 1)
-                                            object:setBlink(true)
-                                        end
+                                        BWOAMenu.blinking[id] = object
+                                        object:setHighlighted(0, true)
+                                        object:setHighlightColor(1, 0.5, 0, 1)
+                                        object:setBlink(true)
                                         found = true
                                         break
                                     end

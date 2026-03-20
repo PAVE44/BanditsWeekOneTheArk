@@ -59,7 +59,7 @@ end
 function BWOAScenes.EkronChurch:populate()
     local player = getSpecificPlayer(0)
 
-    BanditUtils.ClearZombies(437, 9925, 446, 9941)
+    BanditUtils.ClearZombies(437, 446, 9925, 9941)
 
     local params1 = {
         cid = Bandit.clanMap.James,

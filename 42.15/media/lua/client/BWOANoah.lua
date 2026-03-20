@@ -101,6 +101,9 @@ local function onKeyPressed(keynum)
     elseif BWOANoah.screen == "Ventilation" then
         if keynum == Keyboard.KEY_1 then
             ventilation.active = not ventilation.active
+            if not BWOABaseControl.power then 
+                ventilation.active = false
+            end
         elseif keynum == Keyboard.KEY_2 then
             ventilation.open = not ventilation.open
         elseif keynum == Keyboard.KEY_9 then
@@ -109,6 +112,9 @@ local function onKeyPressed(keynum)
     elseif BWOANoah.screen == "Heating" then
         if keynum == Keyboard.KEY_1 then
             ventilation.heating = not ventilation.heating
+            if not BWOABaseControl.power then 
+                ventilation.heating = false
+            end
         elseif keynum == Keyboard.KEY_2 then
             ventilation.tempTarget = ventilation.tempTarget - 0.5
             if ventilation.tempTarget < 4 then

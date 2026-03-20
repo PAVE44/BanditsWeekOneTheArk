@@ -18,20 +18,24 @@ function InitBWOAModData(isNewGame)
     if not globalData.generators then 
         globalData.generators = {
             main = {
-                x = 9946,
-                y = 12620,
+                x = 9947,
+                y = 12621,
                 z = -4,
                 fuel = 77,
                 condition = 81,
+                coolant = 72,
+                lubricant = 83,
                 powerUsing = 0,
                 active = true
             },
             backup = {
-                x = 9946,
+                x = 9947,
                 y = 12616,
                 z = -4,
                 fuel = 20,
                 condition = 90,
+                coolant = 90,
+                lubricant = 90,
                 powerUsing = 0,
                 active = false
             }
@@ -41,7 +45,7 @@ function InitBWOAModData(isNewGame)
     if not globalData.ventilation then 
         globalData.ventilation = {
             active = true,
-            co2 = 884,
+            co2 = 934,
             filter = 88,
             heating = true,
             open = true,

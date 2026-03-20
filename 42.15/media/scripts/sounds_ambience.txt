@@ -471,6 +471,18 @@ module Bandits {
         } 
     }
 
+    sound FinneganHallMusic {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/finnegan_hall_music.ogg,
+            reverbFactor = 1, 
+            distanceMin = 1,
+            distanceMax = 32,
+        } 
+    }
+
     sound ExplosionFar1 {
         category = Object, 
         loop = false,

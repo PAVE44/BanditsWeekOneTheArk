@@ -124,20 +124,7 @@ local function everyOneMinute()
                 event.renderDist = 50
             end
             if BanditUtils.DistTo(px, py, event.x, event.y) < event.renderDist then
-                BWOAPlaceEvents.Render(event)
-
-                if event.music then
-                    BWOAMusic.Play(event.music, 0.6, 1)
-                end
-
-                if SandboxVars.BWOA.AngelProximity then
-                    BWOASound.PlayPlayer({sound="AngelProximity"})
-
-                    local icon = "media/ui/defend.png"
-                    local color = {r=0.5, g=0.5, b=1}
-                    local desc = "Point of Interest to Discover"
-                    BanditEventMarkerHandler.set(getRandomUUID(), icon, 7200, event.x, event.y, color, desc)
-                end
+                BWOAEventControl.Add("PlaceEvent", event, 500)
             end
         end
     end

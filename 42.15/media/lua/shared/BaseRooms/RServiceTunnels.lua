@@ -72,10 +72,10 @@ end
 BWOARooms.ServiceTunnels.Prepare = function ()
     BWOARooms.ServiceTunnels.Init()
 
-    local items
-    items = {
-        ["Bandits.NBCTablets"] = 20
-    }
-    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, items, "Locker")
+    local tablets = {["Bandits.NBCTablets"] = 20}
+    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, tablets, "Locker")
+
+    local generatorItems = {["Base.EngineMaul"] = 2, ["Base.EngineParts"] = 3, ["Bandits.EngineCoolant"] = 4, ["Bandits.EngineLubricant"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9967, 12625, -5, generatorItems, "Locker")
 end
 

@@ -172,6 +172,10 @@ end
 
 -- proxy
 
+BWOAEvents.ClearZombies = function(params)
+    BanditUtils.ClearZombies(params.x1, params.x2, params.y1, params.y2)
+end
+
 BWOAEvents.DialogueReveal = function(params)
     if params.person and params.key then
         BWOADialogues.Reveal(params.person, params.key)
@@ -515,6 +519,23 @@ BWOAEvents.SpawnVehicle = function(params)
                 end
             end
         end
+    end
+end
+
+BWOAEvents.PlaceEvent = function(params)
+    BWOAPlaceEvents.Render(params)
+
+    if params.music then
+        BWOAMusic.Play(params.music, 0.6, 1)
+    end
+
+    if SandboxVars.BWOA.AngelProximity then
+        BWOASound.PlayPlayer({sound="AngelProximity"})
+
+        local icon = "media/ui/defend.png"
+        local color = {r=0.5, g=0.5, b=1}
+        local desc = "Point of Interest to Discover"
+        BanditEventMarkerHandler.set(getRandomUUID(), icon, 7200, params.x, params.y, color, desc)
     end
 end
 

@@ -53,6 +53,10 @@ ZombieActions.SitInChair.onStart = function(zombie, task)
         end
     end
 
+    if task.txt then
+        zombie:addLineChatElement(task.txt, 0.2, 0.8, 0.1)
+    end
+
     zombie:setBumpType(task.anim)
 
     return true

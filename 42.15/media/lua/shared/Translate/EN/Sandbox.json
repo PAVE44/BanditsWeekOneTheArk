@@ -55,5 +55,8 @@
     "Sandbox_BWOA.SkeletonReanimation_tooltip": "Skeletons have some chance of reanimation.",
 
     "Sandbox_BWOA.AngelProximity": "Angel Extra Guidance",
-    "Sandbox_BWOA.AngelProximity_tooltip": "Extra help in discovering unique points of interest."
+    "Sandbox_BWOA.AngelProximity_tooltip": "Extra help in discovering unique points of interest.",
+
+    "Sandbox_BWOA.MemoryRegain": "Memory Regain",
+    "Sandbox_BWOA.MemoryRegain_tooltip": "Player can regain some skills over time or by interacting with certain objects."
 }

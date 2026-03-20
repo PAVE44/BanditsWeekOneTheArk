@@ -36,3 +36,8 @@ option BWOA.AngelProximity = {
     type = boolean, default = true,
     page = BWOA, translation = BWOA.AngelProximity,
 }
+
+option BWOA.MemoryRegain = {
+    type = boolean, default = true,
+    page = BWOA, translation = BWOA.MemoryRegain,
+}

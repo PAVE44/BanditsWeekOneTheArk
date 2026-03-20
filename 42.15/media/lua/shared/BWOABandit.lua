@@ -56,6 +56,11 @@ Bandit.clanMap.BasementWicked = "a0ee0049-ee12-403e-9148-172d9029cc7c"
 Bandit.clanMap.BasementCannibals = "8ab03e52-9394-4ff4-a6a4-5640b6597e5e"
 Bandit.clanMap.BasementPreppers = "55da7b22-d9d5-49bd-9d76-a39459cb69e4"
 
+Bandit.clanMap.FinneganGeneric = "f472d9ba-dd9e-4245-bd18-9c465dc11937"
+Bandit.clanMap.FinneganToilet = "8da26dbc-16e4-4391-8763-989b80e71442"
+Bandit.clanMap.FinneganSecurity = "c42d3f7c-fac1-4d4a-a8f0-d1401384f341"
+Bandit.clanMap.FinneganLab = "f0faba8c-168f-4ea5-8543-4365446fb176"
+
 Bandit.clanMap.Surface1 = "2464da7c-5a04-4739-8237-e7b23f5ffa4a" -- deathsquad
 Bandit.clanMap.Surface2 = "06419731-fb8f-463f-98a3-d99c1fa0ef58" -- scba
 Bandit.clanMap.Surface3 = "4724a709-f1ac-499c-9b14-85f3a3a1b81f" -- robeclan

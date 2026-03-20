@@ -146,11 +146,15 @@ BWOABuildTools.Jukebox = function(x, y, z, spriteName, activated)
     obj:SetPlaying(activated)
 end
 
-BWOABuildTools.Generator = function(x, y, z, fuel, condition, connected, active)
+BWOABuildTools.Generator = function(x, y, z, fuel, condition, connected, active, old)
+    local itemType = "Base.Generator"
+    if old then
+        itemType = "Base.Generator_Old"
+    end
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)
     if not square or not square:getChunk() then return end
-    local genItem = BanditCompatibility.InstanceItem("Base.Generator")
+    local genItem = BanditCompatibility.InstanceItem(itemType)
     local generator = IsoGenerator.new(genItem, cell, square)
     generator:setMovedThumpable(true)
     generator:setCondition(condition)

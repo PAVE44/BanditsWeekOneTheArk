@@ -184,6 +184,10 @@ local function managePower()
                     local normalized = diff / 80.0
                     local cost = (normalized ^ 2) * 0.1
 
+                    if gmd.ventilation.open then
+                        cost = cost * 1.4
+                    end
+
                     ventPowerUsing = ventPowerUsing + cost
                 end
             end
@@ -201,30 +205,47 @@ local function managePower()
                 else
                     powerUsing = gridPowerUsing / genCnt
                 end
+                gen.powerUsing = powerUsing
 
                 local totalPowerUsing = powerUsing + ventPowerUsing
                 BWOABaseControl.gridPowerUsing = BWOABaseControl.gridPowerUsing + totalPowerUsing
 
                 local fuelUsing = totalPowerUsing * 0.1
                 gen.fuel = gen.fuel - fuelUsing
-                gen.condition = gen.condition - 0.001
-                gen.powerUsing = powerUsing
-
-                if gen.fuel <= 0 then
-                    gen.fuel = 0
-                    gen.active = false
-                    genCnt = genCnt - 1
-                    BWOASound.PlayLocation({
-                        sound = "AmbientPowerDown",
-                        x = BWOARooms.Control.noah.x,
-                        y = BWOARooms.Control.noah.y,
-                        z = BWOARooms.Control.noah.z
-                    })
+                if gen.fuel <= 0 then gen.fuel = 0 end
+                
+                local condDrop = 0.001
+                if not gen.lubricant then gen.lubricant = 100 end
+                gen.lubricant = gen.lubricant - 0.005
+                if gen.lubricant < 75 then
+                    condDrop = condDrop + (100 - gen.lubricant) * 0.0004
                 end
+
+                -- emergency stop due to overheat and missing coolant
+                if not gen.coolant then gen.coolant = 100 end
+                gen.coolant = gen.coolant - 0.002
+                if gen.coolant < 50 then
+                    local rnd = ZombRand(100)
+                    if rnd < (50 - gen.coolant) * 2 then
+                        condDrop = condDrop + 1
+                        gen.active = false
+                        break
+                    end
+                end
+                gen.condition = gen.condition - condDrop
+
+                -- emergency stop - out of fuel
+                if gen.fuel == 0 then
+                    gen.active = false
+                    break
+                end
+
+                -- emergency stop - low general condition
                 if gen.condition < 10 then
                     -- low condition random stop
                     if ZombRand(math.floor(gen.condition) * 10 + 1) == 0 then
                         gen.active = false
+                        break
                     end
                 end
 
@@ -268,13 +289,25 @@ local function manageVentilation()
     local ventilation = gmd.ventilation
     if ventilation.active and ventilation.heating then
         if ventilation.temp < ventilation.tempTarget then
-            ventilation.temp = ventilation.temp + 0.1
+            if ventilation.open then
+                ventilation.temp = ventilation.temp + 0.1
+            else
+                ventilation.temp = ventilation.temp + 0.3
+            end
         else
-            ventilation.temp = ventilation.temp - 0.05
+            if ventilation.open then
+                ventilation.temp = ventilation.temp - 0.1
+            else
+                ventilation.temp = ventilation.temp - 0.025
+            end
         end
     else
         if ventilation.temp > BWOAClimate.temp then
-            ventilation.temp = ventilation.temp - 0.1
+            if ventilation.open then
+                ventilation.temp = ventilation.temp - 0.1
+            else
+                ventilation.temp = ventilation.temp - 0.025
+            end
         end
     end
     BWOABaseAPI.HeatingUpdate(ventilation.active, ventilation.temp)
@@ -285,12 +318,16 @@ local function manageVentilation()
 
         for _, airintake in pairs(airintakes) do
             if not airintake.broken then
-                co2Reduction = co2Reduction + 4
+                if ventilation.open then
+                    co2Reduction = co2Reduction + 6
+                else
+                    co2Reduction = co2Reduction + 5
+                end
             end
         end
     end
 
-    local co2BuildUp = 13
+    local co2BuildUp = 19
 
     ventilation.co2 = ventilation.co2 + co2BuildUp - co2Reduction
 

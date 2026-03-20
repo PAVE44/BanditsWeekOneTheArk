@@ -159,7 +159,20 @@
 	spawn: zone = 0
 
 [3f5a2e61-8f0c-4a82-baff-98c174b786ae]
-	general: name = Untitled
+	general: name = 00001_TEST
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0.1
+	spawn: groupMin = 1
+	spawn: groupMax = 32
+	spawn: zone = 0
 
 [7f6bc195-edc6-4eb8-92ce-a40fc47de85f]
 	general: name = W1A_Angels
@@ -207,5 +220,69 @@
 	spawn: spawnChance = 0
 	spawn: groupMin = 1
 	spawn: groupMax = 4
+	spawn: zone = 0
+
+[f472d9ba-dd9e-4245-bd18-9c465dc11937]
+	general: name = W1A_FinneganGeneric
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[8da26dbc-16e4-4391-8763-989b80e71442]
+	general: name = W1A_FinneganToilet
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[f0faba8c-168f-4ea5-8543-4365446fb176]
+	general: name = W1A_FinneganLab
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[c42d3f7c-fac1-4d4a-a8f0-d1401384f341]
+	general: name = W1A_FinneganSecurity
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 1
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
 	spawn: zone = 0
 

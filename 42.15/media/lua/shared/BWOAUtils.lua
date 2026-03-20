@@ -253,7 +253,7 @@ BanditUtils.ClearZombies = function(x1, x2, y1, y2)
     local zombieListSize = zombieList:size()
     for i = zombieListSize - 1, 0, -1 do
         local zombie = zombieList:get(i)
-        if zombie then
+        if zombie and not zombie:getVariableBoolean("Bandit") then
             if zombie:getX() >= x1 and zombie:getX() <= x2
                and zombie:getY() >= y1 and zombie:getY() <= y2 then
                 zombie:removeFromSquare()

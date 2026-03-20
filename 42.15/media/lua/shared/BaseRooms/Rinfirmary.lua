@@ -121,6 +121,7 @@ BWOARooms.Infirmary.Prepare = function ()
         ["Base.PillsSleepingTablets"] = 3,
         ["Bandits.PillsPotassiumIodine"] = 4,
         ["Bandits.PillsPentoxifylline"] = 5,
+        ["Bandits.PillsNikethamide"] = 3,
         ["Base.Gloves_Surgical"] = 24, 
         ["Base.PillsAntiDep"] = 2, 
         ["Base.Hat_SurgicalCap"] = 24, 
