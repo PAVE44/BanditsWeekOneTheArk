@@ -49,12 +49,15 @@ local traitRevealMap = {
 }
 
 local dreamRevealMap = {
-    [1] = {hours = 36, nid = "Fall", qid = "2000.1", txt = "This cannot be happening!!!"},
+    [1] = {hours = 36, qid = "2000.1", txt = "What a dream!"},
     [2] = {hours = 72, qid = "2000.2", txt = "Damn dreams..."},
     [3] = {hours = 108, nid = "Island", qid = "2000.3", txt = "Where am I?"},
     [4] = {hours = 144, qid = "2000.4", txt = "This was different..."},
     [5] = {hours = 180, qid = "2000.5", rmid = 100, txt = "I think this is important."},
     [6] = {hours = 216, nid = "Fall", qid = "2000.6", rmid = 110, txt = "This cannot be happening!!!"},
+    [7] = {hours = 252, nid = "Council", qid = "2000.7", txt = "What is this place?"},
+    [8] = {hours = 288, nid = "Finnegan", qid = "2000.8", txt = "I think I know this place!"},
+    [9] = {hours = 324, nid = "Maze", qid = "2000.9", txt = "A labyrinth? Great..."},
 }
 
 local proximityRevealMap = {
@@ -389,7 +392,7 @@ local onPlayerUpdate = function(player)
                     BWOADialogues.Reveal("Emma_Robinson", dreamData.qid)
                 end
                 if dreamData.txt then
-                    BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 100)
+                    BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 2500)
                 end
                 if dreamData.nid then
                     BWOANightmares.Activate(dreamData.nid)
@@ -1066,14 +1069,17 @@ local onTimedActionPerform = function(data)
         local mode = data.mode
         local origSpriteName = data.origSpriteName
         if mode and origSpriteName then
-            
-            if origSpriteName == "recreational_01_0" or origSpriteName == "recreational_01_1" then
-
+            if origSpriteName == "recreational_01_0" or origSpriteName == "recreational_01_1" then -- jukebox
                 if mode == "place" then
                     if character:getX() >= 9940 and character:getX() < 10000 and character:getY() > 12590 and character:getY() < 12660 then
                         BWOAMissions.Accomplish(11)
                     end
-
+                end
+            elseif origSpriteName == "recreational_01_12" or origSpriteName == "recreational_01_8" or origSpriteName == "recreational_01_28" or origSpriteName == "recreational_01_30" then -- piano
+                if mode == "place" then
+                    if character:getX() >= 9940 and character:getX() < 10000 and character:getY() > 12590 and character:getY() < 12660 then
+                        BWOAMissions.Accomplish(12)
+                    end
                 end
             end
         end

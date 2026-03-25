@@ -2923,6 +2923,17 @@ tileset
         lightswitch = 
         solidfloor = 
     }
+    // theark_02_5
+    tile
+    {
+        xy = 5,0
+        CustomName = Waste
+        IsLow = 
+        Movement = HedgeLow
+        PhysicsShape = Floor
+        alwaysDraw = 
+        forceRender = 
+    }
     // theark_02_8
     tile
     {
@@ -2985,4 +2996,24 @@ tileset
     file = theark_02_on
     size = 8,8
     id = 4
+}
+tileset
+{
+    file = theark_03
+    size = 8,14
+    id = 13
+    // theark_03_16
+    tile
+    {
+        xy = 0,2
+        CustomName = Flag
+        Facing = S
+        GroupName = Council
+        IsHigh = 
+        IsMoveAble = 
+        MoveType = WallObject
+        PickUpWeight = 30
+        WallOverlay = 
+        attachedN = 
+    }
 }

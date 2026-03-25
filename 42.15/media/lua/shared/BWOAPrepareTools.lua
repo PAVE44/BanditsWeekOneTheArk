@@ -203,6 +203,11 @@ BWOAPrepareTools.AddHumanCorpseDetail = function(x, y, z, female, clothing, item
     ]]
     
     local body = IsoDeadBody.new(bandit, false)
+    body:setForwardDirectionAngle(math.pi / 2)
+    body:setX(x)
+    body:setY(y)
+    body:setZ(z)
+    sendCorpse(body)
 
     local wornItems = body:getWornItems()
     local inventory = body:getContainer()

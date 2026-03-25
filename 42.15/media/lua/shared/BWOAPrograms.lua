@@ -171,17 +171,22 @@ BWOAPrograms.IdleEmma = function(bandit)
     return tasks
 end
 
-BWOAPrograms.GoAndDo = function(bandit, point, task)
+BWOAPrograms.GoAndDo = function(bandit, point, task, precision)
     local tasks = {}
+
+    if not precision then precision = 0.7 end
 
     local square = getCell():getGridSquare(point.x, point.y, point.z)
     if not square then return tasks end
 
-    local asquare = BanditUtils.GetAccessSquare(square, bandit)
+    local asquare = square
+    if not square:isNotBlocked(false) then
+        asquare = BanditUtils.GetAccessSquare(square, bandit)
+    end
     if not asquare then return tasks end
 
     local dist = BanditUtils.DistTo(bandit:getX(), bandit:getY(), asquare:getX() + 0.5, asquare:getY() + 0.5)
-    if dist > 0.70 then
+    if dist > precision then
         table.insert(tasks, BanditUtils.GetMoveTask(0, asquare:getX(), asquare:getY(), asquare:getZ(), "Walk", dist, false))
         return tasks
     else

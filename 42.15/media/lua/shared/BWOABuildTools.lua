@@ -330,6 +330,10 @@ local lamp = function(x, y, z, spriteName, data)
     spriteProps:set("lightB", tostring(data.b))
     spriteProps:set("LightRadius",tostring(data.d))
 
+    if spriteProps:has(IsoPropertyType.STREETLIGHT) then
+        spriteProps:unset("streetlight")
+    end
+
     local ls = IsoLightSwitch.new(cell, square, sprite, square:getRoomID())
     if data.battery then
         ls:setCanBeModified(true)
@@ -454,8 +458,10 @@ BWOABuildTools.LampCeilingNS = function(x, y, z)
     lamp(x, y, z, sprite, data)
 end
 
-BWOABuildTools.LampCustom = function(x, y, z, sprite)
-    local data = {r = 255, g = 240, b = 180, d=7}
+BWOABuildTools.LampCustom = function(x, y, z, sprite, data)
+    if not data then
+         data = {r = 255, g = 240, b = 180, d=7}
+    end
     lamp(x, y, z, sprite, data)
 end
 

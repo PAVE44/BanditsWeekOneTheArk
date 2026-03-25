@@ -253,7 +253,7 @@ BanditUtils.ClearZombies = function(x1, x2, y1, y2)
     local zombieListSize = zombieList:size()
     for i = zombieListSize - 1, 0, -1 do
         local zombie = zombieList:get(i)
-        if zombie and not zombie:getVariableBoolean("Bandit") then
+        if zombie and not zombie:getVariableBoolean("Bandit") and not zombie:getModData().isDeadBandit then
             if zombie:getX() >= x1 and zombie:getX() <= x2
                and zombie:getY() >= y1 and zombie:getY() <= y2 then
                 zombie:removeFromSquare()
@@ -307,4 +307,19 @@ BanditUtils.ClearSpace = function(x, y, z, w, h)
             end
         end
     end
+end
+
+BanditUtils.GetCordsByFacing = function(x, y, facing)
+    local fx, fy = x, y
+    if facing == "N" then
+        fy = y - 2
+    elseif facing == "S" then
+        fy = y + 2
+    elseif facing == "E" then
+        fx = x + 2
+    elseif facing == "W" then
+        fx = x - 2
+    end
+
+    return fx, fy
 end

@@ -1,5 +1,6 @@
 require "BWOADialogues"
 require "BWOAMissions"
+require "BWOANightmares"
 
 BWOAGlobalData = {}
 
@@ -110,16 +111,6 @@ function InitBWOAModData(isNewGame)
         }
     end
 
-    if not globalData.alerting then 
-        globalData.alerting = {
-            generatorFuelAlert = 10,
-            generatorConditionAlert = 10,
-            radiationAlert = 10,
-            co2Alert = 10,
-            waterPumpConditionAlert = 10,
-        }
-    end
-
     if not globalData.hatches then 
         globalData.hatches = {}
     end
@@ -134,6 +125,14 @@ function InitBWOAModData(isNewGame)
 
     if not globalData.placeEvents then 
         globalData.placeEvents = BWOAPlaceEvents.events
+    end
+
+    if not globalData.nightmares then 
+        globalData.nightmares = {
+            active = false,
+            variant = "Fall",
+            state = "enter"
+        }
     end
 
     if not globalData.itemMemoryRegain then 

@@ -13,8 +13,8 @@ BWOAEventControl.Events = {}
 
 local schedule = {
     [0] = { -- D1 17.00
-        [2] = {"Chapter", {tex = "chapter_1"}},
         [3] = {"SayPlayer", {txt = "What the hell?"}},
+        [4] = {"Chapter", {tex = "chapter_1"}},
     },
     [1] = { -- D1 18.00
         [7] = {"Spooky", {cnt = 1}},

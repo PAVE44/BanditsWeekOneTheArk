@@ -104,6 +104,21 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 60,
     },
+    ["Council"] = {
+        scene = "Council",
+        x = 18005,
+        y = 3007,
+        z = 0,
+        renderDist = 30,
+        music = "MusicCouncil",
+    },
+    ["Maze"] = {
+        scene = "Maze",
+        x = 18007,
+        y = 3202,
+        z = 0,
+        renderDist = 20,
+    },
 
 }
 

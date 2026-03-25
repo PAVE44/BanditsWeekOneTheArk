@@ -54,7 +54,13 @@ ZombieActions.SitInChair.onStart = function(zombie, task)
     end
 
     if task.txt then
-        zombie:addLineChatElement(task.txt, 0.2, 0.8, 0.1)
+        local textColor = task.txtColor or {r=0.2, g=0.8, b=0.1}
+        zombie:addLineChatElement(task.txt, textColor.r, textColor.g, textColor.b)
+    end
+
+    if task.voice then
+        local bx, by, bz = zombie:getX(), zombie:getY(), zombie:getZ()
+        BWOASound.PlayCharacter({character = zombie, sound = task.voice})
     end
 
     zombie:setBumpType(task.anim)

@@ -1,0 +1,351 @@
+module Bandits 
+{
+
+    sound supervisor_1 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_2 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_4 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_4.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_6 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_6.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_8 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_8.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_10 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_10.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_11 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_11.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_12 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_12.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_13 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_13.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_14 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_14.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_15 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_15.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_17 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_17.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_19 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_19.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_20 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_20.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_21 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_21.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_22 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_22.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_23 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_23.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_24 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_24.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_25 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_25.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_26 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_26.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_27 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_27.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_29 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_29.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_32 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_32.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_34 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_34.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_35 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_35.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_37 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_37.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_38 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_38.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_39 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_39.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound supervisor_40 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/finnegan/supervisor_40.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.0, 
+        } 
+    }
+}

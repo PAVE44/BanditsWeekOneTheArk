@@ -351,6 +351,16 @@ module Bandits {
         }
     }
 
+    sound ComputerKeyboard {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/computer_keyboard.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
     sound Dream1Start {
         category = Object, 
         loop = false,
@@ -467,6 +477,66 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/dream_6_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream7Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_7_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream7End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_7_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream8Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_8_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream8End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_8_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream9Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_9_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Drea9End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_9_end.ogg,
             reverbFactor = 1, 
         } 
     }

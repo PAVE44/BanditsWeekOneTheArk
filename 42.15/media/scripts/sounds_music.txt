@@ -113,4 +113,24 @@ module Bandits {
             reverbFactor = 0.6, 
         }
     }
+
+    sound MusicCouncil {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/unholy_rite.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicMaze {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/elegie.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
 }

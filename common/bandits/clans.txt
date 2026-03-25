@@ -270,8 +270,8 @@
 	spawn: groupMax = 1
 	spawn: zone = 0
 
-[c42d3f7c-fac1-4d4a-a8f0-d1401384f341]
-	general: name = W1A_FinneganSecurity
+[17bf7c19-3a01-41b5-8804-6288bc5e5738]
+	general: name = W1A_FinneganMercer
 	spawn: friendly = true
 	spawn: companion = false
 	spawn: defenders = false
@@ -280,7 +280,103 @@
 	spawn: wanderer = false
 	spawn: roadblock = false
 	spawn: dayStart = 1
-	spawn: dayEnd = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[cc08ed54-1254-4063-a310-25182bef8c5e]
+	general: name = W1A_FinneganHale
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 1000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[d6b1d039-6b06-409b-b7dd-d491437df931]
+	general: name = W1A_FinneganJim
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[706934a3-ce88-45c6-aef2-44dc1278b4d9]
+	general: name = W1A_CouncilMembers
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[3e449dfa-01bb-43aa-b4fc-59d64c102b8f]
+	general: name = W1A_CouncilSec
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 0
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[d689071d-46a5-4dd5-9955-bbe2268459f6]
+	general: name = W1A_CouncilNew
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[2522e514-fb66-42c5-b242-e03ca8f8e9f2]
+	general: name = W1A_CouncilAdm
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
 	spawn: spawnChance = 0
 	spawn: groupMin = 1
 	spawn: groupMax = 1

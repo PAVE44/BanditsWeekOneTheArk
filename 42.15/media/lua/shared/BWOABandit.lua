@@ -60,6 +60,14 @@ Bandit.clanMap.FinneganGeneric = "f472d9ba-dd9e-4245-bd18-9c465dc11937"
 Bandit.clanMap.FinneganToilet = "8da26dbc-16e4-4391-8763-989b80e71442"
 Bandit.clanMap.FinneganSecurity = "c42d3f7c-fac1-4d4a-a8f0-d1401384f341"
 Bandit.clanMap.FinneganLab = "f0faba8c-168f-4ea5-8543-4365446fb176"
+Bandit.clanMap.FinneganMercer = "17bf7c19-3a01-41b5-8804-6288bc5e5738"  
+Bandit.clanMap.FinneganHale = "cc08ed54-1254-4063-a310-25182bef8c5e"
+Bandit.clanMap.FinneganJim = "d6b1d039-6b06-409b-b7dd-d491437df931"
+
+Bandit.clanMap.CouncilMember = "706934a3-ce88-45c6-aef2-44dc1278b4d9"
+Bandit.clanMap.CouncilSecurity = "3e449dfa-01bb-43aa-b4fc-59d64c102b8f"
+Bandit.clanMap.CouncilNew = "d689071d-46a5-4dd5-9955-bbe2268459f6"
+Bandit.clanMap.CouncilAdmin = "2522e514-fb66-42c5-b242-e03ca8f8e9f2"
 
 Bandit.clanMap.Surface1 = "2464da7c-5a04-4739-8237-e7b23f5ffa4a" -- deathsquad
 Bandit.clanMap.Surface2 = "06419731-fb8f-463f-98a3-d99c1fa0ef58" -- scba

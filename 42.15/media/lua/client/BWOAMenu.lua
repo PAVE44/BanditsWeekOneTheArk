@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.99"
+BWOAMenu.version = "0.103"
 
 BWOAMenu.blinking = {}
 
@@ -893,9 +893,17 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() or isAdmin() then
 
+        print ("ISNOTBLOCKED:" .. tostring(square:isNotBlocked(false)))
+
         -- BWOABuildTools.Fridge(9961, 12610, -4)
         -- square:removeGrime()
-        -- player:setZ(-5)
+        -- player:setZ(-3)
+
+    local data = {r = 255, g = 80, b = 20, d=4}
+    BWOABuildTools.LampCustom(18005, 3201, -3, "lighting_outdoor_01_3", data)
+
+
+        --BWOABuildTools.LampCustom(18003, 3000, -1, "lighting_indoor_02_57")
 
         --[[
         local test = forageSystem.forageDefinitions
@@ -1020,6 +1028,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         nightmaresMenu:addOption("Angel", player, BWOAMenu.EventNightmare, "Angel")
         nightmaresMenu:addOption("Island", player, BWOAMenu.EventNightmare, "Island")
         nightmaresMenu:addOption("Finnegan", player, BWOAMenu.EventNightmare, "Finnegan")
+        nightmaresMenu:addOption("Council", player, BWOAMenu.EventNightmare, "Council")
+        nightmaresMenu:addOption("Maze", player, BWOAMenu.EventNightmare, "Maze")
 
         local scenesOption = context:addOption("Scenes")
         local scenesMenu = context:getNew(context)

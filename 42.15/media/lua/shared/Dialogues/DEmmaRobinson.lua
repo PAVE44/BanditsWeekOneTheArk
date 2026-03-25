@@ -627,14 +627,14 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         qst = "I had a bad dream again. I am beginning to remember things...",
         ans = "Sorry to hear that, but on the bright side, your memories are returning.",
         anim = "Calm",
-        req = {},
+        req = {"2000.1"},
         hidden = true, -- unlocked by dream 2
     },
     ["2000.3"] = {
         qst = "Dream again. Now, I remember what happened to me.",
         ans = "What did you dream about exactly?",
         anim = "Calm",
-        req = {},
+        req = {"2000.2"},
         hidden = true, -- unlocked by dream 3
     },
     ["2000.3.1"] = {
@@ -647,7 +647,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         qst = "My dreams are changing. I heard some voice.",
         ans = "Take it easy. Your mind may still need time to adjust.",
         anim = "Calm",
-        req = {},
+        req = {"2000.3.1"},
         hidden = true, -- unlocked by dream 4
     },
     ["2000.4.1"] = {
@@ -673,7 +673,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         qst = "I know you don't want to hear about my dreams, but... ",
         ans = "Stop! Get it together, ok? This is not helping anyone!",
         anim = "Calm",
-        req = {},
+        req = {"2000.5"},
         hidden = true, -- unlocked by dream 6
     },
     ["2000.6.1"] = {
@@ -758,5 +758,30 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         hidden = true, -- unlocked by artifact LabSyringe
         func = "SwitchMission",
         funcParams = {missionAccomplishId = 112, missionRevealId = 113},
+    },
+    ["2000.7"] = {
+        qst = "I think I know how it all started.",
+        ans = "Let me guess. Another dream? Well, last time you were right, so I'm all ears.",
+        anim = "GestYes",
+        req = {"2000.6.4.1.2"},
+        hidden = true, -- unlocked by dream 7
+    },
+    ["2000.7.1"] = {
+        qst = "It's not just Cortman. There were others injecting themselves.",
+        ans = "Oh. Who were they?",
+        anim = "Gest1",
+        req = {"2000.7"},
+    },
+    ["2000.7.1.1"] = {
+        qst = "They were all part of some kind of cult.",
+        ans = "We need to understand what that substance is.",
+        anim = "Gest1",
+        req = {"2000.7.1"},
+    },
+    ["2000.7.1.1.1"] = {
+        qst = "Longevity. That's what that substance is all about.",
+        ans = "It must be connected to the zombie outbreak.",
+        anim = "GestYes",
+        req = {"2000.7.1.1"},
     },
 }

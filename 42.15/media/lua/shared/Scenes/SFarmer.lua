@@ -2,7 +2,7 @@ require "Scenes/SAbstract"
 
 BWOAScenes = BWOAScenes or {}
 
-BWOAScenes.Farmer = BWOAScenes.Abstract:derive("BWOAScenes.Abstract")
+BWOAScenes.Farmer = BWOAScenes.Abstract:derive("BWOAScenes.Farmer")
 
 function BWOAScenes.Farmer:placeObjects()
     local x, y, z = self.x, self.y, self.z

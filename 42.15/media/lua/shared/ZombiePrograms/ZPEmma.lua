@@ -57,6 +57,14 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMin = 0,
         minuteMax = 60
     },
+    --[[
+    playpiano = {
+        hourMin = 19,
+        hourMax = 24,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    ]]
 }
 
 local switchStage = function(bandit)
@@ -265,6 +273,46 @@ ZombiePrograms.Emma.Main = function(bandit)
                                     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                                 end
                             end
+                        end
+                    end
+                end
+            elseif activity == "playpiano" then
+                bandit:addLineChatElement("ACTIVITY: PLAY PIANO", 0, 0, 1)
+                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+                if reoutfitTask then
+                    table.insert(tasks, reoutfitTask)
+                    return {status=true, next="Main", tasks=tasks}
+                end
+                local piano, pianoDist = BWOABaseObjects.FindClosestObject({"Piano"}, {x=bx, y=by})
+                if piano then
+                    local pianoIso = BWOABaseObjects.GetIsoObject(piano)
+                    if pianoIso then
+                        local stoolPos = {
+                            ["recreational_01_8"] = {x = 0, y = 1, f="N"},
+                            ["recreational_01_9"] = {x = -1, y = 1, f="N"},
+                            ["recreational_01_28"] = {x = 0, y = -1, f="S"},
+                            ["recreational_01_29"] = {x = -1, y = -1, f="S"},
+                            ["recreational_01_12"] = {x = 1, y = -1, f="W"},
+                            ["recreational_01_13"] = {x = 1, y = 0, f="W"},
+                            ["recreational_01_30"] = {x = -1, y = -1, f="E"},
+                            ["recreational_01_31"] = {x = -1, y = 0, f="E"},
+                        }
+                        local spriteName = pianoIso:getSprite():getName()
+                        local stoolData = stoolPos[spriteName]
+                        local stool = {
+                            x = piano.x + stoolData.x,
+                            y = piano.y + stoolData.y,
+                            z = piano.z,
+                            cn = "Stool",
+                        }
+
+                        local stoolIso = BWOABaseObjects.GetIsoObject(stool)
+
+                        if stoolIso then
+                            local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), stoolData.f)
+                            local task = {action="Generic", anim="SitWrite", looped=true, fx = fx, fy = fy, ox = 0.5, oy=0.5, oz=0, time=200}
+                            local subTasks = BWOAPrograms.GoAndDo(bandit, stool, task, 0.7)
+                            if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                         end
                     end
                 end
