@@ -218,7 +218,7 @@ local function predicateAll(item)
 end
 
 local onPlayerUpdate = function(player)
-    if BWOAPlayer.tick >= 64 then
+    if BWOAPlayer.tick >= 256 then
         BWOAPlayer.tick = 0
     end
 
@@ -249,7 +249,7 @@ local onPlayerUpdate = function(player)
     end
 
     -- room discovery
-    if BWOAPlayer.tick % 32 == 0 then
+    if BWOAPlayer.tick % 32 == 1 then
         local room = BWOAUtils.GetRoom(px, py, pz)
         if room then
             local revealData = roomRevealMap[room.name]
@@ -260,7 +260,7 @@ local onPlayerUpdate = function(player)
     end
 
     -- time discovery
-    if BWOAPlayer.tick == 1 then
+    if BWOAPlayer.tick % 32 == 2 then
         local hours = math.floor(getGameTime():getWorldAgeHours()) - 10
         for _, tab in ipairs(timeRevealMap) do
             if hours >= tab.hours then
@@ -270,7 +270,7 @@ local onPlayerUpdate = function(player)
     end
 
     -- player trait discovery
-    if BWOAPlayer.tick == 2 then
+    if BWOAPlayer.tick % 32 == 3 then
         for _, tab in ipairs(traitRevealMap) do
             if player:hasTrait(tab.trait) then
                 BWOADialogues.Reveal(tab.person, tab.qid)
@@ -279,7 +279,7 @@ local onPlayerUpdate = function(player)
     end
 
     -- player proximity to location discovery
-    if BWOAPlayer.tick == 3 then
+    if BWOAPlayer.tick % 32 == 4 then
         for _, tab in ipairs(proximityRevealMap) do
             if math.abs(px - tab.x) < tab.dist and math.abs(py - tab.y) < tab.dist and pz == tab.z then
                 if tab.rmid then
@@ -295,8 +295,8 @@ local onPlayerUpdate = function(player)
         end
     end
 
-    -- player clothing mission completion
-    if BWOAPlayer.tick == 4 then 
+    -- player clothing mission completion, TODO: move to onwear action
+    if BWOAPlayer.tick % 32 == 5 then 
         local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
         if suit then
             BWOAMissions.Accomplish(2)
@@ -304,7 +304,7 @@ local onPlayerUpdate = function(player)
     end
 
     -- player at location mission completion and dialogue reveal
-    if BWOAPlayer.tick == 5 then 
+    if BWOAPlayer.tick % 32 == 6 then 
         local placeEvents = BWOAPlaceEvents.events
         for k_, placeEvent in pairs(placeEvents) do
             if placeEvent.accomplishMissionId or (placeEvent.revealDialoguePerson and placeEvent.revealDialogueId) then
@@ -321,9 +321,23 @@ local onPlayerUpdate = function(player)
     end
 
     -- breath sound update
-    if BWOAPlayer.tick == 6 then 
-        local stats = player:getStats()
-        local endurance = stats:get(CharacterStat.ENDURANCE)
+    if BWOAPlayer.tick % 64 == 7 then 
+        local immuneRadiation, hasGoodMask, dyspnoea, suffocation = getClothingStats(player)
+        if hasGoodMask or dyspnoea or suffocation then
+            local stats = player:getStats()
+            local endurance = stats:get(CharacterStat.ENDURANCE)
+            if endurance < 0.3 then
+                if BWOAPlayer.tick == 7 then
+                    BWOASound.PlayPlayer({sound = "GasMaskSlow"})
+                end
+            elseif endurance > 0.4 then
+                if BWOAPlayer.tick % 128 == 7 then
+                    BWOASound.PlayPlayer({sound = "GasMaskMedium"})
+                end
+            elseif endurance > 0.75 then
+                BWOASound.PlayPlayer({sound = "GasMaskFast"})
+            end
+        end
     end
 
     -- dreams
