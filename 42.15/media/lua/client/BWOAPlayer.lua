@@ -296,7 +296,7 @@ local onPlayerUpdate = function(player)
     end
 
     -- player clothing mission completion
-    if BWOAPlayer.tick == 3 then 
+    if BWOAPlayer.tick == 4 then 
         local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
         if suit then
             BWOAMissions.Accomplish(2)
@@ -304,18 +304,26 @@ local onPlayerUpdate = function(player)
     end
 
     -- player at location mission completion and dialogue reveal
-    local placeEvents = BWOAPlaceEvents.events
-    for k_, placeEvent in pairs(placeEvents) do
-        if placeEvent.accomplishMissionId or (placeEvent.revealDialoguePerson and placeEvent.revealDialogueId) then
-            if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 6 and pz == placeEvent.z then
-                if placeEvent.accomplishMissionId then
-                    BWOAMissions.Accomplish(placeEvent.accomplishMissionId)
-                end
-                if placeEvent.revealDialoguePerson and placeEvent.revealDialogueId then
-                    BWOADialogues.Reveal(placeEvent.revealDialoguePerson, placeEvent.revealDialogueId)
+    if BWOAPlayer.tick == 5 then 
+        local placeEvents = BWOAPlaceEvents.events
+        for k_, placeEvent in pairs(placeEvents) do
+            if placeEvent.accomplishMissionId or (placeEvent.revealDialoguePerson and placeEvent.revealDialogueId) then
+                if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 6 and pz == placeEvent.z then
+                    if placeEvent.accomplishMissionId then
+                        BWOAMissions.Accomplish(placeEvent.accomplishMissionId)
+                    end
+                    if placeEvent.revealDialoguePerson and placeEvent.revealDialogueId then
+                        BWOADialogues.Reveal(placeEvent.revealDialoguePerson, placeEvent.revealDialogueId)
+                    end
                 end
             end
         end
+    end
+
+    -- breath sound update
+    if BWOAPlayer.tick == 6 then 
+        local stats = player:getStats()
+        local endurance = stats:get(CharacterStat.ENDURANCE)
     end
 
     -- dreams
@@ -1053,6 +1061,13 @@ local onTimedActionPerform = function(data)
             local drug = drugMap[itemType]
             if not md.bwoa.drug[drug.name] then md.bwoa.drug[drug.name] = 0 end
             md.bwoa.drug[drug.name] = md.bwoa.drug[drug.name] + drug.dose
+        end
+
+    elseif action == "ISEatFoodAction" then
+        local item = data.item
+        if item:getModData().radiated then
+            local dose = item:getActualWeight() * 800
+            applyRadiationPlayer(character, dose)
         end
 
     elseif action == "ISSeedActionNew" then

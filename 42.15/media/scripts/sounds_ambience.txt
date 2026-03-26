@@ -11,6 +11,96 @@ module Base {
 
 module Bandits {
 
+    sound GasMaskSlow {
+        category = Player, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/gasmask_slow_1.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/gasmask_slow_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_slow_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_slow_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_slow_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_slow_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound GasMaskMedium {
+        category = Player, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/gasmask_medium_1.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/gasmask_medium_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_medium_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_medium_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_medium_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_medium_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound GasMaskFast {
+        category = Player, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/gasmask_fast_1.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/gasmask_fast_2.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_fast_3.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_fast_4.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_fast_5.ogg,
+            reverbFactor = 0.6, 
+        } 
+        clip {
+            file = media/sound/gasmask_fast_6.ogg,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound AmbientBulbFlicker {
         category = Object, 
         loop = false,
