@@ -343,6 +343,10 @@ local lamp = function(x, y, z, spriteName, data)
     else
         ls:setUseBattery(false)
     end
+
+    if data.nobulb then
+        ls:removeLightBulb(getCell():getFakeZombieForHit())
+    end
     ls:addLightSourceFromSprite()
     ls:setPrimaryR(data.r / 255)
     ls:setPrimaryG(data.g / 255)
@@ -558,7 +562,7 @@ end
 BWOABuildTools.ClearVegetation = function(x, y, z)
     local cell = getCell()
     local square = cell:getGridSquare(x, y, z)
-    if not square then return end
+    if not square or not square:getChunk() then return end
     local objects = square:getObjects()
     for i = objects:size()-1, 0, -1 do
         local object = objects:get(i)

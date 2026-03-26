@@ -217,6 +217,82 @@ local function predicateAll(item)
 	return true
 end
 
+local getClothingStats = function(player)
+    local immuneRadiation = 0
+    local dyspnoea = false
+    local suffocation = false
+    local hasGoodMask = false
+
+    local suitFull = player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD)
+    if suitFull and suitFull:hasTag(ItemTag.HAZMAT_SUIT) then
+        local itemVisual = suitFull:getVisual()
+        local suitHoles = itemVisual:getHolesNumber()
+        immuneRadiation = 100 - (suitHoles * 10)
+
+        if suitFull:canBeActivated() and suitFull:isActivated() then
+            local oxygen = suitFull:getUsedDelta()
+            if oxygen < 0.1 then
+                suffocation = true
+            elseif oxygen < 0.2 then
+                dyspnoea = true
+            else
+                hasGoodMask = true
+            end
+
+        else
+            suffocation = true
+        end
+
+    else
+        local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
+        if suit and suit:hasTag(ItemTag.HAZMAT_SUIT) then
+            local itemVisual = suit:getVisual()
+            local suitHoles = itemVisual:getHolesNumber()
+            immuneRadiation = 70 - (suitHoles * 10)
+        end
+
+        local mask = player:getWornItem(ItemBodyLocation.MASK_EYES)
+                     or player:getWornItem(ItemBodyLocation.FULL_HAT)
+                     or player:getWornItem(ItemBodyLocation.SCBA)
+
+        if mask then
+            if mask:hasTag(ItemTag.GAS_MASK) then
+                local filter = mask:getUsedDelta()
+                filter = filter - 0.00125
+                mask:setUsedDelta(filter)
+                if filter < 0.1 then
+                    suffocation = true
+                elseif filter < 0.2 then
+                    dyspnoea = true
+                else
+                    hasGoodMask = true
+                end
+                if filter > 0 then
+                    immuneRadiation = immuneRadiation + 30
+                end
+            elseif mask:hasTag(ItemTag.SCBA) then
+                if mask:canBeActivated() and mask:isActivated() then
+                    local oxygen = mask:getUsedDelta()
+                    if oxygen < 0.1 then
+                        suffocation = true
+                    elseif oxygen < 0.2 then
+                        dyspnoea = true
+                    else
+                        hasGoodMask = true
+                    end
+
+                else
+                    suffocation = true
+                end
+            end
+        end
+    end
+    
+    immuneRadiation = PZMath.clamp(immuneRadiation, 1, 100)
+
+    return immuneRadiation, hasGoodMask, dyspnoea, suffocation
+end
+
 local onPlayerUpdate = function(player)
     if BWOAPlayer.tick >= 256 then
         BWOAPlayer.tick = 0
@@ -324,18 +400,21 @@ local onPlayerUpdate = function(player)
     if BWOAPlayer.tick % 64 == 7 then 
         local immuneRadiation, hasGoodMask, dyspnoea, suffocation = getClothingStats(player)
         if hasGoodMask or dyspnoea or suffocation then
+            player:stopPlayerVoiceSound("")
             local stats = player:getStats()
             local endurance = stats:get(CharacterStat.ENDURANCE)
-            if endurance < 0.3 then
+            if endurance > 0.7 then
                 if BWOAPlayer.tick == 7 then
                     BWOASound.PlayPlayer({sound = "GasMaskSlow"})
                 end
             elseif endurance > 0.4 then
+                
                 if BWOAPlayer.tick % 128 == 7 then
                     BWOASound.PlayPlayer({sound = "GasMaskMedium"})
                 end
-            elseif endurance > 0.75 then
+            else
                 BWOASound.PlayPlayer({sound = "GasMaskFast"})
+
             end
         end
     end
@@ -428,82 +507,6 @@ local onPlayerUpdate = function(player)
 
     -- tick update
     BWOAPlayer.tick = BWOAPlayer.tick + 1
-end
-
-local getClothingStats = function(player)
-    local immuneRadiation = 0
-    local dyspnoea = false
-    local suffocation = false
-    local hasGoodMask = false
-
-    local suitFull = player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD)
-    if suitFull and suitFull:hasTag(ItemTag.HAZMAT_SUIT) then
-        local itemVisual = suitFull:getVisual()
-        local suitHoles = itemVisual:getHolesNumber()
-        immuneRadiation = 100 - (suitHoles * 10)
-
-        if suitFull:canBeActivated() and suitFull:isActivated() then
-            local oxygen = suitFull:getUsedDelta()
-            if oxygen < 0.1 then
-                suffocation = true
-            elseif oxygen < 0.2 then
-                dyspnoea = true
-            else
-                hasGoodMask = true
-            end
-
-        else
-            suffocation = true
-        end
-
-    else
-        local suit = player:getWornItem(ItemBodyLocation.BOILERSUIT)
-        if suit and suit:hasTag(ItemTag.HAZMAT_SUIT) then
-            local itemVisual = suit:getVisual()
-            local suitHoles = itemVisual:getHolesNumber()
-            immuneRadiation = 70 - (suitHoles * 10)
-        end
-
-        local mask = player:getWornItem(ItemBodyLocation.MASK_EYES)
-                     or player:getWornItem(ItemBodyLocation.FULL_HAT)
-                     or player:getWornItem(ItemBodyLocation.SCBA)
-
-        if mask then
-            if mask:hasTag(ItemTag.GAS_MASK) then
-                local filter = mask:getUsedDelta()
-                filter = filter - 0.00125
-                mask:setUsedDelta(filter)
-                if filter < 0.1 then
-                    suffocation = true
-                elseif filter < 0.2 then
-                    dyspnoea = true
-                else
-                    hasGoodMask = true
-                end
-                if filter > 0 then
-                    immuneRadiation = immuneRadiation + 30
-                end
-            elseif mask:hasTag(ItemTag.SCBA) then
-                if mask:canBeActivated() and mask:isActivated() then
-                    local oxygen = mask:getUsedDelta()
-                    if oxygen < 0.1 then
-                        suffocation = true
-                    elseif oxygen < 0.2 then
-                        dyspnoea = true
-                    else
-                        hasGoodMask = true
-                    end
-
-                else
-                    suffocation = true
-                end
-            end
-        end
-    end
-    
-    immuneRadiation = PZMath.clamp(immuneRadiation, 1, 100)
-
-    return immuneRadiation, hasGoodMask, dyspnoea, suffocation
 end
 
 local manageGeigerEffect = function(player, radiation)
@@ -906,9 +909,12 @@ local applyCO2IntoxicationPlayer = function(player, dose)
 
     local rnd = ZombRand(100)
     if rnd < coughChance then
-        local sound = player:getDescriptor():getVoicePrefix() .. "Cough"
+        local sound = player:getDescriptor():getVoicePrefix() .. "MuffledCough"
         local emitter = player:getEmitter()
         if not emitter:isPlaying(sound) then
+            emitter:stopSoundByName("GasMaskSlow")
+            emitter:stopSoundByName("GasMaskMedium")
+            emitter:stopSoundByName("GasMaskFast")
             emitter:playSound(sound)
         end
     end

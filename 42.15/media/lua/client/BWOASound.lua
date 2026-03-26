@@ -148,6 +148,7 @@ BWOASound.RemoveFromObject = function(tab)
 end
 
 BWOASound.AddNoah = function(tab)
+    if not BWOANoah.IsOn() or BWOANoah.GetState() ~= "operational" then return end
     if #BWOASound.noah > BWOASound.noahMax then return end
     if tab.sound then
         table.insert(BWOASound.noah, tab)
@@ -155,6 +156,7 @@ BWOASound.AddNoah = function(tab)
 end
 
 BWOASound.ClearNoah = function(tab)
+    if not BWOANoah.IsOn() or BWOANoah.GetState() ~= "operational" then return end
     for i = #BWOASound.noah, 2 do
         table.remove(BWOASound.noah, i)
     end
@@ -205,34 +207,36 @@ local function onTick()
     end
 
     -- Noah voice (non-looped, one at a time)
-    local event = BWOASound.noah[1]
-    if event then
-        if not event.started then
-            event.started = true
-            for _, megaphone in ipairs(BWOASound.megaphones.noah) do
+    if BWOANoah.IsOn() and BWOANoah.GetState() == "operational" then
+        local event = BWOASound.noah[1]
+        if event then
+            if not event.started then
+                event.started = true
+                for _, megaphone in ipairs(BWOASound.megaphones.noah) do
 
-                megaphone.emitter = world:getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
+                    megaphone.emitter = world:getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
 
-                print ("start: " .. event.sound)
-                megaphone.emitter:playSound(event.sound)
-                megaphone.emitter:setVolumeAll(volumeNoah)
-                megaphone.emitter:tick()
+                    print ("start: " .. event.sound)
+                    megaphone.emitter:playSound(event.sound)
+                    megaphone.emitter:setVolumeAll(volumeNoah)
+                    megaphone.emitter:tick()
 
-            end
-        else
-            local allFinished = true
-            for _, megaphone in ipairs(BWOASound.megaphones.noah) do
-                if megaphone.emitter then
-                    if megaphone.emitter:isPlaying(event.sound) then
-                        allFinished = false
-                    else
-                        megaphone.emitter:stopAll()
-                        megaphone.emitter = nil
+                end
+            else
+                local allFinished = true
+                for _, megaphone in ipairs(BWOASound.megaphones.noah) do
+                    if megaphone.emitter then
+                        if megaphone.emitter:isPlaying(event.sound) then
+                            allFinished = false
+                        else
+                            megaphone.emitter:stopAll()
+                            megaphone.emitter = nil
+                        end
                     end
                 end
-            end
-            if allFinished then
-                table.remove(BWOASound.noah, 1)
+                if allFinished then
+                    table.remove(BWOASound.noah, 1)
+                end
             end
         end
     end

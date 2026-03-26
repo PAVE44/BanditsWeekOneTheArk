@@ -61,6 +61,9 @@ end
 
 local function manageIntrusion()
 
+    if not BWOANoah.IsOn() then return end
+    if BWOANoah.GetState() ~= "operational" then return end
+
     local gametime = getGameTime()
     local minute = gametime:getMinutes()
     if minute % 4 > 0 then return end
@@ -120,6 +123,13 @@ local function managePower()
     local minute = gameTime:getMinutes()
     local gmd = GetBWOAModData()
 
+    -- no Noah leads to generator shutdown
+    if not BWOANoah.IsOn() or BWOANoah.GetState() ~= "operational" then
+        for gtype, gen in pairs(gmd.generators) do
+            gen.active = false
+        end
+    end
+
     -- manage generators
     local genCnt = 0
     for gtype, gen in pairs(gmd.generators) do
@@ -151,7 +161,9 @@ local function managePower()
             BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERUP})
         else
             BWOABaseAPI.GeneratorsOff()
-            BWOASequence.EmergencyLights({active=true})
+            if BWOANoah.IsOn() and BWOANoah.GetState() == "operational" then
+                BWOASequence.EmergencyLights({active=true})
+            end
 
             -- force shutdown of other systems using power here:
             BWOABaseAPI.AlarmOff()
@@ -343,18 +355,19 @@ local function manageVentilation()
     BWOABaseAPI.AirIntakeUpdate(ventilation.active, airintakes)
 
     -- alerting
-    if minute % 30 == 2 then
-        if ventilation.co2 > 6000 then
-            BWOASound.ClearNoah()
-            BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
-            BWOASound.AddNoah({sound = BWOASound.noahSounds.CO2})
+    if BWOANoah.IsOn() and BWOANoah.GetState() == "operational" then
+        if minute % 30 == 2 then
+            if ventilation.co2 > 6000 then
+                BWOASound.ClearNoah()
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.CO2})
 
-            if ventilation.co2 > 60000 then
-                BWOABaseAPI.AlarmOn()
+                if ventilation.co2 > 60000 then
+                    BWOABaseAPI.AlarmOn()
+                end
             end
         end
     end
-
 end
 
 local function manageWater()
@@ -380,15 +393,23 @@ local function manageRoomLogic()
     end
 end
 
+local function manageNoah()
+    BWOABaseAPI.NoahUpdate() 
+end
+
 local function manageFire(fire)
     local x, y, z = fire:getX(), fire:getY(), fire:getZ()
-    local room = BWOAUtils.GetRoom(x, y, z)
-    if room then
-        BWOABaseAPI.AlarmOn()
-        BWOASound.ClearNoah()
-        BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
-        BWOASound.AddNoah({sound = BWOASound.noahSounds.FIRE})
-        BWOASound.AddNoah({sound = BWOASound.noahSounds[room.name]})
+
+    -- alerting
+    if BWOANoah.IsOn() and BWOANoah.GetState() == "operational" then
+        local room = BWOAUtils.GetRoom(x, y, z)
+        if room then
+            BWOABaseAPI.AlarmOn()
+            BWOASound.ClearNoah()
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+            BWOASound.AddNoah({sound = BWOASound.noahSounds.FIRE})
+            BWOASound.AddNoah({sound = BWOASound.noahSounds[room.name]})
+        end
     end
 end
 
@@ -403,6 +424,9 @@ Events.OnCreatePlayer.Add(onCreatePlayer)
 
 Events.EveryOneMinute.Remove(manageIntrusion)
 Events.EveryOneMinute.Add(manageIntrusion)
+
+Events.EveryOneMinute.Remove(manageNoah)
+Events.EveryOneMinute.Add(manageNoah)
 
 Events.EveryOneMinute.Remove(managePower)
 Events.EveryOneMinute.Add(managePower)

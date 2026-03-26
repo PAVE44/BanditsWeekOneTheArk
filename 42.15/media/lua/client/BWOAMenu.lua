@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.103"
+BWOAMenu.version = "0.104"
 
 BWOAMenu.blinking = {}
 
@@ -76,7 +76,7 @@ end
 
 BWOAMenu.specialObjectsMenu = {}
 
-BWOAMenu.specialObjectsMenu.Noah = function(context, square, player)
+BWOAMenu.specialObjectsMenu.Noah = function(context, square, player, sobject)
     local verifyFunc = function()
         return true, ""
     end
@@ -88,6 +88,11 @@ BWOAMenu.specialObjectsMenu.Noah = function(context, square, player)
     end
 
     local option = context:addOption("Use Noah", player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+
     local allowed, reason = verifyFunc()
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -97,7 +102,7 @@ BWOAMenu.specialObjectsMenu.Noah = function(context, square, player)
     end
 end
 
-BWOAMenu.specialObjectsMenu.Vent = function(context, square, player)
+BWOAMenu.specialObjectsMenu.Vent = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTagRecurse(ItemTag.SCREWDRIVER)
@@ -116,6 +121,11 @@ BWOAMenu.specialObjectsMenu.Vent = function(context, square, player)
     end
 
     local option = context:addOption("Fix Air Vent", player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+
     local allowed, reason = verifyFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -125,7 +135,7 @@ BWOAMenu.specialObjectsMenu.Vent = function(context, square, player)
     end
 end
 
-BWOAMenu.specialObjectsMenu.Generator = function(context, square, player)
+BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobject)
     local findGen = function(square)
         local gmd = GetBWOAModData()
         local generators = gmd.generators
@@ -194,6 +204,11 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player)
     end
 
     local genOption = context:addOption("GX-9")
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        genOption.iconTexture = texture:splitIcon()
+    end
+
     local genMenu = context:getNew(context)
     context:addSubMenu(genOption, genMenu)
 
@@ -216,7 +231,7 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player)
     end
 end
 
-BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player)
+BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player, sobject)
     local findDecontaminator = function(square)
         local gmd = GetBWOAModData()
         local decontaminator = gmd.decontaminator
@@ -245,6 +260,10 @@ BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player)
     end
 
     local option = context:addOption("Add NBC Tablets", player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
     local allowed, reason = verifyFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -254,7 +273,7 @@ BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player)
     end
 end
 
-BWOAMenu.specialObjectsMenu.FuelIntake = function(context, square, player)
+BWOAMenu.specialObjectsMenu.FuelIntake = function(context, square, player, sobject)
     local verifyFunc = function()
         return true, ""
     end
@@ -266,6 +285,10 @@ BWOAMenu.specialObjectsMenu.FuelIntake = function(context, square, player)
     end
 
     local option = context:addOption("Drain Fuel", player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
     local allowed, reason = verifyFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -275,7 +298,7 @@ BWOAMenu.specialObjectsMenu.FuelIntake = function(context, square, player)
     end
 end
 
-BWOAMenu.specialObjectsMenu.Wall = function(context, square, player)
+BWOAMenu.specialObjectsMenu.Wall = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTagRecurse(ItemTag.SLEDGEHAMMER)
@@ -306,7 +329,7 @@ BWOAMenu.specialObjectsMenu.Wall = function(context, square, player)
     end
 end
 
-BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player)
+BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTagRecurse(ItemTag.CROWBAR)
@@ -320,6 +343,10 @@ BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player)
     end
 
     local option = context:addOption("Open Hatch", player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
     local allowed, reason = verifyFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -331,10 +358,10 @@ end
 
 BWOAMenu.specialObjectsHighlight = {
     ["Noah"] = {
-        x = 9961, y = 12621, z = -4, spriteName = "theark_01_4",
+        x = 9964, y = 12627, z = -4, spriteName = "theark_01_20",
         menuFunc = BWOAMenu.specialObjectsMenu.Noah,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Noah,
-
+        destroyable = true,
     },
     ["Vent"] = {
         x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", 
@@ -757,6 +784,10 @@ function BWOAMenu.Teleport(player)
     player:setLastZ(z)
 end
 
+function BWOAMenu.BreakNoah(player)
+    BWOANoah.ChangeState("operational")
+end
+
 function BWOAMenu.LoadHatches(player)
     BWOABuildings.LoadHatches()
 end
@@ -873,7 +904,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         i = i + 1
         if sobject.x == sx and sobject.y == sy and sobject.z == sz then
             if sobject.menuFunc then
-                sobject.menuFunc(context, square, player)
+                sobject.menuFunc(context, square, player, sobject)
             end
         end
     end 
@@ -899,10 +930,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         -- square:removeGrime()
         -- player:setZ(-3)
 
-    local data = {r = 255, g = 80, b = 20, d=4}
-    BWOABuildTools.LampCustom(18005, 3201, -3, "lighting_outdoor_01_3", data)
 
-
+        -- BWOABuildTools.ClearAll(sx, sy, sz)
         --BWOABuildTools.LampCustom(18003, 3000, -1, "lighting_indoor_02_57")
 
         --[[
@@ -993,6 +1022,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         saveItems(square)
 
         context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
+        context:addOption("Break Noah", player, BWOAMenu.BreakNoah)
         
 
         local spawnOption = context:addOption("Character Spawn")
@@ -1072,8 +1102,16 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     end
 end
 
+local function onFillWorldObjectContextMenu(playerNum, context, worldObjects, test)
+    print ("test")
+    context:removeOptionByName("AdvancedCybernetics Noah")
+
+
+    -- texture: theark_01_20_Icon
+end
+
 local function onFillInventoryObjectContextMenu(playerNum, context, items)
-    -- print ("test")
+    print ("test")
 end
 
 BWOAMenu.tick = 0
@@ -1102,81 +1140,69 @@ local updateHighlight = function()
     local cell = getCell()
     local playerList = BanditPlayer.GetPlayers()
 
+    local generalHLColor = getCore():getWorldItemHighlightColor()
     local specialObjectsHighlightCluster = BWOAMenu.highlightClusters[BWOAMenu.tick]
     if specialObjectsHighlightCluster then
         local ts = getTimestampMs()
         local i = 0
         for _, sobject in ipairs(specialObjectsHighlightCluster) do
             i = i + 1
-            local dist = sobject.dist and sobject.dist or 5
+            local dist = sobject.dist and sobject.dist or 3
             local id = sobject.x .. "-" .. sobject.y
-            for i=0, playerList:size()-1 do
-                local player = playerList:get(i)
-                if player then
-                    local px, py, pz = player:getX(), player:getY(), player:getZ()
-                    if pz == sobject.z and math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then
-                        local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
-                        if square then
-                            local objects = square:getObjects()
-                            local found = false
-                            for i=objects:size()-1, 0, -1 do
-                                local object = objects:get(i)
-                                local sprite = object:getSprite()
-                                if sprite then
-                                    spriteName = sprite:getName()
-                                    if spriteName == sobject.spriteName then
-                                        BWOAMenu.blinking[id] = object
-                                        object:setHighlighted(0, true)
-                                        object:setHighlightColor(1, 0.5, 0, 1)
-                                        object:setBlink(true)
-                                        found = true
-                                        break
+
+            local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
+            if square then
+                local objects = square:getObjects()
+                local found = false
+                for i=objects:size()-1, 0, -1 do
+                    local object = objects:get(i)
+                    local sprite = object:getSprite()
+                    if sprite then
+                        spriteName = sprite:getName()
+                        if spriteName == sobject.spriteName then
+
+                            for i=0, playerList:size()-1 do
+                                local player = playerList:get(i)
+                                if player then
+                                    local playerNum = player:getPlayerNum()
+                                    local px, py, pz = player:getX(), player:getY(), player:getZ()
+                                    if pz == sobject.z and math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then
+                                        object:setOutlineHighlight(playerNum, true)
+                                        object:setOutlineHighlightCol(playerNum, generalHLColor)
+                                    else
+                                        object:setOutlineHighlight(playerNum, false)
                                     end
                                 end
                             end
 
-                            if not found and not sobject.destroyable then
-                                BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
-                            end
+                            found = true
+                            break
                         end
-                    else
-                        BWOAMenu.blinking[id] = nil
                     end
+                end
+
+                if not found and not sobject.destroyable then
+                    BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
                 end
             end
         end
         -- print ("update highlight time: " .. (getTimestampMs() - ts) .. " iters: " .. i)
     end
 
-    local blinking = BWOAMenu.blinking
-    for _, object in pairs(blinking) do
-        object:setHighlighted(0, true)
-        object:setHighlightColor(1, 0.5, 0, 1)
-        object:setBlink(true)
-    end
-
     -- tick update
     BWOAMenu.tick = BWOAMenu.tick + 1
 end
 
-local blink = function(player)
-    local blinking = BWOAMenu.blinking
 
-    for _, object in ipairs(blinking) do
-        object:setHighlighted(0, true)
-        object:setHighlightColor(1, 0.5, 0, 1)
-        object:setBlink(true)
-    end
-end
 
 Events.OnPreFillWorldObjectContextMenu.Remove(onPreFillWorldObjectContextMenu)
 Events.OnPreFillWorldObjectContextMenu.Add(onPreFillWorldObjectContextMenu)
+
+Events.OnFillWorldObjectContextMenu.Remove(onFillWorldObjectContextMenu)
+Events.OnFillWorldObjectContextMenu.Add(onFillWorldObjectContextMenu)
 
 Events.OnFillInventoryObjectContextMenu.Remove(onFillInventoryObjectContextMenu)
 Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryObjectContextMenu)
 
 Events.OnPlayerUpdate.Remove(updateHighlight)
 Events.OnPlayerUpdate.Add(updateHighlight)
-
--- Events.OnPlayerUpdate.Remove(blink)
--- Events.OnPlayerUpdate.Add(blink)

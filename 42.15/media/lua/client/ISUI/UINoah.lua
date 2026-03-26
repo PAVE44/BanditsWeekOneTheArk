@@ -1,9 +1,8 @@
 UINoah = ISPanel:derive("UINoah")
 
-local CLOCK = 0
-
 function UINoah:initialise()
     self.bgtex = getTexture("media/textures/C64_bg2.png")
+    self.bgtexOff = getTexture("media/textures/C64_bg2_off.png")
     self.afont = AngelCodeFont.new("media/fonts/EN/2x/C64.fnt", "media/fonts/EN/2x/C64_0.png")
     ISPanel.initialise(self)
 end
@@ -23,22 +22,23 @@ function UINoah:update()
 end
 
 function UINoah:prerender()
-    CLOCK = CLOCK + 1
 
-    if CLOCK > 32 then
-        CLOCK = 1
-    end
+    local gmd = GetBWOAModData()
+    local noah = gmd.noah
 
-    local padLeft, padTop = 106, 116
+    if BWOANoah.IsOn() then
+        self:drawTextureScaled(self.bgtex, 0, 0, 820, 688, 1, 1, 1, 1, 0)
 
-    self:drawTextureScaled(self.bgtex, 0, 0, 820, 688, 1, 1, 1, 1, 0)
-    
-    local x, y = self:getX(), self:getY()
+        local padLeft, padTop = 106, 116
+        local x, y = self:getX(), self:getY()
 
-    for i=1, 25 do
-        if self.text[i] then
-            self.afont:drawString(x + padLeft, y + padTop + ((i-1) * 16), 1, self.text[i], 0.380, 0.443, 0.714, 1)
+        for i=1, 25 do
+            if self.text[i] then
+                self.afont:drawString(x + padLeft, y + padTop + ((i-1) * 16), 1, self.text[i], 0.380, 0.443, 0.714, 1)
+            end
         end
+    else
+        self:drawTextureScaled(self.bgtexOff, 0, 0, 820, 688, 1, 1, 1, 1, 0)
     end
     ISPanel.prerender(self)
 end

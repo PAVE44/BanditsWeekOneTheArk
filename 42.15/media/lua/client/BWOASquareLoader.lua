@@ -69,7 +69,7 @@ BWOASquareLoader.trashItems = {
     "Base.Branch_Broken",
     "Base.LargeBranch",
     "Base.TreeBranch2",
-    "Base.EmptyBottle",
+    "Base.BeerEmpty",
     "Base.EmptyJar",
     "Base.Pop2Empty",
     "Base.Pop3Empty",
@@ -159,6 +159,7 @@ BWOASquareLoader.materialToItems = {
 
 BWOASquareLoader.lavaEpicenters = {
     {x=9950, y=11300, r=700},
+    {x=11940, y=7010, r=140},
 }
 
 local hasMaterial = function(props, material)
@@ -479,7 +480,7 @@ local processSquare = function(square)
     local md = square:getModData()
     if not md.BWO then md.BWO = {} end
 
-    if true then return end
+    -- if true then return end
 
     -- post nuke world destroyer
     if not md.BWO.processed and not isExcluded(square) then

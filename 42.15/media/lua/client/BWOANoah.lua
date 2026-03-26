@@ -35,6 +35,13 @@ local function onPlayerUpdate(player)
     if math.abs(px - BWOARooms.Control.noah.x) > 3 or math.abs(py - BWOARooms.Control.noah.y) > 3 then
         close()
     end
+
+    local gmd = GetBWOAModData()
+    local noah = gmd.noah
+
+    if noah.state == "error" then
+        BWOANoah.screen = "Error"
+    end
 end
 
 local function onKeyPressed(keynum)
@@ -46,6 +53,9 @@ local function onKeyPressed(keynum)
     local ventilation = gmd.ventilation
 
     getSpecificPlayer(0):playSound("UIKey")
+
+    if not BWOANoah.IsOn() then return end
+    if BWOANoah.GetState() ~= "operational" then return end
 
     if BWOANoah.screen == "Main" then
         if keynum == Keyboard.KEY_1 then
@@ -182,6 +192,26 @@ BWOANoah.Show = function()
     show()
 end
 
+BWOANoah.IsOn = function()
+    local gmd = GetBWOAModData()
+    return gmd.noah.on
+end
+
+BWOANoah.SetOn = function(on)
+    local gmd = GetBWOAModData()
+    gmd.noah.on = on
+end
+
+BWOANoah.ChangeState = function(state)
+    local gmd = GetBWOAModData()
+    gmd.noah.state = state
+end
+
+BWOANoah.GetState = function()
+    local gmd = GetBWOAModData()
+    return gmd.noah.state
+end
+
 BWOANoah.Screens = {}
 
 BWOANoah.ScreenTemplate = function()
@@ -192,6 +222,38 @@ BWOANoah.ScreenTemplate = function()
 
     text[1] = "           *** NOAH V1.2. ***      "
     text[2] = "      (C)1983 ADVANCED CYBERNETICS "
+    return text
+end
+
+BWOANoah.Screens.Error = function()
+    -- PETSCII chars get encoded with string.char
+    local text = {}
+    text[1] = "7gA"..string.char(178).."k!9Q z#2Lm3"..string.char(197).."8T@p"..string.char(4).."X^cR5$N b3V"..string.char(221).."!wY2u"
+    text[2] = "Q6b3H "..string.char(219).."9X"..string.char(178).." "..string.char(222).."eP7tC"..string.char(179).."RW 1Gm8yD"..string.char(4).."2R"..string.char(221).."pKzA"..string.char(178).." B"
+    text[3] = "9fU"..string.char(178).."V1E "..string.char(221).."n7C"..string.char(195).."hX"..string.char(179).."3 0Wr4OsZq2Y"..string.char(219).."k8 "..string.char(222).."P"..string.char(178).."c A"
+    text[4] = string.char(221).."Bu9f"..string.char(222).."u"..string.char(178).."M 8K2hS"..string.char(219).."jW"..string.char(178).."d"..string.char(180).."p 6LxR5cZ"..string.char(195).."0N"..string.char(221).."q"..string.char(178).."Y3"
+    text[5] = string.char(219).."T 5sO9uH"..string.char(180).."X"..string.char(178).."b"..string.char(221).."J 2C"..string.char(178).."dP7V"..string.char(222).."lZ"..string.char(195).."w 1A"..string.char(219).."k3R"..string.char(178).."yQ"
+    text[6] = string.char(197).."G"..string.char(178).."s 0pF"..string.char(180).."W"..string.char(178).."Z"..string.char(221).."c 9Yh8"..string.char(178).."Tq"..string.char(222).."1Z"..string.char(180).." 5eN0A"..string.char(178).."sX"..string.char(221).."7P"
+    text[7] = "4mQ3"..string.char(219).."fR8b"..string.char(222).."V"..string.char(178).." 8J2W"..string.char(180).."y6G"..string.char(178).."Z"..string.char(221).."6Ht9c"..string.char(222).."3L"..string.char(178).."aX"..string.char(179).." 3"
+    text[8] = string.char(178).."M 2x7B"..string.char(221).."E0T"..string.char(178).."cY"..string.char(219).." 7gA"..string.char(178).."k!9Q z#2Lm3"..string.char(197).."8T@p"..string.char(4).."^"
+    text[9] = "b3V"..string.char(221).."!wY2u%K9H* "..string.char(180).."dQ7zA0kM m@8T"..string.char(178).."fL!2"..string.char(195).."p"..string.char(6).."Z"
+    text[10] = string.char(222).."eP7tC"..string.char(179).."RW 1Gm8yD"..string.char(4).."2R"..string.char(221).."pKzA"..string.char(178).."B z6QAwT5L"..string.char(197).."x3"
+    text[11] = "9fU"..string.char(178).."V1E "..string.char(221).."n7C"..string.char(195).."hX"..string.char(179).."3 0Wr4OsZq2Y"..string.char(219).."k8 "..string.char(222).."P"..string.char(178).."cA#"
+    text[12] = string.char(180).."A1Y 4Mt6zQ"..string.char(221).."Bu9f"..string.char(222).."u"..string.char(178).."M 8K2hS"..string.char(219).."jW"..string.char(178).."d"..string.char(180).."p 6LxR"
+    text[13] = string.char(221).."q"..string.char(178).."Y 3vD7Ea"..string.char(222).."Z"..string.char(178).."m8"..string.char(219).."T 5sO9uH"..string.char(180).."X"..string.char(178).."b"..string.char(221).."J 2C"..string.char(178).."dP7"
+    text[14] = string.char(222).."lZ"..string.char(195).."w 1A"..string.char(219).."k3R"..string.char(178).."yQ"..string.char(221).."M 7x"..string.char(222).."6U"..string.char(197).."G"..string.char(178).."s 0pF"..string.char(180).."W$ !R7"
+    text[15] = string.char(178).."Z"..string.char(221).."c 9Yh8"..string.char(178).."Tq"..string.char(222).."1Z"..string.char(180).." 5eN0A"..string.char(178).."sX"..string.char(221).."7P"..string.char(179).."D 4mQ3"..string.char(219) .. "!%"
+    text[16] = "fR8b"..string.char(222).."V"..string.char(178).." 8J2W"..string.char(180).."y6G"..string.char(178).."Z"..string.char(221).."6Ht9c"..string.char(222).."3L"..string.char(178).."aX"..string.char(179).." 3nS1D$"
+    text[17] = string.char(222).."V"..string.char(178).."M 2x7B"..string.char(221).."E0T"..string.char(178).."cY"..string.char(219).." 7gA"..string.char(178).."k!9Q z#2Lm3"..string.char(197).."8T@p"
+    text[18] = string.char(4).."X^cR5$N b3V"..string.char(221).."!wY2u%K9H* "..string.char(180).."dQ7zA0kM m8T"..string.char(178)
+    text[19] = "Q6b3H "..string.char(219).."9X"..string.char(178).." "..string.char(222).."eP7tC"..string.char(179).."#SL4YER!D"..string.char(4).."2R"..string.char(221).."pKzA"..string.char(178).."B%"
+    text[20] = string.char(219).."9 "..string.char(178).."X"..string.char(222).."eP7tC"..string.char(179).."RW 1Gm8yD"..string.char(4).."2R"..string.char(221).."pKzA"..string.char(178).."B z6QAw5"
+    text[21] = "L"..string.char(197).."x3V"..string.char(178).."Y1E"..string.char(180).."nC 9fU"..string.char(178).."V1E"..string.char(221).."n7C"..string.char(195).."hX"..string.char(179).."3 0Wr4OsZq"
+    text[22] = string.char(222).."P"..string.char(178).."cA k8gN"..string.char(178).."cP"..string.char(197).."5X"..string.char(180).."A1Y 4Mt6zQ"..string.char(221).."Bu9f"..string.char(222).."u"..string.char(178).."M 8"
+    text[23] = string.char(219).."jW"..string.char(178).."d"..string.char(180).."p 6LxR5cZ"..string.char(195).."0N"..string.char(221).."q"..string.char(178).."Y 3vD7Ea"..string.char(222).."Z"..string.char(178).."m8"..string.char(219).."T#5"
+    text[24] = string.char(180).."X"..string.char(178).."b"..string.char(221).."J 2C"..string.char(178).."dP7V"..string.char(222).."lZ"..string.char(195).."w 1A"..string.char(219).."k3R"..string.char(178).."yQ"..string.char(221).."M 7x e15"
+    text[25] = string.char(222).."6U"..string.char(197).."G"..string.char(178).."s 0pF"..string.char(180).."W"..string.char(178).."Z"..string.char(221).."c 9Yh8"..string.char(178).."Tq"..string.char(222).."1Z"..string.char(180).." 5eN0A$a!"
+
     return text
 end
 

@@ -13,7 +13,11 @@ function InitBWOAModData(isNewGame)
     end
 
     if not globalData.noah then
-        globalData.noah = true
+        globalData.noah = {
+            on = true,
+            state = "operational",
+        }
+
     end
 
     if not globalData.generators then 

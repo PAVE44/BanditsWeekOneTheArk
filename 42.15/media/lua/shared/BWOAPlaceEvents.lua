@@ -76,10 +76,10 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 70,
     },
-    ["Farmer"] = {
-        scene = "Farmer",
-        x = 7174,
-        y = 9736,
+    ["Plane"] = {
+        scene = "Plane",
+        x = 8432,
+        y = 11765,
         z = 0,
         renderDist = 70,
     },
@@ -118,6 +118,13 @@ BWOAPlaceEvents.events = {
         y = 3202,
         z = 0,
         renderDist = 20,
+    },
+    ["Breach1"] = {
+        scene = "Breach",
+        x = 10570 + 30,
+        y = 10600 + 30,
+        z = 0,
+        renderDist = 60,
     },
 
 }

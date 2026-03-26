@@ -2791,6 +2791,21 @@ tileset
         GeneratorSound = OldGenerator
         GroupName = Silent
     }
+    // theark_01_20
+    tile
+    {
+        xy = 4,2
+        BlocksPlacement = 
+        CustomName = Noah
+        GroupName = AdvancedCybernetics
+        LightRadius = 1
+        Material = Electric
+        lightB = 4
+        lightG = 4
+        lightR = 8
+        lightswitch = 
+        solid = 
+    }
 }
 tileset
 {

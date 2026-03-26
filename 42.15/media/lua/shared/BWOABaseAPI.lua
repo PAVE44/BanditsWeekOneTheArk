@@ -90,10 +90,16 @@ BWOABaseAPI.EmergencyLights = function(roomName, active)
             for i=0, objects:size()-1 do
                 local object = objects:get(i)
                 if instanceof(object, "IsoLightSwitch") and object:getUseBattery() and object:getHasBattery() then
-                    if object:isActivated() ~= active then
-                        object:setActive(active)
-                        if active then
-                            change = true
+                    local sprite = object:getSprite()
+                    if sprite then
+                        local props = sprite:getProperties()
+                        if not props or not props:has("CustomName") or props:get("CustomName") ~= "Noah" then
+                            if object:isActivated() ~= active then
+                                object:setActive(active)
+                                if active then
+                                    change = true
+                                end
+                            end
                         end
                     end
                 end
@@ -139,27 +145,50 @@ BWOABaseAPI.GetGeneratorPowerUsing = function()
     return powerUsing
 end
 
-BWOABaseAPI.IsNoahPowered = function()
-    local cell = getCell()
-    local square = cell:getGridSquare(BWOARooms.Control.noah.x, BWOARooms.Control.noah.y, BWOARooms.Control.noah.z)
-    if square then
-        return square:haveElectricity()
-    end
-end
-
 BWOABaseAPI.AlarmOn = function()
-    if BWOABaseAPI.IsNoahPowered() and not BWOABaseAPI.alarm then
+    if not BWOABaseAPI.alarm then
         BWOABaseAPI.alarm = true
         BWOASound.AddGlobal({sound="AmbientAlarmGlobal"})
-        BWOASound.AddToObject({x=9961, y=12622, z=-4, sound="AmbientAlarmLocal"})
+        BWOASound.AddToObject({x=BWOARooms.Control.noah.x, y=BWOARooms.Control.noah.y, z=BWOARooms.Control.noah.z, sound="AmbientAlarmLocal"})
         BanditPlayer.WakeEveryone()
     end
 end
 
 BWOABaseAPI.AlarmOff = function()
     BWOASound.RemoveGlobal({sound="AmbientAlarmGlobal"})
-    BWOASound.RemoveFromObject({x=9961, y=12622, z=-4, sound="AmbientAlarmLocal"})
+    BWOASound.RemoveFromObject({x=BWOARooms.Control.noah.x, y=BWOARooms.Control.noah.y, z=BWOARooms.Control.noah.z, sound="AmbientAlarmLocal"})
     BWOABaseAPI.alarm = false
+end
+
+BWOABaseAPI.NoahUpdate = function()
+    local square = getCell():getGridSquare(BWOARooms.Control.noah.x, BWOARooms.Control.noah.y, BWOARooms.Control.noah.z)
+    if square then
+        local objects = square:getObjects()
+        for i=0, objects:size()-1 do
+            local object = objects:get(i)
+            if instanceof(object, "IsoLightSwitch") then
+                local sprite = object:getSprite()
+                if sprite then
+                    local props = sprite:getProperties()
+                    if props:has("CustomName") then
+                        local customName = props:get("CustomName")
+                        if customName and customName == "Noah" then
+                            if object:isActivated() then
+                                if not BWOANoah.IsOn() then
+                                    BWOANoah.screen = "Main"
+                                end
+                                BWOANoah.SetOn(true)
+                                BWOASound.AddToObject({x=9963.5, y=12627, z=-4, sound="AmbientComputer"})
+                            else
+                                BWOANoah.SetOn(false)
+                                BWOASound.RemoveFromObject({x=9963.5, y=12627, z=-4, sound="AmbientComputer"})
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
 
 BWOABaseAPI.HeatingUpdate = function(active, temp)
