@@ -957,7 +957,8 @@ local function everyOneMinute()
     if not player then return end
     if not player:isAlive() then return end
 
-    if BWOANightmares.active then return end
+    local gmd = GetBWOAModData()
+    if gmd.nightmares.active then return end
 
     local cell = getCell()
     local px, py, pz = player:getX(), player:getY(), player:getZ()

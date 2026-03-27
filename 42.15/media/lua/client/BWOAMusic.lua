@@ -13,6 +13,9 @@ end
 BWOAMusic.Play = function(music, volumeTarget, volumeStart)
     if not volumeStart then volumeStart = 0 end
     if not volumeTarget then volumeTarget = 1 end
+    
+    local volumeMain = getSoundManager():getSoundVolume()
+    volumeTarget = volumeTarget * volumeMain
     -- if true then return end
     local emitter
     local player = getSpecificPlayer(0)
