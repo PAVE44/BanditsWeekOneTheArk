@@ -62,6 +62,10 @@ module Bandits {
             file = media/sound/music/agnus_dei.ogg,
             reverbFactor = 0.6, 
         }
+        clip {
+            file = media/sound/music/goodbye_sunshine.ogg,
+            reverbFactor = 0.6, 
+        }
     }
 
     sound MusicDepth {
@@ -130,6 +134,16 @@ module Bandits {
         is3D = true,
         clip {
             file = media/sound/music/elegie.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound FamilyHouse {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/too_late.ogg,
             reverbFactor = 0.6, 
         }
     }

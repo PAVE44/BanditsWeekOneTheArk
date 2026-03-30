@@ -3,6 +3,9 @@ Bandit = Bandit or {}
 Bandit.SoundTab.WAITTALK = {prefix = "BWOAWaitTalk_", chance = 100, randMax = 4, length = 5}
 Bandit.SoundTab.CRY = {prefix = "BWOACry_", chance = 100, randMax = 6, length = 5}
 Bandit.SoundTab.RADIOCALL = {prefix = "BWOARadioCall_", chance = 100, randMax = 10, length = 5}
+Bandit.SoundTab.TAGGAME1 = {prefix = "BWOATagGame1_", chance = 100, randMax = 6, length = 1}
+Bandit.SoundTab.TAGGAME2 = {prefix = "BWOATagGame2_", chance = 100, randMax = 6, length = 1}
+Bandit.SoundTab.TAGGAME3 = {prefix = "BWOATagGame3_", chance = 100, randMax = 2, length = 1}
 
 Bandit.playerStart = {
     x = 9966,
@@ -50,12 +53,17 @@ Bandit.clanMap = Bandit.clanMap or {}
 Bandit.clanMap.Emma = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
 Bandit.clanMap.James = "cb8880f8-d45c-4051-acb3-a9d7b7d598a7"
 Bandit.clanMap.Angel = "7f6bc195-edc6-4eb8-92ce-a40fc47de85f"
-Bandit.clanMap.Demon = "6b884749-39be-42a3-9fbf-c79a78d4f2af"
+
+-- basements
 Bandit.clanMap.BasementGeneric = "7830522d-7139-40f7-977e-f665bff000ee"
 Bandit.clanMap.BasementWicked = "a0ee0049-ee12-403e-9148-172d9029cc7c"
 Bandit.clanMap.BasementCannibals = "8ab03e52-9394-4ff4-a6a4-5640b6597e5e"
 Bandit.clanMap.BasementPreppers = "55da7b22-d9d5-49bd-9d76-a39459cb69e4"
 
+-- island dream
+Bandit.clanMap.Demon = "6b884749-39be-42a3-9fbf-c79a78d4f2af"
+
+-- finnegan dream
 Bandit.clanMap.FinneganGeneric = "f472d9ba-dd9e-4245-bd18-9c465dc11937"
 Bandit.clanMap.FinneganToilet = "8da26dbc-16e4-4391-8763-989b80e71442"
 Bandit.clanMap.FinneganSecurity = "c42d3f7c-fac1-4d4a-a8f0-d1401384f341"
@@ -64,11 +72,17 @@ Bandit.clanMap.FinneganMercer = "17bf7c19-3a01-41b5-8804-6288bc5e5738"
 Bandit.clanMap.FinneganHale = "cc08ed54-1254-4063-a310-25182bef8c5e"
 Bandit.clanMap.FinneganJim = "d6b1d039-6b06-409b-b7dd-d491437df931"
 
+-- council dream
 Bandit.clanMap.CouncilMember = "706934a3-ce88-45c6-aef2-44dc1278b4d9"
 Bandit.clanMap.CouncilSecurity = "3e449dfa-01bb-43aa-b4fc-59d64c102b8f"
 Bandit.clanMap.CouncilNew = "d689071d-46a5-4dd5-9955-bbe2268459f6"
 Bandit.clanMap.CouncilAdmin = "2522e514-fb66-42c5-b242-e03ca8f8e9f2"
 
+-- family house dream
+Bandit.clanMap.Kate = "8979b90b-ffb2-4be6-beb0-ae203a79c2e1"
+Bandit.clanMap.Murderers = "ac40c4d8-61e1-4566-a798-0806385679d3"
+
+-- surface bandits
 Bandit.clanMap.Surface1 = "2464da7c-5a04-4739-8237-e7b23f5ffa4a" -- deathsquad
 Bandit.clanMap.Surface2 = "06419731-fb8f-463f-98a3-d99c1fa0ef58" -- scba
 Bandit.clanMap.Surface3 = "4724a709-f1ac-499c-9b14-85f3a3a1b81f" -- robeclan

@@ -165,7 +165,7 @@ BWOARooms.Bedroom.Prepare = function ()
 
     local healthEffectsRadiation = BanditCompatibility.InstanceItem("Bandits.Book2")
     healthEffectsRadiation:setCanBeWrite(false)
-    healthEffectsRadiation:setName("Summary of Health Effects of Ionizing Radiation by ATSDR")
+    healthEffectsRadiation:setName(getText("IGUI_Artifact_EffectsRadiation"))
     local md = healthEffectsRadiation:getModData()
     md.printContent = "health_effects_radiation"
     local x = BanditUtils.Choice({9948, 9950, 9952, 9954, 9956})

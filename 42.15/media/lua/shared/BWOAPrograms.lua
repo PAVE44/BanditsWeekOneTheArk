@@ -65,23 +65,15 @@ BWOAPrograms.TagGame = function(bandit)
     local dx = bx - mx
     local dy = by - my
     local len = math.sqrt(dx*dx + dy*dy)
-    if ZombRand(6) == 0 then
-        if len > 10 then
-            local txtOpts = {
-                "Catch me!", "Don't be a pussy!", "You are so weak!", "Out of breath already?",
-                "Hahaha!", "Run!"
-            }
-            bandit:addLineChatElement(BanditUtils.Choice(txtOpts), 0.2, 0.8, 0.1)
-        elseif len > 4 then
-            local txtOpts = {
-                "Almost got me!", "Almost there!", "Haha!", "I'm faster than you!",
-                "Hahaha!", "Run Bobby, run!"
-            }
-        end
+    if len > 6 then
+        Bandit.Say(bandit, "TAGGAME1")
+    elseif len > 1 then
+        Bandit.Say(bandit, "TAGGAME2")
     end
 
+
     if len < 0.6 then 
-        bandit:addLineChatElement("Ok, you won!", 0.2, 0.8, 0.1)
+        Bandit.Say(bandit, "TAGGAME3", true)
         local brain = BanditBrain.Get(bandit)
         BWOANPC.ModBrain(brain.id, "mode", nil)
         len = 0.6
@@ -144,7 +136,7 @@ BWOAPrograms.IdleEmma = function(bandit)
         local task = {action="Time", anim="ShiftWeight", time=200}
         table.insert(tasks, task)
     elseif action == 1 then
-        local task = {action="Time", anim="Cough", time=200}
+        local task = {action="Time", anim="Cough", sound="VoiceFemaleMuffledCough", time=200}
         table.insert(tasks, task)
     elseif action == 2 then
         local task = {action="Time", anim="ChewNails", time=200}
@@ -153,7 +145,7 @@ BWOAPrograms.IdleEmma = function(bandit)
         local task = {action="Time", anim="PullAtCollar", time=200}
         table.insert(tasks, task)
     elseif action == 4 then
-        local task = {action="Time", anim="Sneeze", time=200}
+        local task = {action="Time", anim="Sneeze", sound="VoiceFemaleSneezeLight", time=200}
         table.insert(tasks, task)
     elseif action == 5 then
         local task = {action="Time", anim="WipeBrow", time=200}

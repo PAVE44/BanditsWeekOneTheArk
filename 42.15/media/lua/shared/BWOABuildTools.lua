@@ -469,7 +469,7 @@ BWOABuildTools.LampCustom = function(x, y, z, sprite, data)
     lamp(x, y, z, sprite, data)
 end
 
-BWOABuildTools.TV = function(x, y, z, spriteName)
+BWOABuildTools.TV = function(x, y, z, spriteName, data)
     local square = getCell():getOrCreateGridSquare(x, y, z)
     if not square or not square:getChunk() then return end
     local obj = IsoTelevision.new(getCell(), square, getSprite(spriteName))
@@ -478,6 +478,15 @@ BWOABuildTools.TV = function(x, y, z, spriteName)
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
     square:setSquareChanged()
+
+    if data and data.active then
+        local dd = obj:getDeviceData()
+        if not dd then return true end
+
+        if not dd:getIsTurnedOn() then
+            dd:setIsTurnedOn(true)
+        end
+    end
 end
 
 

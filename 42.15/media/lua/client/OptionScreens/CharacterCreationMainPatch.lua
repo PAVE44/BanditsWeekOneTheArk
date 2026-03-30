@@ -4,6 +4,27 @@ local UI_BORDER_SPACING = 10
 
 -- local characterCreationMainOnOptionMouseDown = CharacterCreationMain.onOptionMouseDown
 
+function CharacterCreationMain:onRandomCharacter()
+
+	local female = false
+	MainScreen.instance.avatar:setFemale(female)
+	MainScreen.instance.desc:setFemale(female)
+	MainScreen.instance.desc:getHumanVisual():clear()
+	self:setAvatarFromUI()
+	self:randomGenericOutfit()
+	self:randomVoice()
+
+	-- we random the name
+	SurvivorFactory.randomName(MainScreen.instance.desc);
+
+	self.forenameEntry:setText(MainScreen.instance.desc:getForename())
+	self.surnameEntry:setText(MainScreen.instance.desc:getSurname())
+
+	self:loadJoypadButtons()
+
+	self:disableBtn()
+end
+
 function CharacterCreationMain:onOptionMouseDown2(button, x, y)
     -- characterCreationMainOnOptionMouseDown(self, button, x, y)
     if button.internal == "VARIANT" then

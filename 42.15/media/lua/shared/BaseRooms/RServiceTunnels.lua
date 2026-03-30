@@ -52,7 +52,7 @@ BWOARooms.ServiceTunnels.Build = function ()
     BWOABuildTools.LampBatteryWeak(9952, 12614, -7, "lighting_indoor_02_46")
 
     -- storage room
-    BWOABuildTools.LampBatteryWeak(9957, 12616, -5, "lighting_indoor_02_44")
+    BWOABuildTools.LampBatteryWeak(9957, 12617, -5, "lighting_indoor_02_44")
 
 end
 

@@ -18,16 +18,16 @@ function ISEmoteRadialMenu:init()
     ISEmoteRadialMenu.defaultMenu["shout"] = {}
 	ISEmoteRadialMenu.defaultMenu["shout"].name = getText("IGUI_Emote_Shout")
     ISEmoteRadialMenu.defaultMenu["movement"] = {}
-	ISEmoteRadialMenu.defaultMenu["movement"].name = getText("Movement")
+	ISEmoteRadialMenu.defaultMenu["movement"].name = getText("IGUI_Emote_Movement")
 	ISEmoteRadialMenu.defaultMenu["movement"].subMenu = {}
-	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["stop"] = "Don't follow"
-	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["followme"] = "Follow me"
+	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["stop"] = getText("IGUI_Emote_DontFollow")
+	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["followme"] = getText("IGUI_Emote_FollowMe")
 
     ISEmoteRadialMenu.defaultMenu["play"] = {}
-    ISEmoteRadialMenu.defaultMenu["play"].name = getText("Play")
+    ISEmoteRadialMenu.defaultMenu["play"].name = getText("IGUI_Emote_Play")
 	ISEmoteRadialMenu.defaultMenu["play"].subMenu = {}
-	ISEmoteRadialMenu.defaultMenu["play"].subMenu["moveout"] = "Tag"
-    ISEmoteRadialMenu.defaultMenu["play"].subMenu["dance"] = "Dance"
+	ISEmoteRadialMenu.defaultMenu["play"].subMenu["moveout"] = getText("IGUI_Emote_Tag")
+    ISEmoteRadialMenu.defaultMenu["play"].subMenu["dance"] = getText("IGUI_Emote_Dance")
     
     ISEmoteRadialMenu.variants = {}
 

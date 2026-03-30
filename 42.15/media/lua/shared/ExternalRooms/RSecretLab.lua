@@ -103,7 +103,7 @@ BWOARooms.SecretLab.Prepare = function ()
 
     local note1 = BanditCompatibility.InstanceItem("Bandits.Note")
     note1:setCanBeWrite(false)
-    note1:setName("Cold Passage and The Management of Death")
+    note1:setName(getText("IGUI_Artifact_ColdPassage"))
     note1:getModData().printContent = "cold_passage"
 
     BWOAPrepareTools.AddWorldItemSpecial(5565, 12502, -13, note1, {x=0.55, y=0.52, z=0.35, rx=0, ry=0, rz=0})
@@ -122,7 +122,7 @@ BWOARooms.SecretLab.Prepare = function ()
 
     local note2a = BanditCompatibility.InstanceItem("Bandits.Note")
     note2a:setCanBeWrite(false)
-    note2a:setName("On Environmental Determinants of Early Mortuary Practice")
+    note2a:setName(getText("IGUI_Artifact_EarlyMortuaryPractice"))
     note2a:getModData().printContent = "early_mortuary_practice"
     note2a:getModData().BWOA = {}
     note2a:getModData().BWOA.onTaken = {}
@@ -132,7 +132,7 @@ BWOARooms.SecretLab.Prepare = function ()
 
     local note2b = BanditCompatibility.InstanceItem("Bandits.Note")
     note2b:setCanBeWrite(false)
-    note2b:setName("Report on the Composition of the Paleolithic Survey Group")
+    note2b:setName(getText("IGUI_Artifact_PaleolithicSurveyGroup"))
     note2b:getModData().printContent = "paleolithic_survey_group"
     note2b:getModData().BWOA = {}
     note2b:getModData().BWOA.onTaken = {}
@@ -142,7 +142,7 @@ BWOARooms.SecretLab.Prepare = function ()
 
     local note2c = BanditCompatibility.InstanceItem("Bandits.Note")
     note2c:setCanBeWrite(false)
-    note2c:setName("Supplementary Excavation Log Site C-17 (Substratum)")
+    note2c:setName(getText("IGUI_Artifact_ExcavationLog"))
     note2c:getModData().printContent = "supplementary_excavation_log"
     note2c:getModData().BWOA = {}
     note2c:getModData().BWOA.onTaken = {}
@@ -152,14 +152,14 @@ BWOARooms.SecretLab.Prepare = function ()
 
     local note2d = BanditCompatibility.InstanceItem("Bandits.NoteBook")
     note2d:setCanBeWrite(false)
-    note2d:setName("Kowalska's Diary")
+    note2d:setName(getText("IGUI_Artifact_KowalskaDiary"))
     note2d:getModData().printContent = "diary_kowalska"
     BWOAPrepareTools.AddWorldItemSpecial(5571, 12502, -13, note2d, {x=0.33, y=0.61, z=0.35, rx=0, ry=0, rz=0})
 
     -- third room
     local note3 = BanditCompatibility.InstanceItem("Bandits.Note")
     note3:setCanBeWrite(false) 
-    note3:setName("7-Q-17")
+    note3:setName(getText("IGUI_Artifact_7Q17"))
     note3:getModData().printContent = "7Q17"
     note3:getModData().BWOA = {}
     note3:getModData().BWOA.onTaken = {}
@@ -170,7 +170,7 @@ BWOARooms.SecretLab.Prepare = function ()
     -- control room
     local note4 = BanditCompatibility.InstanceItem("Bandits.Note")
     note4:setCanBeWrite(false) 
-    note4:setName("Science Team Contact List")
+    note4:setName(getText("IGUI_Artifact_ScienceTeamContactList"))
     local md = note4:getModData()
     md.printContent = "science_team"
     md.BWOA = {}

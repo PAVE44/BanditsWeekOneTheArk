@@ -66,7 +66,7 @@ BWOARooms.Armory.Prepare = function ()
 
     local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
     leaflet:setCanBeWrite(false)
-    leaflet:setName("Level C Hazmat Suit")
+    leaflet:setName(getText("IGUI_Artifact_LevelCHazmatSuit"))
     local md = leaflet:getModData()
     md.printContent = "leaflet_hazmat"
     BWOAPrepareTools.AddItemsToContainer(9974, 12614, -4, {leaflet}, "Locker", true)

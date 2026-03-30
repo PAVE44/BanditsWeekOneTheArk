@@ -233,7 +233,12 @@ emma zombie sounds :(
 emma missing texts on hit
 emma bandit voice
 emma reacting to ark conditions
++ emma piano
+emma excercise
+emma breaking leg
+emma inventory and health panel?
 
+remodel room leading to service tunnels
 
  CHAPTER 4: I AM NOT BOB
 

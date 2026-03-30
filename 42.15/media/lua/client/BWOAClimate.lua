@@ -137,7 +137,7 @@ local function onClimateTick()
 
     -- calculate temperature and radiation
     local radiation, overrideTemp = BWOAClimate.GetRadiationAndTemp(wa, FALLOUT_START, FALLOUT_END, PEAK_POINT, RAD_LERP, TEMP_LERP)
-
+    print ("CLIMATE: RAD: " .. radiation .. " TEMP: " .. overrideTemp)
     BWOAClimate.radiation = radiation
 
     updateForageZones()
@@ -203,10 +203,8 @@ local function onClimateTick()
             ImprovedFog.setColorB(b)
         end
 
-        if radiation > 90 then
-            if BWOAClimate.enabled then
-                cm:triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
-            end
+        if BWOAClimate.enabled then
+            cm:triggerCustomWeatherStage(WeatherPeriod.STAGE_BLIZZARD, 10)
         end
 
         BWOAClimate.tick = BWOAClimate.tick + 1
@@ -226,10 +224,24 @@ local function onClimateTick()
         BWOAClimate.lastQuake = BWOAClimate.lastQuake + 1
 
     else
-        ambient:setEnableOverride(false)
-        desaturation:setEnableOverride(false)
-        fogIntensity:setEnableOverride(false)
-        windIntensity:setEnableOverride(false)
+        
+        -- FINALE
+        local gmd = GetBWOAModData()
+        if gmd.climate.radiation then
+            local gameTime = getGameTime()
+            local hour = gameTime:getHour()
+            local player = getSpecificPlayer(0)
+            if hour >= 8 and hour <= 15 and player:isOutside() then
+                gmd.climate.radiation = false
+                ambient:setEnableOverride(false)
+                desaturation:setEnableOverride(false)
+                fogIntensity:setEnableOverride(false)
+                windIntensity:setEnableOverride(false)
+                ImprovedFog.setEnableEditing(false)
+
+                BWOASequence.Finale()
+            end
+        end
     end
 
     

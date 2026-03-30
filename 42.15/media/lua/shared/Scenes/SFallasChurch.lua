@@ -15,7 +15,7 @@ function BWOAScenes.FallasChurch:placeItems()
 
     local note = BanditCompatibility.InstanceItem("Bandits.Note")
     note:setCanBeWrite(false)
-    note:setName("Church gathering note")
+    note:setName(getText("IGUI_Artifact_ChurchGatheringNote"))
     local md = note:getModData()
     md.printContent = "church_gathering_note"
     md.BWOA = {}

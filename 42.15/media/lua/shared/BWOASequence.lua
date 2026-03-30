@@ -191,15 +191,20 @@ end
 
 BWOASequence.Horde = function(params)
     local player = getSpecificPlayer(0)
-    local params = {
-        size = params.intensity,
-        x = 9956,
-        y = 12616,
-        z = 0,
-        outfit = "Generic01",
-        femaleChance = 45
-    }
-    BWOAEventControl.Add("HordeAt", params, 100)
+
+    local coords = {x = 9937, y = 12625, z = 0}
+
+    if player:getZ() < -1 then
+        local params = {
+            size = params.intensity,
+            x = coords.x,
+            y = coords.y,
+            z = coords.z,
+            outfit = "Generic01",
+            femaleChance = 45
+        }
+        BWOAEventControl.Add("HordeAt", params, 100)
+    end
 end
 
 BWOASequence.Assault = function(params)
@@ -305,7 +310,7 @@ BWOASequence.Spooky = function(params)
     local time = 0
     for i = 1, params.cnt do
         local params = {
-            tex = "zombie_" .. tostring(1 + ZombRand(2)),
+            tex = "spooky_1",
             sound = "Spooky1",
             volume = 0.2 * i,
             alpha = 0.3 * i,
@@ -314,4 +319,14 @@ BWOASequence.Spooky = function(params)
         time = time + 200 + ZombRand(200)
         BWOAEventControl.Add("Spooky", params, time)
     end
+end
+
+BWOASequence.BreakNoah = function(params)
+    BWOANoah.ChangeState("error")
+end
+
+BWOASequence.Finale = function(params)
+    BWOAEventControl.Add("FinaleStage1", {}, 1)
+    BWOAEventControl.Add("FinaleStage2", {}, 26000)
+    BWOAEventControl.Add("FinaleStage3", {}, 29100)
 end

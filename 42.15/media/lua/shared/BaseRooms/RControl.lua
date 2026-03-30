@@ -52,11 +52,13 @@ BWOARooms.Control.Build = function ()
     BWOABuildTools.LampDeskYellowS(9964, 12630, -4)
 
     BWOABuildTools.RemoveObject(9966, 12637, -4, "industry_02_169")
+    --[[
     BWOABuildTools.Generic(9960, 12621, -4, "theark_01_2")
     BWOABuildTools.Generic(9961, 12621, -4, "theark_01_4")
     BWOABuildTools.Generic(9962, 12621, -4, "theark_01_3")
     BWOABuildTools.Generic(9963, 12621, -4, "theark_01_2")
     BWOABuildTools.Generic(9964, 12621, -4, "theark_01_3")
+    ]]
 
     BWOABuildTools.RemoveObject(9962, 12624, -4, "location_business_office_generic_01_26")
     BWOABuildTools.RemoveObject(9962, 12625, -4, "location_business_office_generic_01_18")

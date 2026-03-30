@@ -58,7 +58,7 @@ function BWOAScenes.Doc:placeItems()
 
     local note = BanditCompatibility.InstanceItem("Bandits.Note")
     note:setCanBeWrite(false)
-    note:setName("Dr. Andrew Cortman's Note")
+    note:setName(getText("IGUI_Artifact_DrAndrewCortmanNote"))
     local md = note:getModData()
     md.printContent = "doc_note"
     md.BWOA = {}

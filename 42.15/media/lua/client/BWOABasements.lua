@@ -106,6 +106,8 @@ local procedural_basements = {
     council = { width=20, height=20, stairx=0, stairy=0, stairDir="" },
     maze = { width=60, height=60, stairx=0, stairy=0, stairDir="" },
     breach = { width=60, height=60, stairx=0, stairy=0, stairDir="" },
+    family_house = { width=20, height=20, stairx=0, stairy=0, stairDir="" },
+    mirror_room = { width=6, height=6, stairx=0, stairy=0, stairDir="" },
 }
 
 local procedural_basement_spawn_locations = {
@@ -118,10 +120,11 @@ local procedural_basement_spawn_locations = {
     {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
     {x=18000, y=3000, z=-2, stairDir="", choices={"council"}}, -- the council room
     {x=18000, y=3200, z=-2, stairDir="", choices={"maze"}}, -- maze
+    {x=18000, y=3400, z=-2, stairDir="", choices={"family_house"}}, -- family_house
+    {x=18000, y=3600, z=-2, stairDir="", choices={"mirror_room"}}, -- mirror room
     {x=18000, y=4000, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
     {x=9948, y=12600, z=-4, stairDir="N", choices={"ark_underground_all"}}, -- ark sublevel
     {x=10570, y=10600, z=1, stairDir="", choices={"breach"}}, -- breach
-    
 
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},
 }

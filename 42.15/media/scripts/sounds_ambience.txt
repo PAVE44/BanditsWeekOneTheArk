@@ -631,6 +631,66 @@ module Bandits {
         } 
     }
 
+    sound Dream10Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_10_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Drea10End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_10_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream11Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_11_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Drea11End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_11_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream12Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_12_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Drea12End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_12_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
     sound FinneganHallMusic {
         category = Object, 
         loop = true,
@@ -688,6 +748,31 @@ module Bandits {
             distanceMin = 3,
             distanceMax = 30,
             reverbFactor = 0.7, 
+        } 
+    }
+
+    sound SpookyLaugh {
+        category = Player, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/spooky_laugh.ogg,
+            distanceMin = 3,
+            distanceMax = 30,
+            reverbFactor = 0.7, 
+        } 
+    }
+
+    sound InstrumentPiano1 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/instrument_piano_1.ogg,
+            distanceMin = 1, 
+            distanceMax = 16,
+            reverbFactor = 0.1, 
+            volume = 0.6, 
         } 
     }
     

@@ -234,10 +234,10 @@ local emoteActions = {
             local px, py, pz = player:getX(), player:getY(), player:getZ()
             local jukebox, dist = BWOAJukebox.FindClosest(px, py, pz)
             if jukebox and jukebox.on and dist < 21 then
-                BWOAEventControl.Add("SayPlayer", {txt = "Let's dance!"}, 1)
+                BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_LetsDance")}, 1)
                 ISTimedActionQueue.add(TADance:new(player))
             else
-                BWOAEventControl.Add("SayPlayer", {txt = "I need music to dance!"}, 1)
+                BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_NeedMusic")}, 1)
             end
         end
     },
@@ -273,7 +273,7 @@ local function onKeyPressed(keynum)
             modal:initialise()
             modal:addToUIManager()
         else
-            BWOAEventControl.Add("SayPlayer", {txt = "There is nobody around to speak to."}, 1)
+            BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_NoOneAround")}, 1)
         end
     elseif keynum == getCore():getKey("Shout") then
         if player:isSneaking() then

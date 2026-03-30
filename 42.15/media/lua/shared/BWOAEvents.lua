@@ -480,7 +480,7 @@ BWOAEvents.HordeAt = function(params)
             zombie:spotted(player, true)
             zombie:setTarget(player)
             zombie:setAttackedBy(player)
-            zombie:pathToLocationF(player:getX(), player:getY(), player:getZ())
+            -- zombie:pathToLocationF(player:getX(), player:getY(), player:getZ())
         end
     end
 end
@@ -534,7 +534,7 @@ BWOAEvents.PlaceEvent = function(params)
 
         local icon = "media/ui/defend.png"
         local color = {r=0.5, g=0.5, b=1}
-        local desc = "Point of Interest to Discover"
+        local desc = getText("UI_BWOA_POI")
         BanditEventMarkerHandler.set(getRandomUUID(), icon, 7200, params.x, params.y, color, desc)
     end
 end
@@ -562,3 +562,21 @@ BWOAEvents.GodModSwitch = function(params)
 
     player:setGodMod(params.on, true)
 end
+
+BWOAEvents.FinaleStage1 = function(params)
+    BWOAMusic.Play("MusicFinale", 1, 1)
+end
+
+BWOAEvents.FinaleStage2 = function(params)
+    getClimateManager():stopWeatherAndThunder()
+end
+
+BWOAEvents.FinaleStage3 = function(params)
+    BWOATex.tex = getTexture("media/textures/rainbow.png")
+    BWOATex.speed = 0.000001
+    BWOATex.mode = "full"
+    BWOATex.alpha = 0.3
+end
+
+    
+    

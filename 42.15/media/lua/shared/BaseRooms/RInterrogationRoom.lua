@@ -91,7 +91,7 @@ BWOARooms.InterrogationRoom.Prepare = function ()
     local key = BanditCompatibility.InstanceItem("Base.Key1")
     local keyid = getCell():getGridSquare(9969, 12634, -5):getBuildingDef():getKeyId()
     key:setKeyId(keyid)
-    key:setName("Service Tunnels Key")
+    key:setName(getText("IGUI_Artifact_ServiceTunnelsKey"))
     BWOAPrepareTools.AddItemsToContainer(9959, 12635, -4, {key}, "Cabinet")
 
     local item = BanditCompatibility.InstanceItem("Base.VHS_Home")

@@ -8,7 +8,7 @@ module Bandits
         clip { 
             file = media/sound/emma_cry.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -20,7 +20,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_wait_talk_1.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -32,7 +32,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_wait_talk_2.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -44,7 +44,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_wait_talk_3.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -56,7 +56,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_wait_talk_4.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -68,7 +68,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_1.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -80,7 +80,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_2.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         } 
     }
@@ -92,7 +92,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_3.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -104,7 +104,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_4.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -116,7 +116,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_5.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -128,7 +128,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_6.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -140,7 +140,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_7.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -152,7 +152,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_8.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -164,7 +164,7 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_9.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }
@@ -176,7 +176,175 @@ module Bandits
         clip { 
             file = media/sound/emma/emma_radiocall_10.ogg,
             distanceMin = 3,
-            distanceMax = 9,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame1_Female_21_1 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame1_Female_21_2 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame1_Female_21_3 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame1_Female_21_4 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame1_4.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame1_Female_21_5 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame1_5.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame1_Female_21_6 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame1_6.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame2_Female_21_1 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame2_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame2_Female_21_2 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame2_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame3_Female_21_1 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame3_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame3_Female_21_2 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame3_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame2_Female_21_3 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame2_3.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame2_Female_21_4 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame2_4.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame2_Female_21_5 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame2_5.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.0, 
+        }
+    }
+
+    sound BWOATagGame2_Female_21_6 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/emma_taggame2_6.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
             reverbFactor = 0.0, 
         }
     }

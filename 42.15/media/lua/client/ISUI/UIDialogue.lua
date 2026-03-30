@@ -27,7 +27,7 @@ function UIDialogue:initialise()
         self.dialListBox:addItem(id, { index = id, qst = dialogue.qst})
     end
 
-    self.maxWidth = getTextManager():MeasureStringX(UIFont.Medium, "Speak to " .. self.person)
+    self.maxWidth = getTextManager():MeasureStringX(UIFont.Medium, getText("UI_BWOA_SpeakTo") .. " ".. self.person)
     self.dialListBox.doDrawItem = function(list, y, item, alt)
         local h = list.itemheight
 
@@ -97,7 +97,7 @@ function UIDialogue:prerender()
     self:drawRect(0, 0, self.width, self.height, self.backgroundColor.a, self.backgroundColor.r, self.backgroundColor.g, self.backgroundColor.b);
     self:drawRectBorder(0, 0, self.width, self.height, self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b);
 
-    self:drawTextCentre("Speak to " .. self.person, self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
+    self:drawTextCentre(getText("UI_BWOA_SpeakTo") .. " " .. self.person, self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
 end
 
 function UIDialogue:render()

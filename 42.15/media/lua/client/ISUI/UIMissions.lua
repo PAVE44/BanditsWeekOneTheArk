@@ -94,7 +94,7 @@ function UIMissions:prerender()
     self:drawRect(0, 0, self.width, self.height, self.backgroundColor.a, self.backgroundColor.r, self.backgroundColor.g, self.backgroundColor.b);
     self:drawRectBorder(0, 0, self.width, self.height, self.borderColor.a, self.borderColor.r, self.borderColor.g, self.borderColor.b);
 
-    self:drawTextCentre("Missions", self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
+    self:drawTextCentre(getText("UI_BWOA_Missions"), self:getWidth()/2, 10, 1, 1, 1, 1, UIFont.Medium);
 end
 
 function UIMissions:render()

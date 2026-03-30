@@ -49,15 +49,17 @@ local traitRevealMap = {
 }
 
 local dreamRevealMap = {
-    [1] = {hours = 36, qid = "2000.1", txt = "What a dream!"},
-    [2] = {hours = 72, qid = "2000.2", txt = "Damn dreams..."},
-    [3] = {hours = 108, nid = "Island", qid = "2000.3", txt = "Where am I?"},
-    [4] = {hours = 144, qid = "2000.4", txt = "This was different..."},
-    [5] = {hours = 180, qid = "2000.5", rmid = 100, txt = "I think this is important."},
-    [6] = {hours = 216, nid = "Fall", qid = "2000.6", rmid = 110, txt = "This cannot be happening!!!"},
-    [7] = {hours = 252, nid = "Council", qid = "2000.7", txt = "What is this place?"},
-    [8] = {hours = 288, nid = "Finnegan", qid = "2000.8", txt = "I think I know this place!"},
-    [9] = {hours = 324, nid = "Maze", qid = "2000.9", txt = "A labyrinth? Great..."},
+    [1]  = {hours = 36,  qid = "2000.1",  nid = nil,            rmid = nil, txt = "What a dream!"},
+    [2]  = {hours = 72,  qid = "2000.2",  nid = nil,            rmid = nil, txt = "Damn dreams..."},
+    [3]  = {hours = 108, qid = "2000.3",  nid = "Island",       rmid = nil, txt = "Where am I?"},
+    [4]  = {hours = 144, qid = "2000.4",  nid = nil,            rmid = nil, txt = "This was different..."},
+    [5]  = {hours = 180, qid = "2000.5",  nid = nil,            rmid = 100, txt = "I think this is important."},
+    [6]  = {hours = 216, qid = "2000.6",  nid = "Fall",         rmid = 110, txt = "This cannot be happening!!!"},
+    [7]  = {hours = 252, qid = "2000.7",  nid = "Council",      rmid = nil, txt = "What is this place?"},
+    [8]  = {hours = 288, qid = "2000.8",  nid = "MirrorRoom",   rmid = nil, txt = "Emma? Where are you?"},
+    [9]  = {hours = 324, qid = "2000.9",  nid = "Finnegan",     rmid = nil, txt = "I think I know this place!"},
+    [10] = {hours = 360, qid = "2000.10", nid = "Maze",         rmid = nil, txt = "A labyrinth? Great..."},
+    [11] = {hours = 396, qid = "2000.11", nid = "FamilyHouse",  rmid = nil, txt = "This is my house! I remember!"},
 }
 
 local proximityRevealMap = {
@@ -217,6 +219,31 @@ local function predicateAll(item)
 	return true
 end
 
+local isUsingMask = function(player)
+    local stats = player:getStats()
+    local endurance = stats:get(CharacterStat.ENDURANCE)
+
+    local suitFull = player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD)
+    if suitFull and suitFull:hasTag(ItemTag.HAZMAT_SUIT) and suitFull:canBeActivated() and suitFull:isActivated() then return true end
+
+    local mask = player:getWornItem(ItemBodyLocation.MASK_EYES)
+                 or player:getWornItem(ItemBodyLocation.FULL_HAT)
+                 or player:getWornItem(ItemBodyLocation.SCBA)
+
+    if mask then
+        if mask:hasTag(ItemTag.GAS_MASK) then
+            local filter = mask:getUsedDelta()
+            filter = filter - (0.00012 * (2 - endurance))
+            mask:setUsedDelta(filter)
+            return true 
+        elseif mask:hasTag(ItemTag.SCBA) and mask:canBeActivated() and mask:isActivated() then 
+            return true 
+        end
+    end
+
+    return false
+end
+
 local getClothingStats = function(player)
     local immuneRadiation = 0
     local dyspnoea = false
@@ -231,9 +258,9 @@ local getClothingStats = function(player)
 
         if suitFull:canBeActivated() and suitFull:isActivated() then
             local oxygen = suitFull:getUsedDelta()
-            if oxygen < 0.1 then
+            if oxygen < 0.05 then
                 suffocation = true
-            elseif oxygen < 0.2 then
+            elseif oxygen < 0.1 then
                 dyspnoea = true
             else
                 hasGoodMask = true
@@ -258,11 +285,9 @@ local getClothingStats = function(player)
         if mask then
             if mask:hasTag(ItemTag.GAS_MASK) then
                 local filter = mask:getUsedDelta()
-                filter = filter - 0.00125
-                mask:setUsedDelta(filter)
-                if filter < 0.1 then
+                if filter < 0.05 then
                     suffocation = true
-                elseif filter < 0.2 then
+                elseif filter < 0.1 then
                     dyspnoea = true
                 else
                     hasGoodMask = true
@@ -273,14 +298,16 @@ local getClothingStats = function(player)
             elseif mask:hasTag(ItemTag.SCBA) then
                 if mask:canBeActivated() and mask:isActivated() then
                     local oxygen = mask:getUsedDelta()
-                    if oxygen < 0.1 then
+                    if oxygen < 0.05 then
                         suffocation = true
-                    elseif oxygen < 0.2 then
+                    elseif oxygen < 0.1 then
                         dyspnoea = true
                     else
                         hasGoodMask = true
                     end
-
+                    if oxygen > 0 then
+                        immuneRadiation = immuneRadiation + 30
+                    end
                 else
                     suffocation = true
                 end
@@ -397,9 +424,9 @@ local onPlayerUpdate = function(player)
     end
 
     -- breath sound update
-    if BWOAPlayer.tick % 64 == 7 then 
-        local immuneRadiation, hasGoodMask, dyspnoea, suffocation = getClothingStats(player)
-        if hasGoodMask or dyspnoea or suffocation then
+    if BWOAPlayer.tick % 16 == 7 then 
+        local isMask = isUsingMask(player)
+        if isMask then
             player:stopPlayerVoiceSound("")
             local stats = player:getStats()
             local endurance = stats:get(CharacterStat.ENDURANCE)
@@ -413,7 +440,9 @@ local onPlayerUpdate = function(player)
                     BWOASound.PlayPlayer({sound = "GasMaskMedium"})
                 end
             else
-                BWOASound.PlayPlayer({sound = "GasMaskFast"})
+                if BWOAPlayer.tick % 64 == 7 then
+                    BWOASound.PlayPlayer({sound = "GasMaskFast"})
+                end
 
             end
         end
@@ -436,7 +465,7 @@ local onPlayerUpdate = function(player)
             local hours = player:getHoursSurvived()
             for dreamNo, dreamData in pairs(dreamRevealMap) do
                 if hours < dreamData.hours then
-                    BWOAPlayer.dreamNo = dreamNo
+                    BWOAPlayer.dreamNo = 8
                     break
                 end
             end
@@ -893,7 +922,7 @@ local applyCO2IntoxicationPlayer = function(player, dose)
     end
     if drunkExpected then
         if drunk < drunkExpected then 
-            stats:set(CharacterStat.INTOXICATION, drunk + 10)
+            stats:set(CharacterStat.INTOXICATION, drunk + 5)
         end
     end
     if enduranceExpected then
@@ -1131,11 +1160,12 @@ end
 local onTransferItem = function(data, item)
     local gmd = GetBWOAModData()
     local destContainerParent = data.destContainer:getParent()
+    local containerCharacter = data.destContainer:getCharacter()
     local player = data.character
     local cx, cy, cz = player:getX(), player:getY(), player:getZ()
 
     -- that means taking things
-    if instanceof(destContainerParent, "IsoPlayer") then 
+    if instanceof(destContainerParent, "IsoPlayer") or instanceof(containerCharacter, "IsoPlayer") then 
 
         -- mission or dialogue triggering
         local md = item:getModData()

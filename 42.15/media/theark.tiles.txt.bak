@@ -2800,6 +2800,9 @@ tileset
         GroupName = AdvancedCybernetics
         LightRadius = 1
         Material = Electric
+        lightB = 4
+        lightG = 4
+        lightR = 8
         lightswitch = 
         solid = 
     }
@@ -3027,5 +3030,49 @@ tileset
         PickUpWeight = 30
         WallOverlay = 
         attachedN = 
+    }
+}
+tileset
+{
+    file = theark_04
+    size = 8,16
+    id = 14
+    // theark_04_10
+    tile
+    {
+        xy = 2,1
+        BedType = badBed
+        BlocksPlacement = 
+        CustomName = Bed
+        GroupName = Blood
+        IsLow = 
+        Surface = 26
+        bed = 
+        solidtrans = 
+    }
+    // theark_04_11
+    tile
+    {
+        xy = 3,1
+        BedType = badBed
+        BlocksPlacement = 
+        CustomName = Bed
+        GroupName = Blood
+        IsLow = 
+        Surface = 26
+        bed = 
+        solidtrans = 
+    }
+    // theark_04_94
+    tile
+    {
+        xy = 6,11
+        solidtrans = 
+    }
+    // theark_04_95
+    tile
+    {
+        xy = 7,11
+        solidtrans = 
     }
 }

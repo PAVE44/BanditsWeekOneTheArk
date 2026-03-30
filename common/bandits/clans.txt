@@ -382,3 +382,35 @@
 	spawn: groupMax = 1
 	spawn: zone = 0
 
+[8979b90b-ffb2-4be6-beb0-ae203a79c2e1]
+	general: name = W1A_Kate
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[ac40c4d8-61e1-4566-a798-0806385679d3]
+	general: name = W1A_Murderers
+	spawn: friendly = false
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = true
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 6
+	spawn: zone = 0
+

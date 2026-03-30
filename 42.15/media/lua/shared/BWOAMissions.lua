@@ -4,91 +4,91 @@ BWOAMissions.new = true
 
 BWOAMissions.missions = {
     [1] = {
-        name = "Meet Emma",
-        desc = "Find and talk to Emma.\nPress \"T\" to open chat panel.",
+        name = getText("IGUI_Missions_1_Name"),
+        desc = getText("IGUI_Missions_1_Description"),
         revealed = true
     },
     [2] = {
-        name = "Change",
-        desc = "Find and wear a bunker suit.",
+        name = getText("IGUI_Missions_2_Name"),
+        desc = getText("IGUI_Missions_2_Description"),
     },
     [3] = {
-        name = "Fix air vent",
-        desc = "Find an air vent located on the surface\nand fix it using a wrench.",
+        name = getText("IGUI_Missions_3_Name"),
+        desc = getText("IGUI_Missions_3_Description"),
     },
     [4] = {
-        name = "Find a hidden basement",
-        desc = "Go outside and find at least one basement with a hidden entrance in the floor.",
+        name = getText("IGUI_Missions_4_Name"),
+        desc = getText("IGUI_Missions_4_Description"),
     },
     [5] = {
-        name = "Obtain zombie specimen",
-        desc = "Bring a zombie corpse to the laboratory.",
+        name = getText("IGUI_Missions_5_Name"),
+        desc = getText("IGUI_Missions_5_Description"),
     },
     [6] = {
-        name = "Bring fuel truck to the Ark",
-        desc = "Fuel truck is located on Dixie Highway leading to Muldraugh Ruins.\nBring the truck home and pump the fuel to the underground tank.",
+        name = getText("IGUI_Missions_6_Name"),
+        desc = getText("IGUI_Missions_6_Description"),
     },
     [7] = {
-        name = "Find and bring back the missing tool bag",
-        desc = "The bag is located in the remainings of the Community Center in March Ridge Ruins.",
+        name = getText("IGUI_Missions_7_Name"),
+        desc = getText("IGUI_Missions_7_Description"),
     },
     [8] = {
-        name = "Find missing survivors",
-        desc = "Locate Dave's group. Their last know location is south east of Rosewood Ruins.\nThey planned to stop at one of the houses on their way back to the Ark.",
+        name = getText("IGUI_Missions_8_Name"),
+        desc = getText("IGUI_Missions_8_Description"),
     },
     [9] = {
-        name = "Revenge for Dave & Martha",
-        desc = "Those who killed Dave and Martha, must have a shelter nearby.\nInvestigate basements in Rosewood Remains.",
+        name = getText("IGUI_Missions_9_Name"),
+        desc = getText("IGUI_Missions_9_Description"),
     },
     [10] = {
-        name = "Find the car",
-        desc = "You've found a car key.\nIt suggests a working vehicle may be nearby.",
+        name = getText("IGUI_Missions_10_Name"),
+        desc = getText("IGUI_Missions_10_Description"),
     },
     [11] = {
-        name = "Find a jukebox",
-        desc = "Emma wants some music.\nBring a working jukebox to the Ark.",
+        name = getText("IGUI_Missions_11_Name"),
+        desc = getText("IGUI_Missions_11_Description"),
     },
     [12] = {
-        name = "Find the piano",
-        desc = "Emma mentioned she plays the piano.\nFind one, and bring it to the Ark.",
+        name = getText("IGUI_Missions_12_Name"),
+        desc = getText("IGUI_Missions_12_Description"),
     },
     [13] = {
-        name = "Find more VHS tapes",
-        desc = "Bringing more VHS tapes to the Ark will help you and Emma chill together.",
+        name = getText("IGUI_Missions_13_Name"),
+        desc = getText("IGUI_Missions_13_Description"),
     },
     [100] = {
-        name = "Go to church in Fallas Lake",
-        desc = "The voice in your dream points you to Fallas Lake church.",
+        name = getText("IGUI_Missions_100_Name"),
+        desc = getText("IGUI_Missions_100_Description"),
         chapter = "chapter_2",
     },
     [101] = {
-        name = "Investigate the church in Ekron Ruins",
-        desc = "According to the priest's note in Fallas Lake, church in Ekron hides some secrets.",
+        name = getText("IGUI_Missions_101_Name"),
+        desc = getText("IGUI_Missions_101_Description"),
     },
     [102] = {
-        name = "Find comfrey seeds",
-        desc = "Comfrey plays some role in all of this. Find it. Plant it",
+        name = getText("IGUI_Missions_102_Name"),
+        desc = getText("IGUI_Missions_102_Description"),
     },
     [103] = {
-        name = "Grow comfrey",
-        desc = "Grow and harvest a healthy comfrey plant.",
+        name = getText("IGUI_Missions_103_Name"),
+        desc = getText("IGUI_Missions_103_Description"),
     },
     [110] = {
-        name = "Go to the secret lab",
-        desc = "The voice in your dream points you now to the secret lab near Rosewood Ruins.",
+        name = getText("IGUI_Missions_110_Name"),
+        desc = getText("IGUI_Missions_110_Description"),
         chapter = "chapter_3",
     },
     [111] = {
-        name = "Find the doctor's house",
-        desc = "One of the research team's home addresses points to a location that can be reached.\nConduct thorough investigation of the house.",
+        name = getText("IGUI_Missions_111_Name"),
+        desc = getText("IGUI_Missions_111_Description"),
     },
     [112] = {
-        name = "Bring the syringe to Emma",
-        desc = "You found some syringes with an unknown substance. Bring them back to Emma.",
+        name = getText("IGUI_Missions_112_Name"),
+        desc = getText("IGUI_Missions_112_Description"),
     },
     [113] = {
-        name = "Leave the syringe in the lab",
-        desc = "Place the syringe with the unknown substance somewhere in the lab.",
+        name = getText("IGUI_Missions_113_Name"),
+        desc = getText("IGUI_Missions_113_Description"),
     },
 }
 

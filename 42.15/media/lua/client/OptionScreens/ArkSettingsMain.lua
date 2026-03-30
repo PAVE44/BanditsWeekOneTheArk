@@ -113,17 +113,17 @@ function ArkSettingsMain:create()
     self:addChild(self.infoPanel)
     -- self.infoPanel:addScrollBars()
     self.infoPanel:paginate()
-    self.infoPanel:setText("It is recommended that you make a frequent backup of your save file. One of the reasons is that you will have only one life and no ability to respawn. But also game crashes may lead to save file corruption, and you will have no way to recover your progress. Your save files are located in the Zomboid/Saves directory. ")
+    self.infoPanel:setText(getText("UI_optionscreen_BWOA_Backup"))
 
     y = self.infoPanel:getBottom() + (2 * FONT_HGT_SMALL) + (2 * UI_BORDER_SPACING)
 
   
-    self.settingsLabel = ISLabel:new(UI_BORDER_SPACING+1 + 20, y, BUTTON_HGT, "Settings", 1, 1, 1, 1, UIFont.Medium, true)
+    self.settingsLabel = ISLabel:new(UI_BORDER_SPACING+1 + 20, y, BUTTON_HGT, getText("UI_optionscreen_BWOA_Settings"), 1, 1, 1, 1, UIFont.Medium, true)
     self.settingsLabel:initialise()
     self.settingsLabel:instantiate()
     self:addChild(self.settingsLabel)
 
-    self.falloutLabel = ISLabel:new(LABEL_WIDTH + CONTROL_WIDTH + (2 * UI_BORDER_SPACING) + 80, y, BUTTON_HGT, "Fallout Curve", 1, 1, 1, 1, UIFont.Medium, true)
+    self.falloutLabel = ISLabel:new(LABEL_WIDTH + CONTROL_WIDTH + (2 * UI_BORDER_SPACING) + 80, y, BUTTON_HGT, getText("UI_optionscreen_BWOA_FalloutCurve"), 1, 1, 1, 1, UIFont.Medium, true)
     self.falloutLabel:initialise()
     self.falloutLabel:instantiate()
     self:addChild(self.falloutLabel)
@@ -262,7 +262,7 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.ErosionDays = 1000
         SandboxVars.EnableSnowOnGround = false
         SandboxVars.MaximumFireFuelHours = 24
-        SandboxVars.BloodLevel = 5
+        -- SandboxVars.BloodLevel = 5
         SandboxVars.SurvivorHouseChance = 1
         SandboxVars.VehicleStoryChance = 1
         SandboxVars.ZoneStoryChance = 1
@@ -300,7 +300,7 @@ end
 function ArkSettingsMain:prerender()
     ArkSettingsMain.instance = self
     ISPanel.prerender(self);
-    self:drawTextCentre("Welcome to the Ark", self.width / 2, UI_BORDER_SPACING+1, 1, 1, 1, 1, UIFont.Title);
+    self:drawTextCentre(getText("UI_WelcomeToTheArk"), self.width / 2, UI_BORDER_SPACING+1, 1, 1, 1, 1, UIFont.Title);
 
     -- plotter
     local TEMP_LERP = -50
@@ -321,7 +321,7 @@ function ArkSettingsMain:prerender()
     local ytick = {}
     for i = 1, 5 do
         if i == 1 then
-            table.insert(ytick, "mrad/min")
+            table.insert(ytick, getText("UI_optionscreen_BWOA_mradPerMin"))
         else
             table.insert(ytick, RAD_LERP * (6 - i) / 5)
         end

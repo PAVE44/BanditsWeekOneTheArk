@@ -46,17 +46,16 @@ end
 ZombieActions.Generic.onWorking = function(zombie, task)
 
     if task.ox then
-        local newx = math.floor(zombie:getX() + task.ox)
-        zombie:setX(newx)
+        zombie:setX(task.ox)
     end
     if task.oy then
-        local newy = math.floor(zombie:getY() + task.oy)
-        zombie:setY(newy)
+        zombie:setY(task.oy)
     end
     if task.oz then
-        local newz = math.floor(zombie:getZ() + task.oz)
-        zombie:setZ(newz)
+        zombie:setZ(task.oz)
     end
+
+    -- zombie:addLineChatElement("x: " .. zombie:getX() .. ", y: " .. zombie:getY(), 1, 0, 1)
 
     if task.fx and task.fy then
         zombie:faceLocationF(task.fx, task.fy)

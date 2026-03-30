@@ -13,22 +13,22 @@ BWOAEventControl.Events = {}
 
 local schedule = {
     [0] = { -- D1 17.00
-        [3] = {"SayPlayer", {txt = "What the hell?"}},
+        [3] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Start")}},
         [4] = {"Chapter", {tex = "chapter_1"}},
     },
     [1] = { -- D1 18.00
         [7] = {"Spooky", {cnt = 1}},
-        [8] = {"SayPlayer", {txt = "Shit..."}},
+        [8] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Shock1")}},
     },
     [2] = { -- D1 19.00
         [17] = {"Spooky", {cnt = 5}},
-        [18] = {"SayPlayer", {txt = "Damn..."}},
+        [18] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Shock2")}},
     },
     [4] = {
         [24] = {"ArkNetworkStatus", {arkId = 47}},
     },
     [22] = {
-        [39] = {"Horde", {intensity = 12}},
+        [39] = {"Horde", {intensity = 8}},
     },
     [34] = {
         [39] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 4}},
@@ -49,7 +49,7 @@ local schedule = {
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [135] = {
-        [30] = {"Horde", {intensity = 40}},
+        [30] = {"Horde", {intensity = 30}},
     },
     [177] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 11}},
@@ -66,6 +66,7 @@ local schedule = {
     },
     [200] = {
         [30] = {"Horde", {intensity = 50}},
+        [35] = {"BreakNoah", {}},
     },
     [242] = {
         [41] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 1}},
@@ -73,6 +74,12 @@ local schedule = {
         [43] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 6}},
         [44] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
         [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
+    },
+    [291] = {
+        [30] = {"Horde", {intensity = 60}},
+    },
+    [351] = {
+        [35] = {"BreakNoah", {}},
     },
     [415] = {
         [50] = {"ArkNetworkStatus", {arkId = 50}},
@@ -124,7 +131,7 @@ local function everyOneMinute()
                 event.renderDist = 50
             end
             if BanditUtils.DistTo(px, py, event.x, event.y) < event.renderDist then
-                BWOAEventControl.Add("PlaceEvent", event, 500)
+                BWOAEventControl.Add("PlaceEvent", event, 250)
             end
         end
     end

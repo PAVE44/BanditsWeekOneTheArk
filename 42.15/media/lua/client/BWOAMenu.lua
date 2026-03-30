@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.104"
+BWOAMenu.version = "0.109"
 
 BWOAMenu.blinking = {}
 
@@ -87,7 +87,7 @@ BWOAMenu.specialObjectsMenu.Noah = function(context, square, player, sobject)
         end
     end
 
-    local option = context:addOption("Use Noah", player, actionFunc, square)
+    local option = context:addOption(getText("ContextMenu_UseNoah"), player, actionFunc, square)
     local texture = getTexture(sobject.spriteName)
     if texture then
         option.iconTexture = texture:splitIcon()
@@ -106,7 +106,7 @@ BWOAMenu.specialObjectsMenu.Vent = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTagRecurse(ItemTag.SCREWDRIVER)
-        return hasItem, hasItem and "" or "You need a Screwdriver."
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedScrewdriver")
     end
 
     local actionFunc = function()
@@ -120,7 +120,7 @@ BWOAMenu.specialObjectsMenu.Vent = function(context, square, player, sobject)
         end
     end
 
-    local option = context:addOption("Fix Air Vent", player, actionFunc, square)
+    local option = context:addOption(getText("ContextMenu_FixAirVent"), player, actionFunc, square)
     local texture = getTexture(sobject.spriteName)
     if texture then
         option.iconTexture = texture:splitIcon()
@@ -150,13 +150,13 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
     local verifyCollantFunc = function()
         local item = BWOAItems.GetFirstItemTypeWithFluid("EngineCoolant")
         if not item then
-            return false, "You need engine coolant."
+            return false, getText("ContextMenu_NeedCoolant")
         end
 
         local gen = findGen(square)
         -- if not gen.coolant then gen.coolant = 0 end
         if gen and gen.coolant > 99 then
-            return false, "Generator coolant is full."
+            return false, getText("ContextMenu_GeneratorCoolantFull")
         end
 
         return true
@@ -164,17 +164,17 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
     local verifyLubricantFunc = function()
         local item = BWOAItems.GetFirstItemTypeWithFluid("EngineLubricant")
         if not item then
-            return false, "You need engine lubricant."
+            return false, getText("ContextMenu_NeedEngineLubricant")
         end
 
         local gen = findGen(square)
         -- if not gen.lubricant then gen.lubricant = 0 end
         if gen and gen.lubricant > 99 then
-            return false, "Generator lubricant is full."
+            return false, getText("ContextMenu_GeneratorLubricantFull")
         end
 
         if gen.active then
-            return false, "Generator must be shut down."
+            return false, getText("ContextMenu_GeneratorMustBeShutDown")
         end
         return true
     end
@@ -212,7 +212,7 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
     local genMenu = context:getNew(context)
     context:addSubMenu(genOption, genMenu)
 
-    local optionCoolant = genMenu:addOption("Add Coolant", player, actionCoolantFunc, square)
+    local optionCoolant = genMenu:addOption(getText("ContextMenu_AddCoolant"), player, actionCoolantFunc, square)
     local allowed, reason = verifyCollantFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -221,7 +221,7 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
         optionCoolant.toolTip = tooltip
     end
 
-    local optionLubricant = genMenu:addOption("Add Lubricant", player, actionLubricantFunc, square)
+    local optionLubricant = genMenu:addOption(getText("ContextMenu_AddLubricant"), player, actionLubricantFunc, square)
     local allowed, reason = verifyLubricantFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -245,7 +245,7 @@ BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player, sobject
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTypeRecurse("Bandits.NBCTablets")
-        return hasItem, hasItem and "" or "You need NBC Tablets."
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedNBCTablets")
     end
 
     local actionFunc = function()
@@ -259,7 +259,7 @@ BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player, sobject
         end
     end
 
-    local option = context:addOption("Add NBC Tablets", player, actionFunc, square)
+    local option = context:addOption(getText("ContextMenu_AddNBCTablets"), player, actionFunc, square)
     local texture = getTexture(sobject.spriteName)
     if texture then
         option.iconTexture = texture:splitIcon()
@@ -302,7 +302,7 @@ BWOAMenu.specialObjectsMenu.Wall = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTagRecurse(ItemTag.SLEDGEHAMMER)
-        return hasItem, hasItem and "" or "You need a Sledgehammer."
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedSledgehammer")
     end
 
     local actionFunc = function()
@@ -319,7 +319,7 @@ BWOAMenu.specialObjectsMenu.Wall = function(context, square, player, sobject)
         end    
     end
 
-    local option = context:addOption("Destroy", player, actionFunc, square)
+    local option = context:addOption(getText("ContextMenu_Destroy"), player, actionFunc, square)
     local allowed, reason = verifyFunc(player)
     if not allowed then
         local tooltip = ISToolTip:new()
@@ -333,7 +333,7 @@ BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
         local hasItem = inventory:containsTagRecurse(ItemTag.CROWBAR)
-        return hasItem, hasItem and "" or "You need a Crowbar."
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedCrowbar")
     end
 
     local actionFunc = function()
@@ -342,7 +342,7 @@ BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player, sobject)
         end
     end
 
-    local option = context:addOption("Open Hatch", player, actionFunc, square)
+    local option = context:addOption(getText("ContextMenu_OpenHatch"), player, actionFunc, square)
     local texture = getTexture(sobject.spriteName)
     if texture then
         option.iconTexture = texture:splitIcon()
@@ -427,235 +427,11 @@ function BWOAMenu.EventAssault(player)
 end
 
 function BWOAMenu.EventRainbow(player)
-    BWOAMusic.Play("MusicFinale", 1, 1)
-    BWOATex.tex = getTexture("media/textures/rainbow.png")
-    BWOATex.speed = 0.000001
-    BWOATex.mode = "full"
-    BWOATex.alpha = 0.3
+    BWOASequence.Finale()
 end
-
-function BWOAMenu.EventFinnegan(player)
-    local npcMap = {
-        [-6] = {
-            -- reception desk
-            {x = 18052.5, y = 4005.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}}, 
-
-            -- meeting room
-            {x = 18055.5, y = 4023.1, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="N"}},
-            {x = 18054.5, y = 4020.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
-            {x = 18055.5, y = 4020.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
-
-            -- coworking space
-            {x = 18030.5, y = 4006.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18027.5, y = 4010.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18027.5, y = 4006.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18027.5, y = 4002.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18024.5, y = 4010.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18024.5, y = 4002.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18021.5, y = 4014.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18021.5, y = 4010.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18021.5, y = 4002.5, z = -6, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-
-        },
-        [-5] = {
-            -- cafeteria
-            {x = 18019.5, y = 4001.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="DrinkPopCan", itemSecondary="Bandits.Pop2", facing="S"}},
-            {x = 18030, y = 4000.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitEat", itemPrimary="Bandits.ChickenFried", facing="E"}},
-            {x = 18031.2, y = 4000.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="W"}},
-            {x = 18031.5, y = 4007, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitEat", itemPrimary="Bandits.Corndog", facing="S"}},
-            {x = 18031.5, y = 4008, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitEat", itemPrimary="Bandits.Sandwich", facing="N"}},
-
-            -- class room
-            {x = 18037.5, y = 4018.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="S"}},
-            {x = 18034.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18035.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18036.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18037.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18038.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18039.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18040.5, y = 4021.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18035.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18036.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18037.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18038.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18039.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18040.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18041.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18042.5, y = 4022.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18036.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18037.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18039.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18040.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18041.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18042.5, y = 4023.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18034.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18035.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18036.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18037.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18038.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18039.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18040.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18041.5, y = 4024.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18037.5, y = 4025.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18038.5, y = 4025.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18041.5, y = 4025.5, z = -5, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-        },
-        [-4] = {
-            -- boss room
-            {x = 18016.5, y = 4002.7, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="S"}},
-            {x = 18016.5, y = 4005.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-
-            -- open space
-            {x = 18002.5, y = 4003.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
-            {x = 18003.5, y = 4012.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18005.5, y = 4012.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18006.5, y = 4019.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18012.5, y = 4023.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
-            {x = 18015.5, y = 4017.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18023.5, y = 4019.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-
-            -- openspace
-            {x = 18043.5, y = 4005.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
-            {x = 18043.5, y = 4002.7, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="S"}},
-            {x = 18054.5, y = 4002.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
-            {x = 18054.5, y = 4008.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
-
-            -- kitchen
-            {x = 18045.7, y = 4021.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="E"}},
-            {x = 18046.5, y = 4020.7, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="S"}},
-            {x = 18047.2, y = 4021.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="DrinkPopCan", itemSecondary="Bandits.Pop2", facing="W"}},
-
-            -- toilet smokers
-            {x = 18031.7, y = 4025.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Smoke", itemSecondary="Bandits.CigaretteSingle", facing="E"}},
-            {x = 18032.2, y = 4025.5, z = -4, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Smoke", itemSecondary="Bandits.CigaretteRolled", facing="W"}},
-
-            -- toilet
-            {x = 18037.5, y = 4017.8, z = -4, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="S"}},
-            {x = 18038.5, y = 4017.8, z = -4, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="S"}},
-            {x = 18039.5, y = 4017.8, z = -4, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="S"}},
-        },
-        [-3] = {
-            -- reception
-            {x = 18041.5, y = 4009.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="S"}},
-
-            -- security
-            {x = 18053.5, y = 4012.5, z = -3, cid = Bandit.clanMap.FinneganSecurity, occupation = {action="Sit", facing="N"}},
-
-            -- meeting room
-            {x = 18039.5, y = 4004.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
-            {x = 18039.5, y = 4003.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
-            {x = 18042.5, y = 4004.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Talk", facing="W"}},
-
-            -- small toilet
-            {x = 18009.7, y = 4010.5, z = -3, cid = Bandit.clanMap.FinneganToilet, occupation = {action="Sit", facing="E"}},
-
-            -- small openspaced
-            {x = 18030.5, y = 4020.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18031.5, y = 4022.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="E"}},
-
-            -- CEO office
-            {x = 18008.5, y = 4027.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="N"}},
-            {x = 18009.5, y = 4027, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="N"}},
-            {x = 18010.5, y = 4026.5, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="Sit", facing="W"}},
-            {x = 18009.5, y = 4025, z = -3, cid = Bandit.clanMap.FinneganGeneric, occupation = {action="SitTalk", facing="S"}},
-
-            -- labs
-            {x = 18016.5, y = 4011.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="Sit", facing="N"}},
-            {x = 18029.5, y = 4008.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="Making", itemPrimary="Base.Scalpel", itemSecondary="Bandits.Animal_Brain", facing="S"}},
-            {x = 18029.5, y = 4010.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="Making", itemPrimary="Base.Scalpel", itemSecondary="Bandits.Animal_Brain", facing="N"}},
-            {x = 18027.5, y = 4005.5, z = -3, cid = Bandit.clanMap.FinneganLab, occupation = {action="WashHands", facing="N"}},
-        }
-    }
-
-    for floor, npcs in pairs(npcMap) do
-        for _, npcData in pairs(npcs) do
-            local args = {}
-            args.cid = npcData.cid
-            args.x = npcData.x
-            args.y = npcData.y
-            args.z = npcData.z
-            args.program = "Finnegan"
-            args.size = 1
-
-            npcData.occupation.x = args.x
-            npcData.occupation.y = args.y
-            npcData.occupation.z = args.z
-            args.occupation = npcData.occupation
-
-            sendClientCommand(player, 'Spawner', 'Clan', args)
-        end
-    end
-end
-
 
 function BWOAMenu.EventNightmare(player, variant)
     BWOANightmares.Activate(variant)
-end
-
-function BWOAMenu.EventAbyss(player, square)
-    local cell = getCell()
-    local xmin = square:getX() - 5
-    local xmax = square:getX() + 5
-    local ymin = square:getY() - 5
-    local ymax = square:getY() + 5
-    local depth = 16
-
-    for x=xmin, xmax do
-        for y=ymin, ymax do
-            --if x ~= xmax and y ~= ymax then
-                local square = cell:getGridSquare(x, y, 0)
-                if square then
-                    local objects = square:getObjects()
-                    for i=objects:size()-1, 0, -1 do
-                        local object = objects:get(i)
-                        square:transmitRemoveItemFromSquare(object)
-                    end
-                    square:setSquareChanged()
-                end
-
-                BWOABuildTools.Floor (x, y, -depth, "floors_exterior_street_01_0")
-                BWOABuildTools.Generic (x, y, -depth, "boulders_" .. (1 + ZombRand(14)))
-            --end
-
-            if x == xmin then
-                for z = -depth, -1 do
-                    BWOABuildTools.Wall (x, y, z, "walls_logs_96")
-                end
-            end
-            if x == xmax then
-                for z = -depth, -1 do
-                    BWOABuildTools.Wall (x, y, z, "theark_01_8")
-                end
-            end
-            if y == ymin then
-                for z = -depth, -1 do
-                    BWOABuildTools.Wall (x, y, z, "walls_logs_97")
-                end
-            end
-            if y == ymax then
-                for z = -depth, -1 do
-                    BWOABuildTools.Wall (x, y, z, "theark_01_9")
-                end
-            end
-        end
-    end
-
-                -- NW: walls_logs_98
-                -- N: walls_logs_97
-                -- W: walls_logs_96
-
-                -- floors_exterior_street_01_0
-
-                -- boulders: boulders_3
-                -- boulders: boulders_7
-                -- boulders: boulders_8
-                -- boulders: boulders_9
-                -- boulders: boulders_14
-                -- boulders: boulders_11
-
-                -- boulders: boulders_33, boulders_32 (y+1)
-
-
 end
 
 function BWOAMenu.Scene(player, placeEvent)
@@ -773,7 +549,8 @@ end
 
 function BWOAMenu.Teleport(player)
     --local x, y, z = 9962, 12609, -4
-    local x, y, z = 9961, 12622, -4 -- ark
+    --local x, y, z = 9961, 12622, -4 -- ark
+    local x, y, z = 18005, 3603, -3 -- family house
     -- local x, y, z = 5574, 12492, -13 -- secre t base
     
     player:setX(x)
@@ -785,7 +562,7 @@ function BWOAMenu.Teleport(player)
 end
 
 function BWOAMenu.BreakNoah(player)
-    BWOANoah.ChangeState("operational")
+    BWOANoah.ChangeState("error")
 end
 
 function BWOAMenu.LoadHatches(player)
@@ -916,19 +693,18 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             jukebox = BWOAJukebox.Add(sx, sy, sz)
         end
         if jukebox.on then
-            context:addOption("Stop Music", player, BWOAMenu.JukeboxOptions, square, "off")
+            context:addOption(getText("ContextMenu_StopMusic"), player, BWOAMenu.JukeboxOptions, square, "off")
         else
-            context:addOption("Play Music", player, BWOAMenu.JukeboxOptions, square, "on")
+            context:addOption(getText("ContextMenu_PlayMusic"), player, BWOAMenu.JukeboxOptions, square, "on")
         end
     end
 
     if isDebugEnabled() or isAdmin() then
 
         print ("ISNOTBLOCKED:" .. tostring(square:isNotBlocked(false)))
-
         -- BWOABuildTools.Fridge(9961, 12610, -4)
         -- square:removeGrime()
-        -- player:setZ(-3)
+        -- player:setZ(-5)
 
 
         -- BWOABuildTools.ClearAll(sx, sy, sz)
@@ -1033,11 +809,11 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         spawnMenu:addOption("Angel", player, BWOAMenu.Spawn, square, "Angel", Bandit.clanMap.Angel)
         spawnMenu:addOption("Finnegan Employee", player, BWOAMenu.Spawn, square, "Finnegan", Bandit.clanMap.FinneganGeneric)
 
-        context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
-        context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
+        -- context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
+        -- context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
         context:addOption("Locate Nearest Hatch", player, BWOAMenu.LocateBasement)
-        context:addOption("Save Lake Blueprint", player, BWOAMenu.MakeLakeData, square)
-        context:addOption("Lava Lake", player, BWOAMenu.LavaLake, square)
+        -- context:addOption("Save Lake Blueprint", player, BWOAMenu.MakeLakeData, square)
+        -- context:addOption("Lava Lake", player, BWOAMenu.LavaLake, square)
 
         local eventsOption = context:addOption("Events")
         local eventsMenu = context:getNew(context)
@@ -1047,9 +823,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         eventsMenu:addOption("Event Earthquake + Fire", player, BWOAMenu.EventFire)
         eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
-        eventsMenu:addOption("Event Abyss", player, BWOAMenu.EventAbyss, square)
         eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
-        eventsMenu:addOption("Event Finnegan NPC", player, BWOAMenu.EventFinnegan)
 
         local nightmaresOption = context:addOption("Nightmares")
         local nightmaresMenu = context:getNew(context)
@@ -1060,6 +834,8 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         nightmaresMenu:addOption("Finnegan", player, BWOAMenu.EventNightmare, "Finnegan")
         nightmaresMenu:addOption("Council", player, BWOAMenu.EventNightmare, "Council")
         nightmaresMenu:addOption("Maze", player, BWOAMenu.EventNightmare, "Maze")
+        nightmaresMenu:addOption("Mirror Room", player, BWOAMenu.EventNightmare, "MirrorRoom")
+        nightmaresMenu:addOption("Family House", player, BWOAMenu.EventNightmare, "FamilyHouse")
 
         local scenesOption = context:addOption("Scenes")
         local scenesMenu = context:getNew(context)
@@ -1096,22 +872,17 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
         context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         context:addOption("Spooky", player, BWOAMenu.Spooky)
-        context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
+        -- context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
         
 
     end
 end
 
 local function onFillWorldObjectContextMenu(playerNum, context, worldObjects, test)
-    print ("test")
     context:removeOptionByName("AdvancedCybernetics Noah")
-
-
-    -- texture: theark_01_20_Icon
 end
 
 local function onFillInventoryObjectContextMenu(playerNum, context, items)
-    print ("test")
 end
 
 BWOAMenu.tick = 0

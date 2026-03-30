@@ -35,7 +35,7 @@ function BWOAScenes.EkronChurch:placeItems()
 
     local note = BanditCompatibility.InstanceItem("Bandits.Note")
     note:setCanBeWrite(false)
-    note:setName("Sacred Incense Instructions")
+    note:setName(getText("IGUI_Artifact_SacredIncenseInstructions"))
     local md = note:getModData()
     md.printContent = "sacred_incense"
     md.BWOA = {}

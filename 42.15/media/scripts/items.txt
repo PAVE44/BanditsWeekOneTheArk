@@ -13,7 +13,7 @@ module Bandits
         Tags = base:heavyitem;base:generator;base:hasmetal;base:ignorezombiedensity;base:showcondition,
         WorldObjectSprite = theark_01_13,
         ConditionLowerChanceOneIn = 25,
-        SoundRadius = 0,
+        SoundRadius = 1,
         SoundVolume = 1,
     }
 

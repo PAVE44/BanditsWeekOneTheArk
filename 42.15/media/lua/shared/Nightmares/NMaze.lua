@@ -15,7 +15,7 @@ BWOANightmares.Maze.onEnter = function(player)
     }
 
     local volume = getSoundManager():getSoundVolume()
-    BWOAEventControl.Add("FadeOut", {time = 0}, 0)
+    -- BWOAEventControl.Add("FadeOut", {time = 0}, 0)
     BWOAEventControl.Add("FadeIn", {time = 5, volume = volume}, 2700)
  
     BWOATex.tex = getTexture("media/textures/nightmare_mask2.png")
@@ -55,21 +55,21 @@ BWOANightmares.Maze.onCycle = function(player)
     if not gmd.nightmares.flagKate then
         if math.floor(player:getX()) == 18005 and math.floor(player:getY()) == 3203 then
             gmd.nightmares.flagKate = true
-            BWOAEventControl.Add("SayPlayer", {txt = "Kate Keller, age 33, + March 17, 1993"}, 100)
+            BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_Kate")}, 100)
         end
     end
 
     if not gmd.nightmares.flagSuzie then
         if math.floor(player:getX()) == 18007 and math.floor(player:getY()) == 3203 then
             gmd.nightmares.flagSuzie = true
-            BWOAEventControl.Add("SayPlayer", {txt = "Suzie Keller, age 4, + March 17, 1993"}, 100)
+            BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_Suzie")}, 100)
         end
     end
 
     if not gmd.nightmares.flagRJ then
         if math.floor(player:getX()) == 18009 and math.floor(player:getY()) == 3203 then
             gmd.nightmares.flagRJ = true
-            BWOAEventControl.Add("SayPlayer", {txt = "Robert Junior Keller, age 6, + March 17, 1993"}, 100)
+            BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_RJ")}, 100)
         end
     end
 

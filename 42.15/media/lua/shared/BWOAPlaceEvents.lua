@@ -119,6 +119,22 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 20,
     },
+    ["MirrorRoom"] = {
+        scene = "MirrorRoom",
+        x = 18003,
+        y = 3603,
+        z = -2,
+        renderDist = 12,
+        music = "MirrorRoom",
+    },
+    ["FamilyHouse"] = {
+        scene = "FamilyHouse",
+        x = 18010,
+        y = 3410,
+        z = 0,
+        renderDist = 12,
+        music = "FamilyHouse",
+    },
     ["Breach1"] = {
         scene = "Breach",
         x = 10570 + 30,

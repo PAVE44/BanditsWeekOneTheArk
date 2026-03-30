@@ -23,7 +23,7 @@ BWOABaseAPI.GeneratorsUpdate = function()
         if square and square:getChunk() then
             local generator = square:getGenerator()
             if not generator then
-                local genItem = BanditCompatibility.InstanceItem("Base.Generator_Old")
+                local genItem = BanditCompatibility.InstanceItem("Bandits.Generator_Silent")
                 local generator = IsoGenerator.new(genItem, cell, square)
                 generator:transmitCompleteItemToClients()
                 generator:setCondition(100)
@@ -176,6 +176,7 @@ BWOABaseAPI.NoahUpdate = function()
                             if object:isActivated() then
                                 if not BWOANoah.IsOn() then
                                     BWOANoah.screen = "Main"
+                                    BWOANoah.ChangeState("operational")
                                 end
                                 BWOANoah.SetOn(true)
                                 BWOASound.AddToObject({x=9963.5, y=12627, z=-4, sound="AmbientComputer"})

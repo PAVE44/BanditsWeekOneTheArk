@@ -20,6 +20,12 @@ function InitBWOAModData(isNewGame)
 
     end
 
+    if not globalData.climate then
+        globalData.climate = {
+            radiation = true,
+        }
+    end
+
     if not globalData.generators then 
         globalData.generators = {
             main = {

@@ -126,6 +126,7 @@ theme.furniture = {
             {["Base.CannedMushroomSoup"] = 1},
             {["Base.HazmatSuitBlack"] = 1},
             {["Base.GasmaskFilter"] = 7},
+            {["Base.Oxygen_Tank"] = 1},
         },
         dirs = {
             n = {

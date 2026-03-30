@@ -15,7 +15,7 @@ BWOANightmares.Council.onEnter = function(player)
     }
 
     local volume = getSoundManager():getSoundVolume()
-    BWOAEventControl.Add("FadeOut", {time = 0}, 0)
+    -- BWOAEventControl.Add("FadeOut", {time = 0}, 0)
     BWOAEventControl.Add("FadeIn", {time = 5, volume = volume}, 2700)
  
     BWOATex.tex = getTexture("media/textures/nightmare_mask3.png")

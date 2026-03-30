@@ -104,7 +104,7 @@ function BWOAScenes.Cinema:placeItems()
 
     local notebook = BanditCompatibility.InstanceItem("Bandits.NoteBook")
     notebook:setCanBeWrite(false)
-    notebook:setName("Cinema Diary")
+    notebook:setName(getText("IGUI_Artifact_CinemaDiary"))
     local md = notebook:getModData()
     md.printContent = "notebook_cinema"
     BWOAPrepareTools.AddWorldItemSpecial(10187, 12637, -1, notebook, {x=0.33, y=0.89, z=0.32, rx=0, ry=0, rz=270})
@@ -263,10 +263,16 @@ function BWOAScenes.Cinema:placeItems()
         item:setRecordedMediaData(mediaData)
         local md = item:getModData()
         md.BWOA = {}
-        md.BWOA.onTaken = {}
-        md.BWOA.onTaken.accomplishMissionId = 13
-        md.BWOA.onTaken.hideDialogueId = "300.4.1.3"
-        md.BWOA.onTaken.hideDialoguePerson = "Emma_Robinson"
+        md.BWOA.onDropArea = {}
+        md.BWOA.onDropArea.x1 = 9948
+        md.BWOA.onDropArea.y1 = 12600
+        md.BWOA.onDropArea.x2 = 9981
+        md.BWOA.onDropArea.y2 = 12636
+        md.BWOA.onDropArea.z = -4
+        md.BWOA.onDropArea.accomplishMissionId = 13
+        md.BWOA.onDropArea.hideDialogueId = "300.4.1.3"
+        md.BWOA.onDropArea.hideDialoguePerson = "Emma_Robinson"
+        
         BWOAPrepareTools.AddItemsToContainer(10186, 12633, -1, {item}, "Shelves", preserve)
         preserve = true
     end
@@ -278,10 +284,15 @@ function BWOAScenes.Cinema:placeItems()
         item:setRecordedMediaData(mediaData)
         local md = item:getModData()
         md.BWOA = {}
-        md.BWOA.onTaken = {}
-        md.BWOA.onTaken.accomplishMissionId = 13
-        md.BWOA.onTaken.hideDialogueId = "300.4.1.3"
-        md.BWOA.onTaken.hideDialoguePerson = "Emma_Robinson"
+        md.BWOA.onDropArea = {}
+        md.BWOA.onDropArea.x1 = 9948
+        md.BWOA.onDropArea.y1 = 12600
+        md.BWOA.onDropArea.x2 = 9981
+        md.BWOA.onDropArea.y2 = 12636
+        md.BWOA.onDropArea.z = -4
+        md.BWOA.onDropArea.accomplishMissionId = 13
+        md.BWOA.onDropArea.hideDialogueId = "300.4.1.3"
+        md.BWOA.onDropArea.hideDialoguePerson = "Emma_Robinson"
         BWOAPrepareTools.AddItemsToContainer(10187, 12633, -1, {item}, "Shelves", preserve)
         preserve = true
     end

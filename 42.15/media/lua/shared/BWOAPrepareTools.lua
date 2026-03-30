@@ -23,6 +23,14 @@ BWOAPrepareTools.GetSurfaceOffset = function(x, y, z)
     return squareSurfaceOffset / 96
 end
 
+BWOAPrepareTools.BloodSplat = function(x, y, z)
+    local cell = getCell()
+    local square = cell:getOrCreateGridSquare(x, y, z)
+    if square then
+        square:splatBlood(2, 1)    
+    end
+end
+
 BWOAPrepareTools.DarkenLight = function(x, y, z)
     local cell = getCell()
     local square = cell:getOrCreateGridSquare(x, y, z)
