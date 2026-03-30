@@ -784,4 +784,43 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         anim = "GestYes",
         req = {"2000.7.1.1"},
     },
+    ["2000.9"] = {
+        qst = "Emma, I need to tell you somthing.",
+        ans = "What is it?",
+        anim = "GestYes",
+        req = {"2000.6.4.1.2"},
+        hidden = true, -- unlocked by dream 9
+    },
+    ["2000.9.1"] = {
+        qst = "Emma, I need to tell you somthing.",
+        ans = "What is it?",
+        anim = "GestYes",
+        req = {"2000.9"},
+    },
+    ["2000.9.1.1"] = {
+        qst = "You know my dreams reveal the truth, right?",
+        ans = "I don't understand how it works, but yes, so far they were truthful.",
+        anim = "GestYes",
+        req = {"2000.9.1"},
+    },
+    ["2000.9.1.1.1"] = {
+        qst = "I've just learned something new about my past.",
+        ans = "Okay. Before you tell me, know that I will support you no matter what. Just tell me what you learned.",
+        anim = "GestYes",
+        req = {"2000.9.1.1"},
+    },
+    ["2000.9.1.1.1.1"] = {
+        qst = "I remember who I was. I worked at Finnegan's. I was part of the team that developed the virus.",
+        ans = "I don't belive you!",
+        anim = "GestYes",
+        req = {"2000.9.1.1.1"},
+        func = "ChangeBrainParam",
+        funcParams = {param = "sadness", value = 100},
+    },
+    ["2000.9.1.1.1.1.1"] = {
+        qst = "I'm so sorry Emma!",
+        ans = "Go away! I don't want to see you anymore!",
+        anim = "GestYes",
+        req = {"2000.9.1.1.1"},
+    },
 }
