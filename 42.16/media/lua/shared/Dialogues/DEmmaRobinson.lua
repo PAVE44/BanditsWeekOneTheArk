@@ -814,6 +814,8 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         ans = "I don't belive you!",
         anim = "Cry1",
         req = {"2000.9.1.1.1"},
+        func = "ChangeBrainParam",
+        funcParams = {param = "wantToLeave", value = true},
     },
     ["2000.9.1.1.1.1.1"] = {
         qst = "I'm so sorry Emma!",

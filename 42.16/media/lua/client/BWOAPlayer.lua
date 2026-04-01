@@ -1,4 +1,6 @@
 require "BanditPlayer"
+require "BanditActionInterceptor"
+
 BanditPlayer.CheckFriendlyFire = function(bandit, attacker)
     return
 end
@@ -314,7 +316,7 @@ local getClothingStats = function(player)
             end
         end
     end
-    
+
     immuneRadiation = PZMath.clamp(immuneRadiation, 1, 100)
 
     return immuneRadiation, hasGoodMask, dyspnoea, suffocation
@@ -448,7 +450,7 @@ local onPlayerUpdate = function(player)
                     BWOASound.PlayPlayer({sound = "GasMaskSlow"})
                 end
             elseif endurance > 0.4 then
-                
+
                 if BWOAPlayer.tick % 128 == 7 then
                     BWOASound.PlayPlayer({sound = "GasMaskMedium"})
                 end
@@ -513,6 +515,16 @@ local onPlayerUpdate = function(player)
         BWOAPlayer.soundEnd = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "End"
         emitter:playSound(BWOAPlayer.soundStart)
         BWOAPlayer.dreamStage = 2
+
+        -- handle emma teleports here
+        local npcData, bandit = BWOANPC.Get("Emma")
+        if npcData and bandit then
+            local brain = BanditBrain.Get(bandit)
+            if brain.wantToLeave then
+                brain.wantToLeave = false
+                BWOANPC.Teleport("Emma", 10116, 11185, -2)
+            end
+        end
     end
 
     if dreamShouldEnd then

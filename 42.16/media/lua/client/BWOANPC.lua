@@ -1,7 +1,7 @@
 BWOANPC = BWOANPC or {}
 
 local function manageNPC()
-    
+
     local cache = BanditZombie.CacheLightB
     if not cache then return end
 
@@ -19,6 +19,7 @@ local function manageNPC()
                     local tp = gmd.permanentNPC[id].teleportTo
                     gmd.permanentNPC[id] = {
                         name = "Emma",
+                        id = id,
                         x = tp.x,
                         y = tp.y,
                         z = tp.z,
@@ -26,7 +27,7 @@ local function manageNPC()
                     }
                     bandit:removeFromWorld()
                     bandit:removeFromSquare()
-                    
+
                     gmd.permanentNPC[id].teleportTo = nil
                     print ("teleported " .. id .. " to " .. tp.x .. "," .. tp.y .. "," .. tp.z)
                 else
@@ -54,6 +55,8 @@ local function manageNPC()
                 if not brain.sadness then
                     brain.sadness = 0
                 end
+
+                brain.wantToLeave = true
 
                 brain.bladder = brain.bladder + 0.07
                 brain.hunger = brain.hunger + 0.1
@@ -100,7 +103,7 @@ local function manageNPC()
                             return
                         else
                             print ("emma was killed naturally")
-                            player:Say("Emma was killed!")
+                            player:Say("Emma died!")
                             player:setHealth(0)
                             player:Kill(nil)
                             return
@@ -123,17 +126,18 @@ BWOANPC.ModBrain = function(id, k, v)
     if bandit then
         local brain = BanditBrain.Get(bandit)
         brain[k] = v
+        Bandit.ForceSyncPart(bandit, brain)
     end
 end
 
 BWOANPC.Teleport = function(name, x, y, z)
     local gmd = GetBWOAModData()
 
-    for id, data in pairs(gmd.permanentNPC) do
+    for _, data in pairs(gmd.permanentNPC) do
         if data.name == name then
             data.teleportTo = {
-                x = x, 
-                y = y, 
+                x = x,
+                y = y,
                 z = z
             }
         end
@@ -142,14 +146,19 @@ end
 
 BWOANPC.Get = function(name)
     local gmd = GetBWOAModData()
+    local retData, retBandit
 
     for id, data in pairs(gmd.permanentNPC) do
         if data.name == name then
-            return data
+            retData = data
+            local bandit = BanditZombie.GetInstanceById(id)
+            if bandit then
+                retBandit = bandit
+            end
         end
     end
 
-    return nil
+    return retData, retBandit
 end
 
 Events.EveryOneMinute.Remove(manageNPC)

@@ -729,6 +729,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         end
         ]]
 
+        local npcData, bandit = BWOANPC.Get("Emma")
         
         BWOADialogues.MarkAsked("Emma_Robinson", "2000.6.4.1.2")
         BWOADialogues.Reveal("Emma_Robinson", "2000.7")
