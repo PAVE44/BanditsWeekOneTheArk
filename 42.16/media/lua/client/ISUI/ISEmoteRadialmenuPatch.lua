@@ -1,0 +1,47 @@
+require "ISUI/ISEmoteRadialMenu"
+
+local actionEmote = ISEmoteRadialMenu.emote
+
+function ISEmoteRadialMenu:emote(emote)
+    actionEmote(self, emote)
+    triggerEvent("OnEmote", self.character, emote)
+end
+
+
+local radialMenu = ISEmoteRadialMenu.init
+
+function ISEmoteRadialMenu:init()
+    -- radialMenu(self)
+
+    ISEmoteRadialMenu.defaultMenu = {}
+
+    ISEmoteRadialMenu.defaultMenu["shout"] = {}
+	ISEmoteRadialMenu.defaultMenu["shout"].name = getText("IGUI_Emote_Shout")
+    ISEmoteRadialMenu.defaultMenu["movement"] = {}
+	ISEmoteRadialMenu.defaultMenu["movement"].name = getText("IGUI_Emote_Movement")
+	ISEmoteRadialMenu.defaultMenu["movement"].subMenu = {}
+	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["stop"] = getText("IGUI_Emote_DontFollow")
+	ISEmoteRadialMenu.defaultMenu["movement"].subMenu["followme"] = getText("IGUI_Emote_FollowMe")
+
+    ISEmoteRadialMenu.defaultMenu["play"] = {}
+    ISEmoteRadialMenu.defaultMenu["play"].name = getText("IGUI_Emote_Play")
+	ISEmoteRadialMenu.defaultMenu["play"].subMenu = {}
+	ISEmoteRadialMenu.defaultMenu["play"].subMenu["moveout"] = getText("IGUI_Emote_Tag")
+    ISEmoteRadialMenu.defaultMenu["play"].subMenu["dance"] = getText("IGUI_Emote_Dance")
+    
+    ISEmoteRadialMenu.variants = {}
+
+    ISEmoteRadialMenu.icons = {}
+    ISEmoteRadialMenu.icons["shout"] = getTexture("media/ui/Traits/trait_talkative.png")
+
+    ISEmoteRadialMenu.icons["movement"] = getTexture("media/ui/emotes/followme.png")
+    ISEmoteRadialMenu.icons["stop"] = getTexture("media/ui/emotes/comehere.png")
+    ISEmoteRadialMenu.icons["followme"] = getTexture("media/ui/emotes/followme.png")
+
+    ISEmoteRadialMenu.icons["play"] = getTexture("media/ui/emotes/moveout.png");
+    ISEmoteRadialMenu.icons["moveout"] = getTexture("media/ui/emotes/moveout.png");
+    ISEmoteRadialMenu.icons["dance"] = getTexture("media/ui/emotes/moveout.png");
+
+    ISEmoteRadialMenu.menu = ISEmoteRadialMenu.defaultMenu
+
+end

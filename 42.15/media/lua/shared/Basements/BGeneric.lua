@@ -122,6 +122,7 @@ function BWOABasements.Generic:buildStairs()
             -- local above = IsoGridSquare.new(getCell(), nil, stair.x, stair.y-1, stair.z + 1)
             local above = cell:getGridSquare(stair.x-1, stair.y, stair.z + 1)
             cell:ConnectNewSquare(above, false)
+            above:RecalcAllWithNeighbours(true)
         end
     end
 end

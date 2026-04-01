@@ -1,0 +1,150 @@
+module Bandits {
+
+    sound MusicIntro {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/crescendo_of_malevolence.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicMenu {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/radiation_angel_loop.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicEndure {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/crescendo_of_malevolence_2.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicOutside {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/new_world.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/new_world_2.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/new_world_3.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/new_world_4.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/new_world_5.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/new_world_6.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/agnus_dei.ogg,
+            reverbFactor = 0.6, 
+        }
+        clip {
+            file = media/sound/music/goodbye_sunshine.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicDepth {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/the_abyss.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicEarthquake {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/earthquake.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicFinale {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/psalm_37.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicFuelTruck {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/journey_1.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicEkronChurch {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/journey_1.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicCouncil {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/unholy_rite.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicMaze {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/elegie.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound FamilyHouse {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/too_late.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+}

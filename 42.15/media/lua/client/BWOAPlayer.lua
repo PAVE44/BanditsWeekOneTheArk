@@ -1186,7 +1186,7 @@ local onTransferItem = function(data, item)
         end
 
         -- items triggering memory regain
-        if SandboxVars.MemoryRegain then
+        if SandboxVars.BWOA.MemoryRegain then
             local itemMemoryRegain = gmd.itemMemoryRegain
             local itemType = item:getType()
             for _, regainConf in ipairs(itemMemoryRegain) do

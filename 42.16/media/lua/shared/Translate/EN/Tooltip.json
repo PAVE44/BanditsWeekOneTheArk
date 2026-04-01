@@ -1,0 +1,10 @@
+{
+	"Tooltip_item_Radio": "Equip to operate radio.",
+	"Tooltip_PillsPotassiumIodine": "Lowers the negative effects of radiation.",
+	"Tooltip_PillsPentoxifylline": "Fights against high CO2 poisoning.",
+	"Tooltip_PillsPrussianBlue": "Not implemented yet.",
+	"Tooltip_PillsNikethamide": "Helps in hypothermia.",
+	"Tooltip_NBCTablets": "Nuclear-Biological-Chemical decon tablets.",
+	"Tooltip_GeigerCounter": "Measures radiation levels and emitts signals when equipped / attached.",
+	"Tooltip_LabSyringe": "Syringe with unknown substance."
+}

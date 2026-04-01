@@ -1,0 +1,19 @@
+{
+    "ContextMenu_UseNoah": "Use Noah",
+    "ContextMenu_NeedScrewdriver": "You need a Screwdriver.",
+    "ContextMenu_FixAirVent": "Fix Air Vent",
+    "ContextMenu_NeedEngineCoolant": "You need engine coolant.",
+    "ContextMenu_NeedEngineLubricant": "You need engine lubricant.",
+    "ContextMenu_GeneratorCoolantFull": "Generator coolant is full.",
+    "ContextMenu_GeneratorLubricantFull": "Generator lubricant is full.",
+    "ContextMenu_GeneratorMustBeShutDown": "Generator must be shut down.",
+    "ContextMenu_AddCoolant": "Add Coolant",
+    "ContextMenu_AddLubricant": "Add Lubricant",
+    "ContextMenu_NeedNBCTablets": "You need NBC Tablets.",
+    "ContextMenu_AddNBCTablets": "Add NBC Tablets",
+    "ContextMenu_NeedSledgehammer": "You need a Sledgehammer.",
+    "ContextMenu_NeedCrowbar": "You need a Crowbar.",
+    "ContextMenu_OpenHatch": "Open Hatch",
+    "ContextMenu_StopMusic": "Stop Music",
+    "ContextMenu_PlayMusic": "Play Music"
+}

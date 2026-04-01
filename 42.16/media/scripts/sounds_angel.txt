@@ -1,0 +1,32 @@
+module Bandits {
+    sound AngelProximity {
+        category = Object,
+        loop = false
+        is3D = true,
+        clip
+        {
+            file = media/sound/angel_proximity_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0, 
+        }
+        clip {
+            file = media/sound/angel_proximity_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0, 
+        }
+        clip {
+            file = media/sound/angel_proximity_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0, 
+        }
+        clip {
+            file = media/sound/angel_proximity_4.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0, 
+        }
+    }
+}

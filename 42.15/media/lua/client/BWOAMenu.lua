@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.109"
+BWOAMenu.version = "0.110"
 
 BWOAMenu.blinking = {}
 
@@ -338,6 +338,11 @@ BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player, sobject)
 
     local actionFunc = function()
         if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item = inventory:getFirstTagRecurse(ItemTag.CROWBAR)
+            local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+            ISTimedActionQueue.add(transferAction)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
             ISTimedActionQueue.add(TAOpenHatch:new(player, square))
         end
     end
@@ -702,9 +707,10 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
     if isDebugEnabled() or isAdmin() then
 
         print ("ISNOTBLOCKED:" .. tostring(square:isNotBlocked(false)))
+
         -- BWOABuildTools.Fridge(9961, 12610, -4)
         -- square:removeGrime()
-        -- player:setZ(-5)
+        --player:setZ(-1)
 
 
         -- BWOABuildTools.ClearAll(sx, sy, sz)
@@ -718,7 +724,11 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             local angle = body:getAngle()
         end
         ]]
-        -- BWOADialogues.Reveal("Emma_Robinson", "2000.6")
+
+        
+        BWOADialogues.MarkAsked("Emma_Robinson", "2000.6.4.1.2")
+        BWOADialogues.Reveal("Emma_Robinson", "2000.7")
+        BWOADialogues.Reveal("Emma_Robinson", "2000.9")
 
         -- BWOARooms.Infirmary.SetFlickers()
 
