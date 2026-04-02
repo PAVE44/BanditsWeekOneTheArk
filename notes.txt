@@ -213,7 +213,7 @@ IDEAS:
 CHAPTERS
 
 CHAPTER 5: ENDURE
- - noah failure
+ + noah failure
  - discover secret noah program
  - learn about other arks
  - communicate with other arks
@@ -223,12 +223,13 @@ CHAPTER 5: ENDURE
  + music jukebox needs walkto action
 
 luke and martha quests
-emma kidnapped
 noah failure
 definitely there should be conquest of the main bandit base 
 luke and martha
 ark library of advanced cybernetics oasis project, photo of noah whitlock
-move noah to another square
+ark infrastructure ideas:
+ * water filtering station
++ move noah to another square
 emma zombie sounds :(
 emma missing texts on hit
 emma bandit voice
@@ -237,12 +238,14 @@ emma reacting to ark conditions
 emma excercise
 emma breaking leg
 emma inventory and health panel?
-entrance to service tunnels
+entrance to service tunnels remodel
 second warehouse needs adaptation
 emma kidnapped
 dark clouds
 heating IN ARK some places have no temp
 remodel room leading to service tunnels
+emma should grab mask if she loses one
+emma commands outside ark may not work properly
 
  CHAPTER 4: I AM NOT BOB
 
