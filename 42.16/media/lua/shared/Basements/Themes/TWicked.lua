@@ -7,9 +7,9 @@ local theme = {}
 theme.cid = Bandit.clanMap.BasementWicked
 
 theme.sprites = {}
-theme.sprites.stairs1 = "fixtures_stairs_01_3"
-theme.sprites.stairs2 = "fixtures_stairs_01_4"
-theme.sprites.stairs3 = "fixtures_stairs_01_5"
+theme.sprites.stairs1 = "fixtures_stairs_01_64"
+theme.sprites.stairs2 = "fixtures_stairs_01_65"
+theme.sprites.stairs3 = "fixtures_stairs_01_66"
 theme.sprites.floor = "floors_exterior_street_01_0"
 theme.sprites.ceiling = "carpentry_02_58"
 

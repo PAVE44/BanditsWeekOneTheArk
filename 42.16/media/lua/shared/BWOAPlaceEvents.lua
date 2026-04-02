@@ -144,6 +144,13 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 60,
     },
+     ["Maniac"] = {
+        scene = "Maniac",
+        x = 10111,
+        y = 11183,
+        z = 0,
+        renderDist = 60,
+    },
 
 }
 

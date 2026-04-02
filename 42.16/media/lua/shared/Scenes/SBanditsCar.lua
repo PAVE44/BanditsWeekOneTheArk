@@ -2,7 +2,7 @@ require "Scenes/SAbstract"
 
 BWOAScenes = BWOAScenes or {}
 
-BWOAScenes.BanditsCar = BWOAScenes.Abstract:derive("BWOAScenes.Abstract")
+BWOAScenes.BanditsCar = BWOAScenes.Abstract:derive("BWOAScenes.BanditsCar")
 
 function BWOAScenes.BanditsCar:placeObjects()
     BWOABuildTools.Generator(8340, 11610, 0, 50 + ZombRand(30), 18 + ZombRand(40), true, true)

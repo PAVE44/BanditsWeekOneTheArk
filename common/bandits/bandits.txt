@@ -3620,3 +3620,25 @@
 	tint: Pants = 3355456
 	weapons: melee = Base.MeatCleaver
 
+[6f4a115c-a2c8-4cbe-bcba-19d1e5a038ff]
+	general: modid = BanditsWeekOneTheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Prison
+	general: female = true
+	general: skin = 2
+	general: hairType = 36
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Boilersuit = Base.Boilersuit_Flying
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	weapons: melee = Base.Pencil
+

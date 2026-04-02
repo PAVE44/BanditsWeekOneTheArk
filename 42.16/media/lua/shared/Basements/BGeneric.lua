@@ -66,12 +66,12 @@ function BWOABasements.Generic:buildWalls()
     local dx, dy = self.dx, self.dy
 
     local wallSprites = BanditUtils.Choice(self.sprites.wallOptions)
-    --BWOABuildTools.Wall (sx, sy, sz, wallSprites.wallNW)
-    for x = sx + 1, sx + dx do
+    BWOABuildTools.Wall (sx, sy, sz, wallSprites.wallNW)
+    for x = sx, sx + dx do
         BWOABuildTools.Wall (x, sy, sz, wallSprites.wallN)
         BWOABuildTools.Wall (x, sy + dy + 1, sz, wallSprites.wallN)
     end
-    for y = sy + 1, sy + dy do
+    for y = sy, sy + dy do
         BWOABuildTools.Wall (sx, y, sz, wallSprites.wallW)
         BWOABuildTools.Wall (sx + dx + 1, y, sz, wallSprites.wallW)
     end
@@ -115,10 +115,10 @@ function BWOABasements.Generic:buildStairs()
     }
 
     for _, stair in pairs(stairs) do
-        BWOABuildTools.ClearAll(stair.x, stair.y, stair.z + 1)
+        BWOABuildTools.ClearAll(stair.x, stair.y, 0)
 
         BWOABuildTools.Generic (stair.x, stair.y, stair.z, stair.spriteName)
-        if stair.connect then
+        if stair.connectTo then
             -- local above = IsoGridSquare.new(getCell(), nil, stair.x, stair.y-1, stair.z + 1)
             local above = cell:getGridSquare(stair.x-1, stair.y, stair.z + 1)
             cell:ConnectNewSquare(above, false)

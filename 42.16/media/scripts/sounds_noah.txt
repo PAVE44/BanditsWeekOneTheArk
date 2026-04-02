@@ -48,6 +48,18 @@ module Bandits {
         } 
     }
 
+    sound NoahPowerUp {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/noah_power_up.ogg, 
+            distanceMin = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound NoahBio {
         category = Object, 
         loop = false,

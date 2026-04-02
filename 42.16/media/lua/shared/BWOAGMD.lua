@@ -1,6 +1,5 @@
 require "BWOADialogues"
 require "BWOAMissions"
-require "BWOANightmares"
 
 BWOAGlobalData = {}
 

@@ -95,8 +95,6 @@ BWOABuildTools.Generic = function(x, y, z, spriteName)
     local obj = IsoObject.new(square, spriteName, "")
     square:AddSpecialObject(obj)
     obj:transmitCompleteItemToServer()
-    square:RecalcProperties()
-    square:RecalcAllWithNeighbours(true)
     square:setSquareChanged()
 end
 
@@ -567,8 +565,6 @@ BWOABuildTools.ClearAll = function(x, y, z)
         local object = objects:get(i)
         square:transmitRemoveItemFromSquare(object)
     end
-    square:RecalcProperties()
-    square:RecalcAllWithNeighbours(true)
     square:setSquareChanged()
 end
 
@@ -587,7 +583,7 @@ BWOABuildTools.ClearVegetation = function(x, y, z)
             end
         end
     end
-    square:setSquareChanged()
+    -- square:setSquareChanged()
 end
 
 -- blueprint builder for lava lakes

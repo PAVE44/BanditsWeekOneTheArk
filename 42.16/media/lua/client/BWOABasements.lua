@@ -127,7 +127,7 @@ local procedural_basement_spawn_locations = {
     {x=18000, y=4000, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
     {x=9948, y=12600, z=-4, stairDir="N", choices={"ark_underground_all"}}, -- ark sublevel
     {x=10570, y=10600, z=1, stairDir="", choices={"breach"}}, -- breach
-    {x=10360, y=12324, z=1, stairDir="", choices={"sewer"}}, -- sewer
+    -- {x=10360, y=12324, z=1, stairDir="", choices={"sewer"}}, -- sewer
     {x=10110, y=11180, z=1, stairDir="", choices={"maniac"}}, -- maniac
 
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},

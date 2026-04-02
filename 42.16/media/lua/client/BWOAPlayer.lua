@@ -480,6 +480,7 @@ local onPlayerUpdate = function(player)
             local hours = player:getHoursSurvived()
             for dreamNo, dreamData in pairs(dreamRevealMap) do
                 if hours < dreamData.hours then
+                    BWOAPlayer.dreamNo = dreamNo
                     break
                 end
             end
@@ -511,6 +512,7 @@ local onPlayerUpdate = function(player)
         createWorld(newGameSaveWorld)
         ]]
 
+        BWOAMusic.Stop()
         BWOAPlayer.soundStart = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "Start"
         BWOAPlayer.soundEnd = "Dream" .. tostring(BWOAPlayer.dreamNo) .. "End"
         emitter:playSound(BWOAPlayer.soundStart)

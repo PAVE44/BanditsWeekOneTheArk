@@ -10,12 +10,12 @@ function BWOABasements.Double:buildWalls()
     local wy = self.wy
 
     local wallSprites = BanditUtils.Choice(self.sprites.wallOptions)
-    --BWOABuildTools.Wall (sx, sy, sz, wallSprites.wallNW)
-    for x = sx + 1, sx + dx do
+    BWOABuildTools.Wall (sx, sy, sz, wallSprites.wallNW)
+    for x = sx, sx + dx do
         BWOABuildTools.Wall (x, sy, sz, wallSprites.wallN)
         BWOABuildTools.Wall (x, sy + dy + 1, sz, wallSprites.wallN)
     end
-    for y = sy + 1, sy + dy do
+    for y = sy, sy + dy do
         BWOABuildTools.Wall (sx, y, sz, wallSprites.wallW)
         BWOABuildTools.Wall (sx + dx + 1, y, sz, wallSprites.wallW)
     end

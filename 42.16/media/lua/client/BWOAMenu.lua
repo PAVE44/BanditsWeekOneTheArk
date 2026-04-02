@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.114"
+BWOAMenu.version = "0.115"
 
 BWOAMenu.blinking = {}
 
@@ -567,7 +567,15 @@ function BWOAMenu.Teleport(player)
 end
 
 function BWOAMenu.EmmaTeleport(player)
-    BWOANPC.Teleport("Emma", player:getX(), player:getY(), player:getZ())
+    -- BWOANPC.Teleport("Emma", player:getX(), player:getY(), player:getZ())
+
+    local npcData, bandit = BWOANPC.Get("Emma")
+    if npcData and bandit then
+        local brain = BanditBrain.Get(bandit)
+        brain.wantToLeave = true
+        Bandit.ForceSyncPart(bandit, brain)
+    end
+
 end
 
 function BWOAMenu.BreakNoah(player)
