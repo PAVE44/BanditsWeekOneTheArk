@@ -7,8 +7,7 @@ local cycleNumber = 1000
 local returnData = {}
 
 BWOANightmares.Angel.onEnter = function(player)
-    local volume = getSoundManager():getSoundVolume()
-    BWOAEventControl.Add("FadeIn", {time = 6, volume = volume}, 1)
+    BWOAEventControl.Add("FadeIn", {time = 6}, 1)
 
     returnData = {
         x = player:getX(),

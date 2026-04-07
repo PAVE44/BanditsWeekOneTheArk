@@ -14,9 +14,8 @@ BWOANightmares.Finnegan.onEnter = function(player)
         z = player:getZ()
     }
 
-    local volume = getSoundManager():getSoundVolume()
     BWOAEventControl.Add("FadeOut", {time = 0}, 0)
-    BWOAEventControl.Add("FadeIn", {time = 5, volume = volume}, 2700)
+    BWOAEventControl.Add("FadeIn", {time = 5}, 2700)
    
     BWOATex.tex = getTexture("media/textures/nightmare_mask3.png")
     BWOATex.speed = 0.000001

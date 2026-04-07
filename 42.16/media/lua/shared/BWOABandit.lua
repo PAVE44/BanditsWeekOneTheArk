@@ -18,6 +18,7 @@ Bandit.emmaStart = {
     y = 12615,
     z = -4,
     voiceId = 21,
+    fullname = "Emma Robinson",
 }
 
 Bandit.raidCarLootItems = {
@@ -98,10 +99,12 @@ Bandit.spawnWhitelist = {
 Bandit.banditMap = {}
 Bandit.banditMap.Emma = {}
 Bandit.banditMap.Emma.Bunker = "d944d8a7-9ad6-4f65-87e6-0a2d55eac4cb"
+Bandit.banditMap.Emma.Lab = "4c09bfa8-fae7-4be7-9097-75f282f1da91"
 Bandit.banditMap.Emma.Hazmat = "d3564264-60ca-4629-ae2f-574ea772df23"
 Bandit.banditMap.Emma.Defend = "e97500bf-0534-401a-822a-7891dc8881d5"
-Bandit.banditMap.Emma.Sport =  "2e682bd5-8bc3-4380-a302-02d7201b8aeb"
-Bandit.banditMap.Emma.Dance =  "19a4a644-5029-4343-ae6d-271bf11bb906"
+Bandit.banditMap.Emma.Sport = "2e682bd5-8bc3-4380-a302-02d7201b8aeb"
+Bandit.banditMap.Emma.Dance = "19a4a644-5029-4343-ae6d-271bf11bb906"
+Bandit.banditMap.Emma.Prison = "6f4a115c-a2c8-4cbe-bcba-19d1e5a038ff"
 
 -- maps AI to dialogues
 Bandit.prg2person = {}

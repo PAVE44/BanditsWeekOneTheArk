@@ -15,7 +15,9 @@ BWOAEvents.FadeOut = function(params)
             player:setBannedAttacking(true)
             UIManager.setFadeBeforeUI(playerNum, false)
             UIManager.FadeOut(playerNum, params.time)
-            getSoundManager():setSoundVolume(0)
+            if params.mute then
+                getSoundManager():setSoundVolume(0)
+            end
         end
     end
 end
@@ -30,7 +32,9 @@ BWOAEvents.FadeIn = function(params)
             player:setBannedAttacking(false)
             UIManager.FadeIn(playerNum, params.time)
             UIManager.setFadeBeforeUI(playerNum, false)
-            getSoundManager():setSoundVolume(params.volume)
+            if params.unmute then
+                getSoundManager():setSoundVolume(params.volume)
+            end
             -- BWOASound.PlayPlayer({sound="AmbientHorn"})
         end
     end

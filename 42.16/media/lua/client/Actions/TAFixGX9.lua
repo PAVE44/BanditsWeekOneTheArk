@@ -39,6 +39,12 @@ function TAFixGX9:isValid()
                 end
             end
         end
+    elseif self.actionType == "repair" then
+        local wrench = self.character:getPrimaryHandItem()
+        local enginePart = self.character:getSecondaryHandItem()
+        if wrench and enginePart then
+            return true
+        end
     end
     return false
 end
@@ -98,6 +104,17 @@ function TAFixGX9:start()
                 end
             end
         end
+    elseif self.actionType == "repair" then
+        self.sound = self.character:playSound("GeneratorRepair")
+        self:setActionAnim("Loot")
+        local wrench = self.character:getPrimaryHandItem()
+        local enginePart = self.character:getSecondaryHandItem()
+        if wrench and enginePart then
+            self:setOverrideHandModels(wrench, enginePart)
+            local gen = self:findGen()
+            self.newAmount = gen.condition + 10
+            if self.newAmount > 100 then self.newAmount = 100 end
+        end
     end
 end
 
@@ -121,6 +138,14 @@ function TAFixGX9:perform()
                 gen.coolant = self.newAmount
             elseif self.actionType == "addLubricant" then
                 gen.lubricant = self.newAmount
+            elseif self.actionType == "repair" then
+                local enginePart = self.character:getSecondaryHandItem()
+                if enginePart then
+                    gen.condition = self.newAmount
+                    local inventory = self.character:getInventory()
+                    inventory:Remove(enginePart)
+                    self.character:setSecondaryHandItem(nil)
+                end
             end
         end
     end
@@ -137,7 +162,7 @@ function TAFixGX9:new(character, square, actionType)
     o.square = square
     o.stopOnWalk = false
     -- o.stopOnRun = false
-    o.maxTime = 100
+    o.maxTime = 150
 
     -- custom fields
     o.actionType = actionType

@@ -2,7 +2,7 @@ require "Scenes/SAbstract"
 
 BWOAScenes = BWOAScenes or {}
 
-BWOAScenes.FuelTruck = BWOAScenes.Abstract:derive("BWOAScenes.Abstract")
+BWOAScenes.FuelTruck = BWOAScenes.Abstract:derive("BWOAScenes.FuelTruck")
 
 function BWOAScenes.FuelTruck:placeObjects()
 

@@ -7,6 +7,7 @@ local cycleNumber = 1000
 local returnData = {}
 
 BWOANightmares.Fall.onEnter = function(player)
+    print ("[FALL] onEnter")
     local gmd = GetBWOAModData()
     gmd.nightmares.returnData = {
         x = player:getX(),
@@ -14,8 +15,7 @@ BWOANightmares.Fall.onEnter = function(player)
         z = player:getZ()
     }
     
-    local volume = getSoundManager():getSoundVolume()
-    BWOAEventControl.Add("FadeIn", {time = 6, volume = volume}, 1)
+    BWOAEventControl.Add("FadeIn", {time = 6}, 1)
 
     BWOATex.tex = getTexture("media/textures/nightmare_mask2.png")
     BWOATex.speed = 0.000001
@@ -33,6 +33,7 @@ BWOANightmares.Fall.onEnter = function(player)
 end
 
 BWOANightmares.Fall.onCycle = function(player)
+    print ("[FALL] onCycle")
     local gmd = GetBWOAModData()
     local cycle = gmd.nightmares.cycle or 1
 
@@ -41,13 +42,14 @@ BWOANightmares.Fall.onCycle = function(player)
     BWOATex.mode = "full"
     BWOATex.alpha = 1
 
-    if player:getZ() < 5 then
+    if player:getZ() < 7 then
+        print ("[FALL] onCycle, player z < 7 so teleporting to floor 31")
         player:setX(8000)
         player:setY(5000)
         player:setZ(30)
         player:setLastX(8000)
         player:setLastY(5000)
-        player:setLastZ(30)
+        player:setLastZ(31)
         local sound = player:getDescriptor():getVoicePrefix() .. "DeathFall"
         local emitter = player:getEmitter()
         if not emitter:isPlaying(sound) then
@@ -56,8 +58,10 @@ BWOANightmares.Fall.onCycle = function(player)
     end
 
     if cycle < cycleNumber - 10  then
+        print ("[FALL] onCycle, climbing is false")
         player:setbClimbing(false)
     else
+        print ("[FALL] onCycle, climbing is true")
         player:setbClimbing(true)
     end
 
@@ -66,17 +70,21 @@ BWOANightmares.Fall.onCycle = function(player)
 end
 
 BWOANightmares.Fall.ShouldExit = function(player)
+    print ("[FALL] shouldExit check")
     local gmd = GetBWOAModData()
     local cycle = gmd.nightmares.cycle or 1
     if cycle > cycleNumber then
+        print ("[FALL] shouldExit is now true")
         return true
     end
     return false
 end
 
 BWOANightmares.Fall.onExit = function(player)
+    print ("[FALL] onExit")
     local gmd = GetBWOAModData()
     player:setbClimbing(true)
+    print ("[FALL] onExit climbing set to true")
     player:setX(gmd.nightmares.returnData.x)
     player:setY(gmd.nightmares.returnData.y)
     player:setZ(gmd.nightmares.returnData.z)
@@ -87,6 +95,7 @@ BWOANightmares.Fall.onExit = function(player)
 end
 
 BWOANightmares.Fall.onPost = function(player)
+    print ("[FALL] onPost")
     local gmd = GetBWOAModData()
     gmd.nightmares.cycle = 1
     gmd.nightmares.returnData = nil

@@ -365,12 +365,18 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         req = {"100.6.1"},
     },
     ["100.6.1.1.1"] = {
-        qst = "What are your virus research results so far?",
-        ans = "I need a fresh specimen to continue my research.",
+        qst = "I brought a zombie corpse to the lab.",
+        ans = "Awesome. I will conduct the research soon. I hope it will bring us some useful insights.",
         anim = "Gest1",
-        req = {"100.6.1.1"},
-        func = "RevealMission",
-        funcParams = {missionId = 5},
+        req = {"100.6.1.1", "400.1"},
+        hidden = true, -- revealed by bringing a zombie corpse to the lab
+    },
+    ["100.6.2"] = {
+        qst = "I brought a corpse of the non-infected to the lab.",
+        ans = "Good. I will continue my research shortly. We need to understand why some of us remain uninfected.",
+        anim = "Gest1",
+        req = {"100.6.1.1", "400.2"},
+        hidden = true, -- revealed by bringing a human corpse to the lab
     },
     ["100.7"] = {
         qst = "I found the bedroom. Can I sleep there?",
@@ -490,7 +496,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         funcParams = {param = "sadness", value = 100},
     },
     ["300.1.1.1.1"] = {
-        qst = "I will revenge Dave and  Martha. I promise!",
+        qst = "I will revenge Dave and Martha. I promise!",
         ans = "[speechless]",
         anim = "GestNo",
         req = {"300.1.1.1"},
@@ -562,6 +568,67 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         func = "RevealMission",
         funcParams = {missionId = 13},
     },
+    ["300.5"] = {
+        qst = "Emma, what would we do if we ever lose the Ark?",
+        ans = "I hope it never comes to that. But if it does, we would have to find another shelter. My first stop would be the warehouses south-west from Muldraugh. ",
+        anim = "Gest1",
+        req = {},
+        hidden = true, -- unlocked by time
+    },
+    ["300.5.1"] = {
+        qst = "Why would you want to go to the warehouses south-west from Muldraugh?",
+        ans = "My uncle used to work there when I was a kid. I know the place pretty well. I used to play in the underground there.",
+        anim = "Gest1",
+        req = {"300.5"},
+    },
+
+    -- research updates
+    ["400.1"] = {
+        qst = "What are your virus research results so far?",
+        ans = "I’m still constructing a working model. This pathogen doesn’t behave like anything in modern virology—it preserves certain functions while degrading others. It’s almost selective in what it keeps. There’s intent in the pattern, or something close to it. I need physical data to move forward.",
+        anim = "Gest1",
+        req = {"100.6.1.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 5},
+        hidden = true, -- unlocked by research > 5%
+    },
+    ["400.2"] = {
+        qst = "Any updates regarding your research?",
+        ans = "I’ve completed the autopsy. The body is failing, but not entirely. Motor function persists despite catastrophic neural loss. There’s no centralized brain activity that explains movement. It’s as if something else has taken over coordination at a lower level. I don’t understand how, but it’s consistent. I need human specimen to continue.",
+        anim = "Gest1",
+        req = {"100.6.1.1.1", "400.1"},
+        func = "RevealMission",
+        funcParams = {missionId = 14},
+        hidden = true, -- unlocked by research > 25% (possible with zombie corpse)
+    },
+    ["400.3"] = {
+        qst = "Any new updates regarding our research?",
+        ans = "I’ve completed the autopsy. The body is failing, but not entirely. Motor function persists despite catastrophic neural loss. There’s no centralized brain activity that explains movement. It’s as if something else has taken over coordination at a lower level. I don’t understand how, but it’s consistent. I need human specimen to continue.",
+        anim = "Gest1",
+        req = {"100.6.2", "400.2"},
+        hidden = true, -- unlocked by research > 45% (possible with human corpse)
+    },
+    ["400.4"] = {
+        qst = "Any new updates regarding our research?",
+        ans = "I’ve analyzed the sample, it's the original strain, and I think I understand now. This version doesn’t destroy the host, it integrates with it. The immune subject wasn’t naturally resistant, they were pre-exposed. Injected, most likely. The symbiotic strain prevented the aggressive one from taking over.",
+        anim = "Gest1",
+        req = {"2000.6.4.1.2", "400.3"},
+        hidden = true, -- unlocked by research > 65% (possible with secret syringe)
+    },
+    ["400.4.1"] = {
+        qst = "Would that mean that we were also pre-exposed? Injected with the symbiotic strain?",
+        ans = "Now that is a very good question, Bob.",
+        anim = "Gest1",
+        req = {"400.4"},
+    },
+    ["400.5"] = {
+        qst = "Got any news on the ongoing research?",
+        ans = "Yep. You will not believe this. The comfrey extract is doing more than slowing the process, it’s reversing it. At least in early-stage samples. Even post-exposure tissue is stabilizing. If this holds, it could work after a bite… but I need to be certain. This has to be tested on someone.",
+        anim = "Gest1",
+        req = {"2000.5.2", "400.4"},
+        hidden = true, -- unlocked by research > 85% (possible with comfrey)
+    },
+
 
     -- base condition dependent
     ["1000.1"] = {
@@ -669,12 +736,49 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         req = {"2000.4.1.1"},
         hidden = true, -- unlocked by dream 5
     },
-    ["2000.6"] = {
-        qst = "I know you don't want to hear about my dreams, but... ",
-        ans = "Stop! Get it together, ok? This is not helping anyone!",
+    ["2000.5.1"] = {
+        qst = "Emma, I found a friendly survivor in Ekron.",
+        ans = "Careful! It's better not to trust anyone!",
         anim = "Calm",
         req = {"2000.5"},
-        hidden = true, -- unlocked by dream 6
+        hidden = true, -- unlocked by artifact sacred_incense
+    },
+    ["2000.5.1.1"] = {
+        qst = "I know. He's a priest and he didn't want to come with me anyway.",
+        ans = "A priest? Who would have thought that there would be a priest left in this world.",
+        anim = "Gest1",
+        req = {"2000.5.1"},
+    },
+    ["2000.5.1.1.1"] = {
+        qst = "The priest pointed to some documents that speak about comfrey.",
+        ans = "That plant? This seems unrelated to our cause. Honestly, waste of time.",
+        anim = "GestNo",
+        req = {"2000.5.1.1"},
+    },
+    ["2000.5.1.1.1.1"] = {
+        qst = "I know, but you're the one who mentioned faith as the only thing you have left.",
+        ans = "Okay. But what exactly do you want us to do regarding comfrey.",
+        anim = "Gest1",
+        req = {"2000.5.1.1.1"},
+    },
+    ["2000.5.1.1.1.1.1"] = {
+        qst = "I am going to find it.",
+        ans = "You're joking... The ecosystem has collapsed. You've seen the world, right?",
+        anim = "GestNo",
+        req = {"2000.5.1.1.1.1"},
+    },
+    ["2000.5.1.1.1.1.1.1"] = {
+        qst = "If I can't find the plant, then I will find the seeds.",
+        ans = "Theoretically, some seeds may have survived. You could grow it here. ",
+        anim = "GestYes",
+        req = {"2000.5.1.1.1.1.1"},
+    },
+    ["2000.5.2"] = {
+        qst = "Took a while, but I managed to grow some comfrey.",
+        ans = "I nearly forgot about that. Bring it to the lab. I will see what I can do with it.",
+        anim = "GestYes",
+        req = {"2000.5.1.1.1.1.1.1"},
+        hidden = true, -- unlocked by artifact comfrey_seeds
     },
     ["2000.6.1"] = {
         qst = "Emma, my dreams led me to a secret laboratory, and I learned something important about the virus. ",
@@ -785,42 +889,125 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         req = {"2000.7.1.1"},
     },
     ["2000.9"] = {
-        qst = "Emma, I need to tell you somthing.",
-        ans = "What is it?",
-        anim = "GestYes",
-        req = {"2000.6.4.1.2"},
+        qst = "Emma, I need to go to Louisville.",
+        ans = "Are you crazy? You will never make it there alive! Why do you want to go there?",
+        anim = "GestNo",
+        req = {"2000.7.1.1.1"},
         hidden = true, -- unlocked by dream 9
+        func = "RevealMission",
+        funcParams = {missionId = 120},
     },
     ["2000.9.1"] = {
-        qst = "You know my dreams reveal the truth, right?",
-        ans = "Yes. They were insightful.",
-        anim = "GestYes",
+        qst = "I know that Finnegan's Research Group headquarters hide some secrets.",
+        ans = "I won't stop you, will I? I'm going with you!",
+        anim = "GestNo",
         req = {"2000.9"},
     },
     ["2000.9.1.1"] = {
-        qst = "I've just learned something difficult about my past.",
-        ans = "Just... Tell me.",
-        anim = "GestYes",
+        qst = "I need to go alone. You stay here.",
+        ans = "I don't want you to go!",
+        anim = "GestNo",
         req = {"2000.9.1"},
     },
     ["2000.9.1.1.1"] = {
+        qst = "I need to go. I will come back. I promise.",
+        ans = "I'll kick your ass if you don't!",
+        anim = "Gest1",
+        req = {"2000.9.1.1"},
+    },
+    ["2001.9"] = {
+        qst = "Emma, I need to tell you something.",
+        ans = "What is it?",
+        anim = "GestYes",
+        req = {"2000.6.4.1.2"},
+        hidden = true, 
+    },
+    ["2001.9.1"] = {
+        qst = "You know my dreams reveal the truth, right?",
+        ans = "Yes. They were insightful.",
+        anim = "GestYes",
+        req = {"2001.9"},
+    },
+    ["2001.9.1.1"] = {
+        qst = "I've just learned something difficult about my past.",
+        ans = "Just... Tell me.",
+        anim = "GestYes",
+        req = {"2001.9.1"},
+    },
+    ["2001.9.1.1.1"] = {
         qst = "I remember who I was. I worked at Finnegan's.",
         ans = "Finnegan Research Group?",
         anim = "GestYes",
-        req = {"2000.9.1.1"},
+        req = {"2001.9.1.1"},
     },
-    ["2000.9.1.1.1.1"] = {
+    ["2001.9.1.1.1.1"] = {
         qst = "I was part of the team that produced the virus.",
-        ans = "I don't belive you!",
+        ans = "I don't believe you!",
         anim = "Cry1",
-        req = {"2000.9.1.1.1"},
+        req = {"2001.9.1.1.1"},
         func = "ChangeBrainParam",
         funcParams = {param = "wantToLeave", value = true},
     },
-    ["2000.9.1.1.1.1.1"] = {
+    ["2001.9.1.1.1.1.1"] = {
         qst = "I'm so sorry Emma!",
         ans = "Go away! I don't want to see you anymore!",
         anim = "Cry2",
-        req = {"2000.9.1.1.1.1"},
+        req = {"2001.9.1.1.1.1"},
     },
+
+    -- plot related
+    ["3000.1"] = {
+        qst = "Enough of that bullshit. I'm taking you home.",
+        ans = "I told you I wanted to be alone. Why did you come?",
+        anim = "GestNo",
+        req = {},
+        hidden = true,
+        func = "SwitchMission",
+        funcParams = {missionAccomplishId = 50, missionRevealId = 51},
+    },
+    ["3000.1.1"] = {
+        qst = "I came because I care about you. Let's go!",
+        ans = "Just like you cared about everyone else when you killed them with your brilliant medicine?",
+        anim = "GestNo",
+        req = {"3000.1"},
+    },
+    ["3000.1.1.1"] = {
+        qst = "I did what I did, I don't know why, and I'm sorry! ",
+        ans = "Bullshit!",
+        anim = "GestNo",
+        req = {"3000.1.1"},
+    },
+    ["3000.1.1.1.1"] = {
+        qst = "You said that everyone deserves a second chance. So here I am! ",
+        ans = "That would be a third chance for you, you asshole. ",
+        anim = "Gest1",
+        req = {"3000.1.1.1", "100.1.2.2.1.1.1"},
+    },
+    ["3000.1.1.1.1.1"] = {
+        qst = "Well that asshole just came to save you.",
+        ans = "I would have handled it. ",
+        anim = "GestNo",
+        req = {"3000.1.1.1.1"},
+    },
+    ["3000.1.1.1.1.1.1"] = {
+        qst = "You would not, you need me. And I need you.",
+        ans = "Why do you need me?",
+        anim = "Gest1",
+        req = {"3000.1.1.1.1.1"},
+    },
+    ["3000.1.1.1.1.1.1.1"] = {
+        qst = "You are the only reason I keep going.",
+        ans = "And you were the only reason I kept going too. ",
+        anim = "GestYes",
+        req = {"3000.1.1.1.1.1.1"},
+    },
+    ["3000.1.1.1.1.1.1.1.1"] = {
+        qst = "We'll talk later, we're heading home. Get ready.",
+        ans = "Fine! Let's go. But you're still such an asshole. ",
+        anim = "GestYes",
+        req = {"3000.1.1.1.1.1.1.1"},
+        func = "ChangeBrainParam",
+        funcParams = {param = "program", value = {name = "Emma", stage = "Exterior"}},
+    },
+        
 }

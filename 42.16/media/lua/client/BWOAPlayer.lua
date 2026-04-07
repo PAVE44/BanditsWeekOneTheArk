@@ -27,10 +27,47 @@ table.insert(bodyParts, {bname=BloodBodyPartType.ForeArm_L, name=BodyPartType.Fo
 table.insert(bodyParts, {bname=BloodBodyPartType.Hand_R, name=BodyPartType.Hand_R, chance=20})
 table.insert(bodyParts, {bname=BloodBodyPartType.Hand_L, name=BodyPartType.Hand_L, chance=10})
 
+local pseudoRadialMap = {
+    [0] = {x=-3, y = -1},
+    [1] = {x=-3, y = 0},
+    [2] = {x=-3, y = 1},
+    [3] = {x=-2, y = -2},
+    [4] = {x=-2, y = -1},
+    [5] = {x=-2, y = 0},
+    [6] = {x=-2, y = 1},
+    [7] = {x=-2, y = 2},
+    [8] = {x=-1, y = -2},
+    [9] = {x=-1, y = -1},
+    [10] = {x=-1, y = 0},
+    [11] = {x=-1, y = 1},
+    [12] = {x=-1, y = 2},
+    [13] = {x=0, y = -3},
+    [14] = {x=0, y = -2},
+    [15] = {x=0, y = -1},
+    [16] = {x=0, y = 0},
+    [17] = {x=0, y = 1},
+    [18] = {x=0, y = 2},
+    [19] = {x=0, y = 3},
+    [20] = {x=1, y = -2},
+    [21] = {x=1, y = -1},
+    [22] = {x=1, y = 0},
+    [23] = {x=1, y = 1},
+    [24] = {x=1, y = 2},
+    [25] = {x=2, y = -2},
+    [26] = {x=2, y = -1},
+    [27] = {x=2, y = 0},
+    [28] = {x=2, y = 1},
+    [29] = {x=2, y = 2},
+    [30] = {x=3, y = -1},
+    [31] = {x=3, y = 0},
+    [32] = {x=3, y = 1},
+}
+
 local timeRevealMap = {
     [1] = {hours = 29, person = "Emma_Robinson", qid = "300.1"},
     [2] = {hours = 65, person = "Emma_Robinson", qid = "300.3"},
-    [3] = {hours = 168, person = "Emma_Robinson", qid = "300.4"},
+    [3] = {hours = 110, person = "Emma_Robinson", qid = "300.4"},
+    [4] = {hours = 140, person = "Emma_Robinson", qid = "300.5"},
 }
 
 local roomRevealMap = {
@@ -51,17 +88,19 @@ local traitRevealMap = {
 }
 
 local dreamRevealMap = {
-    [1]  = {hours = 36,  qid = "2000.1",  nid = nil,            rmid = nil, txt = "What a dream!"},
-    [2]  = {hours = 72,  qid = "2000.2",  nid = nil,            rmid = nil, txt = "Damn dreams..."},
-    [3]  = {hours = 108, qid = "2000.3",  nid = "Island",       rmid = nil, txt = "Where am I?"},
-    [4]  = {hours = 144, qid = "2000.4",  nid = nil,            rmid = nil, txt = "This was different..."},
-    [5]  = {hours = 180, qid = "2000.5",  nid = nil,            rmid = 100, txt = "I think this is important."},
-    [6]  = {hours = 216, qid = "2000.6",  nid = "Fall",         rmid = 110, txt = "This cannot be happening!!!"},
-    [7]  = {hours = 252, qid = "2000.7",  nid = "Council",      rmid = nil, txt = "What is this place?"},
-    [8]  = {hours = 288, qid = "2000.8",  nid = "MirrorRoom",   rmid = nil, txt = "Emma? Where are you?"},
-    [9]  = {hours = 324, qid = "2000.9",  nid = "Finnegan",     rmid = nil, txt = "I think I know this place!"},
-    [10] = {hours = 360, qid = "2000.10", nid = "Maze",         rmid = nil, txt = "A labyrinth? Great..."},
-    [11] = {hours = 396, qid = "2000.11", nid = "FamilyHouse",  rmid = nil, txt = "This is my house! I remember!"},
+    [1]  = {hours = 36,  qid = "2000.1",  nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_1")},
+    [2]  = {hours = 72,  qid = "2000.2",  nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_2")},
+    [3]  = {hours = 108, qid = "2000.3",  nid = "Island",       rmid = nil, txt = getText("IGUI_SayPlayer_Dream_3")},
+    [4]  = {hours = 144, qid = "2000.4",  nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_4")},
+    [5]  = {hours = 180, qid = "2000.5",  nid = nil,            rmid = 100, txt = getText("IGUI_SayPlayer_Dream_5")},
+    [6]  = {hours = 216, qid = "2000.6",  nid = "Fall",         rmid = 110, txt = getText("IGUI_SayPlayer_Dream_6")},
+    [7]  = {hours = 252, qid = "2000.7",  nid = "Council",      rmid = nil, txt = getText("IGUI_SayPlayer_Dream_7")},
+    [8]  = {hours = 288, qid = "2000.8",  nid = "MirrorRoom",   rmid = nil, txt = getText("IGUI_SayPlayer_Dream_8")},
+    [9]  = {hours = 324, qid = "2000.9",  nid = "Finnegan",     rmid = nil, txt = getText("IGUI_SayPlayer_Dream_9")},
+    [10] = {hours = 360, qid = "2000.10", nid = "Maze",         rmid = nil, txt = getText("IGUI_SayPlayer_Dream_10")},
+    [11] = {hours = 396, qid = "2000.11", nid = "FamilyHouse",  rmid = nil, txt = getText("IGUI_SayPlayer_Dream_11")},
+    [12] = {hours = 432, qid = "2000.12", nid = "Hell",         rmid = nil, txt = getText("IGUI_SayPlayer_Dream_12")},
+    [13] = {hours = 468, qid = "2000.13", nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_13")},
 }
 
 local proximityRevealMap = {
@@ -327,13 +366,15 @@ local onPlayerUpdate = function(player)
         BWOAPlayer.tick = 0
     end
 
+    local playerNum = player:getPlayerNum()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
+    local cell = getCell()
 
     -- ugly hack to fix getting stuck on basement stairs
     if pz < 0 and pz > -0.01 then
         local fd = player:getForwardDirection()
         fd:setLength(0.1)
-        if player:isStrafing() then
+        if false and player:isStrafing() then
             player:setX(px - fd:getX())
             player:setY(py - fd:getY())
         else
@@ -423,15 +464,18 @@ local onPlayerUpdate = function(player)
 
     -- player at location mission completion and dialogue reveal
     if BWOAPlayer.tick % 32 == 6 then 
-        local placeEvents = BWOAPlaceEvents.events
+        local gmd = GetBWOAModData()
+        local placeEvents = gmd.placeEvents
         for k_, placeEvent in pairs(placeEvents) do
-            if placeEvent.accomplishMissionId or (placeEvent.revealDialoguePerson and placeEvent.revealDialogueId) then
-                if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 6 and pz == placeEvent.z then
-                    if placeEvent.accomplishMissionId then
-                        BWOAMissions.Accomplish(placeEvent.accomplishMissionId)
-                    end
-                    if placeEvent.revealDialoguePerson and placeEvent.revealDialogueId then
-                        BWOADialogues.Reveal(placeEvent.revealDialoguePerson, placeEvent.revealDialogueId)
+            if not placeEvent.hidden then
+                if placeEvent.accomplishMissionId or (placeEvent.revealDialoguePerson and placeEvent.revealDialogueId) then
+                    if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 6 and pz == placeEvent.z then
+                        if placeEvent.accomplishMissionId then
+                            BWOAMissions.Accomplish(placeEvent.accomplishMissionId)
+                        end
+                        if placeEvent.revealDialoguePerson and placeEvent.revealDialogueId then
+                            BWOADialogues.Reveal(placeEvent.revealDialoguePerson, placeEvent.revealDialogueId)
+                        end
                     end
                 end
             end
@@ -462,6 +506,25 @@ local onPlayerUpdate = function(player)
             end
         end
     end
+
+    -- lore item highlighter
+    local generalHLColor = getCore():getWorldItemHighlightColor()
+    local pmid = BWOAPlayer.tick % 32
+    local pm = pseudoRadialMap[pmid]
+    local square = cell:getGridSquare(px + pm.x, py + pm.y, pz)
+    if square then
+        local wobs = square:getWorldObjects()
+        for i = 0, wobs:size()-1 do
+            local wob = wobs:get(i)
+            local item = wob:getItem()
+            local dc = item:getDisplayCategory() 
+            if dc == getText("IGUI_ItemCat_Lore") then
+                 wob:setOutlineHighlight(playerNum, true)
+                 wob:setOutlineHighlightCol(playerNum, generalHLColor)
+            end
+        end
+    end
+
 
     -- dreams
     local emitter = player:getEmitter()
@@ -524,6 +587,10 @@ local onPlayerUpdate = function(player)
             local brain = BanditBrain.Get(bandit)
             if brain.wantToLeave then
                 brain.wantToLeave = false
+                brain.program.stage = "Prison"
+                Bandit.ForceSyncPart(bandit, brain)
+                BWOADialogues.Reveal("Emma_Robinson", "3000.1")
+                BWOAPlaceEvents.Reveal("EmmaGoodbye")
                 BWOANPC.Teleport("Emma", 10116, 11185, -2)
             end
         end
@@ -533,6 +600,7 @@ local onPlayerUpdate = function(player)
         emitter:playSound(BWOAPlayer.soundEnd)
         emitter:stopSoundByName(BWOAPlayer.soundStart)
         BanditPlayer.WakeEveryone()
+        BWOAMusic.Stop()
         local stats = player:getStats()
         stats:set(CharacterStat.PANIC, 100)
 
@@ -893,20 +961,20 @@ local applyCO2IntoxicationPlayer = function(player, dose)
     elseif dose > 10000 then
         sickExpected = 55
         headAcheExpected = 60
-        fatigueExpected = 0.86
-        drunkExpected = 20
-        enduranceExpected = 0.65
+        fatigueExpected = 0.50
+        drunkExpected = 10
+        enduranceExpected = 0.66
         panicExpected = 20
-        coughChance = 20
+        coughChance = 30
     elseif dose > 5000 then
         BWOADialogues.Reveal("Emma_Robinson", "1000.4")
         sickExpected = 55
         headAcheExpected = 55
-        fatigueExpected = 0.74
+        fatigueExpected = 0.40
         enduranceExpected = 0.70
     elseif dose > 2000 then
         headAcheExpected = 50
-        fatigueExpected = 0.62
+        fatigueExpected = 0.30
     elseif dose > 1000 then
         fatigueExpected = 0.40
     end
@@ -1007,7 +1075,7 @@ local applyDrugEffects = function(player)
     end
 end
 
-local function everyOneMinute()
+local everyOneMinute = function()
     local player = getSpecificPlayer(0)
     if not player then return end
     if not player:isAlive() then return end
@@ -1043,7 +1111,7 @@ local function everyOneMinute()
     -- print ("INSIDE TIME: " .. tostring(BWOAPlayer.inside) .. " OUTSIDE TIME: " .. tostring(BWOAPlayer.outside))
 
     -- time memory regain
-    if SandboxVars.MemoryRegain then
+    if SandboxVars.BWOA.MemoryRegain then
         local gt = getGameTime()
         local hours = math.floor(gt:getWorldAgeHours()) - 10
         local minutes = gt:getMinutes()
@@ -1154,6 +1222,7 @@ local onTimedActionPerform = function(data)
     elseif action == "ISHarvestPlantAction" then
         if data.plant.typeOfSeed == "Comfrey" then
             BWOAMissions.Accomplish(103)
+            BWOADialogues.Reveal("Emma_Robinson", "2000.5.2")
         end
 
     elseif action == "ISMoveablesAction" then
@@ -1251,7 +1320,7 @@ local onTransferItem = function(data, item)
     end
 end
 
-local function onDeath(player)
+local onDeath = function(player)
     local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
     BWOAChat.ChangeBrainParam({param="sadness", value=100, target = target})
 end
@@ -1268,5 +1337,5 @@ Events.OnTimedActionPerform.Add(onTimedActionPerform)
 Events.OnTransferItem.Remove(onTransferItem)
 Events.OnTransferItem.Add(onTransferItem)
 
-Events.OnPlayerDeath.Remove(BanditPlayer.onDeath)
-Events.OnPlayerDeath.Add(BanditPlayer.onDeath)
+Events.OnPlayerDeath.Remove(onDeath)
+Events.OnPlayerDeath.Add(onDeath)

@@ -37,6 +37,12 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMin = 15,
         minuteMax = 60
     },
+    lab1 = {
+        hourMin = 7,
+        hourMax = 10,
+        minuteMin = 0,
+        minuteMax = 60
+    },
     radio = {
         hourMin = 10,
         hourMax = 12,
@@ -52,6 +58,12 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMax = 60
     },
     playpiano = {
+        hourMin = 13,
+        hourMax = 17,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    lab2 = {
         hourMin = 17,
         hourMax = 19,
         minuteMin = 0,
@@ -188,11 +200,13 @@ ZombiePrograms.Emma.Main = function(bandit)
                 local obj, dist = BWOABaseObjects.FindClosestObject({"Beds", "Bed"}, {x=bx, y=by})
                 if obj then
                     local bed = BWOABaseObjects.GetIsoObject(obj)
-                    local facing = bed:getSprite():getProperties():get("Facing")
-                    -- local eoffset = bed:getSprite():getProperties():get("Eoffset")
-                    local task = {action="SleepLong", x=obj.x, y=obj.y, z=obj.z, facing=facing, time=3000}
-                    local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                    if bed then
+                        local facing = bed:getSprite():getProperties():get("Facing")
+                        -- local eoffset = bed:getSprite():getProperties():get("Eoffset")
+                        local task = {action="SleepLong", x=obj.x, y=obj.y, z=obj.z, facing=facing, time=3000}
+                        local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                    end
                 end
             elseif activity == "jog" then
                 bandit:addLineChatElement("ACTIVITY: JOG", 1, 0, 1)
@@ -309,7 +323,75 @@ ZombiePrograms.Emma.Main = function(bandit)
                         if stoolIso then
                             local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), stoolData.f)
                             local task = {action="Generic", anim="SitPiano", looped=true, voice="InstrumentPiano1", fx = fx, fy = fy, ox = stool.x + stoolData.ox, oy = stool.y + stoolData.oy, time=200}
-                            local subTasks = BWOAPrograms.GoAndDo(bandit, stool, task, 0.7)
+                            local subTasks = BWOAPrograms.GoAwndDo(bandit, stool, task, 0.7)
+                            if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                        end
+                    end
+                end
+            elseif activity == "lab1" or activity == "lab2" then
+                -- bandit:addLineChatElement("ACTIVITY: LAB WORK", 1, 0, 1)
+                local computer, computerDist = BWOABaseObjects.FindClosestObject({"Computer"}, {x=bx, y=by})
+                local microscope, microscopeDist = BWOABaseObjects.FindClosestObject({"Microscope"}, {x=bx, y=by})
+                if computer and microscope then
+
+                    local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Lab)
+                    if reoutfitTask then
+                        table.insert(tasks, reoutfitTask)
+                        return {status=true, next="Main", tasks=tasks}
+                    end
+
+                    local gt = getGameTime()
+                    local minute = gt:getMinutes()
+
+                    if minute < 30 then
+                        local computerIso = BWOABaseObjects.GetIsoObject(computer)
+                        if computerIso then
+                            local chairPos = {
+                                ["appliances_com_01_72"] = {x = 0, y = 1, ox = 0.50, oy = 0.23, f="N"},
+                                ["appliances_com_01_73"] = {x = 1, y = 0, ox = 0.27, oy = 0.50, f="W"},
+                                ["appliances_com_01_74"] = {x = 0, y = -1, ox = 0.50, oy = 0.77, f="S"},
+                                ["appliances_com_01_75"] = {x = -1, y = 0, ox = 0.77, oy = 0.50, f="E"},
+
+                            }
+                            local spriteName = computerIso:getSprite():getName()
+                            local chairData = chairPos[spriteName]
+                            local chair = {
+                                x = computer.x + chairData.x,
+                                y = computer.y + chairData.y,
+                                z = computer.z,
+                                cn = "Chair",
+                            }
+
+                            local chairIso = BWOABaseObjects.GetIsoObject(chair)
+
+                            if chairIso then
+                                local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), chairData.f)
+                                local task = {action="Research", anim="SitComputer", looped=true, voice="ComputerKeyboard", fx = fx, fy = fy, ox = chair.x + chairData.ox, oy = chair.y + chairData.oy, time=200}
+                                local subTasks = BWOAPrograms.GoAndDo(bandit, chair, task, 0.7)
+                                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                            end
+                        end
+                    else
+                        local microscopeIso = BWOABaseObjects.GetIsoObject(microscope)
+                        if microscopeIso then
+                            local standingPos = {
+                                ["location_community_medical_01_136"] = {x = 0, y = 1, ox = 0.50, oy = 0.10, f="N"},
+                                ["location_community_medical_01_137"] = {x = 1, y = 0, ox = 0.10, oy = 0.50, f="W"},
+                                ["location_community_medical_01_139"] = {x = 0, y = -1, ox = 0.50, oy = 0.90, f="S"},
+                                ["location_community_medical_01_138"] = {x = -1, y = 0, ox = 0.90, oy = 0.50, f="E"},
+                            }
+
+                            local spriteName = microscopeIso:getSprite():getName()
+                            local standingData = standingPos[spriteName]
+                            local standing = {
+                                x = microscope.x + standingData.x,
+                                y = microscope.y + standingData.y,
+                                z = microscope.z,
+                            }
+
+                            local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), standingData.f)
+                            local task = {action="Research", anim="Microscope", looped=true, fx = fx, fy = fy, ox = standing.x + standingData.ox, oy = standing.y + standingData.oy, time=200}
+                            local subTasks = BWOAPrograms.GoAndDo(bandit, standing, task, 0.7)
                             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                         end
                     end
@@ -503,24 +585,21 @@ ZombiePrograms.Emma.Cry = function(bandit)
     return {status=true, next="Cry", tasks=tasks}
 end
 
-ZombiePrograms.Emma.Leisure = function(bandit)
+ZombiePrograms.Emma.Prison = function(bandit)
     local tasks = {}
-    return {status=true, next="Main", tasks=tasks}
+    
+    local expectedBid = Bandit.banditMap.Emma.Prison
+    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    if reoutfitTask then
+        table.insert(tasks, reoutfitTask)
+        return {status=true, next="Prison", tasks=tasks}
+    end
+
+    local task = {action="Cry", time=200}
+    table.insert(tasks, task)
+
+    return {status=true, next="Prison", tasks=tasks}
 end
 
-ZombiePrograms.Emma.WaterHunt = function(bandit)
-    local tasks = {}
-    return {status=true, next="Main", tasks=tasks}
-end
-
-ZombiePrograms.Emma.FoodHunt = function(bandit)
-    local tasks = {}
-    return {status=true, next="Main", tasks=tasks}
-end
-
-ZombiePrograms.Emma.Toilet = function(bandit)
-    local tasks = {}
-    return {status=true, next="Main", tasks=tasks}
-end
 
 

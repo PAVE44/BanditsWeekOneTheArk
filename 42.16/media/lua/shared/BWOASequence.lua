@@ -9,7 +9,7 @@ BWOASequence.Start = function(params)
 
     local volume = getSoundManager():getSoundVolume()
 
-    BWOAEventControl.Add("FadeOut", {time=0}, 0)
+    BWOAEventControl.Add("FadeOut", {time=0, mute=true}, 0)
 
     -- player start coords
     local px = Bandit.playerStart.x
@@ -53,12 +53,13 @@ BWOASequence.Start = function(params)
         program = "Emma",
         size = 1,
         voice = Bandit.emmaStart.voiceId,
+        fullname = Bandit.emmaStart.fullname,
     }
 
     BWOAEventControl.Add("SpawnGroup", emma, 2100)
     
     -- fade in
-    BWOAEventControl.Add("FadeIn", {time = 6, volume = volume}, 2700)
+    BWOAEventControl.Add("FadeIn", {time = 6, volume = volume, unmute=true}, 2700)
 end
 
 -- when players loads a previous game

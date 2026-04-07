@@ -187,6 +187,8 @@ theme.furniture = {
             {["Base.FishingTackle"] = 1},
             {["Base.FishingTackle2"] = 1},
             {["Base.HamRadio2"] = 7},
+            {["Base.EngineParts"] = 4},
+            {["Bandits.EngineLubricant"] = 1},
         },
         dirs = {
             n = {

@@ -121,21 +121,29 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 20,
     },
-    ["MirrorRoom"] = {
-        scene = "MirrorRoom",
-        x = 18003,
-        y = 3603,
-        z = -2,
-        renderDist = 12,
-        music = "MirrorRoom",
-    },
     ["FamilyHouse"] = {
         scene = "FamilyHouse",
         x = 18010,
         y = 3410,
         z = 0,
         renderDist = 12,
-        music = "FamilyHouse",
+        music = "MusicFamilyHouse",
+    },
+    ["MirrorRoom"] = {
+        scene = "MirrorRoom",
+        x = 18003,
+        y = 3603,
+        z = -2,
+        renderDist = 12,
+        music = "MusicMirrorRoom",
+    },
+    ["Hell"] = {
+        scene = "Hell",
+        x = 18010,
+        y = 3825,
+        z = 0,
+        renderDist = 30,
+        music = "MusicHell",
     },
     ["Breach1"] = {
         scene = "Breach",
@@ -144,15 +152,38 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 60,
     },
-     ["Maniac"] = {
+    ["FinneganReal"] = {
+        scene = "FinneganReal",
+        x = 13585,
+        y = 1700,
+        z = 0,
+        renderDist = 60,
+    },
+    ["EmmaGoodbye"] = {
+        scene = "EmmaGoodbye",
+        x = 9960,
+        y = 12630,
+        z = 0,
+        renderDist = 10,
+        hidden = true,
+    },
+    ["Maniac"] = {
         scene = "Maniac",
         x = 10111,
         y = 11183,
         z = 0,
         renderDist = 60,
     },
-
 }
+
+BWOAPlaceEvents.Reveal = function(name)
+    local gmd = GetBWOAModData()
+    local placeEvents = gmd.placeEvents
+    local event = placeEvents[name]
+    if event then
+        event.hidden = nil
+    end
+end
 
 -- event: x, y, z, scene
 BWOAPlaceEvents.Render = function(event)

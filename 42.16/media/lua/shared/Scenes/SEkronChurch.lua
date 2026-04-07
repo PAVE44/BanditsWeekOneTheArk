@@ -42,6 +42,8 @@ function BWOAScenes.EkronChurch:placeItems()
     md.BWOA.onTaken = {}
     md.BWOA.onTaken.accomplishMissionId = 101
     md.BWOA.onTaken.revealMissionId = 102
+    md.BWOA.onTaken.revealDialogueId = "2000.5.1"
+    md.BWOA.onTaken.revealDialoguePerson = "Emma_Robinson"
     BWOAPrepareTools.AddWorldItemSpecial(439, 9925, -2, note, {x=0.80, y=0.66, z=0.33})
 
 end
@@ -67,6 +69,7 @@ function BWOAScenes.EkronChurch:populate()
         y = 9926,
         z = -2,
         program = "James",
+        fullname = "Father James",
         size = 1,
     }
     sendClientCommand(player, 'Spawner', 'Clan', params1)

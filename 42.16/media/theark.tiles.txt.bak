@@ -3031,6 +3031,34 @@ tileset
         WallOverlay = 
         attachedN = 
     }
+    // theark_03_33
+    tile
+    {
+        xy = 1,4
+        BlocksPlacement = 
+        CanScrap = 
+        CustomName = Clock
+        Facing = W
+        GroupName = Standing
+        IsMoveAble = 
+        Material = Wood
+        PickUpWeight = 75
+        solidtrans = 
+    }
+    // theark_03_34
+    tile
+    {
+        xy = 2,4
+        BlocksPlacement = 
+        CanScrap = 
+        CustomName = Clock
+        Facing = N
+        GroupName = Standing
+        IsMoveAble = 
+        Material = Wood
+        PickUpWeight = 75
+        solidtrans = 
+    }
 }
 tileset
 {

@@ -69,7 +69,7 @@ end
 
 function ArkSettingsMain:create()
     local x = UI_BORDER_SPACING + 1
-    local y = UI_BORDER_SPACING + FONT_HGT_TITLE + x
+    local y = UI_BORDER_SPACING + FONT_HGT_LARGE + x
     
     -- BOTTOM BUTTON
     local btnPadding = JOYPAD_TEX_SIZE + UI_BORDER_SPACING*2
@@ -98,7 +98,7 @@ function ArkSettingsMain:create()
     self.playButton:enableAcceptColor()
     self:addChild(self.playButton);
 
-    local y = UI_BORDER_SPACING + 1 + FONT_HGT_TITLE + 8
+    local y = UI_BORDER_SPACING + 1 + FONT_HGT_LARGE + 8
 
     self.infoPanel = ISRichTextPanel:new(UI_BORDER_SPACING+1, y, self:getWidth() - (UI_BORDER_SPACING * 2) - 2, self:getHeight() - (UI_BORDER_SPACING * 2) - 2)
     self.infoPanel:setAnchorLeft(true)
@@ -198,7 +198,7 @@ function ArkSettingsMain.onResolutionChange(oldw, oldh, neww, newh)
 	local self = MainScreen.instance
 
     local uis = {
-        { self.arkSettingsMain, 0.7, 0.8 },
+        { self.arkSettingsMain, 1, 1 },
     }
 
     for _,ui in ipairs(uis) do
@@ -300,7 +300,7 @@ end
 function ArkSettingsMain:prerender()
     ArkSettingsMain.instance = self
     ISPanel.prerender(self);
-    self:drawTextCentre(getText("UI_WelcomeToTheArk"), self.width / 2, UI_BORDER_SPACING+1, 1, 1, 1, 1, UIFont.Title);
+    self:drawTextCentre(getText("UI_WelcomeToTheArk"), self.width / 2, UI_BORDER_SPACING+1, 1, 1, 1, 1, UIFont.Large);
 
     -- plotter
     local TEMP_LERP = -50

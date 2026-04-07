@@ -14,8 +14,7 @@ BWOANightmares.Island.onEnter = function(player)
         z = player:getZ()
     }
 
-    local volume = getSoundManager():getSoundVolume()
-    BWOAEventControl.Add("FadeIn", {time = 8, volume = volume}, 1)
+    BWOAEventControl.Add("FadeIn", {time = 8}, 1)
 
     BWOATex.tex = getTexture("media/textures/nightmare_mask2.png")
     BWOATex.speed = 0.000001

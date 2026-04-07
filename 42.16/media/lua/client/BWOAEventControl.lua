@@ -126,7 +126,7 @@ local function everyOneMinute()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local placeEvents = gmd.placeEvents
     for k, event in pairs(placeEvents) do
-        if not event.rendered then
+        if not event.rendered and not event.hidden then
             if not renderDist then
                 event.renderDist = 50
             end

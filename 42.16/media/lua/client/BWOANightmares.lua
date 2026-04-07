@@ -86,7 +86,7 @@ local function onPlayerUpdate(player)
     if state == "exit" then
         gmd.nightmares.state = "post"
         BWOANightmares[variant].onExit(player)
-
+        BWOAMusic.Stop()
     end
 
     if state == "post" then

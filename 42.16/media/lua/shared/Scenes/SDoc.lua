@@ -2,7 +2,7 @@ require "Scenes/SAbstract"
 
 BWOAScenes = BWOAScenes or {}
 
-BWOAScenes.Doc = BWOAScenes.Abstract:derive("BWOAScenes.Abstract")
+BWOAScenes.Doc = BWOAScenes.Abstract:derive("BWOAScenes.Doc")
 
 function BWOAScenes.Doc:placeObjects()
     local x, y, z = self.x, self.y, self.z

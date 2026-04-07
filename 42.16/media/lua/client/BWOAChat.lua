@@ -100,6 +100,7 @@ BWOAChat.ChangeBrainParam = function(params)
     local bandit = BanditZombie.GetInstanceById(params.target.id)
     local brain = BanditBrain.Get(bandit)
     brain[params.param] = params.value
+    Bandit.ForceSyncPart(bandit, brain)
 end
 
 BWOAChat.Say = function(qid, question, person)
@@ -115,7 +116,7 @@ BWOAChat.Say = function(qid, question, person)
     else
         local answer = BWOADialogues.GetAnswer(person, question)
         if answer then
-            local target = BanditUtils.GetClosestBanditLocationProgramStage(player, {"Emma", "James", "Angel"}, "Main")
+            local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel"})
             if target.dist < BWOAChat.talkDist then
                 if not anim then 
                     anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
@@ -248,7 +249,7 @@ local function onEmote(player, emote)
     if not action then return end
 
     if action.needNPC then
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {action.needNPC}, "Main")
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {action.needNPC})
         if not target or target.dist > BWOAChat.talkDist then return end
         action.func(player, target)
     else
@@ -264,7 +265,7 @@ local function onKeyPressed(keynum)
     local key = options:getOption("TALK"):getValue()
 
     if keynum == key then
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel"}, "Main")
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel"})
         if target.dist < BWOAChat.talkDist then
             if modal then
                 modal:removeFromUIManager()

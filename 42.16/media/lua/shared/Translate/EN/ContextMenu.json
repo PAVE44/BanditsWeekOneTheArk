@@ -1,5 +1,7 @@
 {
     "ContextMenu_UseNoah": "Use Noah",
+    "ContextMenu_AddCorpse": "Add Corpse",
+    "ContextMenu_NeedCorpse": "You need to be carrying a corpse to do this.",
     "ContextMenu_NeedScrewdriver": "You need a Screwdriver.",
     "ContextMenu_FixAirVent": "Fix Air Vent",
     "ContextMenu_NeedEngineCoolant": "You need engine coolant.",
@@ -7,13 +9,20 @@
     "ContextMenu_GeneratorCoolantFull": "Generator coolant is full.",
     "ContextMenu_GeneratorLubricantFull": "Generator lubricant is full.",
     "ContextMenu_GeneratorMustBeShutDown": "Generator must be shut down.",
+    "ContextMenu_GeneratorNotBroken": "Generator condition is not low enough.",
     "ContextMenu_AddCoolant": "Add Coolant",
     "ContextMenu_AddLubricant": "Add Lubricant",
+    "ContextMenu_RepairGenerator": "Repair",
     "ContextMenu_NeedNBCTablets": "You need NBC Tablets.",
     "ContextMenu_AddNBCTablets": "Add NBC Tablets",
     "ContextMenu_NeedSledgehammer": "You need a Sledgehammer.",
     "ContextMenu_NeedCrowbar": "You need a Crowbar.",
+    "ContextMenu_NeedWrench": "You need a Wrench.",
+    "ContextMenu_NeedEngineParts": "You need Engine Parts.",
     "ContextMenu_OpenHatch": "Open Hatch",
     "ContextMenu_StopMusic": "Stop Music",
-    "ContextMenu_PlayMusic": "Play Music"
+    "ContextMenu_PlayMusic": "Play Music",
+    "ContextMenu_PerkMechanicsRequired3": "You need Mechanics level 3 or above to do this.",
+    "ContextMenu_PerkElectricalRequired2": "You need Electrical level 2 or above to do this.",
+    "ContextMenu_RecipeGeneratorRequired": "You need to know the How to Use Generator recipe to do this."
 }

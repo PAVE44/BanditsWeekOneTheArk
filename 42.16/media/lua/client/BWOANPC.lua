@@ -11,8 +11,16 @@ local function manageNPC()
         if npc.brain.program.name == "Emma" then
 
             local bandit = BanditZombie.GetInstanceById(id)
+            local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
             if bandit then
                 local brain = BanditBrain.Get(bandit)
+
+                -- custom mission logic
+                if BWOAMissions.IsAccomplished(50) then
+                    if bz < -3 and bx > 9950 and bx < 9980 and by > 12600 and by < 12650 then
+                        BWOAMissions.Accomplish(51)
+                    end
+                end
 
                 -- teleporting feature
                 if gmd.permanentNPC[id] and gmd.permanentNPC[id].teleportTo then
@@ -54,6 +62,9 @@ local function manageNPC()
                 end
                 if not brain.sadness then
                     brain.sadness = 0
+                end
+                if not brain.research then
+                    brain.research = 0
                 end
 
                 brain.bladder = brain.bladder + 0.07
@@ -136,7 +147,7 @@ BWOANPC.Teleport = function(name, x, y, z)
             data.teleportTo = {
                 x = x,
                 y = y,
-                z = z
+                z = z,
             }
         end
     end

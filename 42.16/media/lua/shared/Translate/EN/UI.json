@@ -6,14 +6,13 @@
     "UI_credits_header_Music": "MOD BY:",
     "UI_credits_Music1": "Slayer",
 
-    "UI_WelcomeToTheArk": "Welcome to the Ark",
+    "UI_WelcomeToTheArk": "WELCOME TO THE ARK",
     "UI_optionscreen_BWOA_Backup": "It is recommended that you make a frequent backup of your save file. One of the reasons is that you will have only one life and no ability to respawn. But also game crashes may lead to save file corruption, and you will have no way to recover your progress. Your save files are located in the Zomboid/Saves directory. ",
     "UI_optionscreen_BWOA_Settings": "Settings",
     "UI_optionscreen_BWOA_FalloutCurve": "Fallout Curve",
     "UI_optionscreen_BWOA_mradPerMin": "mrad/min",
 
-
-    "UI_optionscreen_BWOA_WeekOne": "Week One",
+    "UI_optionscreen_BWOA_TheArk": "The Ark",
     "UI_optionscreen_BWOA_Talk": "Talk to NPC",
 
     "UI_BWOA_POI": "Point of Interest to Discover",
@@ -37,7 +36,7 @@
     "UI_quick_tip14": "Your dreams will change over time.",
     "UI_quick_tip15": "Zombies have evolved since you last encountered them.",
     "UI_quick_tip16": "Aspirin reduces pain and helps fight off the cold.",
-    "UI_quick_tip17": "Pentoxifylline reduces fatigue and endurance loss caused by CO₂ intoxication.",
+    "UI_quick_tip17": "Pentoxifylline reduces fatigue and endurance loss caused by CO2 intoxication.",
     "UI_quick_tip18": "Working vehicles can only be found by completing missions.",
     "UI_quick_tip19": "Didn't catch what Emma said? You can ask her to repeat it.",
     "UI_quick_tip20": "Carry a spare mask in case of filter failure.",
@@ -75,6 +74,12 @@
     "UI_quick_tip51": "My Spirit will not contend with humans forever, for they are mortal; their days will be a hundred and twenty years.",
     "UI_quick_tip52": "For whoever wants to save their life will lose it, but whoever loses their life for me will find it.",
     "UI_quick_tip53": "Nothing is a cliché when it's happening to you.",
+    "UI_quick_tip54": "The Lord gives and the Lord takes away. Blessed be the name of the Lord.",
+    "UI_quick_tip55": "",
+    "UI_quick_tip56": "",
+    "UI_quick_tip57": "",
+    "UI_quick_tip58": "Hold Q (default) to open the emote wheel.",
+    "UI_quick_tip59": "",
 
     "UI_quick_tip_joke1": "Also try Week One!",
     "UI_quick_tip_joke2": "Noah Whitlock led the OASIS Project as a response to a forecasted inevitable global incident of unknown cause.",

@@ -48,6 +48,11 @@ local function onZombieUpdate(zombie)
         BWOAZombie.tick = 0
     end
 
+    -- AUTOPSY TABLE HACK
+    if zombie:getModData().fixedZ then
+        zombie:setZ(zombie:getModData().fixedZ)
+    end
+
     -- radiation
     local radiation = BWOAClimate.radiation
     if radiation > 100 then
@@ -178,6 +183,10 @@ local function onDeadBodySpawn(body)
                 item:getModData().radiated = true
             end
         end
+    end
+
+    if body:getModData().fixedZ then
+        body:setZ(body:getModData().fixedZ)
     end
 
     if SandboxVars.BWOA.SkeletonReanimation then

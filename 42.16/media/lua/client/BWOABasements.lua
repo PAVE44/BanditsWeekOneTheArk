@@ -102,6 +102,9 @@ end
 
 local procedural_basements = {
     ark_underground_all = { width=28, height=50, stairx=0, stairy=0, stairDir="N" },
+    ark_twinrooms = { width=12, height=3, stairx=0, stairy=0, stairDir="" },
+    ark_doublerooms = { width=6, height=5, stairx=0, stairy=0, stairDir="" },
+    ark_padded = { width=3, height=4, stairx=0, stairy=0, stairDir="" },
     finnegan_research_group = { width=57, height=29, stairx=0, stairy=0, stairDir="" },
     council = { width=20, height=20, stairx=0, stairy=0, stairDir="" },
     maze = { width=60, height=60, stairx=0, stairy=0, stairDir="" },
@@ -110,6 +113,7 @@ local procedural_basements = {
     mirror_room = { width=6, height=6, stairx=0, stairy=0, stairDir="" },
     sewer = { width=50, height=20, stairx=0, stairy=0, stairDir="" },
     maniac = { width=8, height=7, stairx=0, stairy=0, stairDir="" },
+    hell = { width=20, height=50, stairx=0, stairy=0, stairDir="" },
 }
 
 local procedural_basement_spawn_locations = {
@@ -120,16 +124,28 @@ local procedural_basement_spawn_locations = {
     {x=9814, y=12927, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_49_east"}}, -- hunter house
     {x=10862, y=10033, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_57"}}, -- doc house
     {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
+    {x=10110, y=11180, z=1, stairDir="", choices={"maniac"}}, -- maniac
+
+    -- dream basements
     {x=18000, y=3000, z=-2, stairDir="", choices={"council"}}, -- the council room
     {x=18000, y=3200, z=-2, stairDir="", choices={"maze"}}, -- maze
     {x=18000, y=3400, z=-2, stairDir="", choices={"family_house"}}, -- family_house
     {x=18000, y=3600, z=-2, stairDir="", choices={"mirror_room"}}, -- mirror room
+    {x=18000, y=3800, z=-1, stairDir="", choices={"hell"}}, -- hell
     {x=18000, y=4000, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
+    
+    -- ark supplementary basements
     {x=9948, y=12600, z=-4, stairDir="N", choices={"ark_underground_all"}}, -- ark sublevel
-    {x=10570, y=10600, z=1, stairDir="", choices={"breach"}}, -- breach
-    -- {x=10360, y=12324, z=1, stairDir="", choices={"sewer"}}, -- sewer
-    {x=10110, y=11180, z=1, stairDir="", choices={"maniac"}}, -- maniac
+    {x=9962, y=12643, z=-3, stairDir="", choices={"ark_twinrooms"}}, -- ark 3 x twinrooms
+    -- {x=9973, y=12637, z=-3, stairDir="", choices={"ark_doublerooms"}}, -- ark 2 x doublerooms
+    -- {x=9973, y=12609, z=-3, stairDir="", choices={"ark_padded"}}, -- ark 2 x padded rooms
 
+    -- nature basements
+    {x=10570, y=10600, z=1, stairDir="", choices={"breach"}}, -- breach
+
+    -- {x=10360, y=12324, z=1, stairDir="", choices={"sewer"}}, -- sewer
+    
+    
     --{x=99999, y=99999, z=-1, stairDir="", access="name", choices={"basement_name"}},
 }
 

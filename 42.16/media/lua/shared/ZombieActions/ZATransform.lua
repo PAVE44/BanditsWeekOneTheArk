@@ -47,7 +47,7 @@ ZombieActions.Transform.onComplete = function(zombie, task)
         brain.tint = data.tint or {}
         brain.bag = data.bag
 
-        zombie:getHumanVisual():setSkinTextureName("x")
+        zombie:getHumanVisual():setSkinTextureName("x") -- sic!
         Bandit.ApplyVisuals(zombie, brain)
 
     end

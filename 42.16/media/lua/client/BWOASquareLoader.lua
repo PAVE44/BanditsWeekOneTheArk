@@ -160,6 +160,7 @@ BWOASquareLoader.materialToItems = {
 BWOASquareLoader.lavaEpicenters = {
     {x=9950, y=11300, r=700},
     {x=11940, y=7010, r=140},
+    {x=13830, y=1715, r=200},
 }
 
 local hasMaterial = function(props, material)

@@ -25,7 +25,7 @@ function MainScreen:instantiate()
 	    local h = getCore():getScreenHeight();
 
         local uis = {
-            { self.arkSettingsMain, 0.7, 0.8 },
+            { self.arkSettingsMain, 1, 1 },
         }
     
         for _,ui in ipairs(uis) do

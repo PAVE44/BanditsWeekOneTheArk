@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "0.115"
+BWOAMenu.version = "0.122"
 
 BWOAMenu.blinking = {}
 
@@ -88,6 +88,36 @@ BWOAMenu.specialObjectsMenu.Noah = function(context, square, player, sobject)
     end
 
     local option = context:addOption(getText("ContextMenu_UseNoah"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+
+    local allowed, reason = verifyFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.AutopsyTable = function(context, square, player, sobject)
+    local verifyFunc = function()
+        if not player:isDraggingCorpse() then
+            return false, getText("ContextMenu_NeedCorpse")
+        end
+
+        return true, ""
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            ISTimedActionQueue.add(TAAddCorpse:new(player, square))
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_AddCorpse"), player, actionFunc, square)
     local texture = getTexture(sobject.spriteName)
     if texture then
         option.iconTexture = texture:splitIcon()
@@ -179,6 +209,49 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
         return true
     end
 
+    local verifyRepairFunc = function()
+        local gen = findGen(square)
+        if gen and gen.condition > 90 then
+            return false, getText("ContextMenu_GeneratorNotBroken")
+        end
+
+        if gen and gen.active then
+            return false, getText("ContextMenu_GeneratorMustBeShutDown")
+        end
+
+        local profession = player:getDescriptor():getCharacterProfession()
+        if profession ~= CharacterProfession.MECHANICS then
+            local pmech = player:getPerkLevel(Perks.Mechanics)
+            if pmech < 3 then
+                return false, getText("ContextMenu_PerkMechanicsRequired3")
+            end
+        end
+
+        if profession ~= CharacterProfession.ELECTRICIAN then
+            if not player:getKnownRecipes():contains("Generator") then
+                return false, getText("ContextMenu_RecipeGeneratorRequired")
+            end
+
+            local pelec = player:getPerkLevel(Perks.Electricity)
+            if pelec < 2 then
+                return false, getText("ContextMenu_PerkElectricalRequired2")
+            end
+        end
+
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTypeRecurse("Base.EngineParts")
+        if not hasItem then
+            return false, getText("ContextMenu_NeedEngineParts")
+        end
+
+        local hasItem = inventory:containsTagRecurse(ItemTag.WRENCH)
+        if not hasItem then
+            return false, getText("ContextMenu_NeedWrench")
+        end
+
+        return true
+    end
+
     local actionCoolantFunc = function()
         if luautils.walkAdj(player, square) then
             local item = BWOAItems.GetFirstItemTypeWithFluid("EngineCoolant")
@@ -203,6 +276,24 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
         end
     end
 
+    local actionRepairFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item1 = inventory:getFirstTagRecurse(ItemTag.WRENCH)
+            local item2 = inventory:getFirstTypeRecurse("Base.EngineParts")
+
+            if item1 and item2 then
+                local transferAction1 = ISInventoryTransferUtil.newInventoryTransferAction(player, item1, item1:getContainer(), player:getInventory(), 100)
+                local transferAction2 = ISInventoryTransferUtil.newInventoryTransferAction(player, item2, item2:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction1)
+                ISTimedActionQueue.add(transferAction2)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item1, 30, true))
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item2, 30, false))
+                ISTimedActionQueue.add(TAFixGX9:new(player, square, "repair"))
+            end
+        end
+    end
+
     local genOption = context:addOption("GX-9")
     local texture = getTexture(sobject.spriteName)
     if texture then
@@ -213,7 +304,7 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
     context:addSubMenu(genOption, genMenu)
 
     local optionCoolant = genMenu:addOption(getText("ContextMenu_AddCoolant"), player, actionCoolantFunc, square)
-    local allowed, reason = verifyCollantFunc(player)
+    local allowed, reason = verifyCollantFunc()
     if not allowed then
         local tooltip = ISToolTip:new()
         optionCoolant.notAvailable = true
@@ -222,12 +313,21 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
     end
 
     local optionLubricant = genMenu:addOption(getText("ContextMenu_AddLubricant"), player, actionLubricantFunc, square)
-    local allowed, reason = verifyLubricantFunc(player)
+    local allowed, reason = verifyLubricantFunc()
     if not allowed then
         local tooltip = ISToolTip:new()
         optionLubricant.notAvailable = true
         tooltip.description = reason
         optionLubricant.toolTip = tooltip
+    end
+
+    local optionRepair = genMenu:addOption(getText("ContextMenu_RepairGenerator"), player, actionRepairFunc, square)
+    local allowed, reason = verifyRepairFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        optionRepair.notAvailable = true
+        tooltip.description = reason
+        optionRepair.toolTip = tooltip
     end
 end
 
@@ -367,6 +467,11 @@ BWOAMenu.specialObjectsHighlight = {
         menuFunc = BWOAMenu.specialObjectsMenu.Noah,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Noah,
         destroyable = true,
+    },
+    ["AutopsyTable"] = {
+        x = 9961, y = 12638, z = -4, spriteName = "location_community_medical_01_79",
+        menuFunc = BWOAMenu.specialObjectsMenu.AutopsyTable,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.AutopsyTable,
     },
     ["Vent"] = {
         x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", 
@@ -553,10 +658,11 @@ function BWOAMenu.LavaLake(player, square)
 end
 
 function BWOAMenu.Teleport(player)
-    --local x, y, z = 9962, 12609, -4
+    -- local x, y, z = 9962, 12609, -4
     local x, y, z = 9961, 12622, -4 -- ark
     -- local x, y, z = 18005, 3603, -3 -- family house
-    -- local x, y, z = 5574, 12492, -13 -- secre t base
+    -- local x, y, z = 18009, 3848, -10 -- hell
+    -- local x, y, z = 5574, 12492, -13 -- secret base
     
     player:setX(x)
     player:setY(y)
@@ -569,10 +675,12 @@ end
 function BWOAMenu.EmmaTeleport(player)
     -- BWOANPC.Teleport("Emma", player:getX(), player:getY(), player:getZ())
 
+    
     local npcData, bandit = BWOANPC.Get("Emma")
     if npcData and bandit then
         local brain = BanditBrain.Get(bandit)
         brain.wantToLeave = true
+        -- brain.program.stage = "Prison"
         Bandit.ForceSyncPart(bandit, brain)
     end
 
@@ -599,18 +707,15 @@ function BWOAMenu.Transform(player, zombie)
     })
 end
 
-function BWOAMenu.Spawn(player, square, program, cid)
+function BWOAMenu.Spawn(player, square, program, cid, fullname)
     local args = {}
     args.cid = cid
     args.x = square:getX()
     args.y = square:getY()
     args.z = square:getZ()
+    args.fullname = fullname
     args.program = program
     args.size = 1
-    args.occupation = {
-        face = "N",
-        action = "Making"
-    }
     -- args.permanent = true
     sendClientCommand(player, 'Spawner', 'Clan', args)
 end
@@ -718,12 +823,21 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() or isAdmin() then
 
-        print ("ISNOTBLOCKED:" .. tostring(square:isNotBlocked(false)))
 
         -- BWOABuildTools.Fridge(9961, 12610, -4)
         -- square:removeGrime()
-        --player:setZ(-1)
+        --BWOABuildTools.RemoveObject(sx, sy, sz, "walls_garage_01_37")
+        --BWOABuildTools.WindowFrame(sx, sy, sz, "walls_garage_01_45", true)
 
+        --[[
+        local window = square:getWall()
+        if window then
+            print ("window")
+            ISTimedActionQueue.add(TAThrowCorpseThrough:new(player, window));
+        end]]
+        
+
+        -- BWOAMusic.Play("MusicHell", 0.6, 1)
 
         -- BWOABuildTools.ClearAll(sx, sy, sz)
         --BWOABuildTools.LampCustom(18003, 3000, -1, "lighting_indoor_02_57")
@@ -821,17 +935,16 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         saveItems(square)
 
         context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
-        context:addOption("Emma Teleport", player, BWOAMenu.EmmaTeleport)
+        context:addOption("Emma Ready to Leave", player, BWOAMenu.EmmaTeleport)
         context:addOption("Break Noah", player, BWOAMenu.BreakNoah)
         
 
         local spawnOption = context:addOption("Character Spawn")
         local spawnMenu = context:getNew(context)
         context:addSubMenu(spawnOption, spawnMenu)
-        spawnMenu:addOption("Emma", player, BWOAMenu.Spawn, square, "Emma", Bandit.clanMap.Emma)
-        spawnMenu:addOption("James", player, BWOAMenu.Spawn, square, "James", Bandit.clanMap.James)
-        spawnMenu:addOption("Angel", player, BWOAMenu.Spawn, square, "Angel", Bandit.clanMap.Angel)
-        spawnMenu:addOption("Finnegan Employee", player, BWOAMenu.Spawn, square, "Finnegan", Bandit.clanMap.FinneganGeneric)
+        spawnMenu:addOption("Emma", player, BWOAMenu.Spawn, square, "Emma", Bandit.clanMap.Emma, "Emma Robinson")
+        spawnMenu:addOption("James", player, BWOAMenu.Spawn, square, "James", Bandit.clanMap.James, "Father James")
+        spawnMenu:addOption("Angel", player, BWOAMenu.Spawn, square, "Angel", Bandit.clanMap.Angel, "Angel")
 
         -- context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
         -- context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
@@ -858,6 +971,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         nightmaresMenu:addOption("Finnegan", player, BWOAMenu.EventNightmare, "Finnegan")
         nightmaresMenu:addOption("Council", player, BWOAMenu.EventNightmare, "Council")
         nightmaresMenu:addOption("Maze", player, BWOAMenu.EventNightmare, "Maze")
+        nightmaresMenu:addOption("Hell", player, BWOAMenu.EventNightmare, "Hell")
         nightmaresMenu:addOption("Mirror Room", player, BWOAMenu.EventNightmare, "MirrorRoom")
         nightmaresMenu:addOption("Family House", player, BWOAMenu.EventNightmare, "FamilyHouse")
 
@@ -888,6 +1002,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             "health_effects_radiation",
             "book_dacr_research",
             "book_nuclear_winter",
+            "emma_goodbye",
         }
         for _, artifact in pairs(artifacts) do
             artifactsMenu:addOption(artifact, player, BWOAMenu.TestItem, square, artifact)

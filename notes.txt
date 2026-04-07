@@ -219,11 +219,11 @@ CHAPTER 5: ENDURE
  - communicate with other arks
  - visitors from another ark - friendly on comms but later they're not
  - visitors come by chopper?
- - beds still impassable after reload
+ + beds still impassable after reload
  + music jukebox needs walkto action
 
 luke and martha quests
-noah failure
++ noah failure
 definitely there should be conquest of the main bandit base 
 luke and martha
 ark library of advanced cybernetics oasis project, photo of noah whitlock
@@ -240,7 +240,7 @@ emma breaking leg
 emma inventory and health panel?
 entrance to service tunnels remodel
 second warehouse needs adaptation
-emma kidnapped
+X emma kidnapped
 dark clouds
 heating IN ARK some places have no temp
 remodel room leading to service tunnels

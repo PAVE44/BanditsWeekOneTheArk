@@ -2,7 +2,7 @@ require "Scenes/SAbstract"
 
 BWOAScenes = BWOAScenes or {}
 
-BWOAScenes.Toolbag = BWOAScenes.Abstract:derive("BWOAScenes.Abstract")
+BWOAScenes.Toolbag = BWOAScenes.Abstract:derive("BWOAScenes.Toolbag")
 
 function BWOAScenes.Toolbag:placeObjects()
 end

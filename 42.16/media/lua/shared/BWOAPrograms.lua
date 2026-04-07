@@ -1,5 +1,12 @@
 BWOAPrograms = BWOAPrograms or {}
 
+BWOAPrograms.Fallen = function(bandit)
+    local tasks = {}
+    local task = {action="Generic", anim="Fallen", voice=voice, looped=true, time=200}
+    table.insert(tasks, task)
+    return tasks
+end
+
 BWOAPrograms.FollowMaster = function(bandit)
     local tasks = {}
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()

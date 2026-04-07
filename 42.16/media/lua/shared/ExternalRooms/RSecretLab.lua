@@ -64,6 +64,12 @@ BWOARooms.SecretLab.Build = function ()
 
     BWOABuildTools.ELS(BWOARooms.SecretLab.elr)
 
+    -- STAIRS BLOCKADE
+    BWOABuildTools.Generic(5550, 12495, -13, "boulders_31")
+    BWOABuildTools.Generic(5551, 12495, -13, "boulders_30")
+    BWOABuildTools.Generic(5550, 12496, -13, "boulders_28")
+    BWOABuildTools.Generic(5551, 12496, -13, "boulders_29")
+
 end
 
 BWOARooms.SecretLab.SetEmitters = function ()
@@ -182,7 +188,7 @@ BWOARooms.SecretLab.Prepare = function ()
     BWOAPrepareTools.AddItemsToContainer(5552, 12488, -13, {note4}, "Cabinet", true)
 
     local items = {["Bandits.NBCTablets"] = 6, ["Bandits.EngineCoolant"] = 4, ["Bandits.EngineLubricant"] = 4 }
-    BWOAPrepareTools.AddItemsToContainer(5549, 12502, -13, items, "Locker")
+    BWOAPrepareTools.AddItemsToContainer(5549, 12502, -13, items, "Shelves")
 end
 
 BWOARooms.SecretLab.PrepareCorpses = function ()

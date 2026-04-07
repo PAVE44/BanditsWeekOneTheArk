@@ -51,11 +51,11 @@ BWOARooms.Bedroom.Build = function ()
     BWOABuildTools.VentN(9944, 12636, -4)
 
     for x = 9947, 9955, 2 do
-        BWOABuildTools.Bed(x, 12636, -4, "furniture_bedding_01_1")
-        BWOABuildTools.Bed(x, 12637, -4, "furniture_bedding_01_0")
+        BWOABuildTools.Bed(x, 12636, -4, "furniture_bedding_01_65")
+        BWOABuildTools.Bed(x, 12637, -4, "furniture_bedding_01_64")
 
-        BWOABuildTools.Bed(x, 12641, -4, "furniture_bedding_01_69")
-        BWOABuildTools.Bed(x, 12642, -4, "furniture_bedding_01_68")
+        BWOABuildTools.Bed(x, 12641, -4, "furniture_bedding_01_65")
+        BWOABuildTools.Bed(x, 12642, -4, "furniture_bedding_01_64")
     end
 
     for x = 9948, 9954, 2 do
@@ -65,9 +65,9 @@ BWOARooms.Bedroom.Build = function ()
     -- BWOABuildTools.Generic(9956, 12636, -4, "vegetation_indoor_01_1")
 
     BWOABuildTools.Generic(9946, 12636, -4, "walls_decoration_02_23")
-    BWOABuildTools.Generic(9948, 12636, -4, "walls_decoration_02_70")
-    BWOABuildTools.Generic(9950, 12636, -4, "walls_decoration_02_67")
-    BWOABuildTools.Generic(9954, 12636, -4, "walls_decoration_02_86")
+    -- BWOABuildTools.Generic(9948, 12636, -4, "walls_decoration_02_70")
+    -- BWOABuildTools.Generic(9950, 12636, -4, "walls_decoration_02_67")
+    -- BWOABuildTools.Generic(9954, 12636, -4, "walls_decoration_02_86")
     BWOABuildTools.Generic(9956, 12636, -4, "walls_decoration_01_48")
 
 end

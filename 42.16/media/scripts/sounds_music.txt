@@ -138,12 +138,32 @@ module Bandits {
         }
     }
 
-    sound FamilyHouse {
+    sound MusicFamilyHouse {
         category = Object, 
         loop = false,
         is3D = true,
         clip {
             file = media/sound/music/too_late.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicHell {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/visitation_of_the_damned.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicCredits {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/between_the_ash.ogg,
             reverbFactor = 0.6, 
         }
     }
