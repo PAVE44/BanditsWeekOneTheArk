@@ -853,9 +853,11 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         local npcData, bandit = BWOANPC.Get("Emma")
         
-        BWOADialogues.MarkAsked("Emma_Robinson", "2000.6.4.1.2")
-        BWOADialogues.Reveal("Emma_Robinson", "2000.7")
-        BWOADialogues.Reveal("Emma_Robinson", "2000.9")
+        -- BWOADialogues.MarkAsked("Emma_Robinson", "2000.6.4.1.2")
+        -- BWOADialogues.Reveal("Emma_Robinson", "2000.6.4.1.2")
+        
+
+        -- BWOASound.PlayPlayer({sound = "Dial_Emma_Robinson_100.6.1.1.1_1"})
 
         -- BWOARooms.Infirmary.SetFlickers()
 

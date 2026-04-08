@@ -22,7 +22,7 @@ function TAAddCorpse:start()
         self.zombie:setX(self.square:getX() + 0.7)
         self.zombie:setY(self.square:getY() + 0.75)
         self.zombie:getModData().fixedZ = self.square:getZ() + 0.34
-        if self.zombie:getModData().isDeadBandit then
+        if self.zombie:getHumanVisual():getSkinTexture():embodies("aleBody") then
             if BWOAMissions.IsAccomplished(5) then
                 BWOAMissions.Accomplish(14)
                 BWOADialogues.Reveal("Emma_Robinson", "100.6.2")

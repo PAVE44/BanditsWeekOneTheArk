@@ -43,7 +43,7 @@ end
 BWOADialogues.MarkAsked = function(person, question)
     local gmd = GetBWOAModData()
     local dialogues = gmd.dialogues[person]
-    --dialogues["2000.6.4.1.2"].asked = true
+    -- dialogues["400.4"].asked = true
     if dialogues then
         for id, dialogue in pairs(dialogues) do
             if dialogue.qst == question then

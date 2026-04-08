@@ -65,12 +65,12 @@ ZombiePrograms.Emma.mainSchedule = {
     },
     lab2 = {
         hourMin = 17,
-        hourMax = 19,
+        hourMax = 20,
         minuteMin = 0,
         minuteMax = 60
     },
     watchtv = {
-        hourMin = 19,
+        hourMin = 20,
         hourMax = 23,
         minuteMin = 0,
         minuteMax = 60
@@ -109,7 +109,7 @@ local switchOutfit = function(bandit, expectedBid)
     if expectedBid ~= brain.bid then
         local task = {
             action = "Transform", 
-            anim = "BandageUpperBody",
+            anim = "Transform",
             bid = expectedBid,
             cid = Bandit.clanMap.Emma,
             time = 150
@@ -328,7 +328,7 @@ ZombiePrograms.Emma.Main = function(bandit)
                         end
                     end
                 end
-            elseif activity == "lab1" or activity == "lab2" then
+            elseif brain.research < 100 and (activity == "lab1" or activity == "lab2") then
                 -- bandit:addLineChatElement("ACTIVITY: LAB WORK", 1, 0, 1)
                 local computer, computerDist = BWOABaseObjects.FindClosestObject({"Computer"}, {x=bx, y=by})
                 local microscope, microscopeDist = BWOABaseObjects.FindClosestObject({"Microscope"}, {x=bx, y=by})

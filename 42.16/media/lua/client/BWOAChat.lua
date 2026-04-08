@@ -22,7 +22,7 @@ BWOAChat.responseDelayMin = 1000 -- initial response delay
 BWOAChat.personConf = BWOAChat.personConf or {}
 
 BWOAChat.personConf["Emma_Robinson"] = {
-    perLetter = 30, -- time per letter
+    perLetter = 32, -- time per letter
     minimal = 850, -- minimal time per sentence
 }
 

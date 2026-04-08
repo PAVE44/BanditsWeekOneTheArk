@@ -585,7 +585,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     -- research updates
     ["400.1"] = {
         qst = "What are your virus research results so far?",
-        ans = "I’m still constructing a working model. This pathogen doesn’t behave like anything in modern virology—it preserves certain functions while degrading others. It’s almost selective in what it keeps. There’s intent in the pattern, or something close to it. I need physical data to move forward.",
+        ans = "I’m still constructing a working model. This pathogen doesn’t behave like anything in modern virology. It preserves certain functions while degrading others. It’s almost selective in what it keeps. There’s intent in the pattern, or something close to it. I need physical data to move forward.",
         anim = "Gest1",
         req = {"100.6.1.1"},
         func = "RevealMission",
@@ -609,7 +609,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         hidden = true, -- unlocked by research > 45% (possible with human corpse)
     },
     ["400.4"] = {
-        qst = "Any new updates regarding our research?",
+        qst = "How is the research going? Are we close?",
         ans = "I’ve analyzed the sample, it's the original strain, and I think I understand now. This version doesn’t destroy the host, it integrates with it. The immune subject wasn’t naturally resistant, they were pre-exposed. Injected, most likely. The symbiotic strain prevented the aggressive one from taking over.",
         anim = "Gest1",
         req = {"2000.6.4.1.2", "400.3"},
@@ -623,7 +623,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
     },
     ["400.5"] = {
         qst = "Got any news on the ongoing research?",
-        ans = "Yep. You will not believe this. The comfrey extract is doing more than slowing the process, it’s reversing it. At least in early-stage samples. Even post-exposure tissue is stabilizing. If this holds, it could work after a bite… but I need to be certain. This has to be tested on someone.",
+        ans = "Yep. You will not believe this. The comfrey extract is doing more than slowing the process, it’s reversing it. At least in early-stage samples. Even post-exposure tissue is stabilizing. If this holds, it could work after a bite. But I need to be certain. This has to be tested on someone.",
         anim = "Gest1",
         req = {"2000.5.2", "400.4"},
         hidden = true, -- unlocked by research > 85% (possible with comfrey)

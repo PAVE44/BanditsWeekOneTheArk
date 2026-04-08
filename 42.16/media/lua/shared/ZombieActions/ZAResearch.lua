@@ -62,7 +62,6 @@ end
 
 ZombieActions.Research.onComplete = function(zombie, task)
     local brain = BanditBrain.Get(zombie)
-
     local cap = 20
     
     -- zombie specimen available for research
@@ -81,7 +80,7 @@ ZombieActions.Research.onComplete = function(zombie, task)
     end
 
     -- comfrey available for research
-    if BWOAMissions.IsAccomplished(113) then
+    if BWOAMissions.IsAccomplished(103) then
         cap = cap + 20
     end
 
@@ -97,23 +96,31 @@ ZombieActions.Research.onComplete = function(zombie, task)
     end
 
     if brain.research > 85 then
-        BWOADialogues.Hide("Emma_Robinson", "400.1")
-        BWOADialogues.Hide("Emma_Robinson", "400.2")
-        BWOADialogues.Hide("Emma_Robinson", "400.3")
-        BWOADialogues.Hide("Emma_Robinson", "400.4")
-        BWOADialogues.Reveal("Emma_Robinson", "400.4")
+        if BWOAMissions.IsAccomplished(103) then
+            BWOADialogues.Hide("Emma_Robinson", "400.1")
+            BWOADialogues.Hide("Emma_Robinson", "400.2")
+            BWOADialogues.Hide("Emma_Robinson", "400.3")
+            BWOADialogues.Hide("Emma_Robinson", "400.4")
+            BWOADialogues.Reveal("Emma_Robinson", "400.5")
+        end
     elseif brain.research > 65 then
-        BWOADialogues.Hide("Emma_Robinson", "400.1")
-        BWOADialogues.Hide("Emma_Robinson", "400.2")
-        BWOADialogues.Hide("Emma_Robinson", "400.3")
-        BWOADialogues.Reveal("Emma_Robinson", "400.4")
+        if BWOAMissions.IsAccomplished(113) then
+            BWOADialogues.Hide("Emma_Robinson", "400.1")
+            BWOADialogues.Hide("Emma_Robinson", "400.2")
+            BWOADialogues.Hide("Emma_Robinson", "400.3")
+            BWOADialogues.Reveal("Emma_Robinson", "400.4")
+        end
     elseif brain.research > 45 then
-        BWOADialogues.Hide("Emma_Robinson", "400.1")
-        BWOADialogues.Hide("Emma_Robinson", "400.2")
-        BWOADialogues.Reveal("Emma_Robinson", "400.3")
+        if BWOAMissions.IsAccomplished(14) then
+            BWOADialogues.Hide("Emma_Robinson", "400.1")
+            BWOADialogues.Hide("Emma_Robinson", "400.2")
+            BWOADialogues.Reveal("Emma_Robinson", "400.3")
+        end
     elseif brain.research > 25 then
-        BWOADialogues.Hide("Emma_Robinson", "400.1")
-        BWOADialogues.Reveal("Emma_Robinson", "400.2")
+        if BWOAMissions.IsAccomplished(5) then
+            BWOADialogues.Hide("Emma_Robinson", "400.1")
+            BWOADialogues.Reveal("Emma_Robinson", "400.2")
+        end
     elseif brain.research > 5 then
         BWOADialogues.Reveal("Emma_Robinson", "400.1")
     end

@@ -132,7 +132,7 @@ BWOAScenes.Finnegan.texts["toilet_smoker_a"] = {
     [39] = "Since when is inventory classified?",
     [42] = "Since now, I guess.",
     [45] = "Feels like we’re not even part of the company anymore.",
-    [48] = "Just… outside of it.",
+    [48] = "Just... outside of it.",
 }
 
 BWOAScenes.Finnegan.texts["toilet_smoker_b"] = {
@@ -140,7 +140,7 @@ BWOAScenes.Finnegan.texts["toilet_smoker_b"] = {
     [4] = "I thought it was just me.",
     [7] = "Nah, it’s everyone.",
     [10] = "Clients stopped asking questions too.",
-    [13] = "They just… disappear.",
+    [13] = "They just... disappear.",
     [16] = "Maybe corporate shifted focus.",
     [19] = "To what?",
     [22] = "No idea, but it’s not what we’re selling.",
@@ -153,7 +153,7 @@ BWOAScenes.Finnegan.texts["toilet_smoker_b"] = {
     [43] = "Of course he has.",
     [46] = "You ever ask him about it?",
     [49] = "No way.",
-    [52] = "Yeah… better not.",
+    [52] = "Yeah... better not.",
     [55] = "Let’s just hit quota and not think about it.",
 }
 

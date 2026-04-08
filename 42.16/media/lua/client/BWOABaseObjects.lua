@@ -53,6 +53,21 @@ local function getId(object)
     return object:getX() .. ":" .. object:getY() .. ":" .. object:getZ()
 end
 
+local objectWhitelist = {
+    ["Toilet"] = true,
+    ["Shower"] = true,
+    ["Beds"] = true,
+    ["Bed"] = true,
+    ["Radio"] = true,
+    ["Couch"] = true,
+    ["Chair"] = true,
+    ["Stool"] = true,
+    ["Television"] = true,
+    ["Piano"] = true,
+    ["Computer"] = true,
+    ["Microscope"] = true,
+}
+
 local function analyze(x, y, z)
     local square = getCell():getGridSquare(x, y, z)
     if not square then return end
@@ -74,7 +89,7 @@ local function analyze(x, y, z)
             local props = sprite:getProperties()
             if props:has("CustomName") then
                 local customName = props:get("CustomName")
-                if customName then
+                if customName and objectWhitelist[customName] then
                     local facing
                     if props:has("Facing") then
                         facing = props:get("Facing")
