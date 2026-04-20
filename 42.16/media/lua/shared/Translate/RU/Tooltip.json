@@ -1,0 +1,11 @@
+{
+	"Tooltip_item_Radio": "Экипируйте для использования рации.",
+	"Tooltip_PillsPotassiumIodine": "Снижает негативные эффекты радиации.",
+	"Tooltip_PillsPentoxifylline": "Помогает при отравлении высоким уровнем CO2.",
+	"Tooltip_PillsPrussianBlue": "Пока не реализовано.",
+	"Tooltip_PillsNikethamide": "Помогает при переохлаждении.",
+	"Tooltip_NBCTablets": "Таблетки для дезактивации от ядерного, биологического и химического заражения.",
+	"Tooltip_GeigerCounter": "Измеряет уровень радиации и подаёт сигналы при экипировке/подключении.",
+	"Tooltip_LabSyringe": "Шприц с неизвестным веществом.",
+	"Tooltip_LabSyringeCure": "Шприц с экспериментальным лекарством."
+}

@@ -84,7 +84,7 @@ function BWOAScenes.BanditsCar:placeItems()
     local items
     items = {
         ["Base.HottieZ"] = 12, ["Base.ComicBook"] = 8, ["Base.HempMag1"] = 1, ["Base.CookingMag1"] = 1,
-        ["Base.TrickMag1"] = 1, ["Base.TrickMag2"] = 1, ["Base.MechanicMag1"] = 1, ["Base.MechanicMag2"] = 1, ["Base.MechanicMag2"] = 1,
+        ["Base.TrickMag1"] = 1, ["Base.TrickMag2"] = 1, ["Base.MechanicMag1"] = 1, ["Base.MechanicMag2"] = 1, ["Base.MechanicMag3"] = 1,
         ["Base.KeyMag1"] = 1, ["Base.HuntingMag1"] = 1, 
     }
     BWOAPrepareTools.AddItemsToContainer(8334, 11609, -2, items, "Shelves")
@@ -194,7 +194,7 @@ function BWOAScenes.BanditsCar:placeItems()
     items = {
         ["Base.BookReloading3"] = 1, ["Base.BookReloading4"] = 1, ["Base.BookReloading5"] = 1,
         ["Base.BookAiming3"] = 1, ["Base.BookAiming4"] = 1, ["Base.BookAiming5"] = 1,
-        ["Base.BookElectrical1"] = 1, ["Base.BookElectrical2"] = 1,
+        ["Base.BookElectrician1"] = 1, ["Base.BookElectrician2"] = 1,
         ["Base.BookFirstAid1"] = 1, 
         ["Base.BookMaintenance1"] = 1,
         ["Base.BookMechanic1"] = 1, ["Base.BookMechanic2"] = 1
@@ -289,6 +289,7 @@ function BWOAScenes.BanditsCar:placeVehicles()
 
     local key = vehicle:createVehicleKey()
     key:getModData().BWOA = {}
+    key:getModData().BWOA.lore = true
     key:getModData().BWOA.onTaken = {}
     key:getModData().BWOA.onTaken.revealMissionId = 10
     BWOAPrepareTools.AddWorldItemSpecial(keySquare:getX(), keySquare:getY(), keySquare:getZ(), key, {x=0.5, y=0.5, z=0})
@@ -303,13 +304,25 @@ function BWOAScenes.BanditsCar:populate()
 
     BanditUtils.ClearZombies(8250, 8440, 11510, 11700)
 
+    local hostileGroupSize = SandboxVars.BWOA.HostileGroupSize or 3
+    local hostileGroupMultipliers = {
+        [1] = 0.25,
+        [2] = 0.50,
+        [3] = 1,
+        [4] = 1.5,
+        [5] = 2,
+        [6] = 3
+    }
+    local hostileGroupMultiplier = math.ceil(hostileGroupMultipliers[hostileGroupSize])
+
+
     local params1 = {
         cid = Bandit.clanMap.Surface1,
         x = 8318,
         y = 11644,
         z = 0,
         program = "Roadblock",
-        size = 4,
+        size = 4 * hostileGroupMultiplier,
     }
     sendClientCommand(player, 'Spawner', 'Clan', params1)
 
@@ -319,7 +332,7 @@ function BWOAScenes.BanditsCar:populate()
         y = 11606,
         z = -1,
         program = "Defend",
-        size = 1,
+        size = 1 * hostileGroupMultiplier,
     }
     sendClientCommand(player, 'Spawner', 'Clan', params2)
 
@@ -329,7 +342,7 @@ function BWOAScenes.BanditsCar:populate()
         y = 11605,
         z = -1,
         program = "Defend",
-        size = 1,
+        size = 1 * hostileGroupMultiplier,
     }
     sendClientCommand(player, 'Spawner', 'Clan', params3)
 
@@ -339,7 +352,7 @@ function BWOAScenes.BanditsCar:populate()
         y = 11610,
         z = -2,
         program = "Defend",
-        size = 4,
+        size = 4 * hostileGroupMultiplier,
     }
     sendClientCommand(player, 'Spawner', 'Clan', params4)
 end

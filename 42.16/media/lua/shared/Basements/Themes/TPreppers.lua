@@ -384,6 +384,9 @@ theme.items = {
     {["Base.ScrewsBox"] = 1},
     {["Base.NailsBox"] = 1},
     {["Base.Wire"] = 2},
+    {["Base.MechanicMag1"] = 1},
+    {["Base.MechanicMag2"] = 1},
+    {["Base.MechanicMag3"] = 1},
 }
 
 theme.corpses = {}

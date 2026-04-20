@@ -114,6 +114,7 @@ local procedural_basements = {
     sewer = { width=50, height=20, stairx=0, stairy=0, stairDir="" },
     maniac = { width=8, height=7, stairx=0, stairy=0, stairDir="" },
     hell = { width=20, height=50, stairx=0, stairy=0, stairDir="" },
+    shrink = { width=12, height=12, stairx=0, stairy=0, stairDir="" },
 }
 
 local procedural_basement_spawn_locations = {
@@ -123,7 +124,7 @@ local procedural_basement_spawn_locations = {
     {x=8340, y=11755, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_06_F_east"}}, -- farmer house
     {x=9814, y=12927, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_49_east"}}, -- hunter house
     {x=10862, y=10033, stairDir="W", access="ba_exterior_west_northside_01", choices={"lot_basement_house_57"}}, -- doc house
-    {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_02"}}, -- farmer house
+    -- {x=7174, y=9736, stairDir="N", choices={"lot_basement_house_06_F_east"}}, -- farmer house
     {x=10110, y=11180, z=1, stairDir="", choices={"maniac"}}, -- maniac
 
     -- dream basements
@@ -133,7 +134,8 @@ local procedural_basement_spawn_locations = {
     {x=18000, y=3600, z=-2, stairDir="", choices={"mirror_room"}}, -- mirror room
     {x=18000, y=3800, z=-1, stairDir="", choices={"hell"}}, -- hell
     {x=18000, y=4000, z=2, stairDir="", choices={"finnegan_research_group"}}, -- finnegan underground facility
-    
+    {x=18000, y=4200, z=-2, stairDir="", choices={"shrink"}}, -- end room
+
     -- ark supplementary basements
     {x=9948, y=12600, z=-4, stairDir="N", choices={"ark_underground_all"}}, -- ark sublevel
     {x=9962, y=12643, z=-3, stairDir="", choices={"ark_twinrooms"}}, -- ark 3 x twinrooms
@@ -142,6 +144,7 @@ local procedural_basement_spawn_locations = {
 
     -- nature basements
     {x=10570, y=10600, z=1, stairDir="", choices={"breach"}}, -- breach
+    
 
     -- {x=10360, y=12324, z=1, stairDir="", choices={"sewer"}}, -- sewer
     

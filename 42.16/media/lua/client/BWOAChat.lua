@@ -31,6 +31,11 @@ BWOAChat.personConf["Father_James"] = {
     minimal = 950, -- minimal time per sentence
 }
 
+BWOAChat.personConf["Noah_Whitlock"] = {
+    perLetter = 50, -- time per letter
+    minimal = 800, -- minimal time per sentence
+}
+
 BWOAChat.personConf["Angel"] = {
     perLetter = 50, -- time per letter
     minimal = 950, -- minimal time per sentence
@@ -103,32 +108,27 @@ BWOAChat.ChangeBrainParam = function(params)
     Bandit.ForceSyncPart(bandit, brain)
 end
 
-BWOAChat.Say = function(qid, question, person)
+BWOAChat.Say = function(qid, person)
     local player = getSpecificPlayer(0)
     if not player then return end
-
-    BWOAEventControl.Add("SayPlayer", {txt = question}, 1)
-
+   
+    local dialogue = BWOADialogues.GetByKey(person, qid)
     local tab
-    if BWOAChat.last and question == "Can you repeat that?" then
-        tab = BWOAChat.last[person]
-        tab.txt = "Sure. " .. tab.txt
-    else
-        local answer = BWOADialogues.GetAnswer(person, question)
-        if answer then
-            local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel"})
-            if target.dist < BWOAChat.talkDist then
-                if not anim then 
-                    anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
-                end
-                tab = {id=target.id, txt=answer.ans, anim=answer.anim}
-                BWOAChat.last[person] = tab
-                BWOADialogues.MarkAsked(person, question)
+    if dialogue then
+        BWOAEventControl.Add("SayPlayer", {txt = dialogue.qst}, 1)
 
-                if answer.func then
-                    answer.funcParams.target = target
-                    BWOAChat[answer.func](answer.funcParams)
-                end
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Noah", "Angel"})
+        if target.dist < BWOAChat.talkDist then
+            if not anim then 
+                anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
+            end
+            tab = {id=target.id, qid = qid, txt=dialogue.ans, anim=dialogue.anim}
+            BWOAChat.last[person] = tab
+            BWOADialogues.MarkAsked(person, qid)
+
+            if dialogue.func then
+                dialogue.funcParams.target = target
+                BWOAChat[dialogue.func](dialogue.funcParams)
             end
         end
     end
@@ -143,10 +143,10 @@ BWOAChat.Say = function(qid, question, person)
             newtab.id = tab.id
             newtab.anim = tab.anim
             newtab.txt = sentence
-            newtab.sound = "Dial_" .. person .. "_" .. qid .. "_" .. i
+            newtab.sound = "Dial_" .. person .. "_" .. tab.qid .. "_" .. i
             local responseTime = perLetter * #sentence
             if responseTime < minimal then responseTime = minimal end
-            print ("Response time: " .. responseTime)
+            -- print ("Response time: " .. responseTime)
             BWOAEventControl.Add("SayBandit", newtab, counter)
             counter = counter + responseTime
         end
@@ -200,7 +200,7 @@ local emoteActions = {
     ["followme"] = {
         needNPC = "Emma", 
         func = function(player, target)
-            BWOANPC.ModBrain(player, target.id, "mode", "follow")
+            BWOANPC.ModBrain(target.id, "mode", "follow")
             local tab = {}
             tab.id = target.id
             tab.anim = "Yes"
@@ -265,7 +265,7 @@ local function onKeyPressed(keynum)
     local key = options:getOption("TALK"):getValue()
 
     if keynum == key then
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel"})
+        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Angel", "Noah"})
         if target.dist < BWOAChat.talkDist then
             if modal then
                 modal:removeFromUIManager()

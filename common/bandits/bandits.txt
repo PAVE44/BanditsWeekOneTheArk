@@ -1,5 +1,5 @@
 [3db12353-9801-447c-a88c-a5903ae9c370]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
 	general: name = Engineer_1_Work
 	general: female = false
@@ -28,7 +28,7 @@
 	bag: name = Base.Bag_Satchel
 
 [79ef6247-1dd0-462e-bcae-a876750adaed]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
 	general: name = Engineer_1_Sleep
 	general: female = false
@@ -49,7 +49,7 @@
 	tint: UnderwearBottom = 16777215
 
 [2235cc48-c977-4cd4-a94a-fb144a4ba618]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
 	general: name = Engineer_1_Ext
 	general: female = false
@@ -72,7 +72,7 @@
 	tint: UnderwearBottom = 16777215
 
 [b2dc4719-b0c0-42ea-bb95-4830be33d22d]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
 	general: name = Engineer_1_Wash
 	general: female = false
@@ -89,7 +89,7 @@
 	general: exp3 = 0
 
 [5c54815b-ab2a-47af-b238-ec39c5353bf0]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3211e65f-36f9-4514-b856-038534931c9c
 	general: name = Engineer_1_Rest
 	general: female = false
@@ -114,7 +114,7 @@
 	tint: UnderwearBottom = 16777215
 
 [d944d8a7-9ad6-4f65-87e6-0a2d55eac4cb]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Bunker
 	general: female = true
@@ -141,7 +141,7 @@
 	ammo: secondary = 2
 
 [dcbe40c5-68ca-4d68-959b-1509f7834eb1]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_01
 	general: female = false
@@ -174,7 +174,7 @@
 	ammo: secondary = 1
 
 [6eb8b000-fc5a-4c0d-81bc-f19123f04230]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_02
 	general: female = false
@@ -205,7 +205,7 @@
 	ammo: secondary = 1
 
 [695833e4-002d-45b3-b11d-f0adab5f6619]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_03
 	general: female = false
@@ -237,7 +237,7 @@
 	ammo: secondary = 1
 
 [6cbbe3d1-6ef0-48e5-b360-00c13fe0feec]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_04
 	general: female = false
@@ -267,7 +267,7 @@
 	ammo: secondary = 1
 
 [7e8d37c2-d534-4710-96b4-64c183f523e3]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_05
 	general: female = false
@@ -298,7 +298,7 @@
 	ammo: secondary = 1
 
 [e7399a8b-968c-4fd1-9f4c-5d401023805f]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_06
 	general: female = false
@@ -331,7 +331,7 @@
 	ammo: secondary = 1
 
 [21994413-6173-46d7-873e-1adc57b553c1]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_07
 	general: female = true
@@ -365,7 +365,7 @@
 	ammo: secondary = 1
 
 [f7f7b7fd-a480-48fb-9ae7-d6057736a364]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7830522d-7139-40f7-977e-f665bff000ee
 	general: name = BG_08
 	general: female = true
@@ -398,7 +398,7 @@
 	ammo: secondary = 1
 
 [add45ba7-9358-4b53-b175-bc31eb670efc]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_01
 	general: female = false
@@ -437,7 +437,7 @@
 	ammo: secondary = 1
 
 [1f837be7-18ba-4a76-a2d1-6b5b307f769b]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_02
 	general: female = false
@@ -476,7 +476,7 @@
 	bag: name = Base.Bag_SheetSlingBag
 
 [12144ffd-c3fc-41dc-bd8e-3f206e91bb20]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_03
 	general: female = false
@@ -515,7 +515,7 @@
 	ammo: secondary = 1
 
 [4c0c6179-2e7a-4558-bd86-96ac70ff3e22]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_04
 	general: female = false
@@ -553,7 +553,7 @@
 	bag: name = Base.Bag_Military
 
 [a61378ba-a0bb-4d6b-91c5-dd4934de0d30]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_01
 	general: female = true
@@ -580,7 +580,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [94f80063-5f83-47b8-b0ad-e778f546f955]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_02
 	general: female = true
@@ -608,7 +608,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [d1ce2152-b298-4318-984d-698d11f1c633]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_03
 	general: female = true
@@ -637,7 +637,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [fd4cb039-ad12-4399-85c1-3dd23003c2a6]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_04
 	general: female = true
@@ -662,7 +662,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [afa54656-4f4f-4b43-8b91-2a0a0ac5aa03]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_05
 	general: female = true
@@ -691,7 +691,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [2932a96b-2372-481e-a520-eae4321bd864]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_06
 	general: female = true
@@ -721,7 +721,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [cba17e77-0217-47c8-8131-ee9c5033c3ad]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = a0ee0049-ee12-403e-9148-172d9029cc7c
 	general: name = BW_07
 	general: female = true
@@ -749,7 +749,7 @@
 	weapons: melee = Base.Broom_BarbedWire
 
 [811cb6f6-fb16-40fe-8ef1-7fd736a39341]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_01
 	general: female = false
@@ -778,7 +778,7 @@
 	ammo: secondary = 1
 
 [4f28eb9e-d49a-44bf-b93a-2ffe77921299]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_02
 	general: female = false
@@ -809,7 +809,7 @@
 	ammo: primary = 1
 
 [d3cdd740-9f88-43db-9ab2-9448d7af67df]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_03
 	general: female = false
@@ -838,7 +838,7 @@
 	weapons: melee = Base.BaseballBat_Metal_Sawblade
 
 [5b582343-7aaf-4a4f-a334-b983eb910fa3]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_04
 	general: female = false
@@ -869,7 +869,7 @@
 	bag: name = Base.Bag_HideSlingBag
 
 [4fdf7b46-a2b5-488d-9e0b-c22c2994ce09]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_05
 	general: female = false
@@ -899,7 +899,7 @@
 	ammo: secondary = 1
 
 [04d65f37-bdd1-4ec7-80f4-5e997f3c499f]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_06
 	general: female = false
@@ -930,7 +930,7 @@
 	ammo: secondary = 1
 
 [1a6ba62a-e4b2-4e6f-9be0-25613f16f0c7]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_07
 	general: female = false
@@ -961,7 +961,7 @@
 	ammo: secondary = 1
 
 [f853c131-dc83-4dcc-a80f-37226f4268fd]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8ab03e52-9394-4ff4-a6a4-5640b6597e5e
 	general: name = BC_08
 	general: female = false
@@ -994,7 +994,7 @@
 	ammo: secondary = 1
 
 [a4ea4819-a79b-469b-ad11-0a653abcfec4]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 55da7b22-d9d5-49bd-9d76-a39459cb69e4
 	general: name = BP_01
 	general: female = false
@@ -1037,7 +1037,7 @@
 	bag: name = Base.Bag_Military
 
 [cc92bd01-ab14-4c6a-a67f-6ec444056123]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 55da7b22-d9d5-49bd-9d76-a39459cb69e4
 	general: name = BP_02
 	general: female = false
@@ -1080,7 +1080,7 @@
 	bag: name = Base.Bag_ALICEpack_Army
 
 [faf612da-0a24-472c-aa52-04dd6c227436]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 55da7b22-d9d5-49bd-9d76-a39459cb69e4
 	general: name = BP_03
 	general: female = true
@@ -1123,7 +1123,7 @@
 	bag: name = Base.Bag_ALICEpack_Army
 
 [a6e6d77e-a0d4-437e-a704-7178d28515b7]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 55da7b22-d9d5-49bd-9d76-a39459cb69e4
 	general: name = BP_04
 	general: female = false
@@ -1167,7 +1167,7 @@
 	bag: name = Base.Bag_ALICEpack_Army
 
 [deaed63a-82fd-4bcc-b451-a7e88ebed8f0]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 55da7b22-d9d5-49bd-9d76-a39459cb69e4
 	general: name = BP_05
 	general: female = false
@@ -1211,7 +1211,7 @@
 	bag: name = Base.Bag_ALICEpack_Army
 
 [d3564264-60ca-4629-ae2f-574ea772df23]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Hazmat
 	general: female = true
@@ -1226,6 +1226,7 @@
 	general: exp1 = 0
 	general: exp2 = 0
 	general: exp3 = 0
+	clothing: Hat = Base.Hat_Army
 	clothing: MaskEyes = Base.Hat_GasMask
 	clothing: Necklace = Base.Necklace_Crucifix
 	clothing: Scarf = Base.Scarf_White
@@ -1246,7 +1247,7 @@
 	bag: name = Base.Bag_ALICEpack_Army
 
 [e97500bf-0534-401a-822a-7891dc8881d5]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Defend
 	general: female = true
@@ -1277,7 +1278,7 @@
 	ammo: secondary = 2
 
 [61ff36eb-6149-474e-8eba-8530945ca990]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = cb8880f8-d45c-4051-acb3-a9d7b7d598a7
 	general: name = James_Basement
 	general: female = false
@@ -1305,7 +1306,7 @@
 	tint: Sweater = 3349005
 
 [476df621-db92-4463-94c9-0da88e4287d9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_05
 	general: female = false
@@ -1337,7 +1338,7 @@
 	ammo: primary = 1
 
 [4f49255b-b4ee-442f-a28f-5cf3c4c9a90f]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_06
 	general: female = false
@@ -1370,7 +1371,7 @@
 	ammo: secondary = 1
 
 [76112bd2-5943-4ebd-bb40-cccf5b5508ca]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2464da7c-5a04-4739-8237-e7b23f5ffa4a
 	general: name = SS_07
 	general: female = true
@@ -1404,7 +1405,7 @@
 	bag: name = Base.Bag_RifleCaseClothCamo
 
 [f4960569-5590-4787-a212-d7634b315473]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 4724a709-f1ac-499c-9b14-85f3a3a1b81f
 	general: name = Robe_01
 	general: female = false
@@ -1424,10 +1425,11 @@
 	clothing: Hands = Base.Gloves_LeatherGlovesBlack
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_BlackBoots
-	weapons: melee = Base.Axe_Sawblade
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
 
 [889e9178-381e-46eb-a9a4-33073b12c7b0]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 4724a709-f1ac-499c-9b14-85f3a3a1b81f
 	general: name = Robe_02
 	general: female = false
@@ -1448,11 +1450,12 @@
 	clothing: Hands = Base.Gloves_LeatherGlovesBlack
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_BlackBoots
-	weapons: melee = Base.Axe_ScrapCleaver
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
 	bag: name = Base.Bag_TarpSlingBag
 
 [c3e14cec-6ae1-4fe2-b4e0-dab6ed84f249]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 4724a709-f1ac-499c-9b14-85f3a3a1b81f
 	general: name = Robe_03
 	general: female = false
@@ -1473,11 +1476,14 @@
 	clothing: Hands = Base.Gloves_LeatherGlovesBlack
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_BlackBoots
-	weapons: melee = Base.BaseballBat_Metal_Sawblade
+	weapons: primary = Base.JS3T_Shotgun
+	weapons: secondary = Base.Pistol
+	ammo: primary = 1
+	ammo: secondary = 1
 	bag: name = Base.Bag_SheetSlingBag
 
 [e11cc065-b596-4e96-9516-5d007f4f98b1]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 4724a709-f1ac-499c-9b14-85f3a3a1b81f
 	general: name = Robe_04
 	general: female = false
@@ -1497,11 +1503,15 @@
 	clothing: Hands = Base.Gloves_LeatherGlovesBlack
 	clothing: Socks = Base.Socks_Long_Black
 	clothing: Shoes = Base.Shoes_BlackBoots
+	weapons: primary = Base.JS3T_Shotgun
+	weapons: secondary = Base.Pistol2
 	weapons: melee = Base.KettleMace_Metal
+	ammo: primary = 2
+	ammo: secondary = 1
 	bag: name = Base.Bag_SheetSlingBag
 
 [d3049de2-a231-4ebf-a1f2-e76e8cb73651]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 06419731-fb8f-463f-98a3-d99c1fa0ef58
 	general: name = SCBA_01
 	general: female = false
@@ -1531,7 +1541,7 @@
 	ammo: secondary = 1
 
 [574117e4-fad3-4bc5-9052-170fbe252a08]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 06419731-fb8f-463f-98a3-d99c1fa0ef58
 	general: name = SCBA_02
 	general: female = false
@@ -1561,7 +1571,7 @@
 	ammo: secondary = 1
 
 [1f3bc225-2c19-44cb-aa2e-6d89e675d7cc]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 06419731-fb8f-463f-98a3-d99c1fa0ef58
 	general: name = SCBA_03
 	general: female = false
@@ -1591,7 +1601,7 @@
 	ammo: secondary = 1
 
 [7071c26c-6f35-45c4-b7d5-41c1a92d188c]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 06419731-fb8f-463f-98a3-d99c1fa0ef58
 	general: name = SCBA_04
 	general: female = false
@@ -1621,7 +1631,7 @@
 	ammo: secondary = 1
 
 [17d931e1-9496-4a87-b316-860036798605]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 06419731-fb8f-463f-98a3-d99c1fa0ef58
 	general: name = SCBA_05
 	general: female = true
@@ -1651,7 +1661,7 @@
 	ammo: secondary = 1
 
 [68c4fd07-ff44-4372-869b-a9643d7ef986]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 06419731-fb8f-463f-98a3-d99c1fa0ef58
 	general: name = SCBA_06
 	general: female = true
@@ -1681,7 +1691,7 @@
 	ammo: secondary = 1
 
 [b47dd4e2-59f0-4845-9fcb-28e66cecb436]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3f5a2e61-8f0c-4a82-baff-98c174b786ae
 	general: name = P_01
 	general: female = false
@@ -1689,7 +1699,7 @@
 	general: hairType = 1
 	general: beardType = 1
 	general: hairColor = 1
-	general: health = 5
+	general: health = 9
 	general: strength = 5
 	general: endurance = 5
 	general: sight = 5
@@ -1701,12 +1711,10 @@
 	clothing: JacketSuit = Base.Suit_Jacket
 	clothing: VestTexture = Base.Vest_Waistcoat
 	clothing: Pants = Base.Trousers_Suit
-	weapons: secondary = Base.Revolver
 	weapons: melee = Base.FieldHockeyStick_Sawblade
-	ammo: secondary = 1
 
 [2e682bd5-8bc3-4380-a302-02d7201b8aeb]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Sport
 	general: female = true
@@ -1733,7 +1741,7 @@
 	weapons: melee = Base.Pencil
 
 [19a4a644-5029-4343-ae6d-271bf11bb906]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Dance
 	general: female = true
@@ -1759,7 +1767,7 @@
 	weapons: melee = Base.Pencil
 
 [893e7725-9e5a-4d95-8fc4-7b43664c69c6]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 7f6bc195-edc6-4eb8-92ce-a40fc47de85f
 	general: name = Angel_01
 	general: female = false
@@ -1783,7 +1791,7 @@
 	bag: name = Base.AngelWings
 
 [14007cff-ca13-4726-8de4-c4af7ea53721]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 6b884749-39be-42a3-9fbf-c79a78d4f2af
 	general: name = Demon_01
 	general: female = false
@@ -1817,7 +1825,7 @@
 	weapons: melee = Base.BucketMace_Metal
 
 [537e2a85-429f-4bde-93b8-2e6ada69bc1a]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 6b884749-39be-42a3-9fbf-c79a78d4f2af
 	general: name = Demon_02
 	general: female = false
@@ -1850,7 +1858,7 @@
 	tint: Pants = 1710618
 
 [a9749077-f38b-4640-a9cd-1fae137f2141]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 6b884749-39be-42a3-9fbf-c79a78d4f2af
 	general: name = Demon_03
 	general: female = false
@@ -1884,7 +1892,7 @@
 	weapons: melee = Base.FieldHockeyStick_Sawblade
 
 [0101e6b2-eea1-421c-b6fa-72fb4138d5a1]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
 	general: name = Sweeper_01
 	general: female = false
@@ -1910,7 +1918,7 @@
 	ammo: secondary = 1
 
 [8e90fed0-1ec7-47ca-929f-6e1321cca93c]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
 	general: name = Sweeper_02
 	general: female = false
@@ -1936,7 +1944,7 @@
 	ammo: secondary = 1
 
 [68aee496-1bd9-4f9a-b796-943751856372]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
 	general: name = Sweeper_03
 	general: female = false
@@ -1962,7 +1970,7 @@
 	ammo: secondary = 1
 
 [58b505bb-d627-40ae-8f7a-467366ed3f97]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 17519d85-03ee-4cb3-b8b3-579a31d0f6b3
 	general: name = Sweeper_04
 	general: female = true
@@ -1988,7 +1996,7 @@
 	ammo: secondary = 1
 
 [83dc57a9-b6b5-4126-993e-baa93c4f2284]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_01
 	general: female = false
@@ -2014,7 +2022,7 @@
 	weapons: melee = Base.Pencil
 
 [61413646-5277-41da-93b9-1f10c7bad022]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_02
 	general: female = false
@@ -2039,7 +2047,7 @@
 	weapons: melee = Base.Pencil
 
 [6eb7859c-dc14-4e36-9f60-e0ed1d17368d]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_03
 	general: female = false
@@ -2065,7 +2073,7 @@
 	weapons: melee = Base.Pencil
 
 [2d574939-d2c3-4857-a51b-014884a5d410]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_04
 	general: female = false
@@ -2090,7 +2098,7 @@
 	weapons: melee = Base.Pencil
 
 [cf05f08e-bedb-45ee-baa1-692ecb1d1870]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_05
 	general: female = false
@@ -2115,7 +2123,7 @@
 	weapons: melee = Base.Pencil
 
 [182a5015-dc7e-43d1-93fd-31dc6b9dd49e]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_06
 	general: female = false
@@ -2140,7 +2148,7 @@
 	weapons: melee = Base.Pencil
 
 [412fd6ec-d9d7-417c-a531-9b178ba8525e]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_10
 	general: female = false
@@ -2164,7 +2172,7 @@
 	weapons: melee = Base.Pencil
 
 [d4535a90-378c-4174-94a8-75861e3119e8]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_08
 	general: female = false
@@ -2189,7 +2197,7 @@
 	weapons: melee = Base.Pencil
 
 [04a7ad9f-1a91-4582-9c99-5f729c0b8477]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_09
 	general: female = false
@@ -2216,7 +2224,7 @@
 	weapons: melee = Base.Pencil
 
 [26880756-196e-4a6c-833f-c4e283e0ecc2]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_07
 	general: female = false
@@ -2241,7 +2249,7 @@
 	weapons: melee = Base.Pencil
 
 [68f189d1-deea-40ad-969b-1891973fa4db]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_11
 	general: female = false
@@ -2266,7 +2274,7 @@
 	weapons: melee = Base.Pencil
 
 [13c5869b-d7e3-4b6b-b565-80620056c8d7]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_12
 	general: female = false
@@ -2292,7 +2300,7 @@
 	weapons: melee = Base.Pencil
 
 [09eaf973-2e83-4d34-8155-0e20caf6f416]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_13
 	general: female = false
@@ -2318,7 +2326,7 @@
 	weapons: melee = Base.Pencil
 
 [4f7ad9d5-9a32-4685-a25e-89ad57e7ede5]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_14
 	general: female = false
@@ -2344,7 +2352,7 @@
 	weapons: melee = Base.Pencil
 
 [95fb4204-bd9e-4722-b8c2-81146704ac4f]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_15
 	general: female = false
@@ -2368,7 +2376,7 @@
 	weapons: melee = Base.Pencil
 
 [099a5b45-6390-4f0a-8d5b-6608aa43e2a4]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_16
 	general: female = true
@@ -2395,7 +2403,7 @@
 	weapons: melee = Base.Pencil
 
 [bfc6c7cc-76b7-4cce-a844-373b59715ef9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_17
 	general: female = true
@@ -2422,7 +2430,7 @@
 	weapons: melee = Base.Pencil
 
 [f8306012-fa63-408c-81f8-634d6e6ff4b6]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_18
 	general: female = true
@@ -2448,7 +2456,7 @@
 	weapons: melee = Base.Pencil
 
 [57686e78-404e-48c0-a1f3-a13a9460a5ed]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_19
 	general: female = true
@@ -2474,7 +2482,7 @@
 	weapons: melee = Base.Pencil
 
 [f7fab510-17e4-4a3d-969f-ce27abc4dc34]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_20
 	general: female = true
@@ -2500,7 +2508,7 @@
 	weapons: melee = Base.Pencil
 
 [7d985612-d4fa-4a86-86ec-a32359b86116]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_21
 	general: female = true
@@ -2526,7 +2534,7 @@
 	weapons: melee = Base.Pencil
 
 [715c9779-6c27-4b0c-9b5e-6088b3768fb9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_22
 	general: female = true
@@ -2553,7 +2561,7 @@
 	weapons: melee = Base.Pencil
 
 [479325bb-9f56-4afb-9a3a-61930e5abbda]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_23
 	general: female = true
@@ -2579,7 +2587,7 @@
 	weapons: melee = Base.Pencil
 
 [48eb912d-8db1-4baa-a26e-0290d09e7f32]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_24
 	general: female = true
@@ -2604,7 +2612,7 @@
 	weapons: melee = Base.Pencil
 
 [9f28adbe-8ae2-4993-8885-17b8cfe13fb7]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_25
 	general: female = true
@@ -2632,7 +2640,7 @@
 	weapons: melee = Base.Pencil
 
 [aada9d05-648c-4829-ab94-8ad9612baecd]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_26
 	general: female = true
@@ -2657,7 +2665,7 @@
 	weapons: melee = Base.Pencil
 
 [dfe4517d-eb37-4554-b7bc-8f787f28cef0]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f472d9ba-dd9e-4245-bd18-9c465dc11937
 	general: name = Finnegan_27
 	general: female = true
@@ -2683,7 +2691,7 @@
 	weapons: melee = Base.Pencil
 
 [028c7076-e990-488c-8857-edb5fab92333]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8da26dbc-16e4-4391-8763-989b80e71442
 	general: name = Finnegan_Toilet_01
 	general: female = false
@@ -2704,7 +2712,7 @@
 	clothing: Shoes = Base.Shoes_Black
 
 [d6783e70-2de7-4ea3-aa33-bd7a7f20c4c9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8da26dbc-16e4-4391-8763-989b80e71442
 	general: name = Finnegan_Toilet_02
 	general: female = false
@@ -2726,7 +2734,7 @@
 	clothing: Shoes = Base.Shoes_Black
 
 [d7f71433-7616-4547-bd9c-7337013ffd1e]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8da26dbc-16e4-4391-8763-989b80e71442
 	general: name = Finnegan_Toilet_03
 	general: female = false
@@ -2748,7 +2756,7 @@
 	clothing: Shoes = Base.Shoes_Black
 
 [3aff77b2-4595-43dc-86b8-7618dd236ded]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8da26dbc-16e4-4391-8763-989b80e71442
 	general: name = Finnegan_Toilet_06
 	general: female = false
@@ -2771,7 +2779,7 @@
 	clothing: Shoes = Base.Shoes_Black
 
 [8b6d226f-db59-4675-8574-5245dd6d7fd8]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8da26dbc-16e4-4391-8763-989b80e71442
 	general: name = Finnegan_Toilet_04
 	general: female = false
@@ -2793,7 +2801,7 @@
 	clothing: Shoes = Base.Shoes_Black
 
 [0b65e3ec-67d2-4d7f-8a05-f6092329ddac]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_01
 	general: female = false
@@ -2821,7 +2829,7 @@
 	weapons: melee = Base.Scalpel
 
 [5847240d-7666-48f9-aedf-d360c5fe8e80]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_02
 	general: female = false
@@ -2849,7 +2857,7 @@
 	weapons: melee = Base.Scalpel
 
 [1f7fbfcc-1900-4c5c-b050-b74745b56587]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_03
 	general: female = true
@@ -2877,7 +2885,7 @@
 	weapons: melee = Base.Scalpel
 
 [4c76e0bf-aee3-4cad-9839-af29cd2dc983]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_04
 	general: female = true
@@ -2905,7 +2913,7 @@
 	weapons: melee = Base.Scalpel
 
 [4db6f3fc-1012-4688-9cce-43b6931caa36]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_05
 	general: female = false
@@ -2928,7 +2936,7 @@
 	weapons: melee = Base.Scalpel
 
 [7c38b932-34a3-49b0-bd1b-b797bcd9af8a]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_06
 	general: female = false
@@ -2951,7 +2959,7 @@
 	weapons: melee = Base.Scalpel
 
 [45bb042f-865e-43a0-b5b2-a85c2dd722ac]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_07
 	general: female = false
@@ -2974,7 +2982,7 @@
 	weapons: melee = Base.Scalpel
 
 [a5fb3626-9802-4458-9461-5564b287ddf2]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_08
 	general: female = false
@@ -2997,7 +3005,7 @@
 	weapons: melee = Base.Scalpel
 
 [5374754c-07a7-45e4-9a2a-6f3308908b06]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_09
 	general: female = true
@@ -3020,7 +3028,7 @@
 	weapons: melee = Base.Scalpel
 
 [ea79a511-45b6-4d4f-8a98-a18f935040f6]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = f0faba8c-168f-4ea5-8543-4365446fb176
 	general: name = Finnegan_Lab_10
 	general: female = true
@@ -3043,7 +3051,7 @@
 	weapons: melee = Base.Scalpel
 
 [e5a474f9-42a7-4024-b335-82ea6aed959a]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 17bf7c19-3a01-41b5-8804-6288bc5e5738
 	general: name = Finnegan_Mercer
 	general: female = false
@@ -3069,7 +3077,7 @@
 	weapons: melee = Base.KnifeButterfly
 
 [2437e32c-c9d7-410f-b460-7e9ac36abed2]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = cc08ed54-1254-4063-a310-25182bef8c5e
 	general: name = FinneganHale
 	general: female = false
@@ -3094,7 +3102,7 @@
 	weapons: melee = Base.Pencil
 
 [3be7e8a1-6783-4764-8edc-ff6631f01515]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = d6b1d039-6b06-409b-b7dd-d491437df931
 	general: name = FinneganJim
 	general: female = false
@@ -3119,7 +3127,7 @@
 	weapons: melee = Base.Pencil
 
 [ee93bdea-d9a7-4c75-97ea-315553f43d7f]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 706934a3-ce88-45c6-aef2-44dc1278b4d9
 	general: name = Council_01
 	general: female = false
@@ -3149,7 +3157,7 @@
 	tint: Pants = 1710618
 
 [21cfac70-f87c-4f13-9f16-eaa4e5311c8a]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 706934a3-ce88-45c6-aef2-44dc1278b4d9
 	general: name = Council_02
 	general: female = false
@@ -3179,7 +3187,7 @@
 	tint: Pants = 1710618
 
 [e3f5567c-3e9c-4ed4-828b-f146a4a7586d]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 706934a3-ce88-45c6-aef2-44dc1278b4d9
 	general: name = Council_03
 	general: female = true
@@ -3209,7 +3217,7 @@
 	tint: Pants = 1710618
 
 [76ebff9b-48ee-4f6f-8d2e-a5dbed595637]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 706934a3-ce88-45c6-aef2-44dc1278b4d9
 	general: name = Council_04
 	general: female = false
@@ -3239,7 +3247,7 @@
 	tint: Pants = 1710618
 
 [3fcd324a-5dfb-440a-b644-af0704e1d8a2]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 706934a3-ce88-45c6-aef2-44dc1278b4d9
 	general: name = Council_05
 	general: female = false
@@ -3269,7 +3277,7 @@
 	tint: Pants = 1710618
 
 [f7a54d49-bae0-4d4f-92bf-ddd0875b9ed9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3e449dfa-01bb-43aa-b4fc-59d64c102b8f
 	general: name = Council_01
 	general: female = false
@@ -3303,7 +3311,7 @@
 	ammo: secondary = 1
 
 [a0682d9e-fe3f-48b4-8030-6a6f089670a7]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3e449dfa-01bb-43aa-b4fc-59d64c102b8f
 	general: name = Council_02
 	general: female = false
@@ -3338,7 +3346,7 @@
 	ammo: secondary = 1
 
 [39a7dd24-74ee-405a-9515-66c0a7f6c02b]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 3e449dfa-01bb-43aa-b4fc-59d64c102b8f
 	general: name = Council_03
 	general: female = false
@@ -3373,7 +3381,7 @@
 	ammo: secondary = 1
 
 [f49b75f7-8157-4cd8-9fab-202c08330e3e]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = d689071d-46a5-4dd5-9955-bbe2268459f6
 	general: name = CouncilNew_01
 	general: female = false
@@ -3397,7 +3405,7 @@
 	tint: Pants = 3355456
 
 [dafa4bac-4e38-4939-bcfd-823a4f2502d9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 2522e514-fb66-42c5-b242-e03ca8f8e9f2
 	general: name = Council_Adm_01
 	general: female = false
@@ -3425,7 +3433,7 @@
 	tint: Pants = 1710618
 
 [0a9392bb-eab4-4e0d-9ca7-0470d3619606]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 8979b90b-ffb2-4be6-beb0-ae203a79c2e1
 	general: name = Kate
 	general: female = true
@@ -3453,7 +3461,7 @@
 	tint: Skirt = 8408371
 
 [ac50477e-14e9-43f0-b6b0-33aee8b2152a]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = ac40c4d8-61e1-4566-a798-0806385679d3
 	general: name = Bandit_01
 	general: female = false
@@ -3481,7 +3489,7 @@
 	weapons: melee = Base.BaseballBat_Nails
 
 [ea6dfa60-8839-406b-9c91-4c59c178a972]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = ac40c4d8-61e1-4566-a798-0806385679d3
 	general: name = Bandit_02
 	general: female = false
@@ -3509,7 +3517,7 @@
 	weapons: melee = Base.Crowbar
 
 [54efdb3a-fcba-4731-ab7c-31c19714133a]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = ac40c4d8-61e1-4566-a798-0806385679d3
 	general: name = Bandit_03
 	general: female = false
@@ -3536,7 +3544,7 @@
 	weapons: melee = Base.FightingKnife
 
 [682925b0-062f-4cc4-8afc-85733bf4a7c9]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = ac40c4d8-61e1-4566-a798-0806385679d3
 	general: name = Bandit_04
 	general: female = false
@@ -3564,7 +3572,7 @@
 	weapons: melee = Base.Machete
 
 [5770b566-da8e-4c23-a094-4f8ba5347099]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = ac40c4d8-61e1-4566-a798-0806385679d3
 	general: name = Bandit_05
 	general: female = false
@@ -3592,7 +3600,7 @@
 	weapons: melee = Base.Machete
 
 [1319cace-986e-4ac1-a26a-716ebdc311c3]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = ac40c4d8-61e1-4566-a798-0806385679d3
 	general: name = Bandit_06
 	general: female = false
@@ -3621,7 +3629,7 @@
 	weapons: melee = Base.MeatCleaver
 
 [6f4a115c-a2c8-4cbe-bcba-19d1e5a038ff]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Prison
 	general: female = true
@@ -3643,7 +3651,7 @@
 	weapons: melee = Base.Pencil
 
 [4c09bfa8-fae7-4be7-9097-75f282f1da91]
-	general: modid = BanditsWeekOneTheArk
+	general: modid = TheArk
 	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
 	general: name = Emma_Lab
 	general: female = true
@@ -3674,4 +3682,343 @@
 	weapons: secondary = Base.Pistol
 	weapons: melee = Base.Scalpel
 	ammo: secondary = 2
+
+[ac543015-a2b9-4826-936f-6fb649b239a3]
+	general: modid = TheArk
+	general: cid = a81728dc-b370-4fdf-9658-4b126faa6c45
+	general: name = Noah
+	general: female = false
+	general: skin = 2
+	general: hairType = 1
+	general: beardType = 7
+	general: hairColor = 16
+	general: health = 9
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Reading
+	clothing: Neck = Base.Tie_Full
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: JacketSuit = Base.Suit_JacketTINT
+	clothing: Pants = Base.Trousers_SuitWhite_White
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	tint: Shirt = 1710618
+	tint: JacketSuit = 16777215
+	tint: Pants = 16777215
+	weapons: melee = Base.Pencil
+
+[b6bae07b-54fd-4d7c-a8b7-e55bddedb2e0]
+	general: modid = TheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Bunker_Cold
+	general: female = true
+	general: skin = 2
+	general: hairType = 20
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_WoolyHat
+	clothing: Eyes = Base.Glasses_Cosmetic_Normal
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Scarf = Base.Scarf_White
+	clothing: Boilersuit = Base.Boilersuit_Flying
+	clothing: Tshirt = Base.Tshirt_ArmyGreen
+	clothing: Jacket_Bulky = Base.Jacket_PaddedDOWN
+	clothing: Sweater = Base.Jumper_DiamondPatternTINT
+	clothing: Hands = Base.Gloves_FingerlessLeatherGloves_Brown
+	clothing: BeltExtra = Base.HolsterSimple_Brown
+	clothing: Pants = Base.Trousers_WhiteTINT
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	tint: Hat = 8408371
+	tint: Scarf = 11763789
+	tint: Jacket_Bulky = 5059354
+	tint: Pants = 6187088
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Pencil
+	ammo: secondary = 2
+
+[ad8ac91a-6b37-40da-8f38-94e2b533010d]
+	general: modid = TheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Bunker_CO2
+	general: female = true
+	general: skin = 2
+	general: hairType = 20
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: MaskEyes = Base.Hat_GasMask
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Boilersuit = Base.Boilersuit_Flying
+	clothing: BeltExtra = Base.HolsterSimple_Brown
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Pencil
+	ammo: secondary = 2
+
+[9bad4e79-302d-4d1b-a223-01fc85de7e91]
+	general: modid = TheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Bunker_Cold_CO2
+	general: female = true
+	general: skin = 2
+	general: hairType = 20
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_WoolyHat
+	clothing: MaskEyes = Base.Hat_GasMask
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Scarf = Base.Scarf_White
+	clothing: Boilersuit = Base.Boilersuit_Flying
+	clothing: Tshirt = Base.Tshirt_ArmyGreen
+	clothing: Jacket_Bulky = Base.Jacket_PaddedDOWN
+	clothing: Sweater = Base.Jumper_DiamondPatternTINT
+	clothing: Hands = Base.Gloves_FingerlessLeatherGloves_Brown
+	clothing: BeltExtra = Base.HolsterSimple_Brown
+	clothing: Pants = Base.Trousers_WhiteTINT
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	tint: Hat = 8408371
+	tint: Scarf = 11763789
+	tint: Jacket_Bulky = 5059354
+	tint: Pants = 6187088
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Pencil
+	ammo: secondary = 2
+
+[9bdcda92-5bb6-43ff-982c-0f1205e8e74d]
+	general: modid = TheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Defend_CO2
+	general: female = true
+	general: skin = 2
+	general: hairType = 38
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 12
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: MaskEyes = Base.Hat_GasMask
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: Boilersuit = Base.Boilersuit_Flying
+	clothing: TorsoExtraVestBullet = Base.Vest_BulletArmy
+	clothing: Hands = Base.Gloves_FingerlessLeatherGloves_Brown
+	clothing: BeltExtra = Base.HolsterSimple_Brown
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	weapons: primary = Base.AssaultRifle
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.SwitchKnife
+	ammo: primary = 2
+	ammo: secondary = 2
+
+[58d29d8e-cde7-4ba9-84fc-19dc580dc574]
+	general: modid = TheArk
+	general: cid = 0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce
+	general: name = Emma_Lab_CO2
+	general: female = true
+	general: skin = 2
+	general: hairType = 20
+	general: beardType = 1
+	general: hairColor = 9
+	general: health = 9
+	general: strength = 9
+	general: endurance = 9
+	general: sight = 9
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Hat = Base.Hat_SurgicalCap
+	clothing: MaskEyes = Base.Hat_GasMask
+	clothing: Necklace = Base.Necklace_SilverCrucifix
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: JacketSuit = Base.JacketLong_Doctor
+	clothing: Hands = Base.Gloves_Surgical
+	clothing: BeltExtra = Base.HolsterSimple_Brown
+	clothing: Pants = Base.Trousers_Scrubs
+	clothing: Socks = Base.Socks_Ankle_Black
+	clothing: Shoes = Base.Shoes_Black
+	clothing: MakeUp_Lips = Base.MakeUp_LipsRed
+	tint: Pants = 5085542
+	weapons: secondary = Base.Pistol
+	weapons: melee = Base.Scalpel
+	ammo: secondary = 2
+
+[158c5fa3-48a3-43c0-843b-be2f7245dc67]
+	general: modid = TheArk
+	general: cid = c42d3f7c-fac1-4d4a-a8f0-d1401384f341
+	general: name = Sec_01
+	general: female = false
+	general: skin = 2
+	general: hairType = 8
+	general: beardType = 1
+	general: hairColor = 3
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Sun
+	clothing: Neck = Base.Tie_Full
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: JacketSuit = Base.Suit_Jacket
+	clothing: BeltExtra = Base.HolsterSimple_Black
+	clothing: Pants = Base.Trousers_Suit
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	tint: Shirt = 1710618
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
+
+[3e9682b9-77b7-44f3-b2ad-b6942acbae9e]
+	general: modid = TheArk
+	general: cid = c42d3f7c-fac1-4d4a-a8f0-d1401384f341
+	general: name = Sec_02
+	general: female = false
+	general: skin = 3
+	general: hairType = 8
+	general: beardType = 1
+	general: hairColor = 10
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Sun
+	clothing: Neck = Base.Tie_Full
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: VestTexture = Base.Vest_Waistcoat
+	clothing: BeltExtra = Base.HolsterSimple_Black
+	clothing: Pants = Base.Trousers_Suit
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	tint: Shirt = 1710618
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
+
+[a07c0e84-8e5d-4ae3-94ce-2a4a3897cc7e]
+	general: modid = TheArk
+	general: cid = c42d3f7c-fac1-4d4a-a8f0-d1401384f341
+	general: name = Sec_03
+	general: female = false
+	general: skin = 5
+	general: hairType = 8
+	general: beardType = 7
+	general: hairColor = 10
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Aviators
+	clothing: Neck = Base.Tie_Full
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: VestTexture = Base.Vest_Waistcoat
+	clothing: BeltExtra = Base.HolsterSimple_Black
+	clothing: Pants = Base.Trousers_Suit
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	tint: Shirt = 1710618
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
+
+[19c27db2-fe28-4d6e-bfed-c5f91a561a58]
+	general: modid = TheArk
+	general: cid = c42d3f7c-fac1-4d4a-a8f0-d1401384f341
+	general: name = Sec_04
+	general: female = false
+	general: skin = 3
+	general: hairType = 14
+	general: beardType = 8
+	general: hairColor = 10
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Aviators
+	clothing: Neck = Base.Tie_Full
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: VestTexture = Base.Vest_Waistcoat
+	clothing: BeltExtra = Base.HolsterSimple_Black
+	clothing: Pants = Base.Trousers_Suit
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	tint: Shirt = 1710618
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
+
+[1396224c-6ace-492f-907b-a63c4294cde4]
+	general: modid = TheArk
+	general: cid = c42d3f7c-fac1-4d4a-a8f0-d1401384f341
+	general: name = Sec_05
+	general: female = false
+	general: skin = 2
+	general: hairType = 29
+	general: beardType = 5
+	general: hairColor = 10
+	general: health = 5
+	general: strength = 5
+	general: endurance = 5
+	general: sight = 5
+	general: exp1 = 0
+	general: exp2 = 0
+	general: exp3 = 0
+	clothing: Eyes = Base.Glasses_Aviators
+	clothing: Neck = Base.Tie_Full
+	clothing: TankTop = Base.Vest_DefaultTEXTURE
+	clothing: Shirt = Base.Shirt_FormalTINT
+	clothing: VestTexture = Base.Vest_Waistcoat
+	clothing: BeltExtra = Base.HolsterSimple_Black
+	clothing: Pants = Base.Trousers_Suit
+	clothing: Socks = Base.Socks_Long_Black
+	clothing: Shoes = Base.Shoes_Black
+	tint: Shirt = 1710618
+	weapons: secondary = Base.Pistol
+	ammo: secondary = 1
 

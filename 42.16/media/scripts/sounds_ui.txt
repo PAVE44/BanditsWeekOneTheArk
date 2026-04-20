@@ -8,7 +8,22 @@ module Base {
         is3D = true,
         clip
         {
-            file = media/sound/dream_2_end.ogg,
+            file = media/sound/ui_play_button.ogg,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+           
+        }
+    }
+
+    sound UIArkHit
+    {
+        category = UI,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/ui_ark_hit.ogg,
             distanceMin = 1,
             distanceMax = 4,
             reverbFactor = 0.6, 
@@ -23,7 +38,7 @@ module Base {
         is3D = true,
         clip
         {
-            file = media/sound/dream_2_end.ogg,
+            file = media/sound/ui_play_button.ogg,
             distanceMin = 1,
             distanceMax = 4,
             reverbFactor = 0.6, 
@@ -58,6 +73,36 @@ module Base {
             reverbFactor = 0.6, 
         }
     }
+
+    sound UIPauseMenuEnter
+    {
+        category = UI,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/ui_mainmenu_activate.wav,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound UIPauseMenuExit
+    {
+        category = UI,
+        loop = false,
+        is3D = true,
+        clip
+        {
+            file = media/sound/ui_mainmenu_activate.wav,
+            distanceMin = 1,
+            distanceMax = 4,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    
 }
 
 module Bandits {

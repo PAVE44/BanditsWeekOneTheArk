@@ -23,6 +23,8 @@ BWOARooms.Corridor.Init = function ()
         {x=9970, y=12629.5, z=-4},
         {x=9970, y=12623.5, z=-4},
         {x=9970, y=12614.5, z=-4},
+        {x=9965.5, y=12608.5, z=-4},
+        {x=9971.5, y=12618.5, z=-4},
     }
 
     BWOARooms.Corridor.els = {}
@@ -144,6 +146,9 @@ BWOARooms.Corridor.Build = function ()
     BWOABuildTools.LampOvalS(9958, 12650, -4)
 
     BWOABuildTools.LampOvalS(9953, 12626, -4)
+
+    BWOABuildTools.VentW(9965, 12608, -4)
+    BWOABuildTools.VentN(9971, 12618, -4)
 
     -- "fencing_damaged_01_138"
     -- "fencing_damaged_01_137"

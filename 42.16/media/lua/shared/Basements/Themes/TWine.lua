@@ -318,6 +318,9 @@ theme.items = {
     {["Base.Jumper_VNeck"] = 1},
     {["Base.Socks_Long"] = 3},
     {["Base.Pillow"] = 1},
+    {["Base.MetalworkMag1"] = 1},
+    {["Base.MetalworkMag2"] = 1},
+    {["Base.MetalworkMag3"] = 1},
 }
 
 theme.corpses = {}

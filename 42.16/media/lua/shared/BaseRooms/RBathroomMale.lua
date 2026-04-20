@@ -20,6 +20,10 @@ end
 BWOARooms.BathroomMale.Build = function ()
     BWOARooms.BathroomMale.Init()
 
+    BWOABuildTools.RemoveObject(9952, 12645, -4, "fixtures_bathroom_01_9")
+    BWOABuildTools.RemoveObject(9952, 12646, -4, "fixtures_bathroom_01_9")
+    BWOABuildTools.RemoveObject(9952, 12647, -4, "fixtures_bathroom_01_9")
+
     BWOAPrepareTools.DarkenLight(9956, 12650, -4)
     BWOAPrepareTools.DarkenLight(9951, 12649, -4)
 

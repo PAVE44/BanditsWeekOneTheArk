@@ -6,5 +6,6 @@
 	"Tooltip_PillsNikethamide": "Helps in hypothermia.",
 	"Tooltip_NBCTablets": "Nuclear-Biological-Chemical decon tablets.",
 	"Tooltip_GeigerCounter": "Measures radiation levels and emitts signals when equipped / attached.",
-	"Tooltip_LabSyringe": "Syringe with unknown substance."
+	"Tooltip_LabSyringe": "Syringe with unknown substance.",
+	"Tooltip_LabSyringeCure": "Syringe with the experimental cure."
 }

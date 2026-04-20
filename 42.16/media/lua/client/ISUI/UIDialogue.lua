@@ -20,11 +20,12 @@ function UIDialogue:initialise()
     local dialogues = BWOADialogues.GetQuestions(self.person)
 
     if BWOAChat.last[self.person] then
-        self.dialListBox:addItem(id, { index = 0, qst = "Can you repeat that?"})
+        self.dialListBox:addItem(0, { index = 0, qst = getText("IGUI_SayPlayer_Repeat")})
     end
 
     for id, dialogue in pairs(dialogues) do
-        self.dialListBox:addItem(id, { index = id, qst = dialogue.qst})
+        local questionTxt = getText("IGUI_Dial_" .. self.person .. "_" .. id .. "_Q")
+        self.dialListBox:addItem(id, { index = id, qst = questionTxt})
     end
 
     self.maxWidth = getTextManager():MeasureStringX(UIFont.Medium, getText("UI_BWOA_SpeakTo") .. " ".. self.person)
@@ -45,9 +46,8 @@ function UIDialogue:initialise()
     end
 
     self.dialListBox.onMouseUp = function(listBox, x, y)
-        local itemText = listBox.items[listBox.selected].item.qst
         local itemId = listBox.items[listBox.selected].item.index
-        BWOAChat.Say(itemId, itemText, self.person)
+        BWOAChat.Say(itemId, self.person)
         self:destroy()
     end
     
@@ -69,15 +69,6 @@ function UIDialogue:destroy()
     UIManager.setShowPausedMessage(true);
     self:setVisible(false);
     self:removeFromUIManager();
-end
-
-function UIDialogue:sendMessage()
-    local txt = self:getText()
-    self:unfocus()
-    UIManager.setShowPausedMessage(true);
-    self.parent:setVisible(false);
-    self.parent:removeFromUIManager();
-    BWOChat.Say(txt)
 end
 
 function UIDialogue:onClick(button)

@@ -1,11 +1,11 @@
 VERSION = 1,
 
 option BWOA.FalloutStarted  = {
-    type = enum, numValues=6, default = 3,
+    type = enum, numValues=6, default = 4,
     page = BWOA, translation = BWOA.FalloutStarted, valueTranslation=BWOA.FalloutStarted,
 }
 option BWOA.FalloutEnds  = {
-    type = enum, numValues=6, default = 4,
+    type = enum, numValues=6, default = 3,
     page = BWOA, translation = BWOA.FalloutEnds, valueTranslation=BWOA.FalloutEnds,
 }
 option BWOA.FalloutCurve  = {
@@ -17,9 +17,19 @@ option BWOA.TemperatureDrop  = {
     page = BWOA, translation = BWOA.TemperatureDrop, valueTranslation=BWOA.TemperatureDrop,
 }
 
+option BWOA.ArkGeneratorFuelConsumption  = {
+    type = enum, numValues=5, default = 3,
+    page = BWOA, translation = BWOA.ArkGeneratorFuelConsumption, valueTranslation=BWOA.ArkGeneratorFuelConsumption,
+}
+
 option BWOA.ShelterOccurance  = {
     type = enum, numValues=5, default = 4,
     page = BWOA, translation = BWOA.ShelterOccurance, valueTranslation=BWOA.ShelterOccurance,
+}
+
+option BWOA.HostileGroupSize  = {
+    type = enum, numValues=6, default = 3,
+    page = BWOA, translation = BWOA.HostileGroupSize, valueTranslation=BWOA.HostileGroupSize,
 }
 
 option BWOA.ResidueScrap  = {

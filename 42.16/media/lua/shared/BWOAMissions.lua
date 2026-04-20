@@ -102,6 +102,15 @@ BWOAMissions.missions = {
         name = getText("IGUI_Missions_113_Name"),
         desc = getText("IGUI_Missions_113_Description"),
     },
+    [114] = {
+        name = getText("IGUI_Missions_114_Name"),
+        desc = getText("IGUI_Missions_114_Description"),
+        chapter = "chapter_5",
+    },
+    [115] = {
+        name = getText("IGUI_Missions_115_Name"),
+        desc = getText("IGUI_Missions_115_Description"),
+    },
     [120] = {
         name = getText("IGUI_Missions_120_Name"),
         desc = getText("IGUI_Missions_120_Description"),

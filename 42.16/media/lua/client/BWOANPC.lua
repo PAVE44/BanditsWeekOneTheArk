@@ -37,7 +37,7 @@ local function manageNPC()
                     bandit:removeFromSquare()
 
                     gmd.permanentNPC[id].teleportTo = nil
-                    print ("teleported " .. id .. " to " .. tp.x .. "," .. tp.y .. "," .. tp.z)
+                    -- print ("teleported " .. id .. " to " .. tp.x .. "," .. tp.y .. "," .. tp.z)
                 else
                     -- record last know position
                     gmd.permanentNPC[id] = {
@@ -102,7 +102,7 @@ local function manageNPC()
                 if square then
                     data.t = data.t + 1
                     if data.t > 2 then
-                        print ("spawning emma at " .. data.x .. "," .. data.y .. "," .. data.z)
+                        --print ("spawning emma at " .. data.x .. "," .. data.y .. "," .. data.z)
                         data.t = 0
                         local gmdBrain = GetBanditClusterData(id)
                         if gmdBrain[id] then
@@ -118,13 +118,13 @@ local function manageNPC()
                             return
                         end
                     else
-                        print ("emma is missing, waiting " .. data.t)
+                        -- print ("emma is missing, waiting " .. data.t)
                     end
                 else
-                    print ("emma spawn square not loaded")
+                    -- print ("emma spawn square not loaded")
                 end
             else
-                print ("too far for npc despawn check")
+                -- print ("too far for npc despawn check")
             end
         end
     end

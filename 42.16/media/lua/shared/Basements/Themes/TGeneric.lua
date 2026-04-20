@@ -327,8 +327,10 @@ theme.items = {
     {["Base.SmallHandle"] = 1},
     {["Base.Handle"] = 1},
     {["Base.Plank"] = 3},
-    
-    
+    {["Base.ElectronicsMag1"] = 1},
+    {["Base.ElectronicsMag2"] = 1},
+    {["Base.ElectronicsMag3"] = 1},
+    {["Base.ElectronicsMag4"] = 1},
 }
 
 theme.corpses = {}

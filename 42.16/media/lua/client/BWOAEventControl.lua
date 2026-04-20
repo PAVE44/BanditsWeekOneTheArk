@@ -9,85 +9,114 @@ require "BWOASound"
 BWOAEventControl = BWOAEventControl or {}
 
 -- table for enqueued events
-BWOAEventControl.Events = {}
+BWOAEventControl.events = {}
 
-local schedule = {
+-- HOURS MUST BE MULTIPLIERS OF 4 TO ENABLE PROPER TIME STRETCHING
+BWOAEventControl.schedule = {
     [0] = { -- D1 17.00
         [3] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Start")}},
         [4] = {"Chapter", {tex = "chapter_1"}},
     },
-    [1] = { -- D1 18.00
+    [4] = { -- D1 18.00
         [7] = {"Spooky", {cnt = 1}},
         [8] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Shock1")}},
     },
-    [2] = { -- D1 19.00
+    [8] = { -- D1 19.00
         [17] = {"Spooky", {cnt = 5}},
         [18] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Shock2")}},
     },
-    [4] = {
+    [12] = {
         [24] = {"ArkNetworkStatus", {arkId = 47}},
     },
-    [22] = {
+    [24] = {
         [39] = {"Horde", {intensity = 8}},
     },
-    [34] = {
+    [56] = {
         [39] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 4}},
     },
-    [45] = {
+    [68] = {
         [17] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
-    [55] = {
+    [92] = {
         [2] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
-    [79] = {
+    [120] = {
         [14] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
     },
-    [132] = {
+    [172] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
         [31] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
         [32] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
-    [135] = {
+    [180] = {
         [30] = {"Horde", {intensity = 30}},
     },
-    [177] = {
+    [192] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 11}},
     },
-    [184] = {
+    [216] = {
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true}},
     },
-    [190] = {
+    [268] = {
         [41] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
         [42] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
         [43] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 6}},
         [44] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
         [45] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
     },
-    [200] = {
+    [272] = {
         [30] = {"Horde", {intensity = 50}},
         [35] = {"BreakNoah", {}},
     },
-    [242] = {
+    [276] = {
         [41] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 1}},
         [42] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
         [43] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 6}},
         [44] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
         [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
     },
-    [291] = {
+    [336] = {
         [30] = {"Horde", {intensity = 60}},
     },
-    [351] = {
+    [352] = {
         [35] = {"BreakNoah", {}},
     },
-    [415] = {
+    [356] = {
+        [15] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
+        [16] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
+    },
+    [416] = {
         [50] = {"ArkNetworkStatus", {arkId = 50}},
     },
-    [521] = {
+    [444] = {
+        [33] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [34] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [36] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [37] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+    },
+    [492] = {
+        [33] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [34] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [36] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [37] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+    },
+    [516] = {
+        [30] = {"Horde", {intensity = 60}},
+    },
+    [544] = {
         [26] = {"ArkNetworkStatus", {arkId = 49}},
         [31] = {"ArkNetworkStatus", {arkId = 53}},
     },
+    [592] = {
+        [30] = {"Horde", {intensity = 60}},
+    },
+    [672] = {
+        [30] = {"Horde", {intensity = 70}},
+    },
+    [744] = {}
 }
 
 -- disable non whitelisted W1ARK bandits spawn 
@@ -104,12 +133,28 @@ local function everyOneMinute()
     local gt = getGameTime()
     local hours = math.floor(gt:getWorldAgeHours()) - 10
     local minutes = gt:getMinutes()
+    -- print ("H: " .. hours .. " M: " .. minutes)
 
-    print ("H: " .. hours .. " M: " .. minutes)
+    local multipliers = {
+        [1] = 0.25,
+        [2] = 0.5,
+        [3] = 1,
+        [4] = 3,
+        [5] = 6,
+        [6] = 12
+    }
+    local multiplier = multipliers[SandboxVars.BWOA.FalloutEnds]
+
+    local schedule = BWOAEventControl.schedule
+    local scheduleScaled = {}
+    for h, tab in pairs(schedule) do
+        local newh = math.floor(h * multiplier)
+        scheduleScaled[newh] = tab
+    end
 
     -- time-fixed events
-    if schedule[hours] and schedule[hours][minutes] then
-        local event = schedule[hours][minutes]
+    if scheduleScaled[hours] and scheduleScaled[hours][minutes] then
+        local event = scheduleScaled[hours][minutes]
         if event and event[1] and event[2] then
             local eventName = event[1]
             local eventParams = event[2]
@@ -137,6 +182,17 @@ local function everyOneMinute()
     end
 
     -- hostile ark raids
+    local hostileGroupSize = SandboxVars.BWOA.HostileGroupSize or 3
+    local hostileGroupSizes = {
+        [1] = 2,
+        [2] = 4,
+        [3] = 6,
+        [4] = 9,
+        [5] = 13,
+        [6] = 24,
+    }
+    local intensity = math.ceil(hostileGroupSizes[hostileGroupSize])
+
     local arkDeclared = BWOABaseAPI.IsNetworkPlayerArkDeclared()
     if arkDeclared then
         if pz == -4 then
@@ -149,7 +205,7 @@ local function everyOneMinute()
                     if rnd == 0 then
                         BWOASequence.Assault({
                             cid = Bandit.clanMap.Surface2,
-                            intensity = 6, 
+                            intensity = intensity, 
                             vtype = "Base.VanSeats_Mural"
                         })
                         ark.status = 2
@@ -166,7 +222,7 @@ function BWOAEventControl.Add(name, params, delay)
     event.start = BanditUtils.GetTime() + delay
     event.name = name
     event.params = params
-    table.insert(BWOAEventControl.Events, event)
+    table.insert(BWOAEventControl.events, event)
 end
 
 -- queue processor
@@ -175,13 +231,13 @@ function onTick()
     if not player then return end
 
     local ct = BanditUtils.GetTime()
-    for i, event in ipairs(BWOAEventControl.Events) do
+    for i, event in ipairs(BWOAEventControl.events) do
         if event.start < ct then
             if BWOAEvents[event.name] then
                 -- print ("EVENT:" .. event.name)
                 BWOAEvents[event.name](event.params)
             end
-            table.remove(BWOAEventControl.Events, i)
+            table.remove(BWOAEventControl.events, i)
             break
         end
     end

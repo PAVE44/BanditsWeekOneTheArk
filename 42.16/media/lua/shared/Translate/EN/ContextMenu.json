@@ -1,9 +1,14 @@
 {
-    "ContextMenu_UseNoah": "Use Noah",
+    "ContextMenu_UseNoah": "Use NOAH",
     "ContextMenu_AddCorpse": "Add Corpse",
     "ContextMenu_NeedCorpse": "You need to be carrying a corpse to do this.",
     "ContextMenu_NeedScrewdriver": "You need a Screwdriver.",
     "ContextMenu_FixAirVent": "Fix Air Vent",
+    "ContextMenu_VentNotBroken": "The air vent is not broken.",
+    "ContextMenu_FuelIntakeDrain": "Drain Fuel",
+    "ContextMenu_FuelIntakeNoVehicle": "No fuel tanker in range.",
+    "ContextMenu_FuelIntakeNoFuelLeft": "No fuel left in the vehicle tank.",
+    "ContextMenu_FuelIntakeGeneratorsFull": "Fuel tanks are full.",
     "ContextMenu_NeedEngineCoolant": "You need engine coolant.",
     "ContextMenu_NeedEngineLubricant": "You need engine lubricant.",
     "ContextMenu_GeneratorCoolantFull": "Generator coolant is full.",
@@ -24,5 +29,7 @@
     "ContextMenu_PlayMusic": "Play Music",
     "ContextMenu_PerkMechanicsRequired3": "You need Mechanics level 3 or above to do this.",
     "ContextMenu_PerkElectricalRequired2": "You need Electrical level 2 or above to do this.",
-    "ContextMenu_RecipeGeneratorRequired": "You need to know the How to Use Generator recipe to do this."
+    "ContextMenu_RecipeGeneratorRequired": "You need to know the How to Use Generator recipe to do this.",
+    "ContextMenu_Inject": "Inject",
+    "ContextMenu_NotInfected": "You are not infected."
 }

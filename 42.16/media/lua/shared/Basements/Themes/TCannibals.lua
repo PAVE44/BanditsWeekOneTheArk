@@ -380,7 +380,7 @@ theme.items = {
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
     {["Base.Dung_Rat"] = 1},
-    {["Base.B"] = 1},
+    {["Base.CookingMag5"] = 1},
 }
 
 theme.corpses = {
@@ -397,3 +397,4 @@ theme.corpses = {
 }
 
 BasementThemes["cannibals"] = theme
+

@@ -49,9 +49,11 @@ function TAFuelIntake:update()
         for _, generator in pairs(gmd.generators) do
             local missing = 100 - generator.fuel
             if missing > 0 then
-                generator.fuel = generator.fuel + (step / 10)
-                md.BWOA.fuel = fuel - step
-                print ("ARK: " .. (generator.fuel + step) .. " CAR: " .. fuel - step)
+                if fuel > 0 then
+                    generator.fuel = generator.fuel + (step / 5)
+                    md.BWOA.fuel = fuel - (step / 5)
+                    -- print ("ARK: " .. (generator.fuel + step) .. " CAR: " .. fuel - step)
+                end
             end
         end
     end
@@ -76,9 +78,23 @@ function TAFuelIntake:getDuration()
 	if self.character:isTimedActionInstant() then
 		return 1
 	end
+    
+    local gmd = GetBWOAModData()
+    local step = 0.2
+    local smallest = math.huge
+    for _, generator in pairs(gmd.generators) do
+        if generator.fuel < smallest then
+            smallest = generator.fuel
+        end
+    end
+    local missing = 100 - smallest
+    local time = (missing / step) * 4
+
     local vehicle = TAFuelIntake:getVehicle()
     local fuel = vehicle:getModData().BWOA.fuel
-	return fuel * 25
+	local time2 = fuel * 4
+
+    return math.min(time, time2)
 end
 
 function TAFuelIntake:new(character, square)

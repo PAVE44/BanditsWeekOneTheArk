@@ -338,4 +338,13 @@ module Bandits
         WorldStaticModel    = Item_LabSyringe,
     }
 
+    item LabSyringeCure {
+        DisplayCategory     = FirstAid,
+        ItemType            = base:normal,
+        Icon                = LabSyringeCure,
+        Weight              = 0.01,
+        Tooltip             = Tooltip_LabSyringeCure,
+        WorldStaticModel    = Item_LabSyringe,
+    }
+
 }

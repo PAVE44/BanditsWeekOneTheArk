@@ -137,7 +137,7 @@ end
 
 BWOAPrograms.IdleEmma = function(bandit)
     local tasks = {}
-    local action = ZombRand(100)
+    local action = ZombRand(140)
 
     if action == 0 then
         local task = {action="Time", anim="ShiftWeight", time=200}

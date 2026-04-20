@@ -16,7 +16,6 @@ function InitBWOAModData(isNewGame)
             on = true,
             state = "operational",
         }
-
     end
 
     if not globalData.climate then
@@ -31,7 +30,7 @@ function InitBWOAModData(isNewGame)
                 x = 9947,
                 y = 12621,
                 z = -4,
-                fuel = 77,
+                fuel = 87,
                 condition = 81,
                 coolant = 72,
                 lubricant = 83,
@@ -42,7 +41,7 @@ function InitBWOAModData(isNewGame)
                 x = 9947,
                 y = 12616,
                 z = -4,
-                fuel = 20,
+                fuel = 50,
                 condition = 90,
                 coolant = 90,
                 lubricant = 90,
@@ -140,7 +139,8 @@ function InitBWOAModData(isNewGame)
         globalData.nightmares = {
             active = false,
             variant = "Fall",
-            state = "enter"
+            state = "enter",
+            doneList = {}
         }
     end
 

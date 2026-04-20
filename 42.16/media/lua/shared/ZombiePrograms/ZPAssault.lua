@@ -14,7 +14,27 @@ ZombiePrograms.Assault.Prepare = function(bandit)
     local tasks = {}
 
     Bandit.ForceStationary(bandit, false)
-  
+
+    local weapons = Bandit.GetWeapons(bandit)
+
+    local itemName
+    if weapons.primary and weapons.primary.name then
+        itemName = weapons.primary.name
+    elseif weapons.secondary and weapons.secondary.name then
+        itemName = weapons.secondary.name
+    elseif weapons.melee then
+        itemName = weapons.melee
+    end
+    if itemName then
+        local new = BanditCompatibility.InstanceItem(itemName)
+        if new then
+            local sound = new:getEquipSound()
+            local task = {action="Equip", sound=sound, itemPrimary=itemName}
+            table.insert(tasks, task)
+            return {status=true, next="Main", tasks=tasks}
+        end
+    end
+
     return {status=true, next="Main", tasks=tasks}
 end
 
@@ -28,27 +48,6 @@ ZombiePrograms.Assault.Main = function(bandit)
     local health = bandit:getHealth()
     local healthMin = 0.7
     local walkType = "WalkAim"
-
-    local primary = bandit:getPrimaryHandItem()
-    if not primary then
-        local itemName
-        if weapons.primary and weapons.primary.name then
-            itemName = weapons.primary.name
-        elseif weapons.secondary and weapons.secondary.name then
-            itemName = weapons.secondary.name
-        elseif weapons.melee then
-            itemName = weapons.melee
-        end
-        if itemName then
-            local new = BanditCompatibility.InstanceItem(itemName)
-            if new then
-                local sound = new:getEquipSound()
-                local task = {action="Equip", sound=sound, itemPrimary=itemName}
-                table.insert(tasks, task)
-                return {status=true, next="Main", tasks=tasks}
-            end
-        end
-    end
 
     local config = {}
     config.mustSee = true

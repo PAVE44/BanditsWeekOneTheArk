@@ -49,9 +49,9 @@ function BWOAScenes.Hunter:placeItems()
     BWOAPrepareTools.AddWorldItem(9821, 12923, -1, "Base.SurvivalSchematic", {x=0.38, y=0.37, z=0.29, rx=0, ry=0, rz=85})
     BWOAPrepareTools.AddWorldItem(9821, 12923, -1, "Base.SurvivalSchematic", {x=0.45, y=0.45, z=0.29, rx=0, ry=0, rz=300})
     BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.HuntingMag4", {x=0.49, y=0.29, z=0.29, rx=0, ry=0, rz=345})
-    BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.HuntingMag1", {x=0.59, y=0.31, z=0.29, rx=0, ry=0, rz=0})
-    BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.HuntingMag3", {x=0.41, y=0.31, z=0.29, rx=0, ry=0, rz=325})
-    BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.HuntingMag2", {x=0.70, y=0.30, z=0.29, rx=0, ry=0, rz=20})
+    BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.BookForaging3", {x=0.59, y=0.31, z=0.29, rx=0, ry=0, rz=0})
+    BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.BookForaging4", {x=0.41, y=0.31, z=0.29, rx=0, ry=0, rz=325})
+    BWOAPrepareTools.AddWorldItem(9821, 12921, -1, "Base.BookForaging5", {x=0.70, y=0.30, z=0.29, rx=0, ry=0, rz=20})
 
     local items = {["Base.JarLid"] = 33, ["Base.EmptyJar"] = 33}
     BWOAPrepareTools.AddItemsToContainer(9815, 12920, -1, items, "Shelves")

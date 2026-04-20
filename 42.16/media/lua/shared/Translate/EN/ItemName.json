@@ -11,6 +11,7 @@
     "Bandits.MincedHumanMeat": "Minced Human Meat",
     "Bandits.HumanBrain": "Human Brain",
     "Bandits.HumanBone": "Human Bone",
-    "Bandits.LabSyringe": "Syringe",
+    "Bandits.LabSyringe": "Syringe with Unknown Substance",
+    "Bandits.LabSyringeCure": "Syringe with the Cure",
     "Bandits.AntiRadRobe": "Anti-Radiation Robe"
 }

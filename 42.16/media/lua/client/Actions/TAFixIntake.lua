@@ -39,7 +39,7 @@ function TAFixIntake:new(character, square)
     o.square = square
     o.stopOnWalk = false
     -- o.stopOnRun = false
-    o.maxTime = 100
+    o.maxTime = 200
 
     -- custom fields
 

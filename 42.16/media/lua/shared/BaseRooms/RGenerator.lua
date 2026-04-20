@@ -150,5 +150,8 @@ BWOARooms.Generator.Prepare = function ()
     local md = leaflet:getModData()
     md.printContent = "leaflet_gx9"
     BWOAPrepareTools.AddWorldItemSpecial(9947, 12617, -4, leaflet, {x=0.05, y=0.05, z=0})
+
+    BWOAPrepareTools.AddWorldItem(9953, 12623, -4, "Base.ElectricWire", {x=0.36, y=0.52, z=0.27, rx=0, ry=0, rz=0})
+
 end
 

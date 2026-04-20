@@ -1,6 +1,6 @@
 
 local FALLOUT_START = -2208   -- WorldAge when fallout begins
-local FALLOUT_END = 4416 -- 4380      -- WorldAge when fallout ends
+local FALLOUT_END = 4416 -- -- WorldAge when fallout ends
 local PEAK_POINT = 0.65 -- 65% into the fallout period
 local TEMP_LERP = -50          -- Maximum temperature drop
 local RAD_LERP = 5000
@@ -13,11 +13,11 @@ BWOAClimate.tick = 0
 BWOAClimate.lastQuake = 0
 
 BWOAClimate.falloutStartedOptionMap = {
-    -168, -744, -2208, -4416, -8832, -17664
+    -168, -336, -744, -2208, -4416, -8832
 }
 
 BWOAClimate.falloutEndsOptionMap = {
-    168, 744, 2208, 4416, 8832, 17664
+    168, 336, 744, 2208, 4416, 8832
 }
 
 BWOAClimate.falloutCurveOptionMap = {
@@ -137,7 +137,7 @@ local function onClimateTick()
 
     -- calculate temperature and radiation
     local radiation, overrideTemp = BWOAClimate.GetRadiationAndTemp(wa, FALLOUT_START, FALLOUT_END, PEAK_POINT, RAD_LERP, TEMP_LERP)
-    print ("CLIMATE: RAD: " .. radiation .. " TEMP: " .. overrideTemp)
+    -- print ("CLIMATE: RAD: " .. radiation .. " TEMP: " .. overrideTemp)
     BWOAClimate.radiation = radiation
 
     updateForageZones()
@@ -197,7 +197,7 @@ local function onClimateTick()
             local g = math.floor(dlsNormalized * gshift * 100) / 100
             local b = math.floor(dlsNormalized * bshift * 100) / 100
 
-            print ("DLS: " .. dls .. " R: " .. r .. " G: " .. g .. " B: " .. b)
+            -- print ("DLS: " .. dls .. " R: " .. r .. " G: " .. g .. " B: " .. b)
             ImprovedFog.setColorR(r)
             ImprovedFog.setColorG(g)
             ImprovedFog.setColorB(b)
@@ -225,7 +225,7 @@ local function onClimateTick()
 
     else
         
-        -- FINALE
+        -- RAINBOW TRIGGER
         local gmd = GetBWOAModData()
         if gmd.climate.radiation then
             local gameTime = getGameTime()
@@ -249,6 +249,10 @@ end
 
 BWOAClimate.Tick = function()
     onClimateTick()
+end
+
+BWOAClimate.GetDuration = function()
+    return FALLOUT_END
 end
 
 BWOAClimate.Disable = function()

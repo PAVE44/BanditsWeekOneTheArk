@@ -230,23 +230,30 @@ ark library of advanced cybernetics oasis project, photo of noah whitlock
 ark infrastructure ideas:
  * water filtering station
 + move noah to another square
-emma zombie sounds :(
-emma missing texts on hit
-emma bandit voice
+
++ emma zombie sounds :(
++ emma missing texts on hit
++ emma bandit voice
 emma reacting to ark conditions
-+ emma piano
-emma excercise
-emma breaking leg
 emma inventory and health panel?
-entrance to service tunnels remodel
-second warehouse needs adaptation
-X emma kidnapped
-dark clouds
++ entrance to service tunnels remodel
++ second warehouse needs adaptation
 heating IN ARK some places have no temp
-remodel room leading to service tunnels
 emma should grab mask if she loses one
-emma commands outside ark may not work properly
+emma washing floor
 
  CHAPTER 4: I AM NOT BOB
 
 
+
+
+hooks:
+
+noah:
+https://discord.com/api/webhooks/1495483354211156210/zBPBkqzdEirFYdmWbvBdz0MLtiQFoMATBB-MYshqRo-G6MsMu1O4J8tHhOhV7JjjN2qP
+
+emma:
+https://discord.com/api/webhooks/1495486211362521152/J7vmo5bCzR1yz9g2pVF-aHqDKBDB-mhBpGmBTEenRbiOlsBF2mMBIm1OxL3uS6IOoxG-
+
+james:
+https://discord.com/api/webhooks/1495486336071766096/hqoPz2YKs0dAwkbCOIE7W9-eylivUajulC25Qm_jPJyA4WCmKfYCI3Qdsq5asb1tm-ud

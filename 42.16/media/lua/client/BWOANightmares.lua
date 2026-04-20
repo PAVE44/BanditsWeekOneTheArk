@@ -36,7 +36,7 @@ local function onPlayerUpdate(player)
 
     local variant = gmd.nightmares.variant
     if not BWOANightmares[variant] then
-        print ("No such nightmare!")
+        -- print ("No such nightmare!")
         gmd.nightmares.active = false
         return
     end

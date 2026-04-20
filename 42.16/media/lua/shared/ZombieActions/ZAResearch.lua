@@ -3,34 +3,12 @@ ZombieActions = ZombieActions or {}
 ZombieActions.Research = {}
 ZombieActions.Research.onStart = function(zombie, task)
 
-    if task.primaryItem then
-        local itemHeld = zombie:getPrimaryHandItem()
-        if not itemHeld or itemHeld:getFullType() ~= task.primaryItem then
-            local itemHeld = BanditCompatibility.InstanceItem(task.primaryItem)
-            if itemHeld then
-                zombie:setPrimaryHandItem(itemHeld)
-            end
-        end
-    end
-
-    if task.secondaryItem then
-        local itemHeld = zombie:getSecondaryHandItem()
-        if not itemHeld or itemHeld:getFullType() ~= task.secondaryItem then
-            local itemHeld = BanditCompatibility.InstanceItem(task.secondaryItem)
-            if itemHeld then
-                zombie:setSecondaryHandItem(itemHeld)
-            end
-        end
-    end
-
     if task.voice then
         local bx, by, bz = zombie:getX(), zombie:getY(), zombie:getZ()
         BWOASound.PlayCharacter({character = zombie, sound = task.voice})
     end
     return true
 end
-
-
 
 ZombieActions.Research.onWorking = function(zombie, task)
 
@@ -84,16 +62,22 @@ ZombieActions.Research.onComplete = function(zombie, task)
         cap = cap + 20
     end
 
+    local multiplier = 744 / BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds]
     local stalled = false
     if brain.research then
-        brain.research = brain.research + 0.01
+        brain.research = brain.research + 0.05 * multiplier
         if brain.research > cap then
             brain.research = cap
             stalled = true
         end
     else
-        brain.research = 0.01
+        brain.research = 0.05 * multiplier
     end
+
+    local syncData = {}
+    syncData.id = brain.id
+    syncData.research = brain.research
+    Bandit.ForceSyncPart(zombie, syncData)
 
     if brain.research > 85 then
         if BWOAMissions.IsAccomplished(103) then
@@ -125,9 +109,9 @@ ZombieActions.Research.onComplete = function(zombie, task)
         BWOADialogues.Reveal("Emma_Robinson", "400.1")
     end
 
-    local txt = "Research: " .. string.format("%.2f", brain.research) .. "%"
+    local txt = getText("IGUI_Halo_Research") .. ": " .. string.format("%.2f", brain.research) .. "%"
     if stalled then
-        txt = txt .. " (stalled)"
+        txt = txt .. " (" .. getText("IGUI_Halo_Research_Stalled") .. ")"
     end
 
     local textColor = task.txtColor or {r=0.2, g=0.8, b=0.1}

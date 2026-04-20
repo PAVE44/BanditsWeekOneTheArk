@@ -338,7 +338,18 @@ function BWOABasements.Generic:populate()
         end
     end
 
-    for i = 1, 4 do
+    local hostileGroupSize = SandboxVars.BWOA.HostileGroupSize or 3
+    local hostileGroupSizes = {
+        [1] = 2,
+        [2] = 3,
+        [3] = 4,
+        [4] = 6,
+        [5] = 8,
+        [6] = 15
+    }
+    local intensity = math.ceil(hostileGroupSizes[hostileGroupSize])
+
+    for i = 1, intensity do
         local choice = BanditUtils.Choice(options)
         local x, y, z = choice.x, choice.y, choice.z
         local args = {}

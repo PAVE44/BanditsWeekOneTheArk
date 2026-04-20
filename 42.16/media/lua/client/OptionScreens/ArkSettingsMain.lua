@@ -50,6 +50,14 @@ end
 
 function ArkSettingsMain:onComboBoxSelected(combo, optionName)
     SandboxVars.BWOA[optionName] = combo.selected
+
+    --[[
+    local url = "https://steamcommunity.com/sharedfiles/filedetails/?id=3592869164"
+	if isSteamOverlayEnabled() then
+		activateSteamOverlayToWebPage(url)
+	else
+		openUrl(url)
+	end]]
 end
 
 function ArkSettingsMain:onTickBoxSelected(_, state, optionName)
@@ -98,32 +106,18 @@ function ArkSettingsMain:create()
     self.playButton:enableAcceptColor()
     self:addChild(self.playButton);
 
-    local y = UI_BORDER_SPACING + 1 + FONT_HGT_LARGE + 8
+    local y = UI_BORDER_SPACING * 3 + FONT_HGT_LARGE
+    local width = self:getWidth()
+    if width > 1500 then width = 1500 end
 
-    self.infoPanel = ISRichTextPanel:new(UI_BORDER_SPACING+1, y, self:getWidth() - (UI_BORDER_SPACING * 2) - 2, self:getHeight() - (UI_BORDER_SPACING * 2) - 2)
-    self.infoPanel:setAnchorLeft(true)
-    -- self.infoPanel:setAnchorTop(true)
-    self.infoPanel:setAnchorBottom(true)
-    self.infoPanel.drawBorder = false
-    self.infoPanel.backgroundColor = {r=0.9, g=0.1, b=0, a=0.4}
-    self.infoPanel:initialise()
-    self.infoPanel:instantiate()
-    self.infoPanel:addScrollBars(false)
-    self.infoPanel:paginate()
-    self:addChild(self.infoPanel)
-    -- self.infoPanel:addScrollBars()
-    self.infoPanel:paginate()
-    self.infoPanel:setText(getText("UI_optionscreen_BWOA_Backup"))
-
-    y = self.infoPanel:getBottom() + (2 * FONT_HGT_SMALL) + (2 * UI_BORDER_SPACING)
-
+    local x = (self:getWidth() - width) / 2
   
-    self.settingsLabel = ISLabel:new(UI_BORDER_SPACING+1 + 20, y, BUTTON_HGT, getText("UI_optionscreen_BWOA_Settings"), 1, 1, 1, 1, UIFont.Medium, true)
+    self.settingsLabel = ISLabel:new(x + UI_BORDER_SPACING+1 , y, BUTTON_HGT, getText("UI_optionscreen_BWOA_Settings"), 1, 1, 1, 1, UIFont.Medium, true)
     self.settingsLabel:initialise()
     self.settingsLabel:instantiate()
     self:addChild(self.settingsLabel)
 
-    self.falloutLabel = ISLabel:new(LABEL_WIDTH + CONTROL_WIDTH + (2 * UI_BORDER_SPACING) + 80, y, BUTTON_HGT, getText("UI_optionscreen_BWOA_FalloutCurve"), 1, 1, 1, 1, UIFont.Medium, true)
+    self.falloutLabel = ISLabel:new(x + LABEL_WIDTH + CONTROL_WIDTH + (2 * UI_BORDER_SPACING) + 80, y, BUTTON_HGT, getText("UI_optionscreen_BWOA_FalloutCurve"), 1, 1, 1, 1, UIFont.Medium, true)
     self.falloutLabel:initialise()
     self.falloutLabel:instantiate()
     self:addChild(self.falloutLabel)
@@ -148,12 +142,12 @@ function ArkSettingsMain:create()
                     tooltip = tooltip:gsub("\\\"", "\"")
                 end
                 if setting.type == "checkbox" then
-                    local label = ISLabel:new(leftX - UI_BORDER_SPACING, y, BUTTON_HGT, settingName, 1, 1, 1, 1, UIFont.Small, false)
+                    local label = ISLabel:new(x + leftX - UI_BORDER_SPACING, y, BUTTON_HGT, settingName, 1, 1, 1, 1, UIFont.Small, false)
                     label:initialise()
                     label:instantiate()
                     self:addChild(label)
 
-                    local control = ISTickBox:new(leftX, y, CONTROL_WIDTH, BUTTON_HGT, "", self, self.onTickBoxSelected, settingKey)
+                    local control = ISTickBox:new(x + leftX, y, CONTROL_WIDTH, BUTTON_HGT, "", self, self.onTickBoxSelected, settingKey)
                     control:addOption("")
                     control.type = "checkbox"
                     control.selected[1] = SandboxVars.BWOA[settingKey]
@@ -163,12 +157,12 @@ function ArkSettingsMain:create()
                     self:addChild(control)
                     self.controls[setting.name] = control
                 elseif setting.type == "enum" then
-                    local label = ISLabel:new(leftX - UI_BORDER_SPACING, y, BUTTON_HGT, settingName, 1, 1, 1, 1, UIFont.Small, false)
+                    local label = ISLabel:new(x + leftX - UI_BORDER_SPACING, y, BUTTON_HGT, settingName, 1, 1, 1, 1, UIFont.Small, false)
                     label:initialise()
                     label:instantiate()
                     self:addChild(label)
 
-                    local control = ISComboBox:new(leftX, y, CONTROL_WIDTH, BUTTON_HGT, self, self.onComboBoxSelected, settingKey)
+                    local control = ISComboBox:new(x + leftX, y, CONTROL_WIDTH, BUTTON_HGT, self, self.onComboBoxSelected, settingKey)
                     if tooltip then
                         control.tooltip = { defaultTooltip = tooltip }
                     end
@@ -188,12 +182,51 @@ function ArkSettingsMain:create()
         end
     end
 
+    y = y + UI_BORDER_SPACING
 
+    self.importantLabel = ISLabel:new(x + UI_BORDER_SPACING+1, y, BUTTON_HGT, getText("UI_optionscreen_BWOA_Important"), 1, 1, 1, 1, UIFont.Medium, true)
+    self.importantLabel:initialise()
+    self.importantLabel:instantiate()
+    self:addChild(self.importantLabel)
+
+    y = self.importantLabel:getBottom() + UI_BORDER_SPACING
+
+    local panels = {
+        {text = "UI_optionscreen_BWOA_Backup", colors = {r=0.9, g=0.1, b=0, a=0.4}},
+        {text = "UI_optionscreen_BWOA_Mods", colors = {r=0.9, g=0.8, b=0, a=0.4}},
+        {text = "UI_optionscreen_BWOA_Diff", colors = {r=0.6, g=0.6, b=0.6, a=0.4}},
+        {text = "UI_optionscreen_BWOA_Enjoy", colors = {r=0.1, g=0.9, b=0, a=0.4}},
+    }
+
+    local maxh = self.backButton:getBottom() - self.backButton:getHeight() - self.importantLabel:getBottom() - (2 * UI_BORDER_SPACING)
+    self.infoPanel = {}
+    local w = width / #panels - 3
+    local lx = 0
+    for i, panel in ipairs(panels) do
+        self.infoPanel[i] = ISRichTextPanel:new(x + lx + UI_BORDER_SPACING + ((i-1) * w) + 1, y, w - UI_BORDER_SPACING, maxh)
+        self.infoPanel[i]:initialise()
+        self:addChild(self.infoPanel[i])
+
+        if panel.colors then
+            -- self.infoPanel[i].backgroundColor = panel.colors
+        end
+
+        self.infoPanel[i].background = false
+        self.infoPanel[i].autosetheight = false
+	    self.infoPanel[i]:setMargins(10, 10, 10, 10)
+        self.infoPanel[i]:setText(getText(panel.text))
+        self.infoPanel[i]:paginate()
+        
+        -- self.infoPanel:addScrollBars()
+
+    end
+    
     -- DISABLE BUTTON
     self:disableBtn();
 end
 
 function ArkSettingsMain.onResolutionChange(oldw, oldh, neww, newh)
+    --[[
     if not MainScreen.instance then return end
 	local self = MainScreen.instance
 
@@ -219,9 +252,9 @@ function ArkSettingsMain.onResolutionChange(oldw, oldh, neww, newh)
 
     local width = self.arkSettingsMain:getWidth() - (UI_BORDER_SPACING * 2) - 2
     local height = self.arkSettingsMain:getHeight() - (UI_BORDER_SPACING * 2) - 2
-    self.arkSettingsMain.infoPanel:setWidth(width)
-    self.arkSettingsMain.infoPanel:setHeight(height)
-
+    -- self.arkSettingsMain.infoPanel:setWidth(width)
+    -- self.arkSettingsMain.infoPanel:setHeight(height)
+    ]]
 end
 
 function ArkSettingsMain:disableBtn()
@@ -274,7 +307,10 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.ZombieLore.CrawlUnderVehicle = 7
 
         SandboxVars.Basement.SpawnFrequency = 7 -- always
-       
+
+        -- forced to protect Emma
+        SandboxVars.Bandits.General_Infection = false
+        SandboxVars.Bandits.General_BleedOut = false
 
         MainScreen.instance.charCreationMain:setVisible(false)
 
@@ -309,9 +345,13 @@ function ArkSettingsMain:prerender()
     local FALLOUT_END = BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds]
     local PEAK_POINT = BWOAClimate.falloutCurveOptionMap[SandboxVars.BWOA.FalloutCurve]
 
-    local ax = LABEL_WIDTH + CONTROL_WIDTH + (2 * UI_BORDER_SPACING) + 100
-    local ay = self.settingsLabel:getBottom() + UI_BORDER_SPACING
-    local w = self:getWidth() - ax - (UI_BORDER_SPACING * 2)
+    local width = self:getWidth()
+    if width > 1500 then width = 1500 end
+    local x = (self:getWidth() - width) / 2
+
+    local ax = LABEL_WIDTH + CONTROL_WIDTH + (2 * UI_BORDER_SPACING) + 100 + x
+    local ay = self.settingsLabel:getBottom() + UI_BORDER_SPACING + 4
+    local w = 460 -- self:getWidth() - ax - (UI_BORDER_SPACING * 2)
     local h = 5 * (FONT_HGT_MEDIUM + UI_BORDER_SPACING)
     local back = 60
     local resolution = 24
@@ -371,23 +411,13 @@ function ArkSettingsMain:render()
 end
 
 function ArkSettingsMain:onGainJoypadFocus(joypadData)
-    if self:isDescendant(joypadData.switchingFocusFrom) then
-        ISPanelJoypad.onGainJoypadFocus(self, joypadData);
-        self:setISButtonForA(self.playButton);
-        self:setISButtonForB(self.backButton);
-        self:loadJoypadButtons(joypadData);
-    else
-        self:loadJoypadButtons(joypadData);
-        joypadData.focus = self.characterPanel
-        updateJoypadFocus(joypadData)
-    end
+	ISPanelJoypad.onGainJoypadFocus(self, joypadData)
+	self:restoreJoypadFocus(joypadData)
 end
 
 function ArkSettingsMain:onLoseJoypadFocus(joypadData)
-    self.playButton:clearJoypadButton()
-    self.backButton:clearJoypadButton()
---    self:clearJoypadFocus(joypadData)
-    ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	ISPanelJoypad.onLoseJoypadFocus(self, joypadData)
+	self:clearJoypadFocus(joypadData)
 end
 
 function ArkSettingsMain:requiredSize(panel)

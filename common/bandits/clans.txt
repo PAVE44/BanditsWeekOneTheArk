@@ -160,7 +160,7 @@
 
 [3f5a2e61-8f0c-4a82-baff-98c174b786ae]
 	general: name = 00001_TEST
-	spawn: friendly = true
+	spawn: friendly = false
 	spawn: companion = false
 	spawn: defenders = false
 	spawn: campers = false
@@ -412,5 +412,37 @@
 	spawn: spawnChance = 0
 	spawn: groupMin = 1
 	spawn: groupMax = 6
+	spawn: zone = 0
+
+[a81728dc-b370-4fdf-9658-4b126faa6c45]
+	general: name = W1A_Noah
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+
+[c42d3f7c-fac1-4d4a-a8f0-d1401384f341]
+	general: name = W1A_FinneganSecurity
+	spawn: friendly = true
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 1
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
 	spawn: zone = 0
 

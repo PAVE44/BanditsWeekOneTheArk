@@ -260,7 +260,7 @@ ZombieActions.Eat.onComplete = function(zombie, task)
                 if brain.hunger < 0 then
                     brain.hunger = 0
                 end
-                zombie:addLineChatElement(task.hc .. " Hunger ", 0, 1, 0, UIFont.Small, 30.0, "default")
+                zombie:addLineChatElement(task.hc .. " " .. getText("IGUI_Halo_Hunger") .. " ", 0, 1, 0, UIFont.Small, 30.0, "default")
             end
         end
     end

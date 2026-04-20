@@ -47,6 +47,9 @@ ZombieActions.Transform.onComplete = function(zombie, task)
         brain.tint = data.tint or {}
         brain.bag = data.bag
 
+        zombie:setPrimaryHandItem(nil)
+        zombie:setSecondaryHandItem(nil)
+        zombie:setVariable("BanditPrimaryType", "barehands")
         zombie:getHumanVisual():setSkinTextureName("x") -- sic!
         Bandit.ApplyVisuals(zombie, brain)
 

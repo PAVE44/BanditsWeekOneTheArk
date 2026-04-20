@@ -87,7 +87,7 @@ local traitRevealMap = {
     {trait = CharacterTrait.SHORT_SIGHTED, person = "Emma_Robinson", qid = "200.2"},
 }
 
-local dreamRevealMap = {
+BWOAPlayer.dreamRevealMap = {
     [1]  = {hours = 36,  qid = "2000.1",  nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_1")},
     [2]  = {hours = 72,  qid = "2000.2",  nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_2")},
     [3]  = {hours = 108, qid = "2000.3",  nid = "Island",       rmid = nil, txt = getText("IGUI_SayPlayer_Dream_3")},
@@ -101,6 +101,7 @@ local dreamRevealMap = {
     [11] = {hours = 396, qid = "2000.11", nid = "FamilyHouse",  rmid = nil, txt = getText("IGUI_SayPlayer_Dream_11")},
     [12] = {hours = 432, qid = "2000.12", nid = "Hell",         rmid = nil, txt = getText("IGUI_SayPlayer_Dream_12")},
     [13] = {hours = 468, qid = "2000.13", nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_13")},
+    [14] = {hours = 522, qid = "2000.14", nid = nil,            rmid = nil, txt = getText("IGUI_SayPlayer_Dream_14")},
 }
 
 local proximityRevealMap = {
@@ -152,7 +153,11 @@ BWOAPlayer.itemMemoryRegain = {
     {itemType = "SutureNeedleHolder", perk = "Doctor", xp = 150, chance=100},
 
     -- electrical
-    {itemType = "Screwdriver", perk = "Electricity", xp = 200, chance=100},
+    {itemType = "Screwdriver", perk = "Electricity", xp = 250, chance=100},
+    {itemType = "LightBulb", perk = "Electricity", xp = 50, chance=100},
+    {itemType = "ElectricWire", perk = "Electricity", xp = 150, chance=75},
+    {itemType = "Amplifier", perk = "Electricity", xp = 150, chance=50},
+    {itemType = "ElectronicsScrap", perk = "Electricity", xp = 150, chance=75},
 
     -- mechanics
     {itemType = "Wrench", perk = "Mechanics", xp = 150, chance=100},
@@ -274,7 +279,9 @@ local isUsingMask = function(player)
     if mask then
         if mask:hasTag(ItemTag.GAS_MASK) then
             local filter = mask:getUsedDelta()
-            filter = filter - (0.00012 * (2 - endurance))
+            -- print (getGameTime():getGameWorldSecondsSinceLastUpdate())
+            local deltaNormalized = (getGameTime():getGameWorldSecondsSinceLastUpdate() / 0.25) * (0.0001 * (2 - endurance))
+            filter = filter - deltaNormalized
             mask:setUsedDelta(filter)
             return true 
         elseif mask:hasTag(ItemTag.SCBA) and mask:canBeActivated() and mask:isActivated() then 
@@ -299,7 +306,7 @@ local getClothingStats = function(player)
 
         if suitFull:canBeActivated() and suitFull:isActivated() then
             local oxygen = suitFull:getUsedDelta()
-            if oxygen < 0.05 then
+            if oxygen < 0.02 then
                 suffocation = true
             elseif oxygen < 0.1 then
                 dyspnoea = true
@@ -326,7 +333,7 @@ local getClothingStats = function(player)
         if mask then
             if mask:hasTag(ItemTag.GAS_MASK) then
                 local filter = mask:getUsedDelta()
-                if filter < 0.05 then
+                if filter < 0.05 or not mask:hasFilter() then
                     suffocation = true
                 elseif filter < 0.1 then
                     dyspnoea = true
@@ -371,7 +378,7 @@ local onPlayerUpdate = function(player)
     local cell = getCell()
 
     -- ugly hack to fix getting stuck on basement stairs
-    if pz < 0 and pz > -0.01 then
+    if player:isOutside() and pz < 0 and pz > -0.01 then
         local fd = player:getForwardDirection()
         fd:setLength(0.1)
         if false and player:isStrafing() then
@@ -518,7 +525,8 @@ local onPlayerUpdate = function(player)
             local wob = wobs:get(i)
             local item = wob:getItem()
             local dc = item:getDisplayCategory() 
-            if dc == getText("IGUI_ItemCat_Lore") then
+            local md = item:getModData()
+            if dc == getText("IGUI_ItemCat_Lore") or (md.BWOA and md.BWOA.lore) then
                  wob:setOutlineHighlight(playerNum, true)
                  wob:setOutlineHighlightCol(playerNum, generalHLColor)
             end
@@ -527,6 +535,7 @@ local onPlayerUpdate = function(player)
 
 
     -- dreams
+    local dreamRevealMap = BWOAPlayer.dreamRevealMap
     local emitter = player:getEmitter()
     local dreamShouldStart = false
     local dreamShouldEnd = false
@@ -540,6 +549,14 @@ local onPlayerUpdate = function(player)
         player:setForceWakeUpTime(nh)
 
         if BWOAPlayer.dreamStage == 1 then
+
+            -- rescale schedule
+            local duration = BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds]
+            local length = #dreamRevealMap + 1
+            for i, tab in pairs(dreamRevealMap) do
+                tab.hours = math.floor(i * duration / length)
+            end
+
             local hours = player:getHoursSurvived()
             for dreamNo, dreamData in pairs(dreamRevealMap) do
                 if hours < dreamData.hours then
@@ -619,7 +636,12 @@ local onPlayerUpdate = function(player)
                     BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 2500)
                 end
                 if dreamData.nid then
-                    BWOANightmares.Activate(dreamData.nid)
+                    local gmd = GetBWOAModData()
+                    if not gmd.nightmares.doneList then gmd.nightmares.doneList = {} end
+                    if not gmd.nightmares.doneList[dreamData.nid] then
+                        gmd.nightmares.doneList[dreamData.nid] = true
+                        BWOANightmares.Activate(dreamData.nid)
+                    end
                 end
                 break
             end
@@ -906,7 +928,7 @@ local updateRadiationEffects = function(player)
 
         ]]
     end
-    print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO: " .. md.bwoa.timeRadiated)
+    -- print ("PLAYER RADIATION: RAD: " .. md.bwoa.radiation .. " EXPO: " .. md.bwoa.timeRadiated)
 end
 
 local updateSewerEffects = function(player)
@@ -917,6 +939,53 @@ local updateSewerEffects = function(player)
         player:setCorpseSicknessRate(smell)
     end
     ]]
+end
+
+local updateStatsEffects = function(player)
+    local stats = player:getStats()
+
+    local zombieInfection = stats:get(CharacterStat.ZOMBIE_INFECTION)
+    if zombieInfection > 0.1 then
+        if BWOAMissions.IsRevealed(114) then
+            -- already have the cure so no crying dialogue
+            BWOADialogues.Hide("Emma_Robinson", "220.1")
+            BWOADialogues.Reveal("Emma_Robinson", "400.6.2")
+        else
+            -- no cure yet, poor guy
+            BWOADialogues.Reveal("Emma_Robinson", "220.1")
+        end
+    else
+        BWOADialogues.Hide("Emma_Robinson", "220.1")
+        BWOADialogues.Hide("Emma_Robinson", "400.6.2")
+    end
+
+    local unhappiness = stats:get(CharacterStat.UNHAPPINESS)
+    if unhappiness > 50 then
+        BWOADialogues.Reveal("Emma_Robinson", "220.2")
+    else
+        BWOADialogues.Hide("Emma_Robinson", "220.2")
+    end
+
+    local boredom = stats:get(CharacterStat.BOREDOM)
+    if boredom > 50 then
+        BWOADialogues.Reveal("Emma_Robinson", "220.3")
+    else
+        BWOADialogues.Hide("Emma_Robinson", "220.3")
+    end
+
+    local nicotineWithdrawal = stats:get(CharacterStat.NICOTINE_WITHDRAWAL)
+    if nicotineWithdrawal > 0.25 then
+        BWOADialogues.Reveal("Emma_Robinson", "220.4")
+    else
+        BWOADialogues.Hide("Emma_Robinson", "220.4")
+    end
+
+    local foodSickness = stats:get(CharacterStat.FOOD_SICKNESS)
+    if foodSickness > 25 then
+        BWOADialogues.Reveal("Emma_Robinson", "220.5")
+    else
+        BWOADialogues.Hide("Emma_Robinson", "220.5")
+    end
 end
 
 local applyCO2IntoxicationPlayer = function(player, dose)
@@ -950,6 +1019,7 @@ local applyCO2IntoxicationPlayer = function(player, dose)
         enduranceExpected = 0.30
         panicExpected = 70
         coughChance = 100
+        BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_Suffocating")}, 1)
     elseif dose > 30000 then
         sickExpected = 55
         headAcheExpected = 80
@@ -1001,7 +1071,7 @@ local applyCO2IntoxicationPlayer = function(player, dose)
     end
     if sickExpected then
         if sick < sickExpected then 
-            stats:set(CharacterStat.FOOD_SICKNESS, sick + 5)
+            stats:set(CharacterStat.FOOD_SICKNESS, sick + 1)
         end
     end
     if headAcheExpected then
@@ -1140,6 +1210,8 @@ local everyOneMinute = function()
 
     updateSewerEffects(player)
 
+    updateStatsEffects(player)
+
     -- co2 intoxication simulation
     if suffocation then
         applyCO2IntoxicationPlayer(player, 60001)
@@ -1244,6 +1316,17 @@ local onTimedActionPerform = function(data)
             end
         end
 
+    elseif action == "ISExitVehicle" then
+        -- hack to fix the tanker havin speed > 0 after exiting leading to never being able to get back in
+        local vehicle = data.vehicle
+        if vehicle:getScriptName() == "Base.pzkPostapoTanker" then
+            -- local speed = vehicle:getCurrentSpeedKmHour()
+            local running = vehicle:isEngineRunning()
+            if running then
+                vehicle:shutOff()
+            end
+        end
+
     elseif action == "TABAS_TakeShower" then
 
         local radiationBalance = 0.5 * md.bwoa.radiation
@@ -1322,7 +1405,13 @@ end
 
 local onDeath = function(player)
     local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
-    BWOAChat.ChangeBrainParam({param="sadness", value=100, target = target})
+    if target and target.id then
+        BWOAChat.ChangeBrainParam({param="sadness", value=100, target = target})
+    end
+end
+
+local function onGameStart()
+
 end
 
 Events.OnPlayerUpdate.Remove(onPlayerUpdate)
@@ -1339,3 +1428,6 @@ Events.OnTransferItem.Add(onTransferItem)
 
 Events.OnPlayerDeath.Remove(onDeath)
 Events.OnPlayerDeath.Add(onDeath)
+
+Events.OnGameStart.Remove(onGameStart)
+Events.OnGameStart.Add(onGameStart)

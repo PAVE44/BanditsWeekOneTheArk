@@ -2,6 +2,7 @@ Bandit = Bandit or {}
 
 Bandit.SoundTab.WAITTALK = {prefix = "BWOAWaitTalk_", chance = 100, randMax = 4, length = 5}
 Bandit.SoundTab.CRY = {prefix = "BWOACry_", chance = 100, randMax = 6, length = 5}
+Bandit.SoundTab.EARTHQUAKE = {prefix = "BWOAEarthquake_", chance = 100, randMax = 1, length = 5}
 Bandit.SoundTab.RADIOCALL = {prefix = "BWOARadioCall_", chance = 100, randMax = 10, length = 5}
 Bandit.SoundTab.TAGGAME1 = {prefix = "BWOATagGame1_", chance = 100, randMax = 6, length = 1}
 Bandit.SoundTab.TAGGAME2 = {prefix = "BWOATagGame2_", chance = 100, randMax = 6, length = 1}
@@ -53,6 +54,7 @@ Bandit.raidCarLootItems = {
 Bandit.clanMap = Bandit.clanMap or {}
 Bandit.clanMap.Emma = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
 Bandit.clanMap.James = "cb8880f8-d45c-4051-acb3-a9d7b7d598a7"
+Bandit.clanMap.Noah = "a81728dc-b370-4fdf-9658-4b126faa6c45"
 Bandit.clanMap.Angel = "7f6bc195-edc6-4eb8-92ce-a40fc47de85f"
 
 -- basements
@@ -99,9 +101,14 @@ Bandit.spawnWhitelist = {
 Bandit.banditMap = {}
 Bandit.banditMap.Emma = {}
 Bandit.banditMap.Emma.Bunker = "d944d8a7-9ad6-4f65-87e6-0a2d55eac4cb"
+Bandit.banditMap.Emma.BunkerCO2 = "ad8ac91a-6b37-40da-8f38-94e2b533010d"
+Bandit.banditMap.Emma.BunkerCold = "b6bae07b-54fd-4d7c-a8b7-e55bddedb2e0"
+Bandit.banditMap.Emma.BunkerColdCO2 = "9bad4e79-302d-4d1b-a223-01fc85de7e91"
 Bandit.banditMap.Emma.Lab = "4c09bfa8-fae7-4be7-9097-75f282f1da91"
+Bandit.banditMap.Emma.LabCO2 = "58d29d8e-cde7-4ba9-84fc-19dc580dc574"
 Bandit.banditMap.Emma.Hazmat = "d3564264-60ca-4629-ae2f-574ea772df23"
 Bandit.banditMap.Emma.Defend = "e97500bf-0534-401a-822a-7891dc8881d5"
+Bandit.banditMap.Emma.DefendCO2 = "9bdcda92-5bb6-43ff-982c-0f1205e8e74d"
 Bandit.banditMap.Emma.Sport = "2e682bd5-8bc3-4380-a302-02d7201b8aeb"
 Bandit.banditMap.Emma.Dance = "19a4a644-5029-4343-ae6d-271bf11bb906"
 Bandit.banditMap.Emma.Prison = "6f4a115c-a2c8-4cbe-bcba-19d1e5a038ff"
@@ -110,6 +117,7 @@ Bandit.banditMap.Emma.Prison = "6f4a115c-a2c8-4cbe-bcba-19d1e5a038ff"
 Bandit.prg2person = {}
 Bandit.prg2person["Emma"] = "Emma_Robinson"
 Bandit.prg2person["James"] = "Father_James"
+Bandit.prg2person["Noah"] = "Noah_Whitlock"
 Bandit.prg2person["Angel"] = "Angel"
 
 Bandit.EnsureWhitelistedBandits = function()

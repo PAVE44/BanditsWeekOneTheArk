@@ -148,6 +148,7 @@ BWOAEvents.SayBandit = function(params)
     local speaker = BanditZombie.GetInstanceById(params.id)
     if speaker then
         Bandit.ClearTasks(speaker)
+        -- print ("SAY: " .. tostring(params.sound))
         local task = {action="Talk", anim=params.anim, txt=params.txt, voice=params.sound, x=player:getX(), y=player:getY(), time=2000}
         Bandit.AddTask(speaker, task)
     end
@@ -294,6 +295,14 @@ end
 
 BWOAEvents.DecontaminatePre = function(params)
     BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION})
+
+
+    local gmd = GetBWOAModData()
+    local decontaminator = gmd.decontaminator
+    if decontaminator.concentration <= 15 then
+        BWOASound.AddNoah({sound = BWOASound.noahSounds.ATTENTION})
+        BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION_RISK})
+    end
 
     local mx = math.ceil((params.x1 + params.x2) / 2)
     local my = math.ceil((params.y1 + params.y2) / 2)

@@ -56,7 +56,7 @@ BWOANightmares.Island.onCycle = function(player)
     end
 
     gmd.nightmares.cycle = cycle + 1
-    print("Nightmare cycle: " .. gmd.nightmares.cycle)
+    -- print("Nightmare cycle: " .. gmd.nightmares.cycle)
 end
 
 BWOANightmares.Island.ShouldExit = function(player)

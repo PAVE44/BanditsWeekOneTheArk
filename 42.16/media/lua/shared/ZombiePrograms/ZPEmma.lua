@@ -64,7 +64,7 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMax = 60
     },
     lab2 = {
-        hourMin = 17,
+        hourMin = 18,
         hourMax = 20,
         minuteMin = 0,
         minuteMax = 60
@@ -105,7 +105,36 @@ end
 
 local switchOutfit = function(bandit, expectedBid)
     local brain = BanditBrain.Get(bandit)
-    
+    local gmd = GetBWOAModData()
+    local ventilation = gmd.ventilation
+    local temp = ventilation.temp
+    local co2 = ventilation.co2
+
+    local co2treshold = 6000
+    local tempTreshold = 16
+
+    if expectedBid == Bandit.banditMap.Emma.Bunker then
+        if temp < tempTreshold and co2 > co2treshold then
+            expectedBid = Bandit.banditMap.Emma.BunkerColdCO2
+        elseif temp < tempTreshold then
+            expectedBid = Bandit.banditMap.Emma.BunkerCold
+        elseif co2 > co2treshold then
+            expectedBid = Bandit.banditMap.Emma.BunkerCO2
+        end
+    end
+
+    if expectedBid == Bandit.banditMap.Emma.Lab then
+        if co2 > co2treshold then
+            expectedBid = Bandit.banditMap.Emma.LabCO2
+        end
+    end
+
+    if expectedBid == Bandit.banditMap.Emma.Defend then
+        if co2 > co2treshold then
+            expectedBid = Bandit.banditMap.Emma.DefendCO2
+        end
+    end
+
     if expectedBid ~= brain.bid then
         local task = {
             action = "Transform", 
@@ -142,12 +171,30 @@ ZombiePrograms.Emma.Main = function(bandit)
 
         -- basic needs
         if brain.bladder and brain.bladder > 20 then
-            bandit:addLineChatElement("ACTIVITY: TOILET", 1, 0, 1)
-            local obj, dist = BWOABaseObjects.FindClosestObject({"Toilet"}, {x=bx, y=by})
-            if obj then
-                local task = {action="UseToiletStanding", time=300}
-                local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+            -- bandit:addLineChatElement("ACTIVITY: TOILET", 1, 0, 1)
+            local toilet, dist = BWOABaseObjects.FindClosestObject({"Toilet"}, {x=bx, y=by})
+            if toilet then
+                local toiletIso = BWOABaseObjects.GetIsoObject(toilet)
+                if toiletIso then
+                    local sittingPos = {
+                        ["fixtures_bathroom_01_4"] = {ox = 0.50, oy = 0.67, f="S"},
+                        ["fixtures_bathroom_01_5"] = {ox = 0.67, oy = 0.50, f="E"},
+                        ["fixtures_bathroom_01_6"] = {ox = 0.50, oy = 0.33, f="W"},
+                        ["fixtures_bathroom_01_7"] = {ox = 0.33, oy = 0.50, f="N"},
+
+                    }
+                    local spriteName = toiletIso:getSprite():getName()
+                    local sittingData = sittingPos[spriteName]
+
+                    if sittingData then
+                        local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), sittingData.f)
+                        local task = {action="UseToiletStanding", anim="SitInChair1", looped=true, f=sittingData.f, fx = fx, fy = fy, ox = toilet.x + sittingData.ox, oy = toilet.y + sittingData.oy, time=1000}
+                        local subTasks = BWOAPrograms.GoAndDo(bandit, toilet, task, 1.1)
+                        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                    end
+
+                end
+
             end
         elseif brain.hunger and brain.hunger >= 50 then
             -- bandit:addLineChatElement("ACTIVITY: FOOD HUNT", 1, 0, 1)
@@ -202,6 +249,10 @@ ZombiePrograms.Emma.Main = function(bandit)
                     local bed = BWOABaseObjects.GetIsoObject(obj)
                     if bed then
                         local facing = bed:getSprite():getProperties():get("Facing")
+                        local gridpos = bed:getSprite():getProperties():get("SpriteGridPos")
+                        if facing == "S" and gridpos == "0,0" then facing = "N" end
+                        if facing == "E" and gridpos == "0,0" then facing = "W" end
+
                         -- local eoffset = bed:getSprite():getProperties():get("Eoffset")
                         local task = {action="SleepLong", x=obj.x, y=obj.y, z=obj.z, facing=facing, time=3000}
                         local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
@@ -259,12 +310,14 @@ ZombiePrograms.Emma.Main = function(bandit)
                         if md then
                             if dd:getIsTurnedOn() and dd:isPlayingMedia() then
                                 local obj, dist = BWOABaseObjects.FindClosestObject({"Couch"}, {x=bx, y=by})
-                                if obj and dist < 10 then
-                                    local task = {action="SitInChair", anim="SitInChairTalk", x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
-                                    local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                                    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                                else
-                                    bandit:faceLocationF(obj.x, obj.y)
+                                if obj then
+                                    if dist < 10 then
+                                        local task = {action="SitInChair", anim="SitInChairTalk", x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
+                                        local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
+                                        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                                    else
+                                        bandit:faceLocationF(obj.x, obj.y)
+                                    end
                                 end
                             else
                                 local task = {action="PlayVHS", time=600, obj=obj}
@@ -328,7 +381,7 @@ ZombiePrograms.Emma.Main = function(bandit)
                         end
                     end
                 end
-            elseif brain.research < 100 and (activity == "lab1" or activity == "lab2") then
+            elseif brain.research and brain.research < 100 and BWOABaseControl.power and (activity == "lab1" or activity == "lab2") then
                 -- bandit:addLineChatElement("ACTIVITY: LAB WORK", 1, 0, 1)
                 local computer, computerDist = BWOABaseObjects.FindClosestObject({"Computer"}, {x=bx, y=by})
                 local microscope, microscopeDist = BWOABaseObjects.FindClosestObject({"Microscope"}, {x=bx, y=by})

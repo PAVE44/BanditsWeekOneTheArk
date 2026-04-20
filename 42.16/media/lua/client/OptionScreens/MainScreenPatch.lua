@@ -97,7 +97,7 @@ function MainScreen:prerender()
 
         if MainScreen.instance and (not MainScreen.instance.inGame) then
             emitter:setPos(0, 0, 0)
-            emitter:playSound("UIActivatePlayButton")
+            emitter:playSound("UIArkHit")
         end
     end
 
@@ -109,7 +109,7 @@ function MainScreen:prerender()
         end
 
         if not BWOAMusic.IsPlaying() and MainScreen.alphaTheArkLogo == 1 then
-            BWOAMusic.Play("MusicMenu", 1, 1)
+            BWOAMusic.Play("MusicMenu", 1, 1, 1)
         end
 
         if MainScreen.alphaBG > 0.99 then

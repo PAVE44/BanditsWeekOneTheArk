@@ -82,29 +82,43 @@ end
 
 BWOANightmares.Fall.onExit = function(player)
     print ("[FALL] onExit")
+    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
     local gmd = GetBWOAModData()
     player:setbClimbing(true)
     print ("[FALL] onExit climbing set to true")
+    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
     player:setX(gmd.nightmares.returnData.x)
     player:setY(gmd.nightmares.returnData.y)
     player:setZ(gmd.nightmares.returnData.z)
     player:setLastX(gmd.nightmares.returnData.x)
     player:setLastY(gmd.nightmares.returnData.y)
     player:setLastZ(gmd.nightmares.returnData.z)
+    print ("[FALL] onExit position Z: " .. player:getZ())
+    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
     getWorld():update()
+    print ("[FALL] onExit position Z after world update: " .. player:getZ())
+    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
 end
 
 BWOANightmares.Fall.onPost = function(player)
     print ("[FALL] onPost")
+    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
+    print ("[FALL] onPost position Z: " .. player:getZ())
+    
     local gmd = GetBWOAModData()
     gmd.nightmares.cycle = 1
     gmd.nightmares.returnData = nil
 
     BWOATex.speed = 0.005
 
+    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
     player:clearVariable("BumpFallType")
     player:setBumpType("stagger")
     player:setBumpFall(true)
     player:setBumpFallType("pushedBehind")
+
+    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
     player:setbClimbing(false)
+    print ("[FALL] onPost climbing is false ")
+    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
 end

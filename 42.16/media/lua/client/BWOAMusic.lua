@@ -4,15 +4,21 @@ BWOAMusic.origReturnVolume = nil
 BWOAMusic.customId = nil
 BWOAMusic.customTargetVolume = 0
 BWOAMusic.customCurrentVolume = 0
+BWOAMusic.step = 0.1
 BWOAMusic.emitter = nil
 
 BWOAMusic.OnMusicVolumeChange = function(volume)
     BWOAMusic.origReturnVolume = volume
 end
 
-BWOAMusic.Play = function(music, volumeTarget, volumeStart)
+BWOAMusic.Play = function(music, volumeTarget, volumeStart, step)
     if not volumeStart then volumeStart = 0 end
     if not volumeTarget then volumeTarget = 1 end
+    if step then 
+        BWOAMusic.step = step
+    else
+        BWOAMusic.step = 0.1
+    end
     
     local volumeMain = getSoundManager():getSoundVolume()
     volumeTarget = volumeTarget * volumeMain
@@ -67,7 +73,7 @@ BWOAMusic.Process = function()
     
     if not BWOAMusic.emitter then return end
 
-    local max = 160
+    local max = 1
     if isIngameState() then
         max = 30
     end
@@ -96,7 +102,7 @@ BWOAMusic.Process = function()
         -- fade in custom
         local emitter = BWOAMusic.emitter
         if emitter:isPlaying(BWOAMusic.customId) then
-            local newVolume = BWOAMusic.customCurrentVolume + 0.1
+            local newVolume = BWOAMusic.customCurrentVolume + BWOAMusic.step
             if newVolume > BWOAMusic.customTargetVolume then newVolume = BWOAMusic.customTargetVolume end
             BWOAMusic.customCurrentVolume = newVolume
             emitter:setVolume(BWOAMusic.customId, newVolume)
@@ -108,7 +114,7 @@ BWOAMusic.Process = function()
         -- fade in orig
         local sm = getSoundManager()
         local origVolume = sm:getMusicVolume()
-        local newVolume = origVolume + 0.1
+        local newVolume = origVolume + BWOAMusic.step
         if newVolume <= BWOAMusic.origReturnVolume then
             sm:setMusicVolume(newVolume)
             getCore():setOptionMusicVolume(newVolume * 10)

@@ -382,6 +382,9 @@ theme.items = {
     {["Base.Dung_Rat"] = 1},
     {["Base.NailsBox"] = 1},
     {["Base.Garbagebag"] = 2},
+    {["Base.TailoringMag1"] = 1},
+    {["Base.TailoringMag2"] = 1},
+    {["Base.TailoringMag3"] = 1},
     
 }
 

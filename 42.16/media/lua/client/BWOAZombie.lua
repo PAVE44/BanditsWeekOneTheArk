@@ -101,70 +101,72 @@ local function onZombieUpdate(zombie)
 
     -- zombie:addLineChatElement(tostring(zombie:getHealth()), 0.5, 0.5, 0.5)
 
-    local newskin
-    local newhair
-    local newbeard
+    if not BanditCompatibility.IsReanimatedForGrappleOnly(zombie) then
+        local newskin
+        local newhair
+        local newbeard
 
-    local hv = zombie:getHumanVisual()
-    local skin = hv:getSkinTexture()
+        local hv = zombie:getHumanVisual()
+        local skin = hv:getSkinTexture()
 
-    if zombie:isFemale() then
-        newskin = "M_ZedBody_Burnt" -- fixme (make female texture)
-        newhair = BanditUtils.Choice(BWOAZombie.femaleHairChoices)
-    else
-        newskin = "M_ZedBody_Burnt"
-        newhair = BanditUtils.Choice(BWOAZombie.maleHairChoices)
-        newbeard = BanditUtils.Choice(BWOAZombie.beardChoices)
-    end
-
-    local c = ZombRandFloat(0.1, 0.45)
-    local color = ImmutableColor.new(c, c, c, 1)
-
-    if skin ~= newskin then
-        zombie:setHealth(zombie:getHealth() * 0.6)
-        hv:setSkinTextureName(newskin)
-
-        if newhair then
-            hv:setHairModel(newhair)
-            hv:setHairColor(color)
+        if zombie:isFemale() then
+            newskin = "M_ZedBody_Burnt" -- fixme (make female texture)
+            newhair = BanditUtils.Choice(BWOAZombie.femaleHairChoices)
+        else
+            newskin = "M_ZedBody_Burnt"
+            newhair = BanditUtils.Choice(BWOAZombie.maleHairChoices)
+            newbeard = BanditUtils.Choice(BWOAZombie.beardChoices)
         end
 
-        if newbeard then
-            hv:setBeardModel(newbeard)
-            hv:setBeardColor(color)
-            hv:setNaturalBeardColor(color)
-        end
+        local c = ZombRandFloat(0.1, 0.45)
+        local color = ImmutableColor.new(c, c, c, 1)
 
-        local maxIndex = BloodBodyPartType.MAX:index()
-        for i = 0, maxIndex - 1 do
-            local part = BloodBodyPartType.FromIndex(i)
-            -- hv:setBlood(part, 1)
-            hv:setDirt(part, 1)
-            zombie:addHole(part);
-            zombie:addLotsOfDirt(part, 1, true)
+        if skin ~= newskin then
+            zombie:setHealth(zombie:getHealth() * 0.6)
+            hv:setSkinTextureName(newskin)
 
-            local items = zombie:getItemVisuals()
-            for i=0, items:size()-1 do
-                local item = items:get(i)
-                if item then
-                    item:setDirt(part, 1)
-                    local tint = item:getTint()
-                    if tint then
-                        local r, g, b = tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat()
-                        local newtint = ImmutableColor.new(r * 0.3, g * 0.3, b * 0.3, 1)
-                        item:setTint(newtint)
-                    end
-                end
+            if newhair then
+                hv:setHairModel(newhair)
+                hv:setHairColor(color)
             end
 
-        end
+            if newbeard then
+                hv:setBeardModel(newbeard)
+                hv:setBeardColor(color)
+                hv:setNaturalBeardColor(color)
+            end
 
-        for i = 1, ZombRand(10) do
-            zombie:addRandomVisualDamages()
-        end
+            local maxIndex = BloodBodyPartType.MAX:index()
+            for i = 0, maxIndex - 1 do
+                local part = BloodBodyPartType.FromIndex(i)
+                -- hv:setBlood(part, 1)
+                hv:setDirt(part, 1)
+                zombie:addHole(part);
+                zombie:addLotsOfDirt(part, 1, true)
 
-        zombie:resetModelNextFrame()
-        zombie:resetModel()
+                local items = zombie:getItemVisuals()
+                for i=0, items:size()-1 do
+                    local item = items:get(i)
+                    if item then
+                        item:setDirt(part, 1)
+                        local tint = item:getTint()
+                        if tint then
+                            local r, g, b = tint:getRedFloat(), tint:getGreenFloat(), tint:getBlueFloat()
+                            local newtint = ImmutableColor.new(r * 0.3, g * 0.3, b * 0.3, 1)
+                            item:setTint(newtint)
+                        end
+                    end
+                end
+
+            end
+
+            for i = 1, ZombRand(10) do
+                zombie:addRandomVisualDamages()
+            end
+
+            zombie:resetModelNextFrame()
+            zombie:resetModel()
+        end
     end
 
 end

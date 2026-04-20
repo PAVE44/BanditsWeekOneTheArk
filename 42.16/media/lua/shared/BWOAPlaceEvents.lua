@@ -71,6 +71,13 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 70,
     },
+    ["Farmer"] = {
+        scene = "Farmer",
+        x = 8341,
+        y = 11748,
+        z = 0,
+        renderDist = 40,
+    },
     ["Fisherman"] = {
         scene = "Fisherman",
         x = 8114,
@@ -144,6 +151,13 @@ BWOAPlaceEvents.events = {
         z = 0,
         renderDist = 30,
         music = "MusicHell",
+    },
+    ["Shrink"] = {
+        scene = "Shrink",
+        x = 18006,
+        y = 4209,
+        z = 0,
+        renderDist = 16,
     },
     ["Breach1"] = {
         scene = "Breach",

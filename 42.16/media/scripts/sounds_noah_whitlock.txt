@@ -1,0 +1,950 @@
+module Bandits 
+{
+    sound Dial_Noah_Whitlock_10_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_10_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_10_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_10_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_10_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_10_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_6 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_6.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_7 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_7.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_11_8 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_11_8.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_12_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_12_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_12_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_12_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_12_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_12_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.1_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.1_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.1_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.2_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.2_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.2_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.2_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.2_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.2_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13.2_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.2_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_13_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_13_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_6 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_6.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_7 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_7.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_14_8 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_14_8.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1.1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1.1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.1_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.1_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.2_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.2_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15.3_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15.3_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_15_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_15_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_6 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_6.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_7 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_7.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_8 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_8.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_16_9 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_16_9.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_2_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_2_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_3_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_3_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_4_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_4_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_4_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_4_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_4_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_4_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_5_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_5_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_5_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_5_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_5_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_5_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_5_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_5_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_5_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_5_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_6_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_6_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_6_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_6_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_6_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_6_3.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_6_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_6_4.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_6_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_6_5.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_7_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_7_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_8_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_8_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_9_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_9_1.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Noah_Whitlock_9_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/noah/noah_9_2.ogg,
+            distanceMin = 1,
+            distanceMax = 10,
+            reverbFactor = 0.6,
+        }
+    }
+}

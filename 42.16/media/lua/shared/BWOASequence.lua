@@ -102,11 +102,11 @@ BWOASequence.Earthquake = function(params)
     d = 750
     BWOAEventControl.Add("Shaker", {status = true}, d)
 
-    d = 1000
+    d = 1100
     local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
     if target.dist < BWOAChat.talkDist * 2 then
         local anim = BanditUtils.Choice({"Spooked1", "Spooked2"})
-        local tab = {id=target.id, txt="Earthquake!", anim=anim}
+        local tab = {id=target.id, txt="Earthquake!", sound="BWOAEarthquake_Female_21_1", anim=anim}
         BWOAEventControl.Add("SayBandit", tab, d)
     end
 
@@ -224,13 +224,24 @@ BWOASequence.Assault = function(params)
         }
     end
 
+    local hostileGroupSize = SandboxVars.BWOA.HostileGroupSize or 3
+    local hostileGroupMultipliers = {
+        [1] = 0.20,
+        [2] = 0.50,
+        [3] = 1,
+        [4] = 1.5,
+        [5] = 2,
+        [6] = 4
+    }
+    local hostileGroupMultiplier = math.ceil(hostileGroupMultipliers[hostileGroupSize])
+
     local group = {
         cid = params.cid,
         x = coords.x,
         y = coords.y,
         z = coords.z,
         program = "Assault",
-        size = params.intensity * coords.size,
+        size = params.intensity * coords.size * hostileGroupMultiplier,
     }
 
     for _, doorConf in ipairs(doors) do
@@ -253,10 +264,12 @@ BWOASequence.Assault = function(params)
         for i = 0, 10 do
             local testx = 9975 - (i * 6)
             local square = cell:getGridSquare(testx, 12693, 0)
-            local vehicle = square:getVehicleContainer()
-            if not vehicle then
-                x = testx
-                break
+            if square then
+                local vehicle = square:getVehicleContainer()
+                if not vehicle then
+                    x = testx
+                    break
+                end
             end
         end
 

@@ -46,6 +46,10 @@ BWOARooms.Infirmary.Build = function ()
     BWOABuildTools.RemoveObject(9966, 12626, -4, "Curtain C")
     BWOABuildTools.RemoveObject(9967, 12626, -4, "Curtain A")
 
+    BWOABuildTools.RemoveObject(9965, 12622, -4, "Curtain B")
+    BWOABuildTools.RemoveObject(9966, 12622, -4, "Curtain C")
+    BWOABuildTools.RemoveObject(9967, 12622, -4, "Curtain A")
+
     BWOABuildTools.Generic(9965, 12623, -4, "location_community_medical_01_22")
     BWOABuildTools.Generic(9966, 12623, -4, "location_community_medical_01_23")
     BWOABuildTools.Generic(9965, 12624, -4, "location_community_medical_01_40")
@@ -133,10 +137,27 @@ BWOARooms.Infirmary.Prepare = function ()
 
     local medical = BanditCompatibility.InstanceItem("Bandits.Note")
     medical:setCanBeWrite(false)
-    medical:setName("Medical report")
-    local md = medical:getModData()
-    md.printContent = "medical"
+    medical:setName(getText("IGUI_Artifact_MedicalReport"))
+    medical:getModData().printContent = "medical"
     BWOAPrepareTools.AddWorldItemSpecial(9969, 12622, -4, medical, {x=0.6, y=0.6, z=0.35})
+
+    local leafletPotassiumIodine = BanditCompatibility.InstanceItem("Bandits.Note")
+    leafletPotassiumIodine:setCanBeWrite(false)
+    leafletPotassiumIodine:setName(getText("IGUI_Artifact_IodineLeaflet"))
+    leafletPotassiumIodine:getModData().printContent = "leaflet_potassium_iodine"
+    BWOAPrepareTools.AddItemsToContainer(9970, 12626, -4, {leafletPotassiumIodine}, "Shelves", true)
+
+    local leafletNikethamide = BanditCompatibility.InstanceItem("Bandits.Note")
+    leafletNikethamide:setCanBeWrite(false)
+    leafletNikethamide:setName(getText("IGUI_Artifact_NikethamideLeaflet"))
+    leafletNikethamide:getModData().printContent = "leaflet_nikethamide"
+    BWOAPrepareTools.AddItemsToContainer(9970, 12626, -4, {leafletNikethamide}, "Shelves", true)
+
+    local leafletPentoxifylline = BanditCompatibility.InstanceItem("Bandits.Note")
+    leafletPentoxifylline:setCanBeWrite(false)
+    leafletPentoxifylline:setName(getText("IGUI_Artifact_PentoxifyllineLeaflet"))
+    leafletPentoxifylline:getModData().printContent = "leaflet_pentoxifylline"
+    BWOAPrepareTools.AddItemsToContainer(9970, 12626, -4, {leafletPentoxifylline}, "Shelves", true)
 
     --[[
     items = {

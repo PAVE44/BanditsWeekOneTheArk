@@ -25,6 +25,7 @@ function BWOAScenes.Toolbag:placeItems()
     local bag = BanditCompatibility.InstanceItem("Base.Bag_Military")
     local md = bag:getModData()
     md.BWOA = {}
+    md.BWOA.lore = true
     md.BWOA.onTaken = {}
     md.BWOA.onTaken.accomplishMissionId = 7
     md.BWOA.onTaken.revealDialoguePerson = "Emma_Robinson"

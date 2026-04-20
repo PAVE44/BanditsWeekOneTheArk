@@ -357,6 +357,30 @@ module Bandits {
         } 
     }
 
+    sound AmbientClock {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_clock.ogg, 
+            distanceMin = 1,
+            distanceMax = 9,
+            reverbFactor = 0.6, 
+        } 
+    }
+
+    sound AmbientCity {
+        category = Object, 
+        loop = true,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_city.ogg, 
+            distanceMin = 1,
+            distanceMax = 100,
+            reverbFactor = 0.6, 
+        } 
+    }
+
     sound AmbientWaterDrops {
         category = Object, 
         loop = true,
@@ -495,6 +519,18 @@ module Bandits {
             file = media/sound/open_hatch.ogg,
             distanceMin = 3,
             distanceMax = 30,
+            reverbFactor = 0.7, 
+        } 
+    }
+
+    sound ToiletFlush {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/toilet_flush.ogg,
+            distanceMin = 1,
+            distanceMax = 9,
             reverbFactor = 0.7, 
         } 
     }

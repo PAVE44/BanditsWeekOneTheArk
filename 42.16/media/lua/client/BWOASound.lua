@@ -29,6 +29,7 @@ BWOASound.noahSounds = {
     ["UNAUTHORIZED"] = "NoahUnauthorized",
     ["DECONTAMINATION"] = "NoahDecontamination",
     ["DECONTAMINATION_COMPLETE"] = "NoahDecontaminationComplete",
+    ["DECONTAMINATION_RISK"] = "NoahDecontaminationRisk",
     ["GENERATORFAILURE"] = "NoahGeneratorFailure",
     ["GENERATORFUELLOW"] = "NoahGeneratorFuelLow",
     ["RADIATION"] = "NoahRadiation",
@@ -218,7 +219,6 @@ local function onTick()
 
                     megaphone.emitter = world:getFreeEmitter(megaphone.x, megaphone.y, megaphone.z)
 
-                    print ("start: " .. event.sound)
                     megaphone.emitter:playSound(event.sound)
                     megaphone.emitter:setVolumeAll(volumeNoah)
                     megaphone.emitter:tick()

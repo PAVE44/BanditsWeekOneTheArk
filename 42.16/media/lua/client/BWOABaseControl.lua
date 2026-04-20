@@ -207,6 +207,7 @@ local function managePower()
         end
 
         BWOABaseControl.gridPowerUsing = 0
+        BWOABaseControl.fuelUsingHourly = 0
         for gtype, gen in pairs(gmd.generators) do
             if gen.active then
 
@@ -222,7 +223,19 @@ local function managePower()
                 local totalPowerUsing = powerUsing + ventPowerUsing
                 BWOABaseControl.gridPowerUsing = BWOABaseControl.gridPowerUsing + totalPowerUsing
 
-                local fuelUsing = totalPowerUsing * 0.1
+                local fuelConsumptionOption = SandboxVars.BWOA.ArkGeneratorFuelConsumption or 3
+                local fuelConsumptionMap = {
+                    [1] = 0.01,
+                    [2] = 0.04,
+                    [3] = 0.08,
+                    [4] = 0.12,
+                    [5] = 0.14
+                }
+                local fuelConstant = fuelConsumptionMap[fuelConsumptionOption] or 0.1
+                -- local fuelConstant = 0.1
+                local fuelUsing = totalPowerUsing * fuelConstant
+                BWOABaseControl.fuelUsingHourly = BWOABaseControl.fuelUsingHourly + (fuelUsing * 60)
+
                 gen.fuel = gen.fuel - fuelUsing
                 if gen.fuel <= 0 then gen.fuel = 0 end
                 
@@ -340,6 +353,16 @@ local function manageVentilation()
     end
 
     local co2BuildUp = 19
+
+    if ventilation.co2 > 32000 then
+        co2Reduction = co2Reduction * 5
+    elseif ventilation.co2 > 24000 then
+        co2Reduction = co2Reduction * 4
+    elseif ventilation.co2 > 16000 then
+        co2Reduction = co2Reduction * 3
+    elseif ventilation.co2 > 8000 then
+        co2Reduction = co2Reduction * 2
+    end
 
     ventilation.co2 = ventilation.co2 + co2BuildUp - co2Reduction
 

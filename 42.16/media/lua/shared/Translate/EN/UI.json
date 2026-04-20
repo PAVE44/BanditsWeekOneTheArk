@@ -7,8 +7,12 @@
     "UI_credits_Music1": "Slayer",
 
     "UI_WelcomeToTheArk": "WELCOME TO THE ARK",
-    "UI_optionscreen_BWOA_Backup": "It is recommended that you make a frequent backup of your save file. One of the reasons is that you will have only one life and no ability to respawn. But also game crashes may lead to save file corruption, and you will have no way to recover your progress. Your save files are located in the Zomboid/Saves directory. ",
+    "UI_optionscreen_BWOA_Backup": "<IMAGECENTRE:media/ui/ui_icon_backups.png> <BR> BACKUPS: It is strongly recommended that you make frequent backups of your save file. You have only one life and cannot respawn. Additionally, game crashes may corrupt your save file, leaving you with no way to recover your progress. Save folders are located in the Zomboid/Saves directory. ",
+    "UI_optionscreen_BWOA_Mods": "<IMAGECENTRE:media/ui/ui_icon_mods.png> <BR> MODS: This mod may conflict with other mods. Avoid mods that alter zombie behavior, as well as those that change the appearance of zombies or the player. Mods that add new vehicles, items, or clothing may not work as intended. ",
+    "UI_optionscreen_BWOA_Diff": "<IMAGECENTRE:media/ui/ui_icon_different.png> <BR> IT'S DIFFERENT: Do not expect the usual experience as this this mod significantly changes the game. It's a lore rich, quest based, narrative-driven adventure in which you not only have to survive, but also protect other human being. Some mechanics of the game have been altered or removed, some sandbox options are overridden. But be sure that there are many new features to explore.  ",
+    "UI_optionscreen_BWOA_Enjoy": "<IMAGECENTRE:media/ui/ui_icon_enjoy.png> <BR> HAVE FUN: Your adventure will be hard, yet if you endure, you will reveal the origin of the Ark and the secret of Knox Infection. Feel free to leave feedback or seek help on Steam or Discord. Endure!",
     "UI_optionscreen_BWOA_Settings": "Settings",
+    "UI_optionscreen_BWOA_Important": "Important",
     "UI_optionscreen_BWOA_FalloutCurve": "Fallout Curve",
     "UI_optionscreen_BWOA_mradPerMin": "mrad/min",
 

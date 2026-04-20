@@ -1,11 +1,9 @@
-name=Bandits Week One: The Ark
+name=The Ark
 poster=poster.png
-id=BanditsWeekOneTheArk
+id=TheArk
 description=<H1><GREEN>THE ARK (b42.16)
 description=<BR>
-description=Part two of Week One saga. 
-description=<BR>
-description=<RED>Always make sure that you have the newest version of Bandits mod installed. Resubscribe on Steam if you have to. 
+description=The Ark is a direct sequel to the Bandits: Week One mod, continuing the story after the dramatic events of the first chapter. 
 author=Slayer
 tiledef=theark 2281
 pack=theark

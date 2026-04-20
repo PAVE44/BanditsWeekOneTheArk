@@ -80,6 +80,7 @@ BWOARooms.MainStorage.Prepare = function ()
     BWOARooms.MainStorage.Init()
     local items
 
+    -- MAIN STORAGE
     items = {["Base.CannedBolognese"] = 11, ["Base.TinnedBeans"] = 14, ["Base.CannedCorn"] = 6}
     BWOAPrepareTools.AddItemsToContainer(9950, 12627, -4, items, "Shelves")
 
@@ -121,7 +122,7 @@ BWOARooms.MainStorage.Prepare = function ()
     items = {["Base.Vinegar2"] = 10, ["Base.OilVegetable"] = 17}
     BWOAPrepareTools.AddItemsToContainer(9956, 12627, -4, items, "Shelves")
 
-    items = {["Base.DriedApricots"] = 12, ["Base.DriedChickpeas"] = 4}
+    items = {["Base.DriedApricots"] = 2, ["Base.DriedChickpeas"] = 2, ["Base.CannedPineapple"] = 2, ["Base.CannedCornedBeef"] = 2, ["Base.CannedBolognese"] = 2}
     BWOAPrepareTools.AddItemsToContainer(9956, 12628, -4, items, "Shelves")
 
     items = {["Base.Macandcheese"] = 11, ["Base.DriedWhiteBeans"] = 9}
@@ -138,6 +139,57 @@ BWOARooms.MainStorage.Prepare = function ()
 
     items = {["Base.Vodka"] = 20}
     BWOAPrepareTools.AddItemsToContainer(9956, 12632, -4, items, "Shelves")
+
+    -- SECOND STORAGE
+
+    items = {["Base.CleaningLiquid2"] = 16, ["Base.RatPoison"] = 7, ["Base.Sponge"] = 16, ["Base.Bleach"] = 12, ["Base.Soap"] = 18, ["Base.DentalFloos"] = 6, ["Base.Toothpaste"] = 26, ["Base.Toothbrush"] = 30}
+    BWOAPrepareTools.AddItemsToContainer(9949, 12635, -4, items, "Shelves")
+
+    items = {["Base.Mop"] = 5, ["Base.Broom"] = 5, ["Base.Bucket"] = 5, ["Base.Bleach"] = 21, ["Base.Gloves_Dish"] = 7}
+    BWOAPrepareTools.AddItemsToContainer(9948, 12635, -4, items, "Shelves")
+
+    items = {["Base.Twine"] = 8, ["Base.DuctTape"] = 8, ["Base.Rope"] = 8, ["Base.Woodglue"] = 8}
+    BWOAPrepareTools.AddItemsToContainer(9947, 12635, -4, items, "Shelves")
+
+    items = {["Base.WeldingRods"] = 6, ["Base.SheetMetal"] = 20}
+    BWOAPrepareTools.AddItemsToContainer(9946, 12635, -4, items, "Shelves")
+
+    items = {["Base.SmallSheetMetal"] = 24, ["Base.ScrapMetal"] = 12, ["Base.BlowTorch"] = 2, ["Base.WeldingMask"] = 2}
+    BWOAPrepareTools.AddItemsToContainer(9945, 12635, -4, items, "Shelves")
+
+    items = {["Base.PropaneTank"] = 5}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12635, -4, items, "Shelves")
+
+    items = {["Base.BarbedWireStack"] = 4, ["Base.Wire"] = 10, ["Base.Wire"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9947, 12632, -4, items, "Shelves")
+
+    items = {["Base.ClayBrick"] = 160}
+    BWOAPrepareTools.AddItemsToContainer(9946, 12632, -4, items, "Shelves")
+
+    items = {["Base.ClayBrick"] = 160}
+    BWOAPrepareTools.AddItemsToContainer(9945, 12632, -4, items, "Shelves")
+
+    items = {["Base.ClayBrick"] = 100, ["Base.MasonsChisel"] = 3, ["Base.MasonsTrowel"] = 3}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12632, -4, items, "Shelves")
+
+    items = {["Base.ConcretePowder"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9944, 12629, -4, items, "Shelves")
+
+    items = {["Base.PlasterPowder"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9945, 12629, -4, items, "Shelves")
+
+    items = {["Base.PaintWhite"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9946, 12629, -4, items, "Shelves")
+
+    items = {["Base.PaintWhite"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9947, 12629, -4, items, "Shelves")
+
+    items = {["Base.PaintGreen"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9948, 12629, -4, items, "Shelves")
+
+    items = {["Base.Paintbrush"] = 8, ["Base.PaintGreen"] = 4}
+    BWOAPrepareTools.AddItemsToContainer(9949, 12629, -4, items, "Shelves")
+
 
     
 end

@@ -1,6 +1,505 @@
 module Bandits 
 {
+    sound ZSSpotted_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/spotted_female_21_1.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
 
+    sound ZSSpotted_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/spotted_female_21_2.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSSpotted_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/spotted_female_21_3.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSSpotted_Female_21_4 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/spotted_female_21_4.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSSpotted_Female_21_5 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/spotted_female_21_5.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSSpotted_Female_21_6 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/spotted_female_21_6.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSReloading_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/reloading_female_21_1.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSReloading_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/reloading_female_21_2.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSReloading_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/reloading_female_21_3.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSReloading_Female_21_4 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/reloading_female_21_4.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSReloading_Female_21_5 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/reloading_female_21_5.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSReloading_Female_21_6 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/reloading_female_21_6.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSHit_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromGlassCut,
+        } 
+    }
+
+    sound ZSHit_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromHitBlunt,
+        } 
+    }
+
+    sound ZSHit_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromRunIntoWall,
+        } 
+    }
+
+    sound ZSHit_Female_21_4 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromLacerate,
+        } 
+    }
+
+    sound ZSHit_Female_21_5 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_6 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromScratch,
+        } 
+    }
+
+    sound ZSHit_Female_21_7 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_8 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_9 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_10 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_11 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_12 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_13 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSHit_Female_21_14 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromBite,
+        } 
+    }
+
+    sound ZSBreach_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/breach_female_21_1.ogg, 
+            distanceMin = 1, 
+            distanceMax = 11, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSDead_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromFallHigh,
+        } 
+     }
+
+    sound ZSDead_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Pain/FromFallHigh,
+        } 
+     }
+
+    sound ZSDead_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/DeathFall,
+        }
+    }
+
+    sound ZSDead_Female_21_4 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/DeathFall,
+        }
+    }
+
+    sound ZSDead_Female_21_5 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/DeathFall,
+        }
+    }
+
+    sound ZSDead_Female_21_6 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/DeathFall,
+        }
+    }
+
+    sound ZSBurn_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Death/Eaten,
+        } 
+    }
+
+    sound ZSBurn_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Death/Eaten,
+        } 
+    }
+
+    sound ZSBurn_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Death/Eaten,
+        } 
+    }
+
+    sound ZSDragdown_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Death/Eaten,
+        } 
+    }
+
+    sound ZSDragdown_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Death/Eaten,
+        } 
+    }
+
+    sound ZSDragdown_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip
+        {
+            event = Character/Voice/Female/Death/Eaten,
+        } 
+    }
+
+    sound ZSInside_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/inside_female_21_1.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSInside_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/inside_female_21_2.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSInside_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/inside_female_21_3.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSUpstairs_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/upstairs_female_21_1.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSOutside_Female_21_1 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/outside_female_21_1.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSOutside_Female_21_2 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/outside_female_21_2.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+
+    sound ZSOutside_Female_21_3 {
+        category = Object, 
+        loop = false
+        is3D = true,
+        clip { 
+            file = media/sound/emma/outside_female_21_3.ogg, 
+            distanceMin = 4,
+            distanceMax = 80, 
+            reverbFactor = 0.1,/emma/ 
+        } 
+    }
+    
     sound EmmaCry {
         category = Object, 
         loop = false,
@@ -57,6 +556,18 @@ module Bandits
             file = media/sound/emma/emma_wait_talk_4.ogg,
             distanceMin = 3,
             distanceMax = 7,
+            reverbFactor = 0.0, 
+        } 
+    }
+
+    sound BWOAEarthquake_Female_21_1 {
+        category = Object, 
+        loop = false,
+        is3D = false,
+        clip { 
+            file = media/sound/emma/earthquake_female_21_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
             reverbFactor = 0.0, 
         } 
     }
@@ -1707,6 +2218,126 @@ module Bandits
         }
     }
 
+    sound Dial_Emma_Robinson_220.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.2_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.2_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.3_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.3_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.3_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.3_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.4_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.4_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.4_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.4_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.4_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.4_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.5_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.5_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_220.5_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_220.5_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+    
     sound Dial_Emma_Robinson_2000.1_1 {
         category = Object,
         loop = false,
@@ -3570,7 +4201,185 @@ module Bandits
         }
     }
 
+    sound Dial_Emma_Robinson_400.6.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.1.1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
 
+    sound Dial_Emma_Robinson_400.6.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.1.1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.1.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.1.1_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.2.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.2.1_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.2.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.2.1_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.2.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.2.1_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.2_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6.2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6.2_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6_1.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6_2.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6_3.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6_4.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_400.6_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_400.6_5.ogg,
+            distanceMin = 1,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
 
     sound Dial_Emma_Robinson_4_1 {
         category = Object,
