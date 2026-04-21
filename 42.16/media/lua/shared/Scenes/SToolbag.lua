@@ -11,9 +11,19 @@ function BWOAScenes.Toolbag:placeItems()
     local cell = getCell()
     local square = cell:getGridSquare(self.x, self.y, self.z)
     local building = square:getBuilding()
-    local room = building:getRandomRoom()
-    local def = room:getRoomDef()
-    local itemSquare = def:getFreeSquare()
+    
+    local itemSquare
+    for i=1, 20 do
+        local room = building:getRandomRoom()
+        local def = room:getRoomDef()
+        local area = def:getArea()
+        if area > 1 then
+            itemSquare = def:getFreeSquare()
+            if itemSquare then
+                break
+            end
+        end
+    end
 
     local x, y, z
     if itemSquare then

@@ -51,3 +51,8 @@ option BWOA.MemoryRegain = {
     type = boolean, default = true,
     page = BWOA, translation = BWOA.MemoryRegain,
 }
+
+option BWOA.RetroRadiation = {
+    type = boolean, default = true,
+    page = BWOA, translation = BWOA.RetroRadiation,
+}

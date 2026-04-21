@@ -62,7 +62,7 @@ local function updateForageZones()
     local clean = RAD_LERP - radiation
     local plantMod = BanditUtils.Lerp(clean, 0, RAD_LERP, 0, 1)
     local mushroomMod = BanditUtils.Lerp(radiation, 0, RAD_LERP, 0, 10)
-    
+    local test = forageSystem.categoryDefinitions
     -- Berries
     for k, v in pairs(forageSystem.categoryDefinitions["Berries"].zones) do
         forageSystem.categoryDefinitions["Berries"].zones[k] = v * plantMod
@@ -86,11 +86,6 @@ local function updateForageZones()
     -- Mushrooms
     for k, v in pairs(forageSystem.categoryDefinitions["Mushrooms"].zones) do
         forageSystem.categoryDefinitions["Mushrooms"].zones[k] = v * mushroomMod
-    end
-
-    -- MedicinalPlants
-    for k, v in pairs(forageSystem.categoryDefinitions["MedicinalPlants"].zones) do
-        forageSystem.categoryDefinitions["MedicinalPlants"].zones[k] = v * plantMod
     end
 
     -- WildPlants
@@ -140,7 +135,7 @@ local function onClimateTick()
     -- print ("CLIMATE: RAD: " .. radiation .. " TEMP: " .. overrideTemp)
     BWOAClimate.radiation = radiation
 
-    updateForageZones()
+    -- updateForageZones()
 
     if radiation > 0 then
         
@@ -233,18 +228,10 @@ local function onClimateTick()
             local player = getSpecificPlayer(0)
             if hour >= 8 and hour <= 15 and player:isOutside() then
                 gmd.climate.radiation = false
-                ambient:setEnableOverride(false)
-                desaturation:setEnableOverride(false)
-                fogIntensity:setEnableOverride(false)
-                windIntensity:setEnableOverride(false)
-                ImprovedFog.setEnableEditing(false)
-
                 BWOASequence.Finale()
             end
         end
     end
-
-    
 end
 
 BWOAClimate.Tick = function()

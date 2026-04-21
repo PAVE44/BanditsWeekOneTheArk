@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "1.1.10"
+BWOAMenu.version = "1.1.13"
 
 BWOAMenu.blinking = {}
 
@@ -930,7 +930,12 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Help Get Up", player, BWOAMenu.HealPerson, square, zombie)
     end
 
-    if isDebugEnabled() then
+    if false and isDebugEnabled() then
+
+        if zombie then
+            local md = zombie:getModData()
+            print ("test")
+        end
 
         --BWOABuildTools.VentW(9965, 12608, -4)
 

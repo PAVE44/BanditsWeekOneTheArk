@@ -377,7 +377,8 @@ BWOAEvents.DecontaminatePost = function(params)
                 for i=0, chrs:size()-1 do
                     local chr = chrs:get(i)
                     if instanceof(chr, "IsoZombie") then
-                        chr:getModData().radiated = false
+                        local md = chr:getModData()
+                        md.radiated = false
                     end
                 end
             end
@@ -585,6 +586,18 @@ BWOAEvents.FinaleStage2 = function(params)
 end
 
 BWOAEvents.FinaleStage3 = function(params)
+    local cm = getWorld():getClimateManager()
+    local ambient = cm:getClimateFloat(ClimateManager.FLOAT_AMBIENT)
+    local desaturation = cm:getClimateFloat(ClimateManager.FLOAT_DESATURATION)
+    local fogIntensity = cm:getClimateFloat(ClimateManager.FLOAT_FOG_INTENSITY)
+    local windIntensity = cm:getClimateFloat(ClimateManager.FLOAT_WIND_INTENSITY)
+
+    ambient:setEnableOverride(false)
+    desaturation:setEnableOverride(false)
+    fogIntensity:setEnableOverride(false)
+    windIntensity:setEnableOverride(false)
+    ImprovedFog.setEnableEditing(false)
+
     BWOATex.tex = getTexture("media/textures/rainbow.png")
     BWOATex.speed = 0.000001
     BWOATex.mode = "full"

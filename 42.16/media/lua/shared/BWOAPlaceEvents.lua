@@ -47,6 +47,8 @@ BWOAPlaceEvents.events = {
         -- x = 7219, --7386,
         -- y = 8520, -- 8353,
         z = 0,
+        revealDialoguePerson = "Emma_Robinson",
+        revealDialogueId = "2000.5.3",
         renderDist = 40,
     },
     ["EkronChurch"] = {

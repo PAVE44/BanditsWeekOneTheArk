@@ -3,20 +3,14 @@ BWOABuildings = BWOABuildings or {}
 BWOABuildings.hatches = {}
 
 BWOABuildings.exceptions = {
-    "9921-12622", -- ARK
-    "8321-11595", -- Rosewood Elementary School
-    "8081-11520", -- Rosewood Mama McFudginton's
-    "8081-11487", -- Rosewood Mama McFudginton's
-    "7380-8349", -- Fallas Church
-    "432-9911", -- Ekron Church
-    "5537-12440", -- Secret Lab
-    "9156-12147", -- Dave and Martha's House
-    "10164-12633", -- MR Cinema
-    "10860-10032", -- Doc house
-    
-    -- "10164-12633", -- hunter house
-    -- "10164-12633", -- fisherman house
-    -- "10164-12633", -- farmer house
+    {x1 = 9875, y1 = 12570, x2 = 10230, y2 = 12700}, -- ARK
+    {x1 = 10070, y1 = 11125, x2 = 10155, y2 = 11205}, -- maniac
+    {x1 = 8300, y1 = 11585, x2 = 8445, y2 = 11825}, -- Rosewood Elementary School and farmerddwsd
+    {x1 = 7050, y1 = 8154, x2 = 7880, y2 = 8560}, -- Fallas Lake
+    {x1 = 360, y1 = 9900, x2 = 540, y2 = 10000}, -- Ekron Church
+    {x1 = 5500, y1 = 12400, x2 = 5710, y2 = 12520}, -- Secret Lab
+    {x1 = 10830, y1 = 9980, x2 = 10940, y2 = 10070}, -- Muldraugh Doc
+    {x1 = 9810, y1 = 12910, x2 = 9860, y2 = 12930}, -- Hunter
 }
 
 local getHatchId = function(x, y)
@@ -57,12 +51,12 @@ BWOABuildings.CreateHatches = function()
         local x2 = def:getX2()
         local y1 = def:getY()
         local y2 = def:getY2()
-        local id = x1 .. "-" .. y1
 
         local isException = false
         for _, exception in ipairs(BWOABuildings.exceptions) do
-            if id == exception then
+            if x1 >= exception.x1 and x2 <= exception.x2 and y1 >= exception.y1 and y2 <= exception.y2 then
                 isException = true
+                -- print ("EXCEPTION: " .. x1 .. "," .. y1 .. " - " .. x2 .. "," .. y2)
                 break
             end
         end

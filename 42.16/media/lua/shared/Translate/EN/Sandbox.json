@@ -75,5 +75,8 @@
     "Sandbox_BWOA.AngelProximity_tooltip": "Extra help in discovering unique points of interest.",
 
     "Sandbox_BWOA.MemoryRegain": "Memory Regain",
-    "Sandbox_BWOA.MemoryRegain_tooltip": "Player can regain some skills over time or by interacting with certain objects."
+    "Sandbox_BWOA.MemoryRegain_tooltip": "Player can regain some skills over time or by interacting with certain objects.",
+
+    "Sandbox_BWOA.RetroRadiation": "Inventory Retro-Radiation",
+    "Sandbox_BWOA.RetroRadiation_tooltip": "Player inventory can get radiated from ground items."
 }

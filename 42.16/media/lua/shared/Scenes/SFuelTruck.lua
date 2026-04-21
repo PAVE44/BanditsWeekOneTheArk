@@ -34,6 +34,20 @@ function BWOAScenes.FuelTruck:placeVehicles()
     end
 
     vehicle:addKeyToGloveBox()
+
+    for i = 1, 100 do 
+        local glovebox = vehicle:getPartById("GloveBox")
+        if glovebox then
+            local container = glovebox:getItemContainer()
+            if container then
+                if container:containsTag(ItemTag.CAR_KEY) then
+                    break
+                else
+                    vehicle:addKeyToGloveBox()
+                end
+            end
+        end
+    end
     
     local md = vehicle:getModData()
     md.BWOA = {}

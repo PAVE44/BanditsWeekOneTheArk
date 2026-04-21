@@ -859,6 +859,13 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         req = {"2000.5.1.1.1.1.1.1"},
         hidden = true, -- unlocked by artifact comfrey_seeds
     },
+    ["2000.5.3"] = {
+        -- qst = "I found out that Fallas Lake was not destroyed.",
+        -- ans = "Correct. The city lies in a valley, so it was protected from the worst of the blast. It's a good place for foraging.",
+        anim = "GestYes",
+        req = {},
+        hidden = true, -- unlocked by scene Fallas Church
+    },
     ["2000.6.1"] = {
         -- qst = "Emma, my dreams led me to a secret laboratory, and I learned something important about the virus. ",
         -- ans = "What did you learn? Please, tell me.",

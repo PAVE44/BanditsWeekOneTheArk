@@ -656,6 +656,8 @@ end
 
 local manageGeigerEffect = function(player, radiation)
 
+    if radiation <= 0 then return end
+
     local hasGeiger = false
 
     local function isGeiger(item)
@@ -695,7 +697,7 @@ end
 local getRadiationForPlayer = function(player)
     local cell = getCell()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
-    local radiation = BWOAClimate.radiation
+    local climateRadiation = BWOAClimate.radiation
     local multiplier = 1
     if pz <= -2 then 
         multiplier = 0
@@ -703,16 +705,17 @@ local getRadiationForPlayer = function(player)
         multiplier = 0.2
     end
     if not player:isOutside() then multiplier = multiplier * 0.8 end
-    radiation = radiation * multiplier
+    climateRadiation = climateRadiation * multiplier
 
     -- radiation from items in inventory
+    local itemRadiation = 0
     local items = ArrayList.new()
     local inventory = player:getInventory()
     inventory:getAllEvalRecurse(predicateAll, items)
     for i=0, items:size()-1 do
         local item = items:get(i)
         if item:getModData().radiated then
-            radiation = radiation + 30
+            itemRadiation = itemRadiation + 30
         end
     end
 
@@ -751,76 +754,82 @@ local getRadiationForPlayer = function(player)
     end
     for _, groundItem in ipairs(groundItems) do
         if groundItem:getModData().radiated then
-            radiation = radiation + 20
+            itemRadiation = itemRadiation + 20
         end
     end
-    return radiation
+    return climateRadiation, itemRadiation
 end
 
-local applyRadiationToItems = function(player)
+local applyRadiationToItems = function(player, climateRadiation, itemRadiation)
     local cell = getCell()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
 
     local hasSuit = (player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD) and player:getWornItem(ItemBodyLocation.FULL_SUIT_HEAD):hasTag(ItemTag.HAZMAT_SUIT))
                     or (player:getWornItem(ItemBodyLocation.BOILERSUIT) and player:getWornItem(ItemBodyLocation.BOILERSUIT):hasTag(ItemTag.HAZMAT_SUIT))
     
-    local items = ArrayList.new()
-    local inventory = player:getInventory()
-    inventory:getAllEvalRecurse(predicateAll, items)
-    for i=0, items:size()-1 do
-        local item = items:get(i)
-        local ftype = item:getFullType()
-        if hasSuit then
-            if instanceof(item, "Clothing") then
-                if item:hasTag(ItemTag.HAZMAT_SUIT) or item:hasTag(ItemTag.GAS_MASK) then
-                    item:getModData().radiated = true
-                end
-                if not item:isWorn() then
+    local retroRadiation = SandboxVars.BWOA.RetroRadiation or true
+    if climateRadiation > 0 or (itemRadiation > 0 and retroRadiation) then
+        local items = ArrayList.new()
+        local inventory = player:getInventory()
+        inventory:getAllEvalRecurse(predicateAll, items)
+        for i=0, items:size()-1 do
+            local item = items:get(i)
+            local ftype = item:getFullType()
+            if hasSuit then
+                if instanceof(item, "Clothing") then
+                    if item:hasTag(ItemTag.HAZMAT_SUIT) or item:hasTag(ItemTag.GAS_MASK) then
+                        item:getModData().radiated = true
+                    end
+                    if not item:isWorn() then
+                        item:getModData().radiated = true
+                    end
+                else
                     item:getModData().radiated = true
                 end
             else
                 item:getModData().radiated = true
             end
-        else
-            item:getModData().radiated = true
         end
     end
 
-    local groundItems = {}
-    for y = py - 1, py + 1 do
-        for x = px - 1, px + 1 do
-            local square = cell:getGridSquare(x, y, pz)
-            if square then
-                local wobs = square:getWorldObjects()
-                for i = 0, wobs:size()-1 do
-                    local o = wobs:get(i)
-                    local groundItem = o:getItem()
-                    if groundItem then
-                        table.insert(groundItems, groundItem)
+    -- radiation from inventory to ground items
+    if climateRadiation > 0 or itemRadiation > 0 then
+        local groundItems = {}
+        for y = py - 1, py + 1 do
+            for x = px - 1, px + 1 do
+                local square = cell:getGridSquare(x, y, pz)
+                if square then
+                    local wobs = square:getWorldObjects()
+                    for i = 0, wobs:size()-1 do
+                        local o = wobs:get(i)
+                        local groundItem = o:getItem()
+                        if groundItem then
+                            table.insert(groundItems, groundItem)
+                        end
                     end
-                end
 
-                local objects = square:getStaticMovingObjects()
-                for i=0, objects:size()-1 do
-                    local object = objects:get(i)
-                    if instanceof (object, "IsoDeadBody") then
-                        local inventory = object:getContainer()
-                        if inventory then
-                            inventory:getAllEvalRecurse(predicateAll, items)
-                            for j=0, items:size()-1 do
-                                local item = items:get(j)
-                                table.insert(groundItems, item)
+                    local objects = square:getStaticMovingObjects()
+                    for i=0, objects:size()-1 do
+                        local object = objects:get(i)
+                        if instanceof (object, "IsoDeadBody") then
+                            local inventory = object:getContainer()
+                            if inventory then
+                                local items = ArrayList.new()
+                                inventory:getAllEvalRecurse(predicateAll, items)
+                                for j=0, items:size()-1 do
+                                    local item = items:get(j)
+                                    table.insert(groundItems, item)
+                                end
                             end
                         end
                     end
                 end
             end
         end
+        for _, groundItem in ipairs(groundItems) do
+            groundItem:getModData().radiated = true
+        end
     end
-    for _, groundItem in ipairs(groundItems) do
-        groundItem:getModData().radiated = true
-    end
-
 end
 
 local applyRadiationPlayer = function(player, dose)
@@ -1195,15 +1204,15 @@ local everyOneMinute = function()
     end
 
     -- radiation simulation
-    local radiation = getRadiationForPlayer(player)
+    local climateRadiation, itemRadiation = getRadiationForPlayer(player)
     local immuneRadiation, hasGoodMask, dyspnoea, suffocation = getClothingStats(player)
+    local radiation = climateRadiation + itemRadiation
+    local dose = ((100 - immuneRadiation) / 100) * math.floor(radiation / 50)
 
-    local dose = 0
-    if radiation > 0 then
-        manageGeigerEffect(player, radiation)
-        applyRadiationToItems(player)
-        dose = ((100 - immuneRadiation) / 100) * math.floor(radiation / 50)
-    end
+    manageGeigerEffect(player, radiation)
+
+    applyRadiationToItems(player, climateRadiation, itemRadiation)
+        
     applyRadiationPlayer(player, dose)
 
     updateRadiationEffects(player)

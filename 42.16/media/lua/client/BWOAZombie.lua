@@ -57,7 +57,10 @@ local function onZombieUpdate(zombie)
     local radiation = BWOAClimate.radiation
     if radiation > 100 then
         if zombie:getZ() >= 0 then
-            zombie:getModData().radiated = true
+            local gmd = GetBWOAModData()
+            if not gmd.nightmares.active then 
+                zombie:getModData().radiated = true
+            end
         end
     end
 
@@ -174,15 +177,17 @@ end
 local function onDeadBodySpawn(body)
     local md = body:getModData()
     if not md.BWOA then md.BWOA = {} end
-
-    if md.radiated then
-        local inventory = body:getContainer()
-        if inventory then
-            local items = ArrayList.new()
-            inventory:getAllEvalRecurse(predicateAll, items)
-            for j=0, items:size()-1 do
-                local item = items:get(j)
+    
+    local inventory = body:getContainer()
+    if inventory then
+        local items = ArrayList.new()
+        inventory:getAllEvalRecurse(predicateAll, items)
+        for j=0, items:size()-1 do
+            local item = items:get(j)
+            if md.radiated then
                 item:getModData().radiated = true
+            else
+                item:getModData().radiated = false
             end
         end
     end
