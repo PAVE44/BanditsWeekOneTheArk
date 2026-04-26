@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "1.1.13"
+BWOAMenu.version = "1.3.3"
 
 BWOAMenu.blinking = {}
 
@@ -31,6 +31,14 @@ BWOAMenu.specialObjectsCanHighlight.Vent = function(player)
 end
 
 BWOAMenu.specialObjectsCanHighlight.Generator = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.WaterPump = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.ValveGarden = function(player)
     return true
 end
 
@@ -344,6 +352,12 @@ BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobjec
     end
 end
 
+BWOAMenu.specialObjectsMenu.WaterPump = function(context, square, player, sobject)
+end
+
+BWOAMenu.specialObjectsMenu.ValveGarden = function(context, square, player, sobject)
+end
+
 BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player, sobject)
     local findDecontaminator = function(square)
         local gmd = GetBWOAModData()
@@ -543,6 +557,18 @@ BWOAMenu.specialObjectsHighlight = {
         menuFunc = BWOAMenu.specialObjectsMenu.Generator,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Generator,
     },
+    ["WaterPump"] = {
+        x = 9949, y = 12615, z = -4, spriteName = "waterpipes_01_24", 
+        menuFunc = BWOAMenu.specialObjectsMenu.WaterPump,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.WaterPump,
+        destroyable = true,
+    },
+    ["ValveGarden"] = {
+        x = 9949, y = 12613, z = -4, spriteName = "waterpipes_01_20", 
+        menuFunc = BWOAMenu.specialObjectsMenu.ValveGarden,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.ValveGarden,
+        destroyable = true,
+    },
     ["NBCMixer"] = {
         x = 9948, y = 12622, z = -5, spriteName = "rooftop_furniture_1",
         menuFunc = BWOAMenu.specialObjectsMenu.NBCMixer,
@@ -591,6 +617,10 @@ function BWOAMenu.EventFire(player)
     BWOASequence.Earthquake({intensity = 60, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true})
 end
 
+function BWOAMenu.EventDarkClouds(player)
+    BWOASequence.DarkClouds({})
+end
+
 function BWOAMenu.EventHorde(player)
     BWOASequence.Horde({intensity = 30})
 end
@@ -601,6 +631,10 @@ end
 
 function BWOAMenu.EventRainbow(player)
     BWOASequence.Finale()
+end
+
+function BWOAMenu.EventEpilogue(player)
+    BWOASequence.Epilogue()
 end
 
 function BWOAMenu.EventNightmare(player, variant)
@@ -632,6 +666,28 @@ function BWOAMenu.EmmaAction(player, bandit, action)
     elseif action == "GetInventory" then
         local permaInv = BWOAPermaInv.GetAll(bandit)
     end
+end
+
+function BWOAMenu.TestSymbol(player)
+    local newSymbol = {}
+	newSymbol.scale = 2
+	newSymbol.x = player:getX()
+	newSymbol.y = player:getY()
+	newSymbol.symbol = "Tent"
+	newSymbol.r = 1
+	newSymbol.g = 0
+	newSymbol.b = 0
+
+    local mapItem = MapItem.getSingleton()
+    local uiwm = UIWorldMap.new({})
+	local mapAPI = uiwm:getAPIv3()
+    mapAPI:setMapItem(mapItem)
+    local ssapi = mapAPI:getStreetsAPI()
+    local sapi = mapAPI:getSymbolsAPIv2()
+	local textureSymbol = sapi:addTexture(newSymbol.symbol, newSymbol.x, newSymbol.y)
+	textureSymbol:setRGBA(newSymbol.r, newSymbol.g, newSymbol.b, 1.0)
+	textureSymbol:setAnchor(0.5, 0.5)
+	textureSymbol:setScale(newSymbol.scale)
 end
 
 function BWOAMenu.LocateBasement(player)
@@ -930,12 +986,12 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Help Get Up", player, BWOAMenu.HealPerson, square, zombie)
     end
 
+    
+
     if false and isDebugEnabled() then
 
-        if zombie then
-            local md = zombie:getModData()
-            print ("test")
-        end
+        -- BWOASound.PlayPlayer({sound = "AmbientDarkClouds"})
+
 
         --BWOABuildTools.VentW(9965, 12608, -4)
 
@@ -952,7 +1008,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         end]]
         
 
-        -- BWOAMusic.Play("MusicHell", 0.6, 1)
+        -- BWOAMusic.Play("MusicSad", 0.6, 1)
 
         -- BWOABuildTools.ClearAll(sx, sy, sz)
         --BWOABuildTools.LampCustom(18003, 3000, -1, "lighting_indoor_02_57")
@@ -973,7 +1029,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
         -- local voiceStyles = getAllVoiceStyles();
         
-        -- BWOASound.PlayPlayer({sound = "ZSSpotted_Female_21_4"})
+        
 
         -- BWOASound.PlayPlayer({sound = "Dial_Noah_Whitlock_4_1"})
         --BWOASound.PlayPlayer({sound = "Dial_Emma_Robinson_100.6.1.1.1_1"})
@@ -1052,12 +1108,15 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
             print ("BID: " .. def:getX() .. "-" .. def:getY())
         end
 
+        
+
         Bandit.EnsureWhitelistedBandits()
         saveItems(square)
 
         context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
         context:addOption("Emma Ready to Leave", player, BWOAMenu.EmmaTeleport)
         context:addOption("Break Noah", player, BWOAMenu.BreakNoah)
+        context:addOption("Test Symbol", player, BWOAMenu.TestSymbol)
 
         local spawnOption = context:addOption("Character Spawn")
         local spawnMenu = context:getNew(context)
@@ -1077,11 +1136,13 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         local eventsMenu = context:getNew(context)
         context:addSubMenu(eventsOption, eventsMenu)
         eventsMenu:addOption("Event Chapter", player, BWOAMenu.EventChapter)
+        eventsMenu:addOption("Event Dark Clouds", player, BWOAMenu.EventDarkClouds)
         eventsMenu:addOption("Event Earthquake", player, BWOAMenu.EventCracks)
         eventsMenu:addOption("Event Earthquake + Fire", player, BWOAMenu.EventFire)
         eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
         eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
         eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
+        eventsMenu:addOption("Event Epilogue", player, BWOAMenu.EventEpilogue)
 
         local nightmaresOption = context:addOption("Nightmares")
         local nightmaresMenu = context:getNew(context)

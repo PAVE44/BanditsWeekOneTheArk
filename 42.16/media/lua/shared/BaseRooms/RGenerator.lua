@@ -65,6 +65,13 @@ BWOARooms.Generator.Build = function ()
     BWOABuildTools.Generic(9950, 12622, -4, "theark_01_1")
 
     BWOABuildTools.WaterPump(9949, 12615, -4)
+    for x = 9950, 9956 do
+        BWOABuildTools.WaterPipe(x, 12615, -4, WPIso.pipeSprites.we)
+    end
+    BWOABuildTools.Flowmeter(9954, 12615, -4)
+
+    local square = getCell():getGridSquare(9956, 12615, -4)
+    WPIso.ConnectBuilding(square, square:getBuilding())
 
     for x = 9951, 9956 do
         for y = 12615, 12620 do
@@ -152,6 +159,14 @@ BWOARooms.Generator.Prepare = function ()
     BWOAPrepareTools.AddWorldItemSpecial(9947, 12617, -4, leaflet, {x=0.05, y=0.05, z=0})
 
     BWOAPrepareTools.AddWorldItem(9953, 12623, -4, "Base.ElectricWire", {x=0.36, y=0.52, z=0.27, rx=0, ry=0, rz=0})
+
+    local leafletEli = BanditCompatibility.InstanceItem("Bandits.Note")
+    leafletEli:setCanBeWrite(false)
+    leafletEli:setName(getText("IGUI_Artifact_Eli"))
+    local md = leafletEli:getModData()
+    md.printContent = "leaflet_eli"
+
+    BWOAPrepareTools.AddWorldItemSpecial(9952, 12623, -4, leafletEli, {x=0.62, y=0.41, z=0.27})
 
 end
 

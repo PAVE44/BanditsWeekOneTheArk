@@ -107,4 +107,5 @@ BWOANightmares.Shrink.onPost = function(player)
     gmd.nightmares.cycle = 1
     gmd.nightmares.returnData = nil
 
+    BWOASequence.Epilogue()
 end

@@ -6,6 +6,7 @@ local function predicateAll(item)
 end
 
 BWOAEvents.FadeOut = function(params)
+    -- if true then return end
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do
         local player = playerList:get(i)
@@ -23,6 +24,7 @@ BWOAEvents.FadeOut = function(params)
 end
 
 BWOAEvents.FadeIn = function(params)
+    -- if true then return end
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do
         local player = playerList:get(i)
@@ -354,20 +356,25 @@ BWOAEvents.DecontaminatePost = function(params)
                 for i = 0, wobs:size()-1 do
                     local o = wobs:get(i)
                     local item = o:getItem()
-                    item:getModData().radiated = false
+                    if item then
+                        item:getModData().radiated = false
+                    end
                 end
 
                 local objects = square:getStaticMovingObjects()
                 for i=0, objects:size()-1 do
                     local object = objects:get(i)
                     if instanceof (object, "IsoDeadBody") then
+                        object:getModData().radiated = false
                         local inventory = object:getContainer()
                         if inventory then
                             local items = ArrayList.new()
                             inventory:getAllEvalRecurse(predicateAll, items)
                             for j=0, items:size()-1 do
                                 local item = items:get(j)
-                                item:getModData().radiated = false
+                                if item then
+                                    item:getModData().radiated = false
+                                end
                             end
                         end
                     end
@@ -604,5 +611,25 @@ BWOAEvents.FinaleStage3 = function(params)
     BWOATex.alpha = 0.3
 end
 
-    
+BWOAEvents.EpilogueStage1 = function(params)
+    BWOAMusic.Play("MusicCredits", 1, 1)
+    BWOATex.tex = getTexture("media/textures/epilogue_1.png")
+    BWOATex.speed = 0.001
+    BWOATex.mode = "center"
+    BWOATex.alpha = 2.4
+end
+
+BWOAEvents.EpilogueStage2 = function(params)
+    BWOATex.tex = getTexture("media/textures/epilogue_2.png")
+    BWOATex.speed = 0.001
+    BWOATex.mode = "center"
+    BWOATex.alpha = 2.4
+end
+
+BWOAEvents.EpilogueStage3 = function(params)
+    BWOATex.tex = getTexture("media/textures/epilogue_3.png")
+    BWOATex.speed = 0.001
+    BWOATex.mode = "center"
+    BWOATex.alpha = 2.4
+end
     

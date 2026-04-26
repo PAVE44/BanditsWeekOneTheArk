@@ -153,6 +153,7 @@ ZombiePrograms.Emma.Main = function(bandit)
     local cell = getCell()
     local brain = BanditBrain.Get(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+    local gmd = GetBWOAModData()
 
     bandit:setVariable("RunSpeed", 0.91)
     
@@ -376,12 +377,12 @@ ZombiePrograms.Emma.Main = function(bandit)
                         if stoolIso then
                             local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), stoolData.f)
                             local task = {action="Generic", anim="SitPiano", looped=true, voice="InstrumentPiano1", fx = fx, fy = fy, ox = stool.x + stoolData.ox, oy = stool.y + stoolData.oy, time=200}
-                            local subTasks = BWOAPrograms.GoAwndDo(bandit, stool, task, 0.7)
+                            local subTasks = BWOAPrograms.GoAndDo(bandit, stool, task, 0.7)
                             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                         end
                     end
                 end
-            elseif brain.research and brain.research < 100 and BWOABaseControl.power and (activity == "lab1" or activity == "lab2") then
+            elseif gmd.research and gmd.research < 100 and BWOABaseControl.power and (activity == "lab1" or activity == "lab2") then
                 -- bandit:addLineChatElement("ACTIVITY: LAB WORK", 1, 0, 1)
                 local computer, computerDist = BWOABaseObjects.FindClosestObject({"Computer"}, {x=bx, y=by})
                 local microscope, microscopeDist = BWOABaseObjects.FindClosestObject({"Microscope"}, {x=bx, y=by})

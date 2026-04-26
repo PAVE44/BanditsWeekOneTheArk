@@ -122,12 +122,18 @@ local function managePower()
     local hour = gameTime:getHour()
     local minute = gameTime:getMinutes()
     local gmd = GetBWOAModData()
+    local player = getSpecificPlayer(0)
 
-    -- no Noah leads to generator shutdown
+    -- no Noah leads to generator shutdown and settings reset
     if not BWOANoah.IsOn() or BWOANoah.GetState() ~= "operational" then
         for gtype, gen in pairs(gmd.generators) do
             gen.active = false
         end
+        gmd.ventilation.active = false
+        gmd.ventilation.heating = false
+        gmd.ventilation.open = false
+        gmd.ventilation.tempTarget = 21
+        gmd.ventilation.temp = 21
     end
 
     -- manage generators
@@ -152,25 +158,29 @@ local function managePower()
         newPower = false
     end
 
-    if newPower ~= BWOABaseControl.power then
-        BWOABaseControl.power = newPower
-        BWOASound.ClearNoah()
-        if BWOABaseControl.power then
-            BWOABaseAPI.GeneratorsOn()
-            BWOASequence.EmergencyLights({active=false})
-            BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERUP})
-        else
-            BWOABaseAPI.GeneratorsOff()
-            if BWOANoah.IsOn() and BWOANoah.GetState() == "operational" then
-                BWOASequence.EmergencyLights({active=true})
+    -- only swithch if the player is in range
+    
+    if player and player:getX() >= 9900 and player:getY() >= 12600 and player:getX() <= 10000 and player:getY() <= 12650 then
+        if newPower ~= BWOABaseControl.power then
+            BWOABaseControl.power = newPower
+            BWOASound.ClearNoah()
+            if BWOABaseControl.power then
+                BWOABaseAPI.GeneratorsOn()
+                BWOASequence.EmergencyLights({active=false})
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERUP})
+            else
+                BWOABaseAPI.GeneratorsOff()
+                if BWOANoah.IsOn() and BWOANoah.GetState() == "operational" then
+                    BWOASequence.EmergencyLights({active=true})
+                end
+
+                -- force shutdown of other systems using power here:
+                BWOABaseAPI.AlarmOff()
+
+                -- gmd.ventilation.active = false
+                -- gmd.waterpump.active = false
+                BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERDOWN})
             end
-
-            -- force shutdown of other systems using power here:
-            BWOABaseAPI.AlarmOff()
-
-            gmd.ventilation.active = false
-            gmd.waterpump.active = false
-            BWOASound.AddNoah({sound = BWOASound.noahSounds.POWERDOWN})
         end
     end
 

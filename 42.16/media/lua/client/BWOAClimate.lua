@@ -11,6 +11,7 @@ BWOAClimate.temp = 0
 BWOAClimate.radiation = 0
 BWOAClimate.tick = 0
 BWOAClimate.lastQuake = 0
+BWOAClimate.lastDarkClouds = 0
 
 BWOAClimate.falloutStartedOptionMap = {
     -168, -336, -744, -2208, -4416, -8832
@@ -168,7 +169,7 @@ local function onClimateTick()
         windIntensity:setOverride(windValue, 1)
 
         -- renderer not ready for this updates right after game start
-        if BWOAClimate.tick >= 0 then
+        if BWOAClimate.tick >= 2 then
             ImprovedFog.setEnableEditing(true)
             ImprovedFog.setBaseAlpha(0.75)
             ImprovedFog.setSecondLayerAlpha(0.4)
@@ -217,6 +218,20 @@ local function onClimateTick()
             end
         end
         BWOAClimate.lastQuake = BWOAClimate.lastQuake + 1
+
+        if radiation > 2000 and BWOAClimate.lastDarkClouds > 200 then
+            if ZombRand(400) == 0 then
+                local playerList = BanditPlayer.GetPlayers()
+                for i=0, playerList:size()-1 do
+                    local player = playerList:get(i)
+                    if player then
+                        BWOASequence.DarkClouds({})
+                    end
+                end
+                BWOAClimate.lastDarkClouds = 0
+            end
+        end
+        BWOAClimate.lastDarkClouds = BWOAClimate.lastDarkClouds + 1
 
     else
         

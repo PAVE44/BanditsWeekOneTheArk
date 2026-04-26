@@ -416,6 +416,19 @@ module Bandits {
         } 
     }
 
+    sound AmbientDarkClouds {
+        category = Player, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/ambient_dark_clouds.ogg, 
+            distanceMin = 1,
+            distanceMax = 8,
+            reverbFactor = 0.1, 
+            volume = 1, 
+        } 
+    }
+
     sound AmbientWallcrack {
         category = Object,
         loop = false

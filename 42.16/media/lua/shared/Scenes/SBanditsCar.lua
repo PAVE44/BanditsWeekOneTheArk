@@ -109,7 +109,7 @@ function BWOAScenes.BanditsCar:placeItems()
         ["Base.CandleBox"] = 1, ["Base.HandTorch"] = 2, ["Base.BatteryBox"] = 2, ["Base.Generator"] = 1, ["Bandits.EngineLubricant"] = 2,
         ["Base.ElectronicsScrap"] = 13, ["Base.DuctTapeBox"] = 1, ["Base.EngineParts"] = 6,
     }
-    BWOAPrepareTools.AddItemsToContainer(8347, 11604, -41, items, "Shelves")
+    BWOAPrepareTools.AddItemsToContainer(8347, 11604, -1, items, "Shelves")
 
     items = {
         ["Base.Soap"] = 10, ["Base.RippedSheets"] = 12, ["Base.Bleach"] = 3, ["Base.Sponge"] = 3, ["Bandits.EngineCoolant"] = 2,

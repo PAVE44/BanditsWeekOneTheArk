@@ -170,7 +170,7 @@ module Bandits {
         } 
     }
 
-    sound Drea9End {
+    sound Dream9End {
         category = Object, 
         loop = false,
         is3D = true,
@@ -190,7 +190,7 @@ module Bandits {
         } 
     }
 
-    sound Drea10End {
+    sound Dream10End {
         category = Object, 
         loop = false,
         is3D = true,
@@ -210,7 +210,7 @@ module Bandits {
         } 
     }
 
-    sound Drea11End {
+    sound Dream11End {
         category = Object, 
         loop = false,
         is3D = true,
@@ -230,7 +230,7 @@ module Bandits {
         } 
     }
 
-    sound Drea12End {
+    sound Dream12End {
         category = Object, 
         loop = false,
         is3D = true,
@@ -256,6 +256,26 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/dream_13_end.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Dream14Start {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_14_start.ogg,
+            reverbFactor = 1, 
+        } 
+    }
+
+    sound Drea14End {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/dream_14_end.ogg,
             reverbFactor = 1, 
         } 
     }

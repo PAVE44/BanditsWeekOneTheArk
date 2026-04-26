@@ -24,6 +24,10 @@ function InitBWOAModData(isNewGame)
         }
     end
 
+    if not globalData.research then
+        globalData.research = 0
+    end
+
     if not globalData.generators then 
         globalData.generators = {
             main = {

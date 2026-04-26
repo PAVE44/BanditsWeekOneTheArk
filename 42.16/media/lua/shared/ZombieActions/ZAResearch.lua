@@ -41,7 +41,8 @@ end
 ZombieActions.Research.onComplete = function(zombie, task)
     local brain = BanditBrain.Get(zombie)
     local cap = 20
-    
+    local gmd = GetBWOAModData()
+
     -- zombie specimen available for research
     if BWOAMissions.IsAccomplished(5) then
         cap = cap + 20
@@ -64,22 +65,24 @@ ZombieActions.Research.onComplete = function(zombie, task)
 
     local multiplier = 744 / BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds]
     local stalled = false
-    if brain.research then
-        brain.research = brain.research + 0.05 * multiplier
-        if brain.research > cap then
-            brain.research = cap
+    if gmd.research then
+        gmd.research = gmd.research + 0.05 * multiplier
+        if gmd.research > cap then
+            gmd.research = cap
             stalled = true
         end
     else
-        brain.research = 0.05 * multiplier
+        gmd.research = 0.05 * multiplier
     end
 
-    local syncData = {}
-    syncData.id = brain.id
-    syncData.research = brain.research
-    Bandit.ForceSyncPart(zombie, syncData)
-
-    if brain.research > 85 then
+    if gmd.research >= 100 then
+        BWOADialogues.Hide("Emma_Robinson", "400.1")
+        BWOADialogues.Hide("Emma_Robinson", "400.2")
+        BWOADialogues.Hide("Emma_Robinson", "400.3")
+        BWOADialogues.Hide("Emma_Robinson", "400.4")
+        BWOADialogues.Hide("Emma_Robinson", "400.5")
+        BWOADialogues.Reveal("Emma_Robinson", "400.6")
+    elseif gmd.research > 85 then
         if BWOAMissions.IsAccomplished(103) then
             BWOADialogues.Hide("Emma_Robinson", "400.1")
             BWOADialogues.Hide("Emma_Robinson", "400.2")
@@ -87,29 +90,29 @@ ZombieActions.Research.onComplete = function(zombie, task)
             BWOADialogues.Hide("Emma_Robinson", "400.4")
             BWOADialogues.Reveal("Emma_Robinson", "400.5")
         end
-    elseif brain.research > 65 then
+    elseif gmd.research > 65 then
         if BWOAMissions.IsAccomplished(113) then
             BWOADialogues.Hide("Emma_Robinson", "400.1")
             BWOADialogues.Hide("Emma_Robinson", "400.2")
             BWOADialogues.Hide("Emma_Robinson", "400.3")
             BWOADialogues.Reveal("Emma_Robinson", "400.4")
         end
-    elseif brain.research > 45 then
+    elseif gmd.research > 45 then
         if BWOAMissions.IsAccomplished(14) then
             BWOADialogues.Hide("Emma_Robinson", "400.1")
             BWOADialogues.Hide("Emma_Robinson", "400.2")
             BWOADialogues.Reveal("Emma_Robinson", "400.3")
         end
-    elseif brain.research > 25 then
+    elseif gmd.research > 25 then
         if BWOAMissions.IsAccomplished(5) then
             BWOADialogues.Hide("Emma_Robinson", "400.1")
             BWOADialogues.Reveal("Emma_Robinson", "400.2")
         end
-    elseif brain.research > 5 then
+    elseif gmd.research > 5 then
         BWOADialogues.Reveal("Emma_Robinson", "400.1")
     end
 
-    local txt = getText("IGUI_Halo_Research") .. ": " .. string.format("%.2f", brain.research) .. "%"
+    local txt = getText("IGUI_Halo_Research") .. ": " .. string.format("%.2f", gmd.research) .. "%"
     if stalled then
         txt = txt .. " (" .. getText("IGUI_Halo_Research_Stalled") .. ")"
     end

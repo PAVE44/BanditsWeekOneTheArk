@@ -106,6 +106,10 @@ BWOAChat.ChangeBrainParam = function(params)
     local brain = BanditBrain.Get(bandit)
     brain[params.param] = params.value
     Bandit.ForceSyncPart(bandit, brain)
+
+    if params.param == "sadness" and params.value == 100 then
+        BWOAMusic.Play("MusicSad", 0.6, 1)
+    end
 end
 
 BWOAChat.Say = function(qid, person)

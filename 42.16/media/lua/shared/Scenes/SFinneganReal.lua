@@ -51,7 +51,7 @@ function BWOAScenes.FinneganReal:placeItems()
             x = 13565,
             y = 1717,
             z = 3,
-            rdid = "2000.9",
+            rdid = "2001.9",
             amid = 120,
         },
     }

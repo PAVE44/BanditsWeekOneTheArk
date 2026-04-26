@@ -21,6 +21,28 @@ BWOAUtils.GetRoom = function(x, y, z)
     end
 end
 
+BWOAUtils.AddToMap = function(x, y, symbol)
+    local newSymbol = {}
+	newSymbol.scale = 2
+	newSymbol.x = x
+	newSymbol.y = y
+	newSymbol.symbol = symbol
+	newSymbol.r = 1
+	newSymbol.g = 0
+	newSymbol.b = 0
+
+    local mapItem = MapItem.getSingleton()
+    local uiwm = UIWorldMap.new({})
+	local mapAPI = uiwm:getAPIv3()
+    mapAPI:setMapItem(mapItem)
+    local ssapi = mapAPI:getStreetsAPI()
+    local sapi = mapAPI:getSymbolsAPIv2()
+	local textureSymbol = sapi:addTexture(newSymbol.symbol, newSymbol.x, newSymbol.y)
+	textureSymbol:setRGBA(newSymbol.r, newSymbol.g, newSymbol.b, 1.0)
+	textureSymbol:setAnchor(0.5, 0.5)
+	textureSymbol:setScale(newSymbol.scale)
+end
+
 BanditUtils = BanditUtils or {}
 
 BanditUtils.GetTime = function()

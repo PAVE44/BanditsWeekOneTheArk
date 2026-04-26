@@ -34,6 +34,7 @@ function BWOAScenes.FuelTruck:placeVehicles()
     end
 
     vehicle:addKeyToGloveBox()
+    vehicle:setHotwired(true)
 
     for i = 1, 100 do 
         local glovebox = vehicle:getPartById("GloveBox")

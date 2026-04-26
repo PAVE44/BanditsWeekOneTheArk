@@ -63,9 +63,6 @@ local function manageNPC()
                 if not brain.sadness then
                     brain.sadness = 0
                 end
-                if not brain.research then
-                    brain.research = 0
-                end
 
                 brain.bladder = brain.bladder + 0.07
                 brain.hunger = brain.hunger + 0.1
@@ -92,36 +89,47 @@ local function manageNPC()
     end
 
     -- protect from despawning
+    local sqs = {
+        {x=0, y=0},
+        {x=-1, y=0},
+        {x=1, y=0},
+        {x=0, y=-1},
+        {x=0, y=1}
+    }
+
     local player = getSpecificPlayer(0)
     local px, py = player:getX(), player:getY()
     for id, data in pairs(gmd.permanentNPC) do
         if not cache[id] then
             if math.abs(px - data.x) < 70 and math.abs(py - data.y) < 70 then
-                local square = getCell():getGridSquare(data.x, data.y, data.z)
 
-                if square then
-                    data.t = data.t + 1
-                    if data.t > 2 then
-                        --print ("spawning emma at " .. data.x .. "," .. data.y .. "," .. data.z)
-                        data.t = 0
-                        local gmdBrain = GetBanditClusterData(id)
-                        if gmdBrain[id] then
-                            gmdBrain[id].bornCoords = {x = data.x, y = data.y, z = data.z}
-                            sendClientCommand(player, 'Spawner', 'Restore', gmdBrain[id])
-                            gmd.permanentNPC[id] = nil
-                            return
+                for _, sq in pairs(sqs) do
+                    local square = getCell():getGridSquare(data.x + sq.x, data.y + sq.y, data.z)
+
+                    if square then
+                        data.t = data.t + 1
+                        if data.t > 2 then
+                            --print ("spawning emma at " .. data.x .. "," .. data.y .. "," .. data.z)
+                            data.t = 0
+                            local gmdBrain = GetBanditClusterData(id)
+                            if gmdBrain[id] then
+                                gmdBrain[id].bornCoords = {x = data.x, y = data.y, z = data.z}
+                                sendClientCommand(player, 'Spawner', 'Restore', gmdBrain[id])
+                                gmd.permanentNPC[id] = nil
+                                return
+                            else
+                                print ("emma was killed naturally")
+                                player:Say("Emma died!")
+                                player:setHealth(0)
+                                player:Kill(nil)
+                                return
+                            end
                         else
-                            print ("emma was killed naturally")
-                            player:Say("Emma died!")
-                            player:setHealth(0)
-                            player:Kill(nil)
-                            return
+                            -- print ("emma is missing, waiting " .. data.t)
                         end
                     else
-                        -- print ("emma is missing, waiting " .. data.t)
+                        -- print ("emma spawn square not loaded")
                     end
-                else
-                    -- print ("emma spawn square not loaded")
                 end
             else
                 -- print ("too far for npc despawn check")

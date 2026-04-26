@@ -286,7 +286,7 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.ElecShut = 1
         SandboxVars.NatureAbundance = 1
         SandboxVars.FishAbundance = 1
-        SandboxVars.FarmingSpeedNew = 2
+        SandboxVars.FarmingSpeedNew = 4 -- 2
         SandboxVars.KillInsideCrops = false
         SandboxVars.PlantGrowingSeasons = false
         SandboxVars.PlaceDirtAboveground = true

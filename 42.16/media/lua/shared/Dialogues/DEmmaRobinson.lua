@@ -638,7 +638,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         -- qst = "Any updates regarding your research?",
         -- ans = "I've completed the autopsy. The body is failing, but not entirely. Motor function persists despite catastrophic neural loss. There's no centralized brain activity that explains movement. It's as if something else has taken over coordination at a lower level. I don't understand how, but it's consistent. I need human specimen to continue.",
         anim = "Gest1",
-        req = {"100.6.1.1.1", "400.1"},
+        req = {"100.6.1.1.1"},
         func = "RevealMission",
         funcParams = {missionId = 14},
         hidden = true, -- unlocked by research > 25% (possible with zombie corpse)
@@ -647,14 +647,14 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         -- qst = "Any new updates regarding our research?",
         -- ans = "This subject is different. There are clear markers of exposure, but no full conversion. The organism was present, but it never took hold. Something prevented the transition entirely. I can confirm immunity—but I have no idea what caused it. We need new clues.",
         anim = "Gest1",
-        req = {"100.6.2", "400.2"},
+        req = {"100.6.2"},
         hidden = true, -- unlocked by research > 45% (possible with human corpse)
     },
     ["400.4"] = {
         -- qst = "How is the research going? Are we close?",
         -- ans = "I've analyzed the sample, it's the original strain, and I think I understand now. This version doesn't destroy the host, it integrates with it. The immune subject wasn't naturally resistant, they were pre-exposed. Injected, most likely. The symbiotic strain prevented the aggressive one from taking over.",
         anim = "Gest1",
-        req = {"2000.6.4.1.2", "400.3"},
+        req = {"2000.6.4.1.2"},
         hidden = true, -- unlocked by research > 65% (possible with secret syringe)
     },
     ["400.4.1"] = {
@@ -667,14 +667,14 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         -- qst = "Got any news on the ongoing research?",
         -- ans = "Yep. You will not believe this. The comfrey extract is doing more than slowing the process, it's reversing it. At least in early-stage samples. Even post-exposure tissue is stabilizing. If this holds, it could work after a bite. But I need to be certain. This has to be tested on someone.",
         anim = "Gest1",
-        req = {"2000.5.2", "400.4"},
+        req = {"2000.5.2"},
         hidden = true, -- unlocked by research > 85% (possible with comfrey)
     },
     ["400.6"] = {
         -- qst = "Have you completed the research?",
         -- ans = "This is it. I've completed the experimental counter to the infection. It doesn't remove the organism, but it forces it back into a stable state. In theory, it should work even after exposure. I've prepared couple of doses. ",
         anim = "GestYes",
-        req = {"400.5"},
+        req = {},
         hidden = true, -- unlocked by research = 100%
     },
     ["400.6.1"] = {

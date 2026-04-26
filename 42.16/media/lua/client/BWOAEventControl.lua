@@ -29,10 +29,10 @@ BWOAEventControl.schedule = {
         [24] = {"ArkNetworkStatus", {arkId = 47}},
     },
     [24] = {
-        [39] = {"Horde", {intensity = 8}},
+        [39] = {"Horde", {intensity = 6}},
     },
     [56] = {
-        [39] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 4}},
+        [39] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 2}},
     },
     [68] = {
         [17] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
@@ -41,28 +41,28 @@ BWOAEventControl.schedule = {
         [2] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [120] = {
-        [14] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
+        [14] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 4}},
     },
     [172] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
         [31] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
-        [32] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
+        [32] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [180] = {
         [30] = {"Horde", {intensity = 30}},
     },
     [192] = {
-        [30] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 11}},
+        [30] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
     },
     [216] = {
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true}},
     },
     [268] = {
         [41] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
-        [42] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
-        [43] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 6}},
-        [44] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
+        [42] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
+        [43] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 4}},
+        [44] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
         [45] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
     },
     [272] = {
@@ -129,6 +129,7 @@ local function everyOneMinute()
     local player = getSpecificPlayer(0)
     if not player then return end
 
+    print ("--------------- hours survived: " .. player:getHoursSurvived())
     -- time events
     local gt = getGameTime()
     local hours = math.floor(gt:getWorldAgeHours()) - 10

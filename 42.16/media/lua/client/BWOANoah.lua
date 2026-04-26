@@ -273,11 +273,12 @@ end
 -- POWER SCREENS -- 
 
 BWOANoah.Screens.Power = function()
+    local using = BWOABaseControl.fuelUsingHourly or 0
     local text = BWOANoah.ScreenTemplate()
     text[5]  = "POWER CONTROL"
 
     text[7]  = "> GRID:  ACTIVE"
-    text[8]  = "> USAGE: " .. string.format("%.2f", BWOABaseControl.fuelUsingHourly) .. "L/h"
+    text[8]  = "> USAGE: " .. string.format("%.2f", using) .. "L/h"
 
     text[11]  = "SELECT UNIT:"
     text[12]  = "1. MAIN: MASS-GENFAC GX-9"

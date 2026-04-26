@@ -107,14 +107,49 @@ BWOARooms.ServiceTunnels.Prepare = function ()
     md.printContent = "leaflet_decon"
     BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, {leaflet}, "Locker", true)
 
-    local generatorItems = {["Bandits.EngineCoolant"] = 4, ["Bandits.EngineLubricant"] = 1}
+    local generatorItems = {["Bandits.EngineCoolant"] = 4, ["Bandits.EngineLubricant"] = 2, ["Base.Charcoal"] = 4}
     BWOAPrepareTools.AddItemsToContainer(9967, 12625, -5, generatorItems, "Locker")
 
+    -- control room
     local leaflet2 = BanditCompatibility.InstanceItem("Bandits.Note")
     leaflet2:setCanBeWrite(false)
     leaflet2:setName(getText("IGUI_Artifact_NoahCentralComputer"))
     local md = leaflet2:getModData()
     md.printContent = "leaflet_noah"
     BWOAPrepareTools.AddWorldItemSpecial(9962, 12623, -5, leaflet2, {x=0.05, y=0.05, z=0})
+
+    -- vent room
+    local leaflet3 = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet3:setCanBeWrite(false)
+    leaflet3:setName(getText("IGUI_Artifact_Ventilation"))
+    local md = leaflet3:getModData()
+    md.printContent = "leaflet_ventilation"
+    BWOAPrepareTools.AddWorldItemSpecial(9966, 12633, -5, leaflet3, {x=0.48, y=0.73, z=0.00, rx=0, ry=0, rz=0})
+
+
+    -- plant life restoration
+    local items1 = {["Base.Fertilizer"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9964, 12618, -5, items1, "Shelves")
+
+    local items2 = {["Base.Fertilizer"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9964, 12617, -5, items2, "Shelves")
+
+    local items3 = {["Base.Sapling"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9961, 12618, -5, items3, "Shelves")
+
+    local items4 = {["Base.Sapling"] = 10}
+    BWOAPrepareTools.AddItemsToContainer(9960, 12618, -5, items4, "Shelves")
+
+    local items5 = {["Base.TomatoBagSeed"] = 1, ["Base.PotatoBagSeed2"] = 1, ["Base.SunflowerBagSeed"] = 1, ["Base.ThymeBagSeed"] = 1}
+    BWOAPrepareTools.AddItemsToContainer(9958, 12618, -5, items5, "Shelves")
+
+    for x = 9959, 9962 do
+        local items = {["Base.Dirtbag"] = 25}
+        BWOAPrepareTools.AddItemsToContainer(x, 12615, -5, items, "Shelves")
+    end
+
+    local items6 = {["Base.Dirtbag"] = 6}
+    BWOAPrepareTools.AddItemsToContainer(9963, 12615, -5, items6, "Shelves")
+
 end
 

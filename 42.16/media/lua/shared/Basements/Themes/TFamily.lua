@@ -146,7 +146,11 @@ theme.furniture = {
             {["Base.CameraFilm"] = 3},
             {["Base.CheckerBoard"] = 1},
             {["Base.PhotoAlbum"] = 2},
-            
+            {["Base.BookElectrician1"] = 1},
+            {["Base.BookFirstAid2"] = 1},
+            {["Base.BookFirstAid3"] = 1},
+            {["Base.BookGlassmaking1"] = 1},
+            {["Base.BookGlassmaking2"] = 1},
         },
         dirs = {
             n = {

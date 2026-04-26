@@ -110,11 +110,11 @@ BWOARooms.FoodGarden.Build = function ()
     BWOABuildTools.FarmPlot(9954, 12614, -4, "Potatoes")
     BWOABuildTools.FarmPlot(9955, 12614, -4, "Potatoes")
 
-    BWOABuildTools.WaterPipe(9949, 12614, -4)
-    BWOABuildTools.WaterPipe(9949, 12613, -4)
+    BWOABuildTools.WaterPipe(9949, 12614, -4, WPIso.pipeSprites.ns)
+    BWOABuildTools.WaterPipe(9949, 12613, -4, WPIso.pipeSprites.ns)
     BWOABuildTools.WaterValve(9949, 12613, -4)
-    BWOABuildTools.WaterPipe(9949, 12612, -4)
-    BWOABuildTools.WaterPipe(9949, 12611, -4)
+    BWOABuildTools.WaterPipe(9949, 12612, -4, WPIso.pipeSprites.ns)
+    BWOABuildTools.WaterPipe(9949, 12611, -4, WPIso.pipeSprites.ns)
     BWOABuildTools.WaterSprinkler(9949, 12611, -4)
 
     for y=12608, 12614, 2 do

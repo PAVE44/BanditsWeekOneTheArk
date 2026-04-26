@@ -186,6 +186,10 @@ theme.furniture = {
             {["Base.FishingRod"] = 1},
             {["Base.FishingTackle"] = 1},
             {["Base.FishingTackle2"] = 1},
+            {["Base.BookFishing1"] = 1},
+            {["Base.BookFishing2"] = 1},
+            {["Base.BookFlintKnapping1"] = 1},
+            {["Base.BookFlintKnapping2"] = 1},
             {["Base.HamRadio2"] = 7},
             {["Base.EngineParts"] = 4},
             {["Bandits.EngineLubricant"] = 1},
@@ -387,6 +391,10 @@ theme.items = {
     {["Base.MechanicMag1"] = 1},
     {["Base.MechanicMag2"] = 1},
     {["Base.MechanicMag3"] = 1},
+    {["Base.ElectronicsMag1"] = 1},
+    {["Base.ElectronicsMag2"] = 1},
+    {["Base.ElectronicsMag3"] = 1},
+    {["Base.ElectronicsMag4"] = 1},
 }
 
 theme.corpses = {}

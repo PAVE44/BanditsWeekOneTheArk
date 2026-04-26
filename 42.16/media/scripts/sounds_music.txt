@@ -30,6 +30,26 @@ module Bandits {
         }
     }
 
+    sound MusicSad {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/sad.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
+    sound MusicCredits {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/broken_world.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
     sound MusicOutside {
         category = Object, 
         loop = false,
@@ -158,13 +178,4 @@ module Bandits {
         }
     }
 
-    sound MusicCredits {
-        category = Object, 
-        loop = false,
-        is3D = true,
-        clip {
-            file = media/sound/music/between_the_ash.ogg,
-            reverbFactor = 0.6, 
-        }
-    }
 }

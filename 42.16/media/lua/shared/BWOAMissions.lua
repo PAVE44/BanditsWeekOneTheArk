@@ -27,14 +27,17 @@ BWOAMissions.missions = {
     [6] = {
         name = getText("IGUI_Missions_6_Name"),
         desc = getText("IGUI_Missions_6_Description"),
+        map = {symbol = "Fuel", x = 10600, y = 11300}
     },
     [7] = {
         name = getText("IGUI_Missions_7_Name"),
         desc = getText("IGUI_Missions_7_Description"),
+        map = {symbol = "Hammer", x = 10033, y = 12733}
     },
     [8] = {
         name = getText("IGUI_Missions_8_Name"),
         desc = getText("IGUI_Missions_8_Description"),
+        map = {symbol = "Tent", x = 9161, y = 12150}
     },
     [9] = {
         name = getText("IGUI_Missions_9_Name"),
@@ -72,10 +75,12 @@ BWOAMissions.missions = {
         name = getText("IGUI_Missions_100_Name"),
         desc = getText("IGUI_Missions_100_Description"),
         chapter = "chapter_2",
+        map = {symbol = "Cross", x = 7386, y = 8353}
     },
     [101] = {
         name = getText("IGUI_Missions_101_Name"),
         desc = getText("IGUI_Missions_101_Description"),
+        map = {symbol = "Cross", x = 439, y = 9925}
     },
     [102] = {
         name = getText("IGUI_Missions_102_Name"),
@@ -89,10 +94,12 @@ BWOAMissions.missions = {
         name = getText("IGUI_Missions_110_Name"),
         desc = getText("IGUI_Missions_110_Description"),
         chapter = "chapter_3",
+        map = {symbol = "Eye", x = 5560, y = 12500}
     },
     [111] = {
         name = getText("IGUI_Missions_111_Name"),
         desc = getText("IGUI_Missions_111_Description"),
+        map = {symbol = "MedCross", x = 10861, y = 10033}
     },
     [112] = {
         name = getText("IGUI_Missions_112_Name"),
@@ -115,6 +122,7 @@ BWOAMissions.missions = {
         name = getText("IGUI_Missions_120_Name"),
         desc = getText("IGUI_Missions_120_Description"),
         chapter = "chapter_4",
+        map = {symbol = "Skyscraper", x = 13585, y = 1700}
     },
 }
 
@@ -149,9 +157,16 @@ BWOAMissions.Reveal = function(missionId)
     if mission and not mission.revealed and not mission.accomplished then
         mission.revealed = true
         BWOAMissions.new = true
-        BWOASound.PlayPlayer({sound="AmbientHorn"})
+        if mission.map then
+            BWOAUtils.AddToMap(mission.map.x, mission.map.y, mission.map.symbol)
+            BWOASound.PlayPlayer({sound="MapAddSymbol"})
+            BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_MapUpdated")}, 100)
+        else
+            BWOASound.PlayPlayer({sound="AmbientHorn"})
+        end
     end
-    -- todo: launch reveal mission popup
+    
+
 end
 
 BWOAMissions.IsRevealed = function(missionId)
@@ -175,6 +190,7 @@ BWOAMissions.Accomplish = function(missionId)
     local gmd = GetBWOAModData()
     local mission = gmd.missions[missionId]
     if mission and not mission.accomplished then
+        BWOASound.PlayPlayer({sound="AmbientHorn"})
         mission.accomplished = true
         BWOAMissions.new = true
         if BWOAMissions.onAccomplish[missionId] then

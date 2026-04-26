@@ -10,7 +10,7 @@ BWOAPlayer = BWOAPlayer or {}
 BWOAPlayer.tick = 0
 
 BWOAPlayer.dreamStage = 1
-BWOAPlayer.dreamNo = 1
+BWOAPlayer.dreamNo = nil
 BWOAPlayer.inside = 0
 BWOAPlayer.outside = 0
 
@@ -76,6 +76,7 @@ local roomRevealMap = {
     ["LIBRARY"]                 = {person = "Emma_Robinson", qid = "100.4"},
     ["CHAPEL"]                  = {person = "Emma_Robinson", qid = "100.5"},
     ["LABORATORY"]              = {person = "Emma_Robinson", qid = "100.6"},
+    ["BEDROOM"]                 = {person = "Emma_Robinson", qid = "100.7"},
     ["ARMORY"]                  = {person = "Emma_Robinson", qid = "100.8"},
     ["DECONTAMINATION_CHAMBER"] = {person = "Emma_Robinson", qid = "100.9"},
     ["AIRVENTROOM"]             = {person = "Emma_Robinson", qid = "100.10"},
@@ -539,7 +540,7 @@ local onPlayerUpdate = function(player)
     local emitter = player:getEmitter()
     local dreamShouldStart = false
     local dreamShouldEnd = false
-    if player:isAsleep() then
+    if player:isAsleep() and not player:getVehicle()then
         getCore():setOptionUIRenderFPS(60)
         local nh = math.floor(getGameTime():getTimeOfDay()) + 2
         if (nh >= 24) then
@@ -1298,6 +1299,7 @@ local onTimedActionPerform = function(data)
     elseif action == "ISSeedActionNew" then
         if data.typeOfSeed == "Comfrey" then
             BWOAMissions.Accomplish(102)
+            BWOAMissions.Reveal(103)
         end
 
     elseif action == "ISHarvestPlantAction" then

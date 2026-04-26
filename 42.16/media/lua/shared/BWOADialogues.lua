@@ -12,6 +12,26 @@ BWOADialogues.GetQuestions = function(person)
         dialogues["2000.6.1"].req = {}
     end
 
+    if dialogues["400.2"] then
+        dialogues["400.2"].req = {"100.6.1.1.1"}
+    end
+
+    if dialogues["400.3"] then
+        dialogues["400.3"].req = {"100.6.2"}
+    end
+
+    if dialogues["400.4"] then
+        dialogues["400.4"].req = {"2000.6.4.1.2"}
+    end
+
+    if dialogues["400.5"] then
+        dialogues["400.5"].req = {"2000.5.2"}
+    end
+
+    if dialogues["400.6"] then
+        dialogues["400.6"].req = {}
+    end
+
     if dialogues then
         for id, dialogue in pairs(dialogues) do
             if not dialogue.asked and not dialogue.hidden then

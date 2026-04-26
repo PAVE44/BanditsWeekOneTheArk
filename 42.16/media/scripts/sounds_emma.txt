@@ -8,7 +8,7 @@ module Bandits
             file = media/sound/emma/spotted_female_21_1.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -20,7 +20,7 @@ module Bandits
             file = media/sound/emma/spotted_female_21_2.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -32,7 +32,7 @@ module Bandits
             file = media/sound/emma/spotted_female_21_3.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -44,7 +44,7 @@ module Bandits
             file = media/sound/emma/spotted_female_21_4.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -56,7 +56,7 @@ module Bandits
             file = media/sound/emma/spotted_female_21_5.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -68,7 +68,7 @@ module Bandits
             file = media/sound/emma/spotted_female_21_6.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -80,7 +80,7 @@ module Bandits
             file = media/sound/emma/reloading_female_21_1.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -92,7 +92,7 @@ module Bandits
             file = media/sound/emma/reloading_female_21_2.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -104,7 +104,7 @@ module Bandits
             file = media/sound/emma/reloading_female_21_3.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -116,7 +116,7 @@ module Bandits
             file = media/sound/emma/reloading_female_21_4.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -128,7 +128,7 @@ module Bandits
             file = media/sound/emma/reloading_female_21_5.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -140,7 +140,7 @@ module Bandits
             file = media/sound/emma/reloading_female_21_6.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -292,7 +292,7 @@ module Bandits
             file = media/sound/emma/breach_female_21_1.ogg, 
             distanceMin = 1, 
             distanceMax = 11, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -424,7 +424,7 @@ module Bandits
             file = media/sound/emma/inside_female_21_1.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -436,7 +436,7 @@ module Bandits
             file = media/sound/emma/inside_female_21_2.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -448,7 +448,7 @@ module Bandits
             file = media/sound/emma/inside_female_21_3.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -460,7 +460,7 @@ module Bandits
             file = media/sound/emma/upstairs_female_21_1.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -472,7 +472,7 @@ module Bandits
             file = media/sound/emma/outside_female_21_1.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -484,7 +484,7 @@ module Bandits
             file = media/sound/emma/outside_female_21_2.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
 
@@ -496,7 +496,7 @@ module Bandits
             file = media/sound/emma/outside_female_21_3.ogg, 
             distanceMin = 4,
             distanceMax = 80, 
-            reverbFactor = 0.1,/emma/ 
+            reverbFactor = 0.1,
         } 
     }
     
@@ -3811,6 +3811,90 @@ module Bandits
         is3D = true,
         clip {
             file = media/sound/emma/emma_300.4_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.4_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.4_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.5_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.5_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.5_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.5_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.5_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.5_3.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.5.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.5_1.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.5.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.5_2.ogg,
+            distanceMin = 3,
+            distanceMax = 7,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Emma_Robinson_300.5.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/emma/emma_300.5.1_3.ogg,
             distanceMin = 3,
             distanceMax = 7,
             reverbFactor = 0.6,

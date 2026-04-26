@@ -220,10 +220,13 @@ BWOABuildTools.WaterPump = function(x, y, z)
     object:transmitCompleteItemToServer()
     square:AddSpecialObject(object)
     WPVirtual.PumpAdd(x, y, z)
+    WPVirtual.PumpAddFilter(x, y, z)
+    WPVirtual.PumpActivate(x, y, z, true)
+
 end
 
-BWOABuildTools.WaterPipe = function(x, y, z)
-    local sprite = getSprite(WPIso.pipeSprites.ns)
+BWOABuildTools.WaterPipe = function(x, y, z, spriteName)
+    local sprite = getSprite(spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
     if not square or not square:getChunk() then return end
     local object = IsoObject.new(square:getCell(), square, sprite)
@@ -240,6 +243,17 @@ BWOABuildTools.WaterValve = function(x, y, z)
     square:AddSpecialObject(object)
     object:transmitCompleteItemToServer()
     WPVirtual.ValveAdd(x, y, z, 200)
+    WPVirtual.ValveSwitch(x, y, z, true)
+end
+
+BWOABuildTools.Flowmeter = function(x, y, z)
+    local sprite = getSprite(WPIso.flowmeterSprites.we)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
+    local object = IsoObject.new(square:getCell(), square, sprite)
+    square:AddSpecialObject(object)
+    object:transmitCompleteItemToServer()
+    WPVirtual.FlowmeterAdd(x, y, z)
 end
 
 BWOABuildTools.WaterSprinkler = function(x, y, z)

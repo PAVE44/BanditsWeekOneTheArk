@@ -14,7 +14,7 @@ BWOASequence.Start = function(params)
     -- player start coords
     local px = Bandit.playerStart.x
     local py = Bandit.playerStart.y
-    local pz = Bandit.playerStart.y
+    local pz = Bandit.playerStart.z
 
     -- BWOAEventControl.Add("Teleport", {x = px, y = py, z = pz}, 0)
 
@@ -91,6 +91,24 @@ BWOASequence.EmergencyLights = function(params)
             end
         end
     end
+end
+
+BWOASequence.DarkClouds = function(params)
+    local player = getSpecificPlayer(0)
+    if player:getZ() < 0 then return end
+
+    BWOASound.PlayPlayer({sound = "AmbientDarkClouds"})
+
+    BWOATex.tex = getTexture("media/textures/dark_clouds.png")
+    BWOATex.speed = 0.005
+    BWOATex.x = -5000
+    BWOATex.y = -5000
+    BWOATex.tw = 10000
+    BWOATex.th = 10000
+    BWOATex.oscilate = true
+    BWOATex.mode = "slide"
+    BWOATex.alpha = 0.02
+    BWOATex.alphaMax = 3
 end
 
 BWOASequence.Earthquake = function(params)
@@ -344,3 +362,11 @@ BWOASequence.Finale = function(params)
     BWOAEventControl.Add("FinaleStage2", {}, 26000)
     BWOAEventControl.Add("FinaleStage3", {}, 29100)
 end
+
+BWOASequence.Epilogue = function(params)
+    BWOAEventControl.Add("EpilogueStage1", {}, 1000)
+    BWOAEventControl.Add("EpilogueStage2", {}, 6000)
+    BWOAEventControl.Add("EpilogueStage3", {}, 24600)
+end
+
+
