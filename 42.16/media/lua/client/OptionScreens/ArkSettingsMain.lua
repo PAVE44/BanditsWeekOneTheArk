@@ -277,7 +277,6 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
 
         -- saettings copy to sandbox
 
-
         -- override sandbox settings here
         SandboxVars.StartMonth = 11
         SandboxVars.StartDay = 9
@@ -286,19 +285,20 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.ElecShut = 1
         SandboxVars.NatureAbundance = 1
         SandboxVars.FishAbundance = 1
-        SandboxVars.FarmingSpeedNew = 4 -- 2
+        SandboxVars.FarmingSpeedNew = 6 -- 2
         SandboxVars.KillInsideCrops = false
         SandboxVars.PlantGrowingSeasons = false
         SandboxVars.PlaceDirtAboveground = true
         SandboxVars.Helicopter = 1
         SandboxVars.Alarm = 1   
         SandboxVars.ErosionDays = 1000
-        SandboxVars.EnableSnowOnGround = false
+        SandboxVars.EnableSnowOnGround = false -- bugs basements
         SandboxVars.MaximumFireFuelHours = 24
         -- SandboxVars.BloodLevel = 5
-        SandboxVars.SurvivorHouseChance = 1
-        SandboxVars.VehicleStoryChance = 1
-        SandboxVars.ZoneStoryChance = 1
+        SandboxVars.SurvivorHouseChance = 1 
+        SandboxVars.VehicleStoryChance = 1 
+        SandboxVars.ZoneStoryChance = 1 
+        SandboxVars.LightBulbLifespan = 0 -- to protect noah
 
         SandboxVars.ZombieLore.Memory = 1
         SandboxVars.ZombieLore.Sight = 1

@@ -108,6 +108,16 @@ module Bandits {
         }
     }
 
+    sound MusicChapel {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/music/psalm_27.ogg,
+            reverbFactor = 0.6, 
+        }
+    }
+
     sound MusicFinale {
         category = Object, 
         loop = false,

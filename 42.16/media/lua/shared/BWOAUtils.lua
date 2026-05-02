@@ -1,5 +1,11 @@
 BWOAUtils = BWOAUtils or {}
 
+local function predicateAll(item)
+    -- item:getType()
+	return true
+end
+
+
 BWOAUtils.CelsiusToFahrenheit = function(celsius)
     local fahrenheit = (celsius * 9 / 5) + 32
     return fahrenheit
@@ -325,6 +331,197 @@ BanditUtils.ClearSpace = function(x, y, z, w, h)
                             square:transmitRemoveItemFromSquare(obj)
                         end
                     end
+                end
+            end
+        end
+    end
+end
+
+BWOAUtils.ScrubSquare = function(square, fluid)
+    if not square then return end
+
+    local applyFoodEffect = function(item)
+        local test = item:getDisplayCategory()
+        if item:isFood() and item:getDisplayCategory() == "Food" then
+            local itemScript = item:getScriptItem()
+            local closed = item:getOpeningRecipe()
+            if not closed then
+                item:setPoisonPower(8)
+                item:setPoisonDetectionLevel(10)
+            end
+        end
+    end
+
+    local cleanup = function(character)
+        local humanVisuals = character:getHumanVisual()
+        humanVisuals:removeDirt()
+        humanVisuals:removeBlood()
+
+        -- Cleanup blood/dirt
+        local maxIndex = BloodBodyPartType.MAX:index()
+        for i = 0, maxIndex - 1 do
+            local part = BloodBodyPartType.FromIndex(i)
+            humanVisuals:setBlood(part, 0)
+            humanVisuals:setDirt(part, 0)
+        end
+
+        -- Cleanup item visuals
+        if not instanceof(character, "IsoDeadBody") then
+            local itemVisuals = character:getItemVisuals()
+            for i = 0, itemVisuals:size() - 1 do
+                local item = itemVisuals:get(i)
+                if item then
+                    for j = 0, maxIndex - 1 do
+                        local part = BloodBodyPartType.FromIndex(j)
+                        item:setBlood(part, 0)
+                        item:setDirt(part, 0)
+                    end
+                end
+            end
+        end
+
+        -- Cleanup attached items
+        local attachedItems = character:getAttachedItems()
+        for i = 0, attachedItems:size() - 1 do
+            local item = attachedItems:get(i):getItem()
+            if item then
+                item:setBloodLevel(0)
+            end
+        end
+
+        -- Cleanup worn items
+        local wornItems = character:getWornItems()
+        for i = wornItems:size() - 1, 0, -1 do
+            local item = wornItems:get(i):getItem()
+            if item then
+                for j = 0, maxIndex - 1 do
+                    local part = BloodBodyPartType.FromIndex(j)
+                    item:setBlood(part, 0)
+                    item:setDirt(part, 0)
+                end
+                if instanceof(item, "Clothing") then -- outermost clothing item
+                    item:setDirtiness(0)
+                    if item:getWetness() < 30 then
+                        item:setWetness(30)
+                    end
+                    break
+                end
+            end
+        end
+
+        local items = {character:getPrimaryHandItem(), character:getSecondaryHandItem()}
+        for _, item in ipairs(items) do
+            if item then
+                item:setBloodLevel(0)
+            end
+        end
+
+        if not instanceof(character, "IsoDeadBody") then
+            character:resetModelNextFrame()
+        end
+    end
+
+    local player = square:getPlayer()
+    if player then
+        cleanup(player)
+        if fluid == "NBCSolution" then
+            local items = ArrayList.new()
+            player:getInventory():getAllEvalRecurse(predicateAll, items)
+            for i=0, items:size()-1 do
+                local item = items:get(i)
+                item:getModData().radiated = false
+                applyFoodEffect(item)
+            end
+        end
+    end
+
+    local wobs = square:getWorldObjects()
+    for i = 0, wobs:size()-1 do
+        local item = wobs:get(i):getItem()
+        if item then
+            item:setBloodLevel(0)
+            if fluid == "NBCSolution" then
+                item:getModData().radiated = false
+                applyFoodEffect(item)
+            end
+            if fluid == "NBCSolution" then
+                if instanceof(item, "InventoryContainer") then
+                    local inv = item:getInventory()
+                    if inv then
+                        local contents = ArrayList.new()
+                        inv:getAllEvalRecurse(predicateAll, contents)
+                        for j = 0, contents:size()-1 do
+                            local item = contents:get(j)
+                            item:getModData().radiated = false
+                            applyFoodEffect(item)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local objects = square:getStaticMovingObjects()
+    for i=0, objects:size()-1 do
+        local object = objects:get(i)
+        if instanceof(object, "IsoDeadBody") then
+            cleanup(object)
+            if fluid == "NBCSolution" then
+                object:getModData().radiated = false
+                local inv = object:getContainer()
+                if inv then
+                    local items = ArrayList.new()
+                    inv:getAllEvalRecurse(predicateAll, items)
+                    for j=0, items:size()-1 do
+                        local item = items:get(j)
+                        item:getModData().radiated = false
+                        applyFoodEffect(item)
+                    end
+                end
+            end
+        end
+    end
+
+    local chrs = square:getMovingObjects()
+    for i=0, chrs:size()-1 do
+        local chr = chrs:get(i)
+        if instanceof(chr, "IsoZombie") then
+            cleanup(chr)
+            if fluid == "NBCSolution" then
+                chr:getModData().radiated = false
+            end
+        end
+    end
+
+    local plant = SFarmingSystem.instance:getLuaObjectAt(square:getX(), square:getY(), square:getZ())
+    if plant then
+        if plant.waterNeeded and plant.waterNeeded > 0 and plant.waterLvl and plant.waterLvl <= 90 then
+            plant.waterLvl = plant.waterLvl + 10
+        end
+        if fluid == "NBCSolution" then
+            plant:killThis()
+        end
+    end
+
+    square:removeBlood(false, false)
+
+end
+
+BWOAUtils.ScrubVehicle = function(vehicle)
+    if not vehicle then return end
+    local ok, nparts = pcall(function() return vehicle:getPartCount() end)
+    if not ok or not nparts then return end
+    for i = 0, nparts - 1 do
+        local okPart, part = pcall(function() return vehicle:getPartByIndex(i) end)
+        if okPart and part then
+            local okInv, inv = pcall(function() return part:getItemContainer() end)
+            if okInv and inv then
+                local contents = ArrayList.new()
+                inv:getAllEvalRecurse(predicateAll, contents)
+                for j = 0, contents:size()-1 do
+                    local item = contents:get(j)
+                    item:getModData().radiated = false
+                    applyFoodEffect(item)
                 end
             end
         end

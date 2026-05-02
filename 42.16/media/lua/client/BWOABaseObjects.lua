@@ -39,7 +39,8 @@ end
 local function reset()
     temp = {
         items = {},
-        objects = {}
+        objects = {},
+        blood = {},
     }
 end
 
@@ -140,6 +141,15 @@ local function analyze(x, y, z)
             ftype = ftype,
             class = class,
             ground = true
+        }
+    end
+
+    local hasBlood = square:haveBlood()
+    if hasBlood then
+        temp.blood[oid] = {
+            x = x,
+            y = y,
+            z = z
         }
     end
 end
@@ -265,6 +275,26 @@ BWOABaseObjects.FindClosestItemClass = function(class, point, opts)
 
     if itemBest then
         return itemBest, math.sqrt(distBest)
+    end
+    return nil, nil
+end
+
+BWOABaseObjects.FindClosestBlood = function(point, distMax)
+    local distBest = math.huge
+    local bloodBest
+    local bloods = database.blood
+    local distMaxSq = distMax * distMax
+
+    for id, blood in pairs(bloods) do
+        local distSq = ((blood.x - point.x + 0.5) * (blood.x - point.x + 0.5)) + ((blood.y - point.y + 0.5) * (blood.y - point.y + 0.5))
+        if distSq < distBest and distSq <= distMaxSq then
+            bloodBest = blood
+            distBest = distSq
+        end
+    end
+
+    if bloodBest then
+        return bloodBest, math.sqrt(distBest)
     end
     return nil, nil
 end

@@ -162,6 +162,12 @@ BWOAEvents.HaloPlayer = function(params)
 
     if params.perk and params.xp then
         local xp = player:getXp()
+        if player:hasTrait(BWOARegistries.CharacterTraits.GOODMEMORY) then
+            params.xp = math.ceil(params.xp * 2)
+        end
+        if player:hasTrait(BWOARegistries.CharacterTraits.BADMEMORY) then
+            params.xp = math.ceil(params.xp / 2)
+        end
         local perk = PerkFactory.Perks[params.perk]
         xp:AddXPHaloText(perk, params.xp)
     else
@@ -329,65 +335,24 @@ end
 BWOAEvents.DecontaminatePost = function(params)
     BWOASound.AddNoah({sound = BWOASound.noahSounds.DECONTAMINATION_COMPLETE})
 
+    local fluidType = "NBCSolution"
     local gmd = GetBWOAModData()
     local decontaminator = gmd.decontaminator
-    if decontaminator.concentration <= 0 then return end
+    if decontaminator.concentration <= 0 then 
+        fluidType = "Water"
+    end
 
     decontaminator.concentration = decontaminator.concentration - 5
     if decontaminator.concentration < 0 then decontaminator.concentration = 0 end
+
+    
 
     local cell = getCell()
     for y = params.y1, params.y2 do
         for x = params.x1, params.x2 do
             local square = cell:getGridSquare(x, y, params.z)
             if square then
-                local player = square:getPlayer()
-                if player then
-                    local items = ArrayList.new()
-                    local inventory = player:getInventory()
-                    inventory:getAllEvalRecurse(predicateAll, items)
-                    for i=0, items:size()-1 do
-                        local item = items:get(i)
-                        item:getModData().radiated = false
-                    end
-                end
-
-                local wobs = square:getWorldObjects()
-                for i = 0, wobs:size()-1 do
-                    local o = wobs:get(i)
-                    local item = o:getItem()
-                    if item then
-                        item:getModData().radiated = false
-                    end
-                end
-
-                local objects = square:getStaticMovingObjects()
-                for i=0, objects:size()-1 do
-                    local object = objects:get(i)
-                    if instanceof (object, "IsoDeadBody") then
-                        object:getModData().radiated = false
-                        local inventory = object:getContainer()
-                        if inventory then
-                            local items = ArrayList.new()
-                            inventory:getAllEvalRecurse(predicateAll, items)
-                            for j=0, items:size()-1 do
-                                local item = items:get(j)
-                                if item then
-                                    item:getModData().radiated = false
-                                end
-                            end
-                        end
-                    end
-                end
-
-                local chrs = square:getMovingObjects()
-                for i=0, chrs:size()-1 do
-                    local chr = chrs:get(i)
-                    if instanceof(chr, "IsoZombie") then
-                        local md = chr:getModData()
-                        md.radiated = false
-                    end
-                end
+                BWOAUtils.ScrubSquare(square, fluidType)
             end
         end
     end
@@ -406,6 +371,8 @@ BWOAEvents.DecontaminatePost = function(params)
         end
     end
 end
+
+
 
 -- events
 

@@ -54,4 +54,32 @@ module Bandits {
             }
         }
     }
+
+    fluid NBCSolution
+    {
+        ColorReference = ForestGreen,
+        DisplayName = Fluid_Name_NBCSolution,
+        Categories
+        {
+            Hazardous,
+        }
+        Properties
+        {
+            ThirstChange = -2.0,
+        }
+        Poison
+        {
+            maxEffect = Deadly,
+            minAmount = 0.3,
+            diluteRatio = 0.1,
+        }
+        BlendWhiteList
+        {
+            whitelist = true,
+            categories
+            {
+                Beverage,
+            }
+        }
+    }
 }

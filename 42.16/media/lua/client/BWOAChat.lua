@@ -116,23 +116,29 @@ BWOAChat.Say = function(qid, person)
     local player = getSpecificPlayer(0)
     if not player then return end
    
-    local dialogue = BWOADialogues.GetByKey(person, qid)
     local tab
-    if dialogue then
-        BWOAEventControl.Add("SayPlayer", {txt = dialogue.qst}, 1)
+    if qid == 0 then
+        tab = BWOAChat.last[person]
+    else
 
-        local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Noah", "Angel"})
-        if target.dist < BWOAChat.talkDist then
-            if not anim then 
-                anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
-            end
-            tab = {id=target.id, qid = qid, txt=dialogue.ans, anim=dialogue.anim}
-            BWOAChat.last[person] = tab
-            BWOADialogues.MarkAsked(person, qid)
+        local dialogue = BWOADialogues.GetByKey(person, qid)
+        
+        if dialogue then
+            BWOAEventControl.Add("SayPlayer", {txt = dialogue.qst}, 1)
 
-            if dialogue.func then
-                dialogue.funcParams.target = target
-                BWOAChat[dialogue.func](dialogue.funcParams)
+            local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma", "James", "Noah", "Angel"})
+            if target.dist < BWOAChat.talkDist then
+                if not anim then 
+                    anim = BanditUtils.Choice({"Talk1", "Talk2", "Talk3", "Talk4", "Talk5"})
+                end
+                tab = {id=target.id, qid = qid, txt=dialogue.ans, anim=dialogue.anim}
+                BWOAChat.last[person] = tab
+                BWOADialogues.MarkAsked(person, qid)
+
+                if dialogue.func then
+                    dialogue.funcParams.target = target
+                    BWOAChat[dialogue.func](dialogue.funcParams)
+                end
             end
         end
     end
@@ -244,6 +250,12 @@ local emoteActions = {
             else
                 BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_NeedMusic")}, 1)
             end
+        end
+    },
+    ["pray"] = {
+        needNPC = false, 
+        func = function(player, target)
+            ISTimedActionQueue.add(TAPray:new(player))
         end
     },
 }

@@ -3,6 +3,10 @@ BWOARegistries = BWOARegistries or {}
 BWOARegistries.ItemTags = {}
 BWOARegistries.ItemTags.NBCTABLETS = ItemTag.register("Bandits:nbctablets")
 
+BWOARegistries.CharacterTraits = {}
+BWOARegistries.CharacterTraits.GOODMEMORY = CharacterTrait.register("BWOA:goodmemory")
+BWOARegistries.CharacterTraits.BADMEMORY = CharacterTrait.register("BWOA:badmemory")
+
 -- Works:
 
 --[[

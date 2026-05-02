@@ -58,7 +58,7 @@ function InitBWOAModData(isNewGame)
     if not globalData.ventilation then 
         globalData.ventilation = {
             active = true,
-            co2 = 934,
+            co2 = 700 + ZombRand(100),
             filter = 88,
             heating = true,
             open = true,

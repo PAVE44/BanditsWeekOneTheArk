@@ -108,7 +108,7 @@ local function manageNPC()
 
                     if square then
                         data.t = data.t + 1
-                        if data.t > 2 then
+                        if data.t > 20 then
                             --print ("spawning emma at " .. data.x .. "," .. data.y .. "," .. data.z)
                             data.t = 0
                             local gmdBrain = GetBanditClusterData(id)

@@ -28,9 +28,10 @@ function TAAddNBCMixer:start()
     self.sound = self.character:playSound("DropOnWater")
     
     local item = self.character:getPrimaryHandItem()
-    self:setOverrideHandModels(item, nil)
-    self:setActionAnim("Pour")
-
+    if item and item:getFullType() == "Bandits.NBCTablets" then
+        self:setOverrideHandModels(item, nil)
+        self:setActionAnim("Pour")
+    end
 end
 
 function TAAddNBCMixer:stop()
@@ -44,13 +45,14 @@ function TAAddNBCMixer:perform()
     if self.sound then
         self.character:stopOrTriggerSound(self.sound)
     end
+    
     local decontaminator = self:findDecontaminator()
     if decontaminator then
         if not decontaminator.concentration then
             decontaminator.concentration = 0
         end
         local item = self.character:getPrimaryHandItem()
-        if item then
+        if item and item:getFullType() == "Bandits.NBCTablets" then
             item:Use()
             decontaminator.concentration = decontaminator.concentration + 50
             if decontaminator.concentration > 100 then

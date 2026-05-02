@@ -226,7 +226,7 @@ BWOADialogues.dialogues["Emma_Robinson"] = {
         req = {"2.2.1", "1.2.3.1", "3.1.1", "3.2.1.1.1"},
     },
     ["5.1"] = {
-        -- qst = "Can we help other the people living outside?",
+        -- qst = "Can we help the other people living outside?",
         -- ans = "We tried that, it's risky. It's been a long time since the event and most of them became very hostile.",
         anim = "GestNo",
         req = {"5"},

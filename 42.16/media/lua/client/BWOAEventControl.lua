@@ -46,11 +46,11 @@ BWOAEventControl.schedule = {
     [172] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
         [31] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
-        [32] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
+        [32] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
         [35] = {"Earthquake", {intensity = 30, duration = 20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4}},
     },
     [180] = {
-        [30] = {"Horde", {intensity = 30}},
+        [30] = {"Horde", {intensity = 9}},
     },
     [192] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
@@ -61,23 +61,23 @@ BWOAEventControl.schedule = {
     [268] = {
         [41] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
         [42] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
-        [43] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 4}},
+        [43] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 3}},
         [44] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
-        [45] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 2}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
     },
     [272] = {
-        [30] = {"Horde", {intensity = 50}},
+        [30] = {"Horde", {intensity = 14}},
         [35] = {"BreakNoah", {}},
     },
     [276] = {
         [41] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 1}},
-        [42] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
-        [43] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 6}},
-        [44] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
+        [42] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
+        [43] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [44] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
         [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
     },
     [336] = {
-        [30] = {"Horde", {intensity = 60}},
+        [30] = {"Horde", {intensity = 32}},
     },
     [352] = {
         [35] = {"BreakNoah", {}},
@@ -90,21 +90,21 @@ BWOAEventControl.schedule = {
         [50] = {"ArkNetworkStatus", {arkId = 50}},
     },
     [444] = {
-        [33] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
-        [34] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [33] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
+        [34] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
         [36] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
-        [37] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
-        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [37] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 2}},
     },
     [492] = {
-        [33] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
-        [34] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [33] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
+        [34] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
         [36] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
         [37] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
-        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 4}},
+        [45] = {"Assault", {cid = Bandit.clanMap.Surface4, intensity = 3}},
     },
     [516] = {
-        [30] = {"Horde", {intensity = 60}},
+        [30] = {"Horde", {intensity = 50}},
     },
     [544] = {
         [26] = {"ArkNetworkStatus", {arkId = 49}},
@@ -177,7 +177,7 @@ local function everyOneMinute()
                 event.renderDist = 50
             end
             if BanditUtils.DistTo(px, py, event.x, event.y) < event.renderDist then
-                BWOAEventControl.Add("PlaceEvent", event, 250)
+                BWOAEventControl.Add("PlaceEvent", event, 450)
             end
         end
     end

@@ -39,22 +39,6 @@ BWOANightmares.Island.onCycle = function(player)
     BWOATex.mode = "full"
     BWOATex.alpha = 1
 
-    if cycle == 40 then
-        local blueprint = BWOALakes.Island()
-        BWOABuildTools.LavaLake(1720, 12300, blueprint)
-    end
-    if cycle == 25 then
-        local params1 = {
-            cid = Bandit.clanMap.Demon,
-            x = 1720,
-            y = 12300,
-            z = 0,
-            program = "Assault",
-            size = 3,
-        }
-        sendClientCommand(player, 'Spawner', 'Clan', params1)
-    end
-
     gmd.nightmares.cycle = cycle + 1
     -- print("Nightmare cycle: " .. gmd.nightmares.cycle)
 end

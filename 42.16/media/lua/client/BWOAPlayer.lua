@@ -191,7 +191,11 @@ BWOAPlayer.itemMemoryRegain = {
     {itemType = "Pan", perk = "Cooking", xp = 75, chance=20},
     {itemType = "Pasta", perk = "Cooking", xp = 75, chance=20},
     {itemType = "Plate", perk = "Cooking", xp = 75, chance=20},
+    {itemType = "Ladle", perk = "Cooking", xp = 125, chance=20},
     {itemType = "Spatula", perk = "Cooking", xp = 125, chance=50},
+    {itemType = "Flour", perk = "Cooking", xp = 125, chance=50},
+    {itemType = "Onion", perk = "Cooking", xp = 250, chance=100},
+    {itemType = "Perogies", perk = "Cooking", xp = 1000, chance=100},
 
     -- maintenance
     {itemType = "DuctTape", perk = "Maintenance", xp = 300, chance=80},
@@ -199,7 +203,7 @@ BWOAPlayer.itemMemoryRegain = {
     {itemType = "Woodglue", perk = "Maintenance", xp = 150, chance=25},
 
     -- farming
-    {itemType = "HandShovel", perk = "Farming", xp = 300, chance=80},
+    {itemType = "HandShovel", perk = "Farming", xp = 300, chance=100},
     {itemType = "WateredCan", perk = "Farming", xp = 150, chance=50},
     {itemType = "GardenFork", perk = "Farming", xp = 150, chance=25},
     {itemType = "BasilBagSeed", perk = "Farming", xp = 50, chance=15},
@@ -374,9 +378,19 @@ local onPlayerUpdate = function(player)
         BWOAPlayer.tick = 0
     end
 
+    if not player or not player:isAlive() then return end
+
     local playerNum = player:getPlayerNum()
     local px, py, pz = player:getX(), player:getY(), player:getZ()
     local cell = getCell()
+    local desc = player:getDescriptor()
+
+    -- fire is too op
+    if player:isOnFire() then
+        if ZombRand(50) == 0 and player:getBodyDamage():getOverallBodyHealth() < 50 then
+            player:StopBurning()
+        end
+    end
 
     -- ugly hack to fix getting stuck on basement stairs
     if player:isOutside() and pz < 0 and pz > -0.01 then
@@ -389,6 +403,17 @@ local onPlayerUpdate = function(player)
             player:setX(px + fd:getX())
             player:setY(py + fd:getY())
         end
+    end
+
+    -- correction should the other mods override character customization
+    if player:isFemale() then
+        player:setFemale(false)
+        player:resetModelNextFrame()
+    end
+    if desc:getVoicePrefix() ~= "VoiceMale" then
+        desc:setVoicePrefix("VoiceMale")
+        desc:setVoiceType(0)
+        desc:setVoicePitch(0)
     end
 
     -- lava
@@ -536,6 +561,9 @@ local onPlayerUpdate = function(player)
 
 
     -- dreams
+    local gmd = GetBWOAModData()
+    if not gmd.nightmares.doneList then gmd.nightmares.doneList = {} end
+
     local dreamRevealMap = BWOAPlayer.dreamRevealMap
     local emitter = player:getEmitter()
     local dreamShouldStart = false
@@ -560,6 +588,13 @@ local onPlayerUpdate = function(player)
 
             local hours = player:getHoursSurvived()
             for dreamNo, dreamData in pairs(dreamRevealMap) do
+                if dreamData.nid then
+                    -- do not allow skipping dreams that have nightmares associated with them if those nightmares havent been completed yet
+                    if gmd.nightmares.doneList and not gmd.nightmares.doneList[dreamData.nid] then
+                        BWOAPlayer.dreamNo = dreamNo
+                        break
+                    end
+                end
                 if hours < dreamData.hours then
                     BWOAPlayer.dreamNo = dreamNo
                     break
@@ -637,8 +672,6 @@ local onPlayerUpdate = function(player)
                     BWOAEventControl.Add("SayPlayer", {txt = dreamData.txt}, 2500)
                 end
                 if dreamData.nid then
-                    local gmd = GetBWOAModData()
-                    if not gmd.nightmares.doneList then gmd.nightmares.doneList = {} end
                     if not gmd.nightmares.doneList[dreamData.nid] then
                         gmd.nightmares.doneList[dreamData.nid] = true
                         BWOANightmares.Activate(dreamData.nid)

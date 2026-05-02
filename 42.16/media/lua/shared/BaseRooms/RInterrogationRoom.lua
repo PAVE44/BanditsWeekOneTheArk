@@ -100,6 +100,9 @@ BWOARooms.InterrogationRoom.Prepare = function ()
     item:setRecordedMediaData(mediaData)
     item:setName("Survivor ID #146 – Recording 1")
     BWOAPrepareTools.AddWorldItemSpecial(9963, 12633, -4, item, {x=0.34, y=0.79, z=0.33, rx=0, ry=0, rz=230})
+
+    local items = {"Base.MarchRidgeMap", "Base.MuldraughMap", "Base.RosewoodMap", "Base.WestpointMap"}
+    BWOAPrepareTools.AddItemsToContainer(9959, 12631, -4, items, "Cabinet")
 end
 
 

@@ -29,6 +29,13 @@ function ISEmoteRadialMenu:init()
 	ISEmoteRadialMenu.defaultMenu["play"].subMenu["moveout"] = getText("IGUI_Emote_Tag")
     ISEmoteRadialMenu.defaultMenu["play"].subMenu["dance"] = getText("IGUI_Emote_Dance")
     
+    local player = getSpecificPlayer(0)
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    if pz == -4 and px >= 9966 and py >= 12628 and px < 9971 and py < 12633 then 
+        ISEmoteRadialMenu.defaultMenu["pray"] = {}
+	    ISEmoteRadialMenu.defaultMenu["pray"].name = getText("IGUI_Emote_Pray")
+    end
+
     ISEmoteRadialMenu.variants = {}
 
     ISEmoteRadialMenu.icons = {}
@@ -41,6 +48,7 @@ function ISEmoteRadialMenu:init()
     ISEmoteRadialMenu.icons["play"] = getTexture("media/ui/emotes/moveout.png");
     ISEmoteRadialMenu.icons["moveout"] = getTexture("media/ui/emotes/moveout.png");
     ISEmoteRadialMenu.icons["dance"] = getTexture("media/ui/emotes/moveout.png");
+    ISEmoteRadialMenu.icons["pray"] = getTexture("media/ui/emotes/moveout.png");
 
     ISEmoteRadialMenu.menu = ISEmoteRadialMenu.defaultMenu
 

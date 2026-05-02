@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "1.3.3"
+BWOAMenu.version = "1.6.3"
 
 BWOAMenu.blinking = {}
 
@@ -804,6 +804,20 @@ function BWOAMenu.InjectCure(player)
 
 end
 
+function BWOAMenu.AddNBCToItem(player, itemTarget)
+    local inventory = player:getInventory()
+    local item = inventory:getFirstTypeRecurse("Bandits.NBCTablets")
+    local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+    ISTimedActionQueue.add(transferAction)
+    ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+    ISTimedActionQueue.add(TAAddNBCToItem:new(player, itemTarget))
+end
+
+function BWOAMenu.Decontaminate(player, square, item)
+
+end
+
+
 function BWOAMenu.Teleport(player)
     -- local x, y, z = 9962, 12609, -4
     local x, y, z = 9961, 12622, -4 -- ark
@@ -986,9 +1000,20 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         context:addOption("Help Get Up", player, BWOAMenu.HealPerson, square, zombie)
     end
 
-    
-
     if false and isDebugEnabled() then
+
+        --[[
+        local deadbody = square:getDeadBody()
+        if deadbody then
+            local stageTime = SandboxVars.HoursForCorpseRemoval / 3
+            local wa = getGameTime():getWorldAgeHours()
+            local time = wa - (stageTime * 2) - 10
+            deadbody:setDeathTime(time)
+            local dt = deadbody:getDeathTime()
+            IsoDeadBody.updateBodies()
+             -- print ("world age: " .. tostring(wa) .. ", death time: " .. tostring(dt))
+            
+        end]]
 
         -- BWOASound.PlayPlayer({sound = "AmbientDarkClouds"})
 
@@ -1194,13 +1219,13 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
         context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         context:addOption("Spooky", player, BWOAMenu.Spooky)
-        -- context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
+        context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
         
     end
 end
 
 local function onFillWorldObjectContextMenu(playerNum, context, worldObjects, test)
-    context:removeOptionByName("AdvancedCybernetics Noah")
+    -- context:removeOptionByName("AdvancedCybernetics Noah")
 end
 
 local function onFillInventoryObjectContextMenu(playerNum, context, items)
@@ -1211,7 +1236,9 @@ local function onFillInventoryObjectContextMenu(playerNum, context, items)
         item = items[1].items[1]
     end
 
-    if item and item:getFullType() == "Bandits.LabSyringeCure" then
+    if not item then return end
+
+    if item:getFullType() == "Bandits.LabSyringeCure" then
         local option = context:addOption(getText("ContextMenu_Inject"), player, BWOAMenu.InjectCure, item)
         local stats = player:getStats()
         local zombieInfection = stats:get(CharacterStat.ZOMBIE_INFECTION)
@@ -1221,6 +1248,28 @@ local function onFillInventoryObjectContextMenu(playerNum, context, items)
             tooltip.description = getText("ContextMenu_NotInfected")
             option.toolTip = tooltip
         end
+    else
+        local fluidContainer = item:getFluidContainer()
+        if fluidContainer then
+            local option = context:addOption(getText("ContextMenu_AddNBCTablets"), player, BWOAMenu.AddNBCToItem, item)
+            local amount = fluidContainer:getAmount()
+            local inventory = player:getInventory()
+            local hasTablets = inventory:containsTypeRecurse("Bandits.NBCTablets")
+            if amount == 0 then
+                local tooltip = ISToolTip:new()
+                option.notAvailable = true
+                tooltip.description = getText("ContextMenu_NeedWater")
+                option.toolTip = tooltip
+            elseif not hasTablets then
+                local tooltip = ISToolTip:new()
+                option.notAvailable = true
+                tooltip.description = getText("ContextMenu_NeedNBCTablets")
+                option.toolTip = tooltip
+            end
+        else
+            
+        end
+        
     end
     
 end
@@ -1308,6 +1357,25 @@ local updateHighlight = function()
     BWOAMenu.tick = BWOAMenu.tick + 1
 end
 
+local function onMouseUp(x, y)
+    local player = getSpecificPlayer(0)
+    if player:isAiming() then 
+        local state = player:getActionStateName()
+    end
+
+    local itemPrimary = player:getPrimaryHandItem()
+    if itemPrimary and itemPrimary:getFullType() == "Base.KnapsackSprayer" then
+        local sz = player:getZ()
+        local sx = screenToIsoX(0, x, y, sz)
+        local sy = screenToIsoY(0, x, y, sz)
+        local square = getCell():getGridSquare(sx, sy, sz)
+        if square then
+            ISTimedActionQueue.add(TADecontaminate:new(player, square, itemPrimary))
+        end
+    end
+    print ("Mouse up at " .. tostring(sx) .. ", " .. tostring(sy))
+end
+
 Events.EveryTenMinutes.Remove(updateHighlightClusters)
 Events.EveryTenMinutes.Add(updateHighlightClusters)
 
@@ -1322,3 +1390,6 @@ Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryObjectContextMenu)
 
 Events.OnPlayerUpdate.Remove(updateHighlight)
 Events.OnPlayerUpdate.Add(updateHighlight)
+
+Events.OnMouseUp.Remove(onMouseUp)
+Events.OnMouseUp.Add(onMouseUp)

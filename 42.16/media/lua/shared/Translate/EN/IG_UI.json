@@ -38,6 +38,7 @@
     "IGUI_Emote_Play": "Play",
     "IGUI_Emote_Tag": "Tag",
     "IGUI_Emote_Dance": "Dance",
+    "IGUI_Emote_Pray": "Pray",
 
     "IGUI_Artifact_ColdPassage": "Cold Passage and The Management of Death",
     "IGUI_Artifact_EarlyMortuaryPractice": "On Environmental Determinants of Early Mortuary Practice",
@@ -328,7 +329,7 @@
     "IGUI_Dial_Emma_Robinson_4_A": "Relax. You are in shock. Let's talk more and I'll leave you alone. ",
     "IGUI_Dial_Emma_Robinson_5_Q": "Are there any other survivors outside the base?",
     "IGUI_Dial_Emma_Robinson_5_A": "Yes. There are some living underground. ",
-    "IGUI_Dial_Emma_Robinson_5.1_Q": "Can we help other the people living outside?",
+    "IGUI_Dial_Emma_Robinson_5.1_Q": "Can we help the other people living outside?",
     "IGUI_Dial_Emma_Robinson_5.1_A": "We tried that, it's risky. It's been a long time since the event and most of them became very hostile.",
     "IGUI_Dial_Emma_Robinson_5.1.1_Q": "Are those living outside a threat to us?",
     "IGUI_Dial_Emma_Robinson_5.1.1_A": "In fact they are. It's either us or them now, you know.",

@@ -1711,7 +1711,9 @@
 	clothing: JacketSuit = Base.Suit_Jacket
 	clothing: VestTexture = Base.Vest_Waistcoat
 	clothing: Pants = Base.Trousers_Suit
+	weapons: secondary = Base.Pistol
 	weapons: melee = Base.FieldHockeyStick_Sawblade
+	ammo: secondary = 1
 
 [2e682bd5-8bc3-4380-a302-02d7201b8aeb]
 	general: modid = TheArk

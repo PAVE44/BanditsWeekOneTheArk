@@ -319,12 +319,11 @@ BWOASequence.Decontamination = function(params)
         local soundParams = {x = mx, y = my, z = mz, sound="AmbientMist"}
         BWOAEventControl.Add("PlayLocation", soundParams, 1600)
                     
-        local offset = -3 * mz
         for i = 1, 20 do
             local effect = {}
-            effect.x = params.x1 + ZombRand(params.x2 - params.x1) + offset
-            effect.y = params.y1 + ZombRand(params.y2 - params.y1) + offset
-            effect.z = 0
+            effect.x = params.x1 + ZombRand(params.x2 - params.x1)
+            effect.y = params.y1 + ZombRand(params.y2 - params.y1)
+            effect.z = params.z
             effect.size = 400
             effect.name = "mist"
             effect.frameCnt = 60

@@ -66,13 +66,13 @@ ZombieActions.Research.onComplete = function(zombie, task)
     local multiplier = 744 / BWOAClimate.falloutEndsOptionMap[SandboxVars.BWOA.FalloutEnds]
     local stalled = false
     if gmd.research then
-        gmd.research = gmd.research + 0.05 * multiplier
+        gmd.research = gmd.research + 0.10 * multiplier
         if gmd.research > cap then
             gmd.research = cap
             stalled = true
         end
     else
-        gmd.research = 0.05 * multiplier
+        gmd.research = 0.10 * multiplier
     end
 
     if gmd.research >= 100 then

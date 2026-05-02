@@ -107,10 +107,6 @@ BWOARooms.Corridor.Init = function ()
             table.insert(BWOARooms.Corridor.els, {dir="N", x=x, y=12641, z=-4})
         end
     end
-
-
-
-
 end
 
 BWOARooms.Corridor.Build = function ()
@@ -155,6 +151,31 @@ BWOARooms.Corridor.Build = function ()
 
 end
 
+BWOARooms.Corridor.Prepare = function ()
+    BWOARooms.Corridor.Init()
+
+    local spray1 = BanditCompatibility.InstanceItem("Base.KnapsackSprayer")
+    if spray1 then
+        local fluidContainer = spray1:getFluidContainer()
+        if fluidContainer then
+            fluidContainer:Empty()
+            fluidContainer:addFluid("NBCSolution", 16)
+        end
+    end
+    BWOAPrepareTools.AddWorldItemSpecial(9952, 12624, -4, spray1, {x=0.29, y=0.27, z=0.00, rx=0, ry=0, rz=270})
+
+    local spray2 = BanditCompatibility.InstanceItem("Base.KnapsackSprayer")
+    if spray2 then
+        local fluidContainer = spray2:getFluidContainer()
+        if fluidContainer then
+            fluidContainer:Empty()
+            fluidContainer:addFluid("NBCSolution", 7)
+        end
+    end
+    BWOAPrepareTools.AddWorldItemSpecial(9952, 12624, -4, spray2, {x=0.74, y=0.29, z=0.00, rx=0, ry=0, rz=270})
+
+end
+
 BWOARooms.Corridor.SetEmitters = function ()
     BWOARooms.Corridor.Init()
 
@@ -162,9 +183,4 @@ BWOARooms.Corridor.SetEmitters = function ()
     BWOASound.AddToObject({x=9957, y=12621.5, z=-4, sound="AmbientPlumbing"})
     BWOASound.AddToObject({x=9971.5, y=12608, z=-4, sound="AmbientPlumbing"})
 end
-
-BWOARooms.Corridor.Prepare = function ()
-    BWOARooms.Corridor.Init()
-end
-
 

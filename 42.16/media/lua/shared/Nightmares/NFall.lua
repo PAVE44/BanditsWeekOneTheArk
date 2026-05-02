@@ -3,11 +3,11 @@ BWOANightmares = BWOANightmares or {}
 BWOANightmares.Fall = {}
 
 local cycle = 1
-local cycleNumber = 1000
+local cycleNumber = 800
 local returnData = {}
 
 BWOANightmares.Fall.onEnter = function(player)
-    print ("[FALL] onEnter")
+    -- print ("[FALL] onEnter")
     local gmd = GetBWOAModData()
     gmd.nightmares.returnData = {
         x = player:getX(),
@@ -33,7 +33,7 @@ BWOANightmares.Fall.onEnter = function(player)
 end
 
 BWOANightmares.Fall.onCycle = function(player)
-    print ("[FALL] onCycle")
+    -- print ("[FALL] onCycle")
     local gmd = GetBWOAModData()
     local cycle = gmd.nightmares.cycle or 1
 
@@ -42,11 +42,11 @@ BWOANightmares.Fall.onCycle = function(player)
     BWOATex.mode = "full"
     BWOATex.alpha = 1
 
-    if player:getZ() < 7 then
-        print ("[FALL] onCycle, player z < 7 so teleporting to floor 31")
+    if player:getZ() < 4 then
+        -- print ("[FALL] onCycle, player z < 4 so teleporting to floor 31")
         player:setX(8000)
         player:setY(5000)
-        player:setZ(30)
+        player:setZ(31)
         player:setLastX(8000)
         player:setLastY(5000)
         player:setLastZ(31)
@@ -58,52 +58,54 @@ BWOANightmares.Fall.onCycle = function(player)
     end
 
     if cycle < cycleNumber - 10  then
-        print ("[FALL] onCycle, climbing is false")
+        -- print ("[FALL] onCycle, climbing is false")
         player:setbClimbing(false)
     else
-        print ("[FALL] onCycle, climbing is true")
+        -- print ("[FALL] onCycle, climbing is true")
         player:setbClimbing(true)
     end
 
-    gmd.nightmares.cycle = cycle + 1
-    print("Nightmare cycle: " .. player:getZ().. " " .. gmd.nightmares.cycle)
+    local inc = getGameTime():getGameWorldSecondsSinceLastUpdate() * 4
+    -- print (inc)
+    gmd.nightmares.cycle = cycle + inc
+    -- print("Nightmare cycle: " .. player:getZ().. " " .. gmd.nightmares.cycle)
 end
 
 BWOANightmares.Fall.ShouldExit = function(player)
-    print ("[FALL] shouldExit check")
+    -- print ("[FALL] shouldExit check")
     local gmd = GetBWOAModData()
     local cycle = gmd.nightmares.cycle or 1
     if cycle > cycleNumber then
-        print ("[FALL] shouldExit is now true")
+        -- print ("[FALL] shouldExit is now true")
         return true
     end
     return false
 end
 
 BWOANightmares.Fall.onExit = function(player)
-    print ("[FALL] onExit")
-    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onExit")
+    -- print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
     local gmd = GetBWOAModData()
     player:setbClimbing(true)
-    print ("[FALL] onExit climbing set to true")
-    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onExit climbing set to true")
+    -- print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
     player:setX(gmd.nightmares.returnData.x)
     player:setY(gmd.nightmares.returnData.y)
     player:setZ(gmd.nightmares.returnData.z)
     player:setLastX(gmd.nightmares.returnData.x)
     player:setLastY(gmd.nightmares.returnData.y)
     player:setLastZ(gmd.nightmares.returnData.z)
-    print ("[FALL] onExit position Z: " .. player:getZ())
-    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onExit position Z: " .. player:getZ())
+    -- print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
     getWorld():update()
-    print ("[FALL] onExit position Z after world update: " .. player:getZ())
-    print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onExit position Z after world update: " .. player:getZ())
+    -- print ("[FALL] onExit player alive: " .. tostring(player:isAlive()))
 end
 
 BWOANightmares.Fall.onPost = function(player)
-    print ("[FALL] onPost")
-    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
-    print ("[FALL] onPost position Z: " .. player:getZ())
+    -- print ("[FALL] onPost")
+    -- print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onPost position Z: " .. player:getZ())
     
     local gmd = GetBWOAModData()
     gmd.nightmares.cycle = 1
@@ -111,14 +113,14 @@ BWOANightmares.Fall.onPost = function(player)
 
     BWOATex.speed = 0.005
 
-    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
     player:clearVariable("BumpFallType")
     player:setBumpType("stagger")
     player:setBumpFall(true)
     player:setBumpFallType("pushedBehind")
 
-    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
     player:setbClimbing(false)
-    print ("[FALL] onPost climbing is false ")
-    print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
+    -- print ("[FALL] onPost climbing is false ")
+    -- print ("[FALL] onPost player alive: " .. tostring(player:isAlive()))
 end

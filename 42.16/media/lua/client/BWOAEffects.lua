@@ -37,7 +37,7 @@ BWOAEffects.Process = function()
             end
             
             local size = effect.size / zoom
-            local offset = size / 2
+            local offset = (size / 2) - (3 * effect.z)
             local tx = isoToScreenX(playerNum, effect.x + effect.offsetx, effect.y + effect.offsety, effect.z) - offset
             local ty = isoToScreenY(playerNum, effect.x + effect.offsetx, effect.y + effect.offsety, effect.z) - offset
 
@@ -55,6 +55,12 @@ BWOAEffects.Process = function()
                     effect.offsetx = 0
                     effect.offsety = 0 
                 else 
+                    if effect.fluid then
+                        local square = cell:getGridSquare(effect.x, effect.y, effect.z)
+                        if square then
+                            BWOAUtils.ScrubSquare(square, effect.fluid)
+                        end
+                    end
                     table.remove(BWOAEffects.tab, i)
                     return
                 end

@@ -81,19 +81,27 @@ local switchStage = function(bandit)
     local brain = BanditBrain.Get(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
 
-    if brain.sadness and brain.sadness > 50 then
-        if brain.program.stage ~= "Cry" then
-            return "Cry"
+    if BWOABaseAPI.alarm then
+        if bz >= -2 then
+            if brain.program.stage ~= "Exterior" then
+                brain.program.stage = "Exterior"
+                return "Exterior"
+            end
+        else
+            if brain.program.stage ~= "Defend" then
+                brain.program.stage = "Defend"
+                return "Defend"
+            end
         end
     elseif bz > -4 or (bx < 9950 and by > 12621 and by < 12629) then
         if brain.program.stage ~= "Exterior" then
             brain.program.stage = "Exterior"
             return "Exterior"
         end
-    elseif BWOABaseAPI.alarm then
-        if brain.program.stage ~= "Defend" then
-            brain.program.stage = "Defend"
-            return "Defend"
+    elseif brain.sadness and brain.sadness > 50 then
+        if brain.program.stage ~= "Cry" then
+            brain.program.stage = "Cry"
+            return "Cry"
         end
     else
         if brain.program.stage ~= "Main" then
@@ -154,12 +162,30 @@ ZombiePrograms.Emma.Main = function(bandit)
     local brain = BanditBrain.Get(bandit)
     local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
     local gmd = GetBWOAModData()
+    local player = getSpecificPlayer(0)
 
     bandit:setVariable("RunSpeed", 0.91)
     
     local newStage = switchStage(bandit)
     if newStage then
         return {status=true, next=newStage, tasks=tasks}
+    end
+
+    -- say hi if haven't seen the player for a while
+    local wa = getGameTime():getWorldAgeHours() - 10
+    if not brain.timeSinceSeenPlayer then
+        brain.timeSinceSeenPlayer = wa
+    end
+    if bandit:CanSee(player) then
+        if brain.timeSinceSeenPlayer < wa - 1 then
+            local tab = {}
+            tab.id = brain.id
+            tab.anim = "WaveHi"
+            tab.txt = "Hi!"
+            tab.sound = "VoiceFemaleShoutHey"
+            BWOAEventControl.Add("SayBandit", tab, 1)
+        end
+        brain.timeSinceSeenPlayer = wa
     end
 
     if brain.mode and brain.mode == "follow" then
@@ -223,6 +249,33 @@ ZombiePrograms.Emma.Main = function(bandit)
                 local task = {action="Collect", time=300, item=item}
                 local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
                 if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+            end
+        end
+
+        -- cleaning blood
+        local blood, dist = BWOABaseObjects.FindClosestBlood({x=bx, y=by}, 10)
+        if blood then
+
+            local hasBroom = BWOAPermaInv.HasType(bandit, "Base.Mop")
+            local hasBleach = BWOAPermaInv.HasType(bandit, "Base.Bleach")
+            if hasBroom and hasBleach then
+                local task = {action="CleanFloor", time=300, blood=blood, x=blood.x, y=blood.y, z=blood.z, time=240}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, blood, task, 0.1)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+            else
+                local itemType
+                if hasBroom then
+                    itemType = "Base.Bleach"
+                else
+                    itemType = "Base.Mop"
+                end
+
+                local item, dist = BWOABaseObjects.FindClosestItemTypes({itemType}, {x=bx, y=by}, {})
+                if item then
+                    local task = {action="Collect", time=300, item=item}
+                    local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
+                    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+                end
             end
         end
 
@@ -550,7 +603,7 @@ ZombiePrograms.Emma.Defend = function(bandit)
         end
     end
 
-    if brain.follow then
+    if brain.mode == "follow" then
         local subTasks = BWOAPrograms.FollowMaster(bandit)
         if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
     end
