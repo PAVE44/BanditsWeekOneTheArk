@@ -67,6 +67,7 @@ local objectWhitelist = {
     ["Piano"] = true,
     ["Computer"] = true,
     ["Microscope"] = true,
+    ["Oven"] = true,
 }
 
 local function analyze(x, y, z)
@@ -102,6 +103,12 @@ local function analyze(x, y, z)
                         cn = customName,
                         f = facing
                     }
+
+                    if instanceof(object, "IsoStove") then
+                        temp.objects[oid].active = object:Activated()
+                    elseif instanceof(object, "IsoTelevision") then
+                        temp.objects[oid].active = object:getDeviceData():getIsTurnedOn()
+                    end
                 end
             end
         end
@@ -114,15 +121,26 @@ local function analyze(x, y, z)
             for i=0, items:size()-1 do
                 local item = items:get(i)
                 local ftype = item:getFullType()
-
                 local class = BWOAItems.GetItemClass(item)
-                temp.items[oid] = {
-                    x = x,
-                    y = y,
-                    z = z,
-                    ftype = ftype,
-                    class = class
-                }
+                local cooked = item:isCooked()
+
+                if not temp.items[oid] then
+                    temp.items[oid] = {}
+                end
+
+                if temp.items[oid][ftype] then
+                    temp.items[oid][ftype].cnt = temp.items[oid][ftype].cnt + 1
+                else
+                    temp.items[oid][ftype] = {
+                        x = x,
+                        y = y,
+                        z = z,
+                        ftype = ftype,
+                        class = class,
+                        cooked = cooked,
+                        cnt = 1,
+                    }
+                end
             end
         end
     end
@@ -131,17 +149,30 @@ local function analyze(x, y, z)
     for i = 0, wobs:size()-1 do
         local o = wobs:get(i)
         local item = o:getItem()
-        local ftype = item:getFullType() 
-
+        local ftype = item:getFullType()
+        local radiated = item:getModData().radiated
         local class = BWOAItems.GetItemClass(item)
-        temp.items[oid] = {
-            x = x,
-            y = y,
-            z = z,
-            ftype = ftype,
-            class = class,
-            ground = true
-        }
+        local cooked = item:isCooked()
+
+        if not temp.items[oid] then
+            temp.items[oid] = {}
+        end
+
+        if temp.items[oid] and temp.items[oid][ftype] then
+            temp.items[oid][ftype].cnt = temp.items[oid][ftype].cnt + 1
+        else
+            temp.items[oid][ftype] = {
+                x = x,
+                y = y,
+                z = z,
+                ftype = ftype,
+                class = class,
+                r = radiated,
+                ground = true,
+                cooked = cooked,
+                cnt = 1
+            }
+        end
     end
 
     local hasBlood = square:haveBlood()
@@ -192,6 +223,21 @@ store()
 
 BWOABaseObjects = BWOABaseObjects or {}
 
+BWOABaseObjects.FindAllObjects = function(customNames, opts)
+    local objectsFound = {}
+    local objs = database.objects
+
+    for _, customName in pairs(customNames) do
+        for id, obj in pairs(objs) do
+            if obj.cn == customName then
+                table.insert(objectsFound, obj)
+            end
+        end
+    end
+
+    return objectsFound
+end
+
 BWOABaseObjects.FindClosestObject = function(customNames, point, opts)
     local distBest = math.huge
     local objBest
@@ -235,18 +281,42 @@ BWOABaseObjects.GetIsoObject = function(obj)
     end
 end
 
+BWOABaseObjects.EnsureObjectAt = function(cn, x, y, z)
+    local objects = database.objects
+    local x, y, z = math.floor(x), math.floor(y), math.floor(z)
+    local cntExpected = cnt or 1
+    local id = x .. ":" .. y .. ":" .. z
+    local object = objects[id]
+    if object and object.cn == cn then
+        return true
+    end
+end
+
+BWOABaseObjects.GetItemStackAt = function(x, y, z)
+    local items = database.items
+    local x, y, z = math.floor(x), math.floor(y), math.floor(z)
+    local id = x .. ":" .. y .. ":" .. z
+    local itemStack = items[id]
+    
+    return itemStack
+end
+
 BWOABaseObjects.FindClosestItemTypes = function(fullTypesList, point, opts)
     local distBest = math.huge
     local itemBest
     local items = database.items
 
-    for id, item in pairs(items) do
-        for _, fullType in pairs(fullTypesList) do
-            if item.ftype == fullType then
-                local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
-                if distSq < distBest then
-                    itemBest = item
-                    distBest = distSq
+    for id, itemStack in pairs(items) do
+        for ftype, item in pairs(itemStack) do
+            for _, fullType in pairs(fullTypesList) do
+                if ftype == fullType then
+                    if not opts or (opts.cooked == nil or (opts.cooked == item.cooked)) then
+                        local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
+                        if distSq < distBest then
+                            itemBest = item
+                            distBest = distSq
+                        end
+                    end
                 end
             end
         end
@@ -258,17 +328,36 @@ BWOABaseObjects.FindClosestItemTypes = function(fullTypesList, point, opts)
     return nil, nil
 end
 
+BWOABaseObjects.EnsureItemTypeAt = function(fullType, x, y, z, cnt)
+    local items = database.items
+    local x, y, z = math.floor(x), math.floor(y), math.floor(z)
+    local cntExpected = cnt or 1
+    local id = x .. ":" .. y .. ":" .. z
+    local itemStack = items[id]
+
+    if itemStack then
+        for ftype, item in pairs(itemStack) do
+            if ftype == fullType and math.floor(item.x) == x and math.floor(item.y) == y and math.floor(item.z) == z and item.cnt >= cntExpected then
+                return true
+            end
+        end
+    end
+    return false
+end
+
 BWOABaseObjects.FindClosestItemClass = function(class, point, opts)
     local distBest = math.huge
     local itemBest
     local items = database.items
 
-    for id, item in pairs(items) do
-        if item.class == class then
-            local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
-            if distSq < distBest then
-                itemBest = item
-                distBest = distSq
+    for id, itemStack in pairs(items) do
+        for ftype, item in pairs(itemStack) do
+            if item.class == class then
+                local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
+                if distSq < distBest then
+                    itemBest = item
+                    distBest = distSq
+                end
             end
         end
     end
@@ -297,6 +386,45 @@ BWOABaseObjects.FindClosestBlood = function(point, distMax)
         return bloodBest, math.sqrt(distBest)
     end
     return nil, nil
+end
+
+BWOABaseObjects.FindClosestRadiated = function(point, distMax)
+    local distBest = math.huge
+    local itemBest
+    local items = database.items
+    local distMaxSq = distMax * distMax
+
+    for id, itemStack in pairs(items) do
+        for ftype, item in pairs(itemStack) do
+            if item.r then
+                local distSq = ((item.x - point.x + 0.5) * (item.x - point.x + 0.5)) + ((item.y - point.y + 0.5) * (item.y - point.y + 0.5))
+                if distSq < distBest and distSq <= distMaxSq then
+                    itemBest = item
+                    distBest = distSq
+                end
+            end
+        end
+    end
+
+    if itemBest then
+        return itemBest, math.sqrt(distBest)
+    end
+    return nil, nil
+end
+
+BWOABaseObjects.GetIsoItem = function(item)
+    local square = getCell():getGridSquare(item.x, item.y, item.z)
+    if square then
+        local wobs = square:getWorldObjects()
+        for i = 0, wobs:size()-1 do
+            local o = wobs:get(i)
+            local item = o:getItem()
+            local ftype = item:getFullType()
+            if ftype == item.ftype then
+                return item
+            end
+        end
+    end
 end
 
 Events.OnGameStart.Remove(onGameStart)

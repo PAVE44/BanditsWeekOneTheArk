@@ -7,6 +7,16 @@ module Base {
         clip
         {}
     }
+
+    sound RadioTalk
+    {
+        category = Object,
+        clip
+        {
+            file = media/sound/tape_hiss.ogg,
+            reverbFactor = 0.1, 
+        }
+    }
 }
 
 module Bandits {

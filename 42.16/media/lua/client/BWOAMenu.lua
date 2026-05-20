@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "1.6.3"
+BWOAMenu.version = "1.7.1"
 
 BWOAMenu.blinking = {}
 
@@ -79,6 +79,10 @@ BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
 end
 
 BWOAMenu.specialObjectsCanHighlight.Wall = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.Cabinet = function(player)
     return true
 end
 
@@ -498,6 +502,9 @@ BWOAMenu.specialObjectsMenu.Wall = function(context, square, player, sobject)
     end
 end
 
+BWOAMenu.specialObjectsMenu.Cabinet = function(context, square, player, sobject)
+end
+
 BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player, sobject)
     local verifyFunc = function()
         local inventory = player:getInventory()
@@ -583,6 +590,12 @@ BWOAMenu.specialObjectsHighlight = {
         x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1",
         menuFunc = BWOAMenu.specialObjectsMenu.Wall,
         highLightFunc = BWOAMenu.specialObjectsCanHighlight.Wall,
+        destroyable = true,
+    },
+    ["Cabinet"] = {
+        x = 5552, y = 12488, z = -13, spriteName = "location_business_office_generic_01_35",
+        menuFunc = BWOAMenu.specialObjectsMenu.Cabinet,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Cabinet,
         destroyable = true,
     },
 }
@@ -817,14 +830,21 @@ function BWOAMenu.Decontaminate(player, square, item)
 
 end
 
+function BWOAMenu.Patch(player)
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.1")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.2")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.2.1")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.3")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.4")
+end
 
 function BWOAMenu.Teleport(player)
     -- local x, y, z = 9962, 12609, -4
-    local x, y, z = 9961, 12622, -4 -- ark
+    -- local x, y, z = 9961, 12622, -4 -- ark
     -- local x, y, z = 18002.5, 4203.5, -3 -- shrink
     -- local x, y, z = 18005, 3603, -3 -- family house
     -- local x, y, z = 18009, 3848, -10 -- hell
-    -- local x, y, z = 5574, 12492, -13 -- secret base
+    local x, y, z = 5574, 12492, -13 -- secret base
     
     player:setX(x)
     player:setY(y)
@@ -1002,20 +1022,35 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if false and isDebugEnabled() then
 
-        --[[
-        local deadbody = square:getDeadBody()
-        if deadbody then
-            local stageTime = SandboxVars.HoursForCorpseRemoval / 3
-            local wa = getGameTime():getWorldAgeHours()
-            local time = wa - (stageTime * 2) - 10
-            deadbody:setDeathTime(time)
-            local dt = deadbody:getDeathTime()
-            IsoDeadBody.updateBodies()
-             -- print ("world age: " .. tostring(wa) .. ", death time: " .. tostring(dt))
-            
-        end]]
+        --BWOAMissions.Reveal(120)
+        --BWOAMissions.Accomplish(120)
 
-        -- BWOASound.PlayPlayer({sound = "AmbientDarkClouds"})
+                --[[
+        local metaChunk = getWorld():getMetaChunk(sx / 8, sy / 8)
+        local intensity = metaChunk:getZombieIntensity()
+        print (intensity)
+
+        local test = getSandboxOptions():getOptionByName("zombies")
+
+        local xmin = 5512
+        local ymin = 12416
+        local xmax = 5568
+        local ymax = 12520
+
+        for x = xmin, xmax, 8 do
+            for y = ymin, ymax, 8 do
+                local wx, wy = x / 8, y / 8
+                local metaChunk = getWorld():getMetaChunk(wx, wy)
+                local intensity = metaChunk:getLootZombieIntensity()
+                if intensity > 0.01 then
+                    local line = "MetaChunk at (" .. tostring(wx) .. ", " .. tostring(wy) .. ") has loot zombie intensity: " .. tostring(intensity)
+                    print (line)
+                end
+                metaChunk:setZombieIntensity(0)
+            end
+        end
+        
+     
 
 
         --BWOABuildTools.VentW(9965, 12608, -4)
@@ -1025,7 +1060,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         --BWOABuildTools.RemoveObject(sx, sy, sz, "walls_garage_01_37")
         --BWOABuildTools.WindowFrame(sx, sy, sz, "walls_garage_01_45", true)
 
-        --[[
+
         local window = square:getWall()
         if window then
             print ("window")

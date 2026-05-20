@@ -184,8 +184,15 @@ BWOARooms.SecretLab.Prepare = function ()
     md.BWOA.onTaken.accomplishMissionId = 110
     md.BWOA.onTaken.revealDialogueId = "2000.6.4"
     md.BWOA.onTaken.revealDialoguePerson = "Emma_Robinson"
-
     BWOAPrepareTools.AddItemsToContainer(5552, 12488, -13, {note4}, "Cabinet", true)
+
+    -- stairs
+    local note5 = BanditCompatibility.InstanceItem("Bandits.Note")
+    note5:setCanBeWrite(false) 
+    note5:setName(getText("IGUI_Artifact_LetterLab"))
+    local md = note5:getModData()
+    md.printContent = "letter_lab"
+    BWOAPrepareTools.AddWorldItemSpecial(5551, 12494, -13, note5, {x=0.38, y=0.61, z=0, rx=0, ry=0, rz=0})
 
     local items = {["Bandits.NBCTablets"] = 6, ["Bandits.EngineCoolant"] = 4, ["Bandits.EngineLubricant"] = 4 }
     BWOAPrepareTools.AddItemsToContainer(5549, 12502, -13, items, "Shelves")
@@ -217,6 +224,9 @@ BWOARooms.SecretLab.PrepareCorpses = function ()
         "Base.556Clip",
         "Base.556Clip",
         "Base.556Clip",
+        "Base.556Box",
+        "Base.556Box",
+        "Base.556Box",
         "Base.556Box",
         "Base.556Box",
         "Base.GasmaskFilter",

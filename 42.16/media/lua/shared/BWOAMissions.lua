@@ -66,6 +66,7 @@ BWOAMissions.missions = {
     [50] = {
         name = getText("IGUI_Missions_50_Name"),
         desc = getText("IGUI_Missions_50_Description"),
+        map = {symbol = "Question", x = 10130, y = 11077}
     },
     [51] = {
         name = getText("IGUI_Missions_51_Name"),
@@ -190,6 +191,11 @@ BWOAMissions.Accomplish = function(missionId)
     local gmd = GetBWOAModData()
     local mission = gmd.missions[missionId]
     if mission and not mission.accomplished then
+
+        if not mission.revealed then
+            BWOAMissions.Reveal(missionId)
+        end
+
         BWOASound.PlayPlayer({sound="AmbientHorn"})
         mission.accomplished = true
         BWOAMissions.new = true

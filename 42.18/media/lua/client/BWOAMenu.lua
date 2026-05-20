@@ -1,0 +1,1453 @@
+--
+-- ********************************
+-- *** Bandits W1 The Ark       ***
+-- ********************************
+-- *** Coded by: Slayer         ***
+-- ********************************
+--
+
+local function predicateAll(item)
+	return true
+end
+
+BWOAMenu = BWOAMenu or {}
+
+BWOAMenu.version = "1.9.1"
+
+BWOAMenu.blinking = {}
+
+BWOAMenu.specialObjectsCanHighlight = {}
+
+BWOAMenu.specialObjectsCanHighlight.Noah = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.Vent = function(player)
+    local gmd = GetBWOAModData()
+    local airintakes = gmd.airintakes
+    if airintakes[1].broken and BWOAMissions.IsActive(3) then
+        return true
+    end
+end
+
+BWOAMenu.specialObjectsCanHighlight.Generator = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.WaterPump = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.ValveGarden = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.NBCMixer = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.FuelIntake = function(player)
+    local cell = getCell()
+    local sqs = {
+        {x = 9925, y = 12616, z = 0},
+        {x = 9926, y = 12616, z = 0},
+        {x = 9927, y = 12616, z = 0},
+        {x = 9928, y = 12616, z = 0},
+        {x = 9925, y = 12615, z = 0},
+        {x = 9926, y = 12615, z = 0},
+        {x = 9927, y = 12615, z = 0},
+        {x = 9928, y = 12616, z = 0},
+    }
+
+    for _, sq in pairs(sqs) do
+        local square = cell:getGridSquare(sq.x, sq.y, sq.z)
+        if square then
+            local vehicle = square:getVehicleContainer()
+            if vehicle then
+                local md = vehicle:getModData()
+                if md.BWOA and md.BWOA.fuel then
+                    local fuel = md.BWOA.fuel
+                    if fuel > 0 then
+                        return true
+                    end
+                end
+            end
+        end
+    end
+
+    return false
+end
+
+BWOAMenu.specialObjectsCanHighlight.Wall = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.Cabinet = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsCanHighlight.Hatch = function(player)
+    return true
+end
+
+BWOAMenu.specialObjectsMenu = {}
+
+BWOAMenu.specialObjectsMenu.Noah = function(context, square, player, sobject)
+    local verifyFunc = function()
+        return true, ""
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            BWOANoah.Show()
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_UseNoah"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+
+    local allowed, reason = verifyFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.AutopsyTable = function(context, square, player, sobject)
+    local verifyFunc = function()
+        if not player:isDraggingCorpse() then
+            return false, getText("ContextMenu_NeedCorpse")
+        end
+
+        return true, ""
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            ISTimedActionQueue.add(TAAddCorpse:new(player, square))
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_AddCorpse"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+
+    local allowed, reason = verifyFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Vent = function(context, square, player, sobject)
+    local verifyFunc = function()
+        local gmd = GetBWOAModData()
+        local airintakes = gmd.airintakes
+        if not airintakes[1].broken then
+            return false, getText("ContextMenu_VentNotBroken")
+        end
+
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTagRecurse(ItemTag.SCREWDRIVER)
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedScrewdriver")
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item = inventory:getFirstTagRecurse(ItemTag.SCREWDRIVER)
+            local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+            ISTimedActionQueue.add(transferAction)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+            ISTimedActionQueue.add(TAFixIntake:new(player, square))
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_FixAirVent"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Generator = function(context, square, player, sobject)
+    local findGen = function(square)
+        local gmd = GetBWOAModData()
+        local generators = gmd.generators
+        for k, gen in pairs(generators) do
+            if gen.x == square:getX() and gen.y == square:getY() and gen.z == square:getZ() then
+                return gen
+            end
+        end
+        return nil
+    end
+
+    local verifyCollantFunc = function()
+        local item = BWOAItems.GetFirstItemTypeWithFluid("EngineCoolant")
+        if not item then
+            return false, getText("ContextMenu_NeedEngineCoolant")
+        end
+
+        local gen = findGen(square)
+        -- if not gen.coolant then gen.coolant = 0 end
+        if gen and gen.coolant > 99 then
+            return false, getText("ContextMenu_GeneratorCoolantFull")
+        end
+
+        return true
+    end
+    local verifyLubricantFunc = function()
+        local item = BWOAItems.GetFirstItemTypeWithFluid("EngineLubricant")
+        if not item then
+            return false, getText("ContextMenu_NeedEngineLubricant")
+        end
+
+        local gen = findGen(square)
+        -- if not gen.lubricant then gen.lubricant = 0 end
+        if gen and gen.lubricant > 99 then
+            return false, getText("ContextMenu_GeneratorLubricantFull")
+        end
+
+        if gen.active then
+            return false, getText("ContextMenu_GeneratorMustBeShutDown")
+        end
+        return true
+    end
+
+    local verifyRepairFunc = function()
+        local gen = findGen(square)
+        if gen and gen.condition > 90 then
+            return false, getText("ContextMenu_GeneratorNotBroken")
+        end
+
+        if gen and gen.active then
+            return false, getText("ContextMenu_GeneratorMustBeShutDown")
+        end
+
+        local profession = player:getDescriptor():getCharacterProfession()
+        --[[
+        if profession ~= CharacterProfession.MECHANICS then
+            local pmech = player:getPerkLevel(Perks.Mechanics)
+            if pmech < 3 then
+                return false, getText("ContextMenu_PerkMechanicsRequired3")
+            end
+        end
+        ]]
+
+        
+        if profession ~= CharacterProfession.ELECTRICIAN and profession ~= CharacterProfession.ENGINEER then
+            if not player:getKnownRecipes():contains("Generator") then
+                return false, getText("ContextMenu_RecipeGeneratorRequired")
+            end
+
+            local pelec = player:getPerkLevel(Perks.Electricity)
+            if pelec < 2 then
+                return false, getText("ContextMenu_PerkElectricalRequired2")
+            end
+        end
+
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTypeRecurse("Base.EngineParts")
+        if not hasItem then
+            return false, getText("ContextMenu_NeedEngineParts")
+        end
+
+        local hasItem = inventory:containsTagRecurse(ItemTag.WRENCH)
+        if not hasItem then
+            return false, getText("ContextMenu_NeedWrench")
+        end
+
+        return true
+    end
+
+    local actionCoolantFunc = function()
+        if luautils.walkAdj(player, square) then
+            local item = BWOAItems.GetFirstItemTypeWithFluid("EngineCoolant")
+            if item then
+                local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+                ISTimedActionQueue.add(TAFixGX9:new(player, square, "addCoolant"))
+            end
+        end
+    end
+
+    local actionLubricantFunc = function()
+        if luautils.walkAdj(player, square) then
+            local item = BWOAItems.GetFirstItemTypeWithFluid("EngineLubricant")
+            if item then
+                local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+                ISTimedActionQueue.add(TAFixGX9:new(player, square, "addLubricant"))
+            end
+        end
+    end
+
+    local actionRepairFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item1 = inventory:getFirstTagRecurse(ItemTag.WRENCH)
+            local item2 = inventory:getFirstTypeRecurse("Base.EngineParts")
+
+            if item1 and item2 then
+                local transferAction1 = ISInventoryTransferUtil.newInventoryTransferAction(player, item1, item1:getContainer(), player:getInventory(), 100)
+                local transferAction2 = ISInventoryTransferUtil.newInventoryTransferAction(player, item2, item2:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction1)
+                ISTimedActionQueue.add(transferAction2)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item1, 30, true))
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item2, 30, false))
+                ISTimedActionQueue.add(TAFixGX9:new(player, square, "repair"))
+            end
+        end
+    end
+
+    local genOption = context:addOption("GX-9")
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        genOption.iconTexture = texture:splitIcon()
+    end
+
+    local genMenu = context:getNew(context)
+    context:addSubMenu(genOption, genMenu)
+
+    local optionCoolant = genMenu:addOption(getText("ContextMenu_AddCoolant"), player, actionCoolantFunc, square)
+    local allowed, reason = verifyCollantFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        optionCoolant.notAvailable = true
+        tooltip.description = reason
+        optionCoolant.toolTip = tooltip
+    end
+
+    local optionLubricant = genMenu:addOption(getText("ContextMenu_AddLubricant"), player, actionLubricantFunc, square)
+    local allowed, reason = verifyLubricantFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        optionLubricant.notAvailable = true
+        tooltip.description = reason
+        optionLubricant.toolTip = tooltip
+    end
+
+    local optionRepair = genMenu:addOption(getText("ContextMenu_RepairGenerator"), player, actionRepairFunc, square)
+    local allowed, reason = verifyRepairFunc()
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        optionRepair.notAvailable = true
+        tooltip.description = reason
+        optionRepair.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.WaterPump = function(context, square, player, sobject)
+end
+
+BWOAMenu.specialObjectsMenu.ValveGarden = function(context, square, player, sobject)
+end
+
+BWOAMenu.specialObjectsMenu.NBCMixer = function(context, square, player, sobject)
+    local findDecontaminator = function(square)
+        local gmd = GetBWOAModData()
+        local decontaminator = gmd.decontaminator
+        if decontaminator.x == square:getX() and decontaminator.y == square:getY() and decontaminator.z == square:getZ() then
+            return decontaminator
+        end
+
+        return nil
+    end
+
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTypeRecurse("Bandits.NBCTablets")
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedNBCTablets")
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item = inventory:getFirstTypeRecurse("Bandits.NBCTablets")
+            local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+            ISTimedActionQueue.add(transferAction)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+            ISTimedActionQueue.add(TAAddNBCMixer:new(player, square))
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_AddNBCTablets"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.FuelIntake = function(context, square, player, sobject)
+    local verifyFunc = function()
+        local cell = getCell()
+        local sqs = {
+            {x = 9925, y = 12616, z = 0},
+            {x = 9926, y = 12616, z = 0},
+            {x = 9927, y = 12616, z = 0},
+            {x = 9928, y = 12616, z = 0},
+            {x = 9925, y = 12615, z = 0},
+            {x = 9926, y = 12615, z = 0},
+            {x = 9927, y = 12615, z = 0},
+            {x = 9928, y = 12616, z = 0},
+        }
+
+        local vehicleFound
+        for _, sq in pairs(sqs) do
+            local square = cell:getGridSquare(sq.x, sq.y, sq.z)
+            if square then
+                local vehicle = square:getVehicleContainer()
+                if vehicle then
+                    vehicleFound = vehicle
+                    break
+                end
+            end
+        end
+
+        if not vehicleFound then
+            return false, getText("ContextMenu_FuelIntakeNoVehicle")
+        end
+
+        local md = vehicleFound:getModData()
+        if not md.BWOA or not md.BWOA.fuel or md.BWOA.fuel <= 0 then
+            return false, getText("ContextMenu_FuelIntakeNoFuelLeft")
+        end
+
+        local gmd = GetBWOAModData()
+        local total = 0
+        for _, generator in pairs(gmd.generators) do
+            total = total + generator.fuel
+        end
+        if total >= 198 then
+            return false, getText("ContextMenu_FuelIntakeGeneratorsFull")
+        end
+
+        return true, ""
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            ISTimedActionQueue.add(TAFuelIntake:new(player, square))
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_FuelIntakeDrain"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Wall = function(context, square, player, sobject)
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTagRecurse(ItemTag.SLEDGEHAMMER)
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedSledgehammer")
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local wall = square:getWall()
+            if wall then
+                local inventory = player:getInventory()
+                local item = inventory:getFirstTagRecurse(ItemTag.SLEDGEHAMMER)
+                local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+                ISTimedActionQueue.add(transferAction)
+                ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+                ISTimedActionQueue.add(ISDestroyStuffAction:new(player, wall, false))
+            end
+        end    
+    end
+
+    local option = context:addOption(getText("ContextMenu_Destroy"), player, actionFunc, square)
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsMenu.Cabinet = function(context, square, player, sobject)
+end
+
+BWOAMenu.specialObjectsMenu.Hatch = function(context, square, player, sobject)
+    local verifyFunc = function()
+        local inventory = player:getInventory()
+        local hasItem = inventory:containsTagRecurse(ItemTag.CROWBAR)
+        return hasItem, hasItem and "" or getText("ContextMenu_NeedCrowbar")
+    end
+
+    local actionFunc = function()
+        if luautils.walkAdj(player, square) then
+            local inventory = player:getInventory()
+            local item = inventory:getFirstTagRecurse(ItemTag.CROWBAR)
+            local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+            ISTimedActionQueue.add(transferAction)
+            ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+            ISTimedActionQueue.add(TAOpenHatch:new(player, square))
+        end
+    end
+
+    local option = context:addOption(getText("ContextMenu_OpenHatch"), player, actionFunc, square)
+    local texture = getTexture(sobject.spriteName)
+    if texture then
+        option.iconTexture = texture:splitIcon()
+    end
+    local allowed, reason = verifyFunc(player)
+    if not allowed then
+        local tooltip = ISToolTip:new()
+        option.notAvailable = true
+        tooltip.description = reason
+        option.toolTip = tooltip
+    end
+end
+
+BWOAMenu.specialObjectsHighlight = {
+    ["Noah"] = {
+        x = 9964, y = 12627, z = -4, spriteName = "theark_01_20",
+        menuFunc = BWOAMenu.specialObjectsMenu.Noah,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Noah,
+        destroyable = true,
+    },
+    ["AutopsyTable"] = {
+        x = 9961, y = 12638, z = -4, spriteName = "location_community_medical_01_79",
+        menuFunc = BWOAMenu.specialObjectsMenu.AutopsyTable,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.AutopsyTable,
+    },
+    ["Vent"] = {
+        x = 9940, y = 12633, z = 0, spriteName = "theark_01_5", 
+        menuFunc = BWOAMenu.specialObjectsMenu.Vent,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Vent,
+    },
+    ["Generator1"] = {
+        x = 9947, y = 12621, z = -4, spriteName = "industry_02_67", 
+        menuFunc = BWOAMenu.specialObjectsMenu.Generator,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Generator,
+    },
+    ["Generator2"] = {
+        x = 9947, y = 12616, z = -4, spriteName = "industry_02_67",
+        menuFunc = BWOAMenu.specialObjectsMenu.Generator,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Generator,
+    },
+    ["WaterPump"] = {
+        x = 9950, y = 12616, z = -4, spriteName = "waterpipes_01_24", 
+        menuFunc = BWOAMenu.specialObjectsMenu.WaterPump,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.WaterPump,
+        destroyable = true,
+    },
+    ["ValveGarden"] = {
+        x = 9950, y = 12613, z = -4, spriteName = "waterpipes_01_20", 
+        menuFunc = BWOAMenu.specialObjectsMenu.ValveGarden,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.ValveGarden,
+        destroyable = true,
+    },
+    ["NBCMixer"] = {
+        x = 9948, y = 12622, z = -5, spriteName = "rooftop_furniture_1",
+        menuFunc = BWOAMenu.specialObjectsMenu.NBCMixer,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.NBCMixer,
+    },
+    ["Fuel1"] = {
+        x = 9927, y = 12617, z = 0, spriteName = "theark_01_7",
+        menuFunc = BWOAMenu.specialObjectsMenu.FuelIntake,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.FuelIntake,
+    },
+    ["Wall"] = {
+        x = 447, y = 9940, z = -1, spriteName = "walls_exterior_house_02_1",
+        menuFunc = BWOAMenu.specialObjectsMenu.Wall,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Wall,
+        destroyable = true,
+    },
+    ["Cabinet"] = {
+        x = 5552, y = 12488, z = -13, spriteName = "location_business_office_generic_01_35",
+        menuFunc = BWOAMenu.specialObjectsMenu.Cabinet,
+        highLightFunc = BWOAMenu.specialObjectsCanHighlight.Cabinet,
+        destroyable = true,
+    },
+}
+
+function BWOAMenu.HealPerson(player, square, bandit)
+    --local task = {action="TimeEvent", anim="Yes", x=bandit:getX(), y=bandit:getY(), time=400}
+    --Bandit.AddTask(bandit, task)
+    if luautils.walkAdj(player, bandit:getSquare()) then
+        ISTimedActionQueue.add(TAHeal:new(player, square, bandit))
+    end
+end
+
+function BWOAMenu.JukeboxOptions(player, square, option)
+    local x, y, z = square:getX(), square:getY(), square:getZ()
+    if luautils.walkAdj(player, square) then
+        ISTimedActionQueue.add(TAJukebox:new(player, square, option))
+    end
+end
+
+local chapter = 1
+function BWOAMenu.EventChapter(player)
+    if chapter > 4 then chapter = 1 end
+    BWOASequence.Chapter({tex = "chapter_" .. chapter})
+    chapter = chapter + 1
+end
+
+function BWOAMenu.EventCracks(player)
+    BWOASequence.Earthquake({intensity = 30, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4})
+end
+
+function BWOAMenu.EventFire(player)
+    BWOASequence.Earthquake({intensity = 60, duration=20, x1 = 9950, y1 = 12600, x2 = 9980, y2 = 12640, z = -4, fire = true})
+end
+
+function BWOAMenu.EventDarkClouds(player)
+    BWOASequence.DarkClouds({})
+end
+
+function BWOAMenu.EventHorde(player)
+    BWOASequence.Horde({intensity = 30})
+end
+
+function BWOAMenu.EventAssault(player)
+    BWOASequence.Assault({intensity = 6, cid = Bandit.clanMap.Surface2})
+end
+
+function BWOAMenu.EventRainbow(player)
+    BWOASequence.Finale()
+end
+
+function BWOAMenu.EventEpilogue(player)
+    BWOASequence.Epilogue()
+end
+
+function BWOAMenu.EventSalvation(player)
+    BWOASequence.Salvation()
+end
+
+function BWOAMenu.EventNightmare(player, variant)
+    BWOANightmares.Activate(variant)
+end
+
+function BWOAMenu.Scene(player, placeEvent)
+    local x, y, z = placeEvent.x, placeEvent.y, placeEvent.z
+    local scene = BWOAScenes[placeEvent.scene]:new(x, y, z)
+    scene:build()
+end
+
+function BWOAMenu.EmmaCry(player)
+    local target = BanditUtils.GetClosestBanditLocationProgram(player, {"Emma"})
+    BWOAChat.ChangeBrainParam({param="sadness", value=100, target = target})
+end
+
+function BWOAMenu.MakeBasement(player, square)
+
+    local basement = BWOABasements.Generic:new(square:getX(), square:getY(), square:getRoom(), "generic")
+    basement:build()
+
+end
+
+function BWOAMenu.EmmaAction(player, bandit, action)
+    if action == "GiveCarrot" then
+        local item = BanditCompatibility.InstanceItem("Base.Carrots")
+        BWOAPermaInv.Add(bandit, item)
+    elseif action == "GetInventory" then
+        local permaInv = BWOAPermaInv.GetAll(bandit)
+    end
+end
+
+function BWOAMenu.TestSymbol(player)
+    local newSymbol = {}
+	newSymbol.scale = 2
+	newSymbol.x = player:getX()
+	newSymbol.y = player:getY()
+	newSymbol.symbol = "Tent"
+	newSymbol.r = 1
+	newSymbol.g = 0
+	newSymbol.b = 0
+
+    local mapItem = MapItem.getSingleton()
+    local uiwm = UIWorldMap.new({})
+	local mapAPI = uiwm:getAPIv3()
+    mapAPI:setMapItem(mapItem)
+    local ssapi = mapAPI:getStreetsAPI()
+    local sapi = mapAPI:getSymbolsAPIv2()
+	local textureSymbol = sapi:addTexture(newSymbol.symbol, newSymbol.x, newSymbol.y)
+	textureSymbol:setRGBA(newSymbol.r, newSymbol.g, newSymbol.b, 1.0)
+	textureSymbol:setAnchor(0.5, 0.5)
+	textureSymbol:setScale(newSymbol.scale)
+end
+
+function BWOAMenu.RemoveRadiation(player)
+    local md = player:getModData()
+    if not md.bwoa then md.bwoa = {} end
+    md.bwoa.radiation = 0
+    md.bwoa.timeRadiated = 0
+
+    local bodydamage = player:getBodyDamage()
+    bodydamage:AddGeneralHealth(400)
+end
+
+function BWOAMenu.LocateBasement(player)
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    BWOABuildings.LoadHatches()
+    local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
+    local distMax = math.huge
+    local dx, dy
+    
+    for sname, sobject in pairs(specialObjectsHighlight) do
+        local dist = BanditUtils.DistTo(px, py, sobject.x, sobject.y)
+        if dist < distMax then
+            distMax = dist
+            dx = sobject.x
+            dy = sobject.y
+        end
+    end
+
+    if dx and dy then
+        local icon = "media/ui/defend.png"
+        local color = {r=0.5, g=0.5, b=0.5}
+        local desc = "Closest Hatch"
+        BanditEventMarkerHandler.set(getRandomUUID(), icon, 7200, dx, dy, color, desc)
+    end
+end
+
+function BWOAMenu.MakeLakeData(player, square)
+    local cell = getCell()
+    local sx, sy, sz = square:getX(), square:getY(), square:getZ()
+
+    local map = {
+        ["blends_natural_02_0"] = "theark_02_0",
+        ["blends_natural_02_1"] = "theark_02_1",
+        ["blends_natural_02_2"] = "theark_02_2",
+        ["blends_natural_02_3"] = "theark_02_3",
+        ["blends_natural_02_4"] = "theark_02_4",
+        ["blends_natural_02_5"] = "theark_02_0",
+        ["blends_natural_02_6"] = "theark_02_0",
+        ["blends_natural_02_7"] = "theark_02_0",
+        ["blends_natural_02_8"] = "theark_02_8",
+        ["blends_natural_02_9"] = "theark_02_9",
+        ["blends_natural_02_10"] = "theark_02_10",
+        ["blends_natural_02_11"] = "theark_02_11",
+    }
+
+    local fileWriter = getFileWriter("lake-" .. sx .. "-" .. sy .. ".txt", true, true)
+
+    local lines = {}
+    table.insert(lines, "local map = {\n")
+    for x = sx-120, sx + 120 do
+        for y = sy-120, sy + 120 do
+            local square = cell:getGridSquare(x, y, sz)
+            if square then
+                local objects = square:getObjects()
+                for i=objects:size()-1, 0, -1 do
+                    local object = objects:get(i)
+                    local sprite = object:getSprite()
+                    local spriteName = sprite:getName()
+                    if map[spriteName] then
+                        table.insert(lines, "    {x = " .. (x - sx) .. ", y = " .. (y - sy) .. ", sprite = \"" .. map[spriteName] .. "\"},\n")
+                        -- table.insert(lines, "BWOABuildTools.Generic(x + " .. tostring(x - sx) .. ", y + " .. tostring(y - sy) .. ", " .. tostring(sz) .. ", \"" .. map[spriteName] .. "\")\n")
+                    end 
+                end
+            end
+        end
+    end
+    table.insert(lines, "}\n")
+    table.insert(lines, "return map\n")
+
+    local output = ""
+    for k, v in pairs(lines) do
+        output = output .. v
+    end
+    print (output)
+    fileWriter:write(output)
+    fileWriter:close()
+end
+
+function BWOAMenu.LavaLake(player, square)
+    local cell = getCell()
+    local sx, sy, sz = square:getX(), square:getY(), square:getZ()
+    local r = 10
+
+    local blueprint = BWOALakes.Island()
+    BWOABuildTools.LavaLake(sx, sy, blueprint)
+   
+end
+
+function BWOAMenu.InjectCure(player)
+    local square = player:getCurrentSquare()
+
+    local inventory = player:getInventory()
+    inventory:RemoveOneOf("Bandits.LabSyringeCure")
+
+    local bodyDamage = player:getBodyDamage()
+    bodyDamage:RestoreToFullHealth()
+
+    local wornItems = player:getWornItems()
+    wornItems:clear()
+
+    local items = ArrayList.new()
+    inventory:getAllEvalRecurse(predicateAll, items)
+    for i=items:size()-1, 0, -1 do
+        local item = items:get(i)
+        local ox, oy, oz, rz = ZombRandFloat(0.1, 0.9), ZombRandFloat(0.1, 0.9), 0, ZombRand(360)
+        local witem = square:AddWorldInventoryItem(item, ox, oy, oz)
+        if witem then
+            witem:setWorldZRotation(rz)
+        end
+        inventory:Remove(item)
+    end
+
+    BWOANightmares.Activate("Shrink")
+
+end
+
+function BWOAMenu.AddNBCToItem(player, itemTarget)
+    local inventory = player:getInventory()
+    local item = inventory:getFirstTypeRecurse("Bandits.NBCTablets")
+    local transferAction = ISInventoryTransferUtil.newInventoryTransferAction(player, item, item:getContainer(), player:getInventory(), 100)
+    ISTimedActionQueue.add(transferAction)
+    ISTimedActionQueue.add(ISEquipWeaponAction:new(player, item, 30, true))
+    ISTimedActionQueue.add(TAAddNBCToItem:new(player, itemTarget))
+end
+
+function BWOAMenu.Decontaminate(player, square, item)
+
+end
+
+function BWOAMenu.Patch(player)
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.1")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.2")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.2.1")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.3")
+    BWOADialogues.Reveal("Emma_Robinson", "2000.6.4")
+end
+
+function BWOAMenu.Teleport(player)
+    -- local x, y, z = 9962, 12609, -4
+    local x, y, z = 9961, 12622, -4 -- ark
+    -- local x, y, z = 18002.5, 4203.5, -3 -- shrink
+    -- local x, y, z = 18005, 3603, -3 -- family house
+    -- local x, y, z = 18009, 3848, -10 -- hell
+    -- local x, y, z = 5574, 12492, -13 -- secret base
+    
+    --player:teleportTo(x, y, z)
+    BWOAEventControl.Add("Teleport", {x=x, y=y, z=z}, 1)
+end
+
+function BWOAMenu.EmmaTeleportHere(player)
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    BWOANPC.Teleport("Emma", px + 1, py + 1, pz)
+end
+
+function BWOAMenu.EmmaTeleportHome(player)
+    BWOANPC.Teleport("Emma", 9961, 12622, -4)
+end
+
+function BWOAMenu.EmmaReadyToLeave(player)
+    -- BWOANPC.Teleport("Emma", player:getX(), player:getY(), player:getZ())
+
+    
+    local npcData, bandit = BWOANPC.Get("Emma")
+    if npcData and bandit then
+        local brain = BanditBrain.Get(bandit)
+        brain.wantToLeave = true
+        -- brain.program.stage = "Prison"
+        Bandit.ForceSyncPart(bandit, brain)
+    end
+
+end
+
+function BWOAMenu.BreakNoah(player)
+    BWOANoah.ChangeState("error")
+end
+
+function BWOAMenu.LoadHatches(player)
+    BWOABuildings.LoadHatches()
+end
+
+function BWOAMenu.Spooky(player)
+    BWOASequence.Spooky({cnt = 5})
+end
+
+function BWOAMenu.Transform(player, zombie)
+    Bandit.AddTask(zombie, {
+        action="Transform", 
+        anim="BandageUpperBody",
+        bid = Bandit.banditMap.Emma.Hazmat,
+        cid = Bandit.clanMap.Emma
+    })
+end
+
+function BWOAMenu.Spawn(player, square, program, cid, fullname)
+    local args = {}
+    args.cid = cid
+    args.x = square:getX()
+    args.y = square:getY()
+    args.z = square:getZ()
+    args.fullname = fullname
+    args.program = program
+    args.size = 1
+    -- args.permanent = true
+    sendClientCommand(player, 'Spawner', 'Clan', args)
+end
+
+function BWOAMenu.TestItem(player, square, artifact)
+    local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet:setCanBeWrite(false)
+    leaflet:setName("Test Note")
+    local md = leaflet:getModData()
+    md.printContent = artifact
+    BWOAPrepareTools.AddWorldItemSpecial(square:getX(), square:getY(), square:getZ(), leaflet, {x=0.5, y=0.5, z=0})
+end
+
+function BWOAMenu.HangingBody(player, square, artifact)
+    local args = {}
+    args.cid = "0b0c0c24-a9f7-4b04-a3e2-72f33b3d82ce"
+    args.x = square:getX()
+    args.y = square:getY()
+    args.z = square:getZ()
+    args.program = "Hanging"
+    args.size = 1
+    -- args.permanent = true
+    sendClientCommand(player, 'Spawner', 'Clan', args)
+end
+
+function BWOAMenu.SetDream(player)
+    BWOAPlayer.dream = 1
+end
+
+local saveItems = function(square)
+
+    local sx = square:getX()
+    local sy = square:getY()
+    local sz = square:getZ()
+
+    local lines = {}
+
+    local wobs = square:getWorldObjects()
+    for i = 0, wobs:size()-1 do
+        local o = wobs:get(i)
+        local item = o:getItem()
+        local itemType = item:getFullType()
+
+        local x = o:getOffX()
+        local y = o:getOffY()
+        local z = o:getOffZ()
+        local rx = item:getWorldXRotation()
+        local ry = item:getWorldYRotation()
+        local rz = item:getWorldZRotation()
+
+        local line = ""
+        line = line .. "BWOAPrepareTools.AddWorldItem(" .. tostring(sx) .. ", " .. tostring(sy) .. ", " .. tostring(sz) .. ", "
+        line = line .. "\"" .. itemType .. "\", "
+        line = line .. "{x=" .. string.format("%.2f", x) .. ", y=" .. string.format("%.2f", y) .. ", z=" .. string.format("%.2f", z) .. ", rx=" .. tostring(rx) ..", ry=" .. tostring(ry) .. ", rz=" .. tostring(rz) .. "})\n"
+        table.insert(lines, line)
+    end
+
+    local fileWriter = getFileWriter("items-" .. sx .. "-" .. sy .. ".txt", true, true)
+    table.insert(lines, "\n")
+
+    local output = ""
+    for k, v in pairs(lines) do
+        output = output .. v
+    end
+    print (output)
+    fileWriter:write(output)
+    fileWriter:close()
+end
+
+local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, test)
+    local player = getSpecificPlayer(playerID)
+    local square = BanditCompatibility.GetClickedSquare()
+    local cell = square:getCell()
+    local sx, sy, sz = square:getX(), square:getY(), square:getZ()
+    local px, py, pz = player:getX(), player:getY(), player:getZ()
+    local room = square:getRoom()
+    local zombie = square:getZombie()
+    local body = square:getDeadBody()
+
+    local zombie = square:getZombie()
+    if not zombie then
+        local squareS = square:getS()
+        if squareS then
+            zombie = squareS:getZombie()
+            if not zombie then
+                local squareW = square:getW()
+                if squareW then
+                    zombie = squareW:getZombie()
+                end
+            end
+        end
+    end
+
+    local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
+    local i = 0
+    for sname, sobject in pairs(specialObjectsHighlight) do
+        i = i + 1
+        if sobject.x == sx and sobject.y == sy and sobject.z == sz then
+            if sobject.menuFunc then
+                sobject.menuFunc(context, square, player, sobject)
+            end
+        end
+    end 
+    
+    local isoJukebox = BWOABaseObjects.GetIsoObject({x = sx, y = sy, z = sz, cn = "Jukebox"})
+    if isoJukebox then
+        local jukebox = BWOAJukebox.Get(sx, sy, sz)
+        if not jukebox then
+            jukebox = BWOAJukebox.Add(sx, sy, sz)
+        end
+        if jukebox.on then
+            context:addOption(getText("ContextMenu_StopMusic"), player, BWOAMenu.JukeboxOptions, square, "off")
+        else
+            context:addOption(getText("ContextMenu_PlayMusic"), player, BWOAMenu.JukeboxOptions, square, "on")
+        end
+    end
+
+    -- doctor healing
+    if zombie and zombie:getVariableBoolean("Bandit") and zombie:isCrawling() then
+        context:addOption("Help Get Up", player, BWOAMenu.HealPerson, square, zombie)
+    end
+
+    if isDebugEnabled() then
+
+        --BWOAMissions.Reveal(120)
+        --BWOAMissions.Accomplish(120)
+
+                --[[
+        local metaChunk = getWorld():getMetaChunk(sx / 8, sy / 8)
+        local intensity = metaChunk:getZombieIntensity()
+        print (intensity)
+
+        local test = getSandboxOptions():getOptionByName("zombies")
+
+        local xmin = 5512
+        local ymin = 12416
+        local xmax = 5568
+        local ymax = 12520
+
+        for x = xmin, xmax, 8 do
+            for y = ymin, ymax, 8 do
+                local wx, wy = x / 8, y / 8
+                local metaChunk = getWorld():getMetaChunk(wx, wy)
+                local intensity = metaChunk:getLootZombieIntensity()
+                if intensity > 0.01 then
+                    local line = "MetaChunk at (" .. tostring(wx) .. ", " .. tostring(wy) .. ") has loot zombie intensity: " .. tostring(intensity)
+                    print (line)
+                end
+                metaChunk:setZombieIntensity(0)
+            end
+        end
+        
+     
+
+
+        --BWOABuildTools.VentW(9965, 12608, -4)
+
+        -- BWOABuildTools.Fridge(9961, 12610, -4)
+        -- square:removeGrime()
+        --BWOABuildTools.RemoveObject(sx, sy, sz, "walls_garage_01_37")
+        --BWOABuildTools.WindowFrame(sx, sy, sz, "walls_garage_01_45", true)
+
+
+        local window = square:getWall()
+        if window then
+            print ("window")
+            ISTimedActionQueue.add(TAThrowCorpseThrough:new(player, window));
+        end]]
+        
+
+        -- BWOAMusic.Play("MusicSad", 0.6, 1)
+
+        -- BWOABuildTools.ClearAll(sx, sy, sz)
+        --BWOABuildTools.LampCustom(18003, 3000, -1, "lighting_indoor_02_57")
+
+        --[[
+        local test = forageSystem.forageDefinitions
+        if body then
+            body:setZ(body:getZ() + 0.05)
+            body:setForwardDirectionAngle(-2)
+            local angle = body:getAngle()
+        end
+        ]]
+
+        -- local npcData, bandit = BWOANPC.Get("Emma")
+        
+        -- BWOADialogues.MarkAsked("Emma_Robinson", "2000.6.4.1.2")
+        -- BWOADialogues.Reveal("Emma_Robinson", "400.6")
+
+        -- local voiceStyles = getAllVoiceStyles();
+        
+        
+
+        -- BWOASound.PlayPlayer({sound = "Dial_Noah_Whitlock_4_1"})
+        --BWOASound.PlayPlayer({sound = "Dial_Emma_Robinson_100.6.1.1.1_1"})
+
+        -- BWOARooms.Infirmary.SetFlickers()
+
+        --[[
+        BWOAAnims.Add({
+            x = 9966, 
+            y = 12638, 
+            z = -4, 
+            objName = "Incinerator",
+            frameList = {
+                "theark_01_9",
+                "theark_01_10",
+                "theark_01_11",
+                "theark_01_12",
+            }
+        })
+            ]]
+
+        --[[
+        for x = px - 40, px + 40 do
+            for y = py - 40, py + 40 do
+                local square = getCell():getGridSquare(x, y, pz)
+                if square then
+                    local wobs = square:getWorldObjects()
+                    for i = 0, wobs:size()-1 do
+                        local o = wobs:get(i)
+                        local item = o:getItem()
+                        local ftype = item:getFullType() 
+                        if ftype == "Base.Bag_Military" then
+                            print ("bag found at" .. tostring(x) .. ", " .. tostring(y))
+                        end
+                    end
+                end
+            end
+        end]]
+
+        --[[
+        local doors = {
+            {x = 9926, y = 12626, z = 0},
+            {x = 9924, y = 12626, z = -4},
+        }
+
+        for _, doorConf in ipairs(doors) do
+            local square = cell:getGridSquare(doorConf.x, doorConf.y, doorConf.z)
+            if square then
+                local objects = square:getObjects()
+                if objects:size() > 1 then
+                    local object = objects:get(1)
+                    if instanceof(object, "IsoDoor") and not object:IsOpen() then
+                        IsoDoor.toggleGarageDoor(object, true)
+                    end
+                end
+            end
+        end]]
+
+        -- GameSounds.fix3DListenerPosition(true)
+
+        if zombie then
+            local brain = BanditBrain.Get(zombie)
+            if brain and brain.program and brain.program.name == "Emma" then
+                local emmaOption = context:addOption("Emma Robinson")
+                local emmaMenu = context:getNew(context)
+                context:addSubMenu(emmaOption, emmaMenu)
+                emmaMenu:addOption("Give Carrot", player, BWOAMenu.EmmaAction, zombie, "GiveCarrot")
+                emmaMenu:addOption("Get Inventory", player, BWOAMenu.EmmaAction, zombie, "GetInventory")
+            end
+        end
+
+
+        local building = square:getBuilding()
+        if building then
+            def = building:getDef()
+            print ("BID: " .. def:getX() .. "-" .. def:getY())
+        end
+
+        
+
+        Bandit.EnsureWhitelistedBandits()
+        saveItems(square)
+
+        context:addOption("Quick Teleport", player, BWOAMenu.Teleport)
+        context:addOption("Emma Ready to Leave", player, BWOAMenu.EmmaReadyToLeave)
+        context:addOption("Emma Teleport Here", player, BWOAMenu.EmmaTeleportHere)
+        context:addOption("Emma Teleport Home", player, BWOAMenu.EmmaTeleportHome)
+        context:addOption("Break Noah", player, BWOAMenu.BreakNoah)
+        context:addOption("Test Symbol", player, BWOAMenu.TestSymbol)
+        context:addOption("Remove Radiation", player, BWOAMenu.RemoveRadiation)
+
+        local spawnOption = context:addOption("Character Spawn")
+        local spawnMenu = context:getNew(context)
+        context:addSubMenu(spawnOption, spawnMenu)
+        spawnMenu:addOption("Emma", player, BWOAMenu.Spawn, square, "Emma", Bandit.clanMap.Emma, "Emma Robinson")
+        spawnMenu:addOption("James", player, BWOAMenu.Spawn, square, "James", Bandit.clanMap.James, "Father James")
+        spawnMenu:addOption("Angel", player, BWOAMenu.Spawn, square, "Angel", Bandit.clanMap.Angel, "Angel")
+        spawnMenu:addOption("Noah Whitlock", player, BWOAMenu.Spawn, square, "Noah", Bandit.clanMap.Noah, "Noah Whitlock")
+
+        -- context:addOption("Hanging Body", player, BWOAMenu.HangingBody, square)
+        -- context:addOption("Make Basement", player, BWOAMenu.MakeBasement, square)
+        context:addOption("Locate Nearest Hatch", player, BWOAMenu.LocateBasement)
+        -- context:addOption("Save Lake Blueprint", player, BWOAMenu.MakeLakeData, square)
+        -- context:addOption("Lava Lake", player, BWOAMenu.LavaLake, square)
+
+        local eventsOption = context:addOption("Events")
+        local eventsMenu = context:getNew(context)
+        context:addSubMenu(eventsOption, eventsMenu)
+        eventsMenu:addOption("Event Chapter", player, BWOAMenu.EventChapter)
+        eventsMenu:addOption("Event Dark Clouds", player, BWOAMenu.EventDarkClouds)
+        eventsMenu:addOption("Event Earthquake", player, BWOAMenu.EventCracks)
+        eventsMenu:addOption("Event Earthquake + Fire", player, BWOAMenu.EventFire)
+        eventsMenu:addOption("Event Horde", player, BWOAMenu.EventHorde)
+        eventsMenu:addOption("Event Assault", player, BWOAMenu.EventAssault)
+        eventsMenu:addOption("Event Rainbow", player, BWOAMenu.EventRainbow)
+        eventsMenu:addOption("Event Epilogue", player, BWOAMenu.EventEpilogue)
+        eventsMenu:addOption("Event Salvation", player, BWOAMenu.EventSalvation)
+
+        local nightmaresOption = context:addOption("Nightmares")
+        local nightmaresMenu = context:getNew(context)
+        context:addSubMenu(nightmaresOption, nightmaresMenu)
+        nightmaresMenu:addOption("The Fall", player, BWOAMenu.EventNightmare, "Fall")
+        nightmaresMenu:addOption("Angel", player, BWOAMenu.EventNightmare, "Angel")
+        nightmaresMenu:addOption("Island", player, BWOAMenu.EventNightmare, "Island")
+        nightmaresMenu:addOption("Finnegan", player, BWOAMenu.EventNightmare, "Finnegan")
+        nightmaresMenu:addOption("Council", player, BWOAMenu.EventNightmare, "Council")
+        nightmaresMenu:addOption("Maze", player, BWOAMenu.EventNightmare, "Maze")
+        nightmaresMenu:addOption("Hell", player, BWOAMenu.EventNightmare, "Hell")
+        nightmaresMenu:addOption("Mirror Room", player, BWOAMenu.EventNightmare, "MirrorRoom")
+        nightmaresMenu:addOption("Family House", player, BWOAMenu.EventNightmare, "FamilyHouse")
+        nightmaresMenu:addOption("Shrink", player, BWOAMenu.EventNightmare, "Shrink")
+
+        local scenesOption = context:addOption("Scenes")
+        local scenesMenu = context:getNew(context)
+        context:addSubMenu(scenesOption, scenesMenu)
+
+        for _, placeEvent in pairs(BWOAPlaceEvents.events) do
+            scenesMenu:addOption("Scene " .. placeEvent.scene, player, BWOAMenu.Scene, placeEvent)
+        end
+        
+        local artifactsOption = context:addOption("Artifacts")
+        local artifactsMenu = context:getNew(context)
+        context:addSubMenu(artifactsOption, artifactsMenu)
+
+        local artifacts = {
+            "confidential_medical_observation",
+            "emergency_medical_report",
+            "doc_note",
+            "sacred_incense",
+            "cold_passage",
+            "early_mortuary_practice",
+            "paleolithic_survey_group",
+            "supplementary_excavation_log",
+            "diary_kowalska",
+            "7Q17",
+            "medical",
+            "health_effects_radiation",
+            "book_dacr_research",
+            "book_nuclear_winter",
+            "emma_goodbye",
+        }
+        for _, artifact in pairs(artifacts) do
+            artifactsMenu:addOption(artifact, player, BWOAMenu.TestItem, square, artifact)
+        end
+
+        -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
+        context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
+        context:addOption("Spooky", player, BWOAMenu.Spooky)
+        context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
+        
+    end
+end
+
+local function onFillWorldObjectContextMenu(playerNum, context, worldObjects, test)
+    -- context:removeOptionByName("AdvancedCybernetics Noah")
+end
+
+local function onFillInventoryObjectContextMenu(playerNum, context, items)
+    local player = getSpecificPlayer(playerNum)
+
+    local item = items[1]
+    if not instanceof(item, "InventoryItem") then
+        item = items[1].items[1]
+    end
+
+    if not item then return end
+
+    if item:getFullType() == "Bandits.LabSyringeCure" then
+        local option = context:addOption(getText("ContextMenu_Inject"), player, BWOAMenu.InjectCure, item)
+        local stats = player:getStats()
+        local zombieInfection = stats:get(CharacterStat.ZOMBIE_INFECTION)
+        if zombieInfection < 0.1 then
+            local tooltip = ISToolTip:new()
+            option.notAvailable = true
+            tooltip.description = getText("ContextMenu_NotInfected")
+            option.toolTip = tooltip
+        end
+    else
+        local fluidContainer = item:getFluidContainer()
+        if fluidContainer then
+            local option = context:addOption(getText("ContextMenu_AddNBCTablets"), player, BWOAMenu.AddNBCToItem, item)
+            local amount = fluidContainer:getAmount()
+            local inventory = player:getInventory()
+            local hasTablets = inventory:containsTypeRecurse("Bandits.NBCTablets")
+            if amount == 0 then
+                local tooltip = ISToolTip:new()
+                option.notAvailable = true
+                tooltip.description = getText("ContextMenu_NeedWater")
+                option.toolTip = tooltip
+            elseif not hasTablets then
+                local tooltip = ISToolTip:new()
+                option.notAvailable = true
+                tooltip.description = getText("ContextMenu_NeedNBCTablets")
+                option.toolTip = tooltip
+            end
+        else
+            
+        end
+        
+    end
+    
+end
+
+BWOAMenu.tick = 0
+BWOAMenu.highlightClusters = nil
+
+local updateHighlightClusters = function()
+    local specialObjectsHighlight = BWOAMenu.specialObjectsHighlight
+    BWOABuildings.LoadHatches()
+    local clusters = {}
+    for sname, sobject in pairs(specialObjectsHighlight) do
+        local cluster = (sobject.x + sobject.y) % 16
+        if not clusters[cluster] then
+            clusters[cluster] = {}
+        end
+        table.insert(clusters[cluster], sobject)
+    end
+    BWOAMenu.highlightClusters = clusters
+end
+
+local updateHighlight = function()
+
+    if BWOAMenu.tick >= 16 then
+        BWOAMenu.tick = 0
+    end
+    
+    if not BWOAMenu.highlightClusters then
+        updateHighlightClusters()
+    end
+    
+    local cell = getCell()
+    local playerList = BanditPlayer.GetPlayers()
+
+    local generalHLColor = getCore():getWorldItemHighlightColor()
+    local specialObjectsHighlightCluster = BWOAMenu.highlightClusters[BWOAMenu.tick]
+    if specialObjectsHighlightCluster then
+        local ts = getTimestampMs()
+        local i = 0
+        for _, sobject in ipairs(specialObjectsHighlightCluster) do
+            i = i + 1
+            local dist = sobject.dist and sobject.dist or 3
+            local id = sobject.x .. "-" .. sobject.y
+
+            local square = cell:getGridSquare(sobject.x, sobject.y, sobject.z)
+            if square then
+                local objects = square:getObjects()
+                local found = false
+                for i=objects:size()-1, 0, -1 do
+                    local object = objects:get(i)
+                    local sprite = object:getSprite()
+                    if sprite then
+                        spriteName = sprite:getName()
+                        if spriteName == sobject.spriteName then
+
+                            for i=0, playerList:size()-1 do
+                                local player = playerList:get(i)
+                                if player then
+                                    local playerNum = player:getPlayerNum()
+                                    local px, py, pz = player:getX(), player:getY(), player:getZ()
+                                    if pz == sobject.z and math.abs(px - sobject.x) < dist and math.abs(py - sobject.y) < dist then
+                                        object:setOutlineHighlight(playerNum, true)
+                                        object:setOutlineHighlightCol(playerNum, generalHLColor)
+                                    else
+                                        object:setOutlineHighlight(playerNum, false)
+                                    end
+                                end
+                            end
+
+                            found = true
+                            break
+                        end
+                    end
+                end
+
+                if not found and not sobject.destroyable then
+                    BWOABuildTools.Generic (sobject.x, sobject.y, sobject.z, sobject.spriteName)
+                end
+            end
+        end
+        -- print ("update highlight time: " .. (getTimestampMs() - ts) .. " iters: " .. i)
+    end
+
+    -- tick update
+    BWOAMenu.tick = BWOAMenu.tick + 1
+end
+
+local function onMouseUp(x, y)
+    local player = getSpecificPlayer(0)
+    if player:isAiming() then 
+        local state = player:getActionStateName()
+    end
+
+    local itemPrimary = player:getPrimaryHandItem()
+    if itemPrimary and itemPrimary:getFullType() == "Base.KnapsackSprayer" then
+        local sz = player:getZ()
+        local sx = screenToIsoX(0, x, y, sz)
+        local sy = screenToIsoY(0, x, y, sz)
+        local square = getCell():getGridSquare(sx, sy, sz)
+        if square then
+            ISTimedActionQueue.add(TADecontaminate:new(player, square, itemPrimary))
+        end
+    end
+    print ("Mouse up at " .. tostring(sx) .. ", " .. tostring(sy))
+end
+
+Events.EveryTenMinutes.Remove(updateHighlightClusters)
+Events.EveryTenMinutes.Add(updateHighlightClusters)
+
+Events.OnPreFillWorldObjectContextMenu.Remove(onPreFillWorldObjectContextMenu)
+Events.OnPreFillWorldObjectContextMenu.Add(onPreFillWorldObjectContextMenu)
+
+Events.OnFillWorldObjectContextMenu.Remove(onFillWorldObjectContextMenu)
+Events.OnFillWorldObjectContextMenu.Add(onFillWorldObjectContextMenu)
+
+Events.OnFillInventoryObjectContextMenu.Remove(onFillInventoryObjectContextMenu)
+Events.OnFillInventoryObjectContextMenu.Add(onFillInventoryObjectContextMenu)
+
+Events.OnPlayerUpdate.Remove(updateHighlight)
+Events.OnPlayerUpdate.Add(updateHighlight)
+
+Events.OnMouseUp.Remove(onMouseUp)
+Events.OnMouseUp.Add(onMouseUp)

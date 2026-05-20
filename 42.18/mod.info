@@ -1,0 +1,12 @@
+name=The Ark
+poster=poster.png
+id=TheArk
+description=<H1><GREEN>THE ARK (b42.18)
+description=<BR>
+description=The Ark is a direct sequel to the Bandits: Week One mod, continuing the story after the dramatic events of the first chapter. 
+author=Slayer
+tiledef=theark 2281
+pack=theark
+require=\Bandits2,\Waterpipes
+incompatible=\BanditsDayOne,\BanditsWeekOne
+

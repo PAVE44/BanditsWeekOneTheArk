@@ -43,6 +43,22 @@ BWOABuildTools.WindowFrame = function(x, y, z, spriteName, north)
     buildUtil.setHaveConstruction(square, true)
 end
 
+BWOABuildTools.Window = function(x, y, z, spriteName, north)
+    local square = getCell():getOrCreateGridSquare(x, y, z)
+    if not square or not square:getChunk() then return end
+    local obj = IsoWindow.new(getCell(), square, getSprite(spriteName), north)
+    if not obj then return end
+
+    local md = obj:getModData()
+    md.climbForbidden = true
+
+    square:AddSpecialObject(obj)
+    obj:transmitCompleteItemToServer()
+    square:setSquareChanged()
+    square:RecalcAllWithNeighbours(true)
+    buildUtil.setHaveConstruction(square, true)
+end
+
 BWOABuildTools.Wall = function(x, y, z, spriteName)
     local square = getCell():getOrCreateGridSquare(x, y, z)
     if not square or not square:getChunk() then return end

@@ -1,0 +1,82 @@
+{
+    "Sandbox_BWOA": "Arka",
+
+    "Sandbox_BWOA.FalloutStarted": "Początek opadu radioaktywnego",
+    "Sandbox_BWOA.FalloutStarted_tooltip": "Wpływa na początkowe warunki promieniowania i pogody.",
+    "Sandbox_BWOA.FalloutStarted_option1": "1 tydzień przed przebudzeniem",
+    "Sandbox_BWOA.FalloutStarted_option2": "2 tygodnie przed przebudzeniem",
+    "Sandbox_BWOA.FalloutStarted_option3": "1 miesiąc przed przebudzeniem",
+    "Sandbox_BWOA.FalloutStarted_option4": "3 miesiące przed przebudzeniem",
+    "Sandbox_BWOA.FalloutStarted_option5": "6 miesięcy przed przebudzeniem",
+    "Sandbox_BWOA.FalloutStarted_option6": "1 rok przed przebudzeniem",
+
+    "Sandbox_BWOA.FalloutEnds": "Koniec opadu radioaktywnego",
+    "Sandbox_BWOA.FalloutEnds_tooltip": "Wpływa na czas trwania promieniowania i warunków pogodowych oraz na czas trwania fabuły.",
+    "Sandbox_BWOA.FalloutEnds_option1": "1 tydzień po przebudzeniu (niezalecane)",
+    "Sandbox_BWOA.FalloutEnds_option2": "2 tygodnie po przebudzeniu",
+    "Sandbox_BWOA.FalloutEnds_option3": "1 miesiąc po przebudzeniu (zalecane)",
+    "Sandbox_BWOA.FalloutEnds_option4": "3 miesiące po przebudzeniu",
+    "Sandbox_BWOA.FalloutEnds_option5": "6 miesięcy po przebudzeniu",
+    "Sandbox_BWOA.FalloutEnds_option6": "1 rok po przebudzeniu",
+
+    "Sandbox_BWOA.FalloutCurve": "Krzywa opadu radioaktywnego",
+    "Sandbox_BWOA.FalloutCurve_tooltip": "Kontroluje tempo wzrostu i zaniku okresu opadu radioaktywnego.",
+    "Sandbox_BWOA.FalloutCurve_option1": "Bardzo szybki wzrost + Bardzo wolny spadek",
+    "Sandbox_BWOA.FalloutCurve_option2": "Szybki wzrost + wolny spadek",
+    "Sandbox_BWOA.FalloutCurve_option3": "Jednolity",
+    "Sandbox_BWOA.FalloutCurve_option4": "Wolny wzrost + szybki spadek",
+    "Sandbox_BWOA.FalloutCurve_option5": "Bardzo wolny wzrost + bardzo szybki spadek",
+
+    "Sandbox_BWOA.TemperatureDrop": "Spadek temperatury",
+    "Sandbox_BWOA.TemperatureDrop_tooltip": "Kontroluje, jak zimna jest nuklearna zima.",
+    "Sandbox_BWOA.TemperatureDrop_option1": "Minimalny",
+    "Sandbox_BWOA.TemperatureDrop_option2": "Niski",
+    "Sandbox_BWOA.TemperatureDrop_option3": "Umiarkowany",
+    "Sandbox_BWOA.TemperatureDrop_option4": "Wysoki",
+    "Sandbox_BWOA.TemperatureDrop_option5": "Ekstremalny",
+
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption": "Zużycie paliwa generatora Arki",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_tooltip": "Kontroluje, ile paliwa zużywają generatory Arki.",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option1": "Minimalne",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option2": "Niskie",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option3": "Umiarkowane",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option4": "Wysokie",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option5": "Bardzo wysokie",
+    
+    "Sandbox_BWOA.ShelterOccurance": "Występowanie schronów",
+    "Sandbox_BWOA.ShelterOccurance_tooltip": "Wpływa na częstotliwość występowania losowo generowanych piwnic. Są one niezależne od normalnych piwnic.",
+    "Sandbox_BWOA.ShelterOccurance_option1": "Bardzo rzadko",
+    "Sandbox_BWOA.ShelterOccurance_option2": "Rzadko",
+    "Sandbox_BWOA.ShelterOccurance_option3": "Czasami",
+    "Sandbox_BWOA.ShelterOccurance_option4": "Często",
+    "Sandbox_BWOA.ShelterOccurance_option5": "Bardzo często",
+
+    "Sandbox_BWOA.HostileGroupSize": "Wielkość grupy wrogów",
+    "Sandbox_BWOA.HostileGroupSize_tooltip": "Określa typową wielkość grup wrogich ocalałych.",
+    "Sandbox_BWOA.HostileGroupSize_option1": "Będzie dobrze",
+    "Sandbox_BWOA.HostileGroupSize_option2": "Prawdopodobnie dobrze",
+    "Sandbox_BWOA.HostileGroupSize_option3": "Normalnie",
+    "Sandbox_BWOA.HostileGroupSize_option4": "Zły pomysł",
+    "Sandbox_BWOA.HostileGroupSize_option5": "Bardzo zły pomysł",
+    "Sandbox_BWOA.HostileGroupSize_option6": "Sam tego chciałeś",
+
+    "Sandbox_BWOA.ResidueScrap": "Pozostałości złomu",
+    "Sandbox_BWOA.ResidueScrap_tooltip": "Kontroluje, ile materiałów złomowych istnieje w świecie.",
+    "Sandbox_BWOA.ResidueScrap_option1": "Brak",
+    "Sandbox_BWOA.ResidueScrap_option2": "Bardzo mało",
+    "Sandbox_BWOA.ResidueScrap_option3": "Mało",
+    "Sandbox_BWOA.ResidueScrap_option4": "Normalnie",
+    "Sandbox_BWOA.ResidueScrap_option5": "Dużo",
+
+    "Sandbox_BWOA.SkeletonReanimation": "Ożywione szkielety",
+    "Sandbox_BWOA.SkeletonReanimation_tooltip": "(MOŻE PROWADZIĆ DO AWARII GRY!) Szkielety mają pewną szansę na reanimację.",
+
+    "Sandbox_BWOA.AngelProximity": "Wsparcie Anioła Stróża",
+    "Sandbox_BWOA.AngelProximity_tooltip": "Dodatkowa pomoc w odkrywaniu unikalnych punktów zainteresowania.",
+
+    "Sandbox_BWOA.MemoryRegain": "Odzyskiwanie pamięci",
+    "Sandbox_BWOA.MemoryRegain_tooltip": "Gracz może odzyskać niektóre umiejętności z czasem lub poprzez interakcję z określonymi obiektami.",
+
+    "Sandbox_BWOA.RetroRadiation": "Retro-Radiacja ekwipunku",
+    "Sandbox_BWOA.RetroRadiation_tooltip": "Ekwipunek gracza może zostać napromieniowany przez przedmioty znajdujące się na ziemi."
+}

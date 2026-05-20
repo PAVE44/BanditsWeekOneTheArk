@@ -103,6 +103,21 @@ BWOARooms.InterrogationRoom.Prepare = function ()
 
     local items = {"Base.MarchRidgeMap", "Base.MuldraughMap", "Base.RosewoodMap", "Base.WestpointMap"}
     BWOAPrepareTools.AddItemsToContainer(9959, 12631, -4, items, "Cabinet")
+
+    local tapesArk = {
+        -- {id="d445445a-1a1a-0111-0001-000000000000"}, -- ark briefing
+        -- {id="d565951b-1b1b-0111-0001-000000000000"}, -- ark nuclear winter
+        {id="d468123f-899c-4488-902e-000000000000"}, -- ark medical 1
+        -- {id="d3950c33-4eec-4477-b032-000000000000"}, -- ark medical 2
+    }
+
+    local mediaRecorder = ZomboidRadio.getInstance():getRecordedMedia()
+    for _, tapeConf in pairs(tapesArk) do
+        local item = BanditCompatibility.InstanceItem("Base.VHS_Home")
+        local mediaData = mediaRecorder:getMediaData(tapeConf.id)
+        item:setRecordedMediaData(mediaData)
+        BWOAPrepareTools.AddItemsToContainer(9959, 12631, -4, {item}, "Cabinet", true)
+    end
 end
 
 

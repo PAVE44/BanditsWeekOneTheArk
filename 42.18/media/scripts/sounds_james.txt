@@ -1,0 +1,484 @@
+module Bandits 
+{
+    sound Dial_Father_James_1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_2.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_2.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_2.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_2.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_2_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_2_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_2_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.2_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.2_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.3.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.3.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.3.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.3.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.3.1.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.3.1.1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.3.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.3.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.3_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.3_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1.3_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1.3_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3.1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_3_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_3_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1.1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1_4.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1.1_5 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1.1_5.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1_3 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1_3.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1.1_4 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1.1_4.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4.1_2 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4.1_2.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_4_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_4_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+    sound Dial_Father_James_5_1 {
+        category = Object,
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/james/james_5_1.ogg,
+            distanceMin = 3,
+            distanceMax = 9,
+            reverbFactor = 0.6,
+        }
+    }
+
+
+}

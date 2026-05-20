@@ -446,3 +446,19 @@
 	spawn: groupMax = 1
 	spawn: zone = 0
 
+[3c238a96-6c4f-4559-b26d-04db6405a1e0]
+	general: name = W1A_Fallen
+	spawn: friendly = false
+	spawn: companion = false
+	spawn: defenders = false
+	spawn: campers = false
+	spawn: assault = false
+	spawn: wanderer = false
+	spawn: roadblock = false
+	spawn: dayStart = 1
+	spawn: dayEnd = 10000
+	spawn: spawnChance = 0
+	spawn: groupMin = 1
+	spawn: groupMax = 1
+	spawn: zone = 0
+

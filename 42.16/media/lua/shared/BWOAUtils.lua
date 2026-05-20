@@ -105,17 +105,17 @@ BanditUtils.GetScheduledActivity = function(schedule)
     local minute = gameTime:getMinutes()
     local wa = getGameTime():getWorldAgeHours()
 
-    for activity, boundary in pairs(schedule) do
+    for _, pos in ipairs(schedule) do
 
-        if not boundary.hourMin then boundary.hourMin = 0 end
-        if not boundary.hourMax then boundary.hourMax = 24 end
-        if not boundary.minuteMin then boundary.minuteMin = 0 end
-        if not boundary.minuteMax then boundary.minuteMax = 60 end
-        if not boundary.waMin then boundary.waMin = 0 end
-        if not boundary.waMax then boundary.waMax = math.huge end
+        if not pos.hourMin then pos.hourMin = 0 end
+        if not pos.hourMax then pos.hourMax = 24 end
+        if not pos.minuteMin then pos.minuteMin = 0 end
+        if not pos.minuteMax then pos.minuteMax = 60 end
+        if not pos.waMin then pos.waMin = 0 end
+        if not pos.waMax then pos.waMax = math.huge end
 
-        if hour >= boundary.hourMin and hour < boundary.hourMax and minute >= boundary.minuteMin and minute < boundary.minuteMax and wa >= boundary.waMin and wa < boundary.waMax then
-            return activity
+        if hour >= pos.hourMin and hour < pos.hourMax and minute >= pos.minuteMin and minute < pos.minuteMax and wa >= pos.waMin and wa < pos.waMax then
+            return pos.activity, pos.activityMode
         end
     end
 end
@@ -337,6 +337,70 @@ BanditUtils.ClearSpace = function(x, y, z, w, h)
     end
 end
 
+BWOAUtils.ApplyAcidPlayer = function(player)
+
+    local humanVisuals = player:getHumanVisual()
+    local maxIndex = BloodBodyPartType.MAX:index()
+    for i = 0, maxIndex - 1 do
+        local part = BloodBodyPartType.FromIndex(i)
+        if ZombRand(3) == 0 then
+            player:addHole(part, false)
+        end
+        humanVisuals:setBlood(part, 1)
+    end
+
+    local bodyParts = player:getBodyDamage():getBodyParts();
+    local maxIndex2 = BodyPartType.MAX:index()
+    for i = 0, maxIndex2 - 1 do
+        local bodyPart = bodyParts:get(i);
+        if ZombRand(3) == 0 then
+            bodyPart:setBurned()
+        end
+    end
+
+    local sound = player:getDescriptor():getVoicePrefix() .. "DeathEaten"
+    local emitter = player:getEmitter()
+    emitter:stopSoundByName("GasMaskSlow")
+    emitter:stopSoundByName("GasMaskMedium")
+    emitter:stopSoundByName("GasMaskFast")
+    if not emitter:isPlaying(sound) then
+        emitter:playSound(sound)
+    end
+
+
+end
+
+BWOAUtils.ApplyAcidZombie = function(zombie)
+    zombie:setSkeleton(true)
+    local visuals = zombie:getHumanVisual()
+    visuals:setHairModel("Bald")
+    visuals:setBeardModel("")
+
+    local itemVisuals = zombie:getItemVisuals()
+    itemVisuals:clear()
+
+    local attachedItems = zombie:getAttachedItems()
+    attachedItems:clear()
+
+    local wornItems = zombie:getWornItems()
+    wornItems:clear()
+
+    local inventory = zombie:getInventory()
+    inventory:clear()
+    zombie:clearItemsToSpawnAtDeath()
+
+    zombie:resetModelNextFrame()
+    zombie:resetModel()
+
+    local isBandit = zombie:getVariableBoolean("Bandit")
+    if isBandit then
+        local fakeItem = BanditCompatibility.InstanceItem("Base.Axe")
+        local fakeZombie = getCell():getFakeZombieForHit()
+        zombie:Hit(fakeItem, fakeZombie, 50, false, 1, false)
+        zombie:setHealth(0)
+    end
+end
+
 BWOAUtils.ScrubSquare = function(square, fluid)
     if not square then return end
 
@@ -421,6 +485,56 @@ BWOAUtils.ScrubSquare = function(square, fluid)
         end
     end
 
+    local decompose = function(deadbody)
+        local wx, wy, wz = deadbody:getX(), deadbody:getY(), deadbody:getZ()
+        local angleRad = deadbody:getAngle()
+
+        local cosA = math.cos(angleRad)
+        local sinA = math.sin(angleRad)
+
+        local pivot = {x = wx - math.floor(wx), y = wy - math.floor(wy)}
+
+        local bones = {
+            {type="Bandits.HumanBone", x=0.27, y=0.35, z=0.00, rx=0, ry=0, rz=320},
+            {type="Bandits.HumanBone", x=0.34, y=0.70, z=0.00, rx=0, ry=0, rz=25},
+            {type="Bandits.HumanBone", x=0.75, y=0.66, z=0.00, rx=0, ry=0, rz=0},
+            {type="Bandits.HumanBone", x=0.76, y=0.40, z=0.00, rx=0, ry=0, rz=345},
+            {type="Base.Hominid_Skull", x=0.23, y=0.55, z=0.00, rx=0, ry=0, rz=335},
+        }
+
+        for _, b in ipairs(bones) do
+            -- shift to pivot
+            local dx = b.x - pivot.x
+            local dy = b.y - pivot.y
+
+            -- rotate
+            local rx = dx * cosA - dy * sinA
+            local ry = dx * sinA + dy * cosA
+
+            -- shift back
+            local finalX = pivot.x + rx
+            local finalY = pivot.y + ry
+
+            -- convert radians → degrees for rz
+            local angleDeg = math.deg(angleRad)
+
+            BWOAPrepareTools.AddWorldItem(
+                wx,
+                wy,
+                wz,
+                b.type,
+                {
+                    x = finalX,
+                    y = finalY,
+                    z = b.z,
+                    rx = b.rx,
+                    ry = b.ry,
+                    rz = (b.rz + angleDeg) % 360
+                }
+            )
+        end
+    end
+
     local player = square:getPlayer()
     if player then
         cleanup(player)
@@ -432,6 +546,8 @@ BWOAUtils.ScrubSquare = function(square, fluid)
                 item:getModData().radiated = false
                 applyFoodEffect(item)
             end
+        elseif fluid == "Acid" then
+            BWOAUtils.ApplyAcidPlayer(player)
         end
     end
 
@@ -443,8 +559,7 @@ BWOAUtils.ScrubSquare = function(square, fluid)
             if fluid == "NBCSolution" then
                 item:getModData().radiated = false
                 applyFoodEffect(item)
-            end
-            if fluid == "NBCSolution" then
+
                 if instanceof(item, "InventoryContainer") then
                     local inv = item:getInventory()
                     if inv then
@@ -478,6 +593,14 @@ BWOAUtils.ScrubSquare = function(square, fluid)
                         applyFoodEffect(item)
                     end
                 end
+            elseif fluid == "Acid" and not object:isSkeleton() then
+                object:reanimateNow()
+                local tab = {
+                    x = object:getX(),
+                    y = object:getY(),
+                    z = object:getZ(),
+                }
+                BWOAEventControl.Add("Skeleton", tab, 100)
             end
         end
     end
@@ -489,6 +612,8 @@ BWOAUtils.ScrubSquare = function(square, fluid)
             cleanup(chr)
             if fluid == "NBCSolution" then
                 chr:getModData().radiated = false
+            elseif fluid == "Acid" and not chr:isSkeleton() then
+                BWOAUtils.ApplyAcidZombie(chr)
             end
         end
     end
@@ -503,7 +628,10 @@ BWOAUtils.ScrubSquare = function(square, fluid)
         end
     end
 
-    square:removeBlood(false, false)
+    if fluid ~= "Acid" then
+        square:removeBlood(false, false)
+        square:stopFire()
+    end
 
 end
 

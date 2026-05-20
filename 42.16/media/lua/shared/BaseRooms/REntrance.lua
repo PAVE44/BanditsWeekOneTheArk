@@ -26,20 +26,27 @@ BWOARooms.Entrance.Build = function ()
     BWOABuildTools.LampOvalN(9938, 12624, -4)
     BWOABuildTools.LampOvalN(9928, 12624, -4)
 
+    --[[
     BWOABuildTools.RemoveObject(9940, 12624, -4, "walls_garage_01_37")
     BWOABuildTools.WindowFrame(9940, 12624, -4, "walls_garage_01_45", true)
+    BWOABuildTools.Window(9940, 12624, -4, "theark_01_26", true)
 
     BWOABuildTools.RemoveObject(9925, 12624, -4, "walls_garage_01_37")
     BWOABuildTools.WindowFrame(9925, 12624, -4, "walls_garage_01_45", true)
+    BWOABuildTools.Window(9925, 12624, -4, "theark_01_26", true)
 
     BWOABuildTools.RemoveObject(9931, 12624, -4, "walls_garage_01_37")
     BWOABuildTools.WindowFrame(9931, 12624, -4, "walls_garage_01_45", true)
+    BWOABuildTools.Window(9931, 12624, -4, "theark_01_26", true)
 
     BWOABuildTools.RemoveObject(9935, 12624, -4, "walls_garage_01_37")
     BWOABuildTools.WindowFrame(9935, 12624, -4, "walls_garage_01_45", true)
+    BWOABuildTools.Window(9935, 12624, -4, "theark_01_26", true)
 
     BWOABuildTools.RemoveObject(9941, 12624, -4, "walls_garage_01_37")
     BWOABuildTools.WindowFrame(9941, 12624, -4, "walls_garage_01_45", true)
+    BWOABuildTools.Window(9941, 12624, -4, "theark_01_26", true)
+    ]]
 
 end
 

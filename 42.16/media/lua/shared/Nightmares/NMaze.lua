@@ -44,6 +44,20 @@ BWOANightmares.Maze.onCycle = function(player)
         BanditUtils.ClearZombies(18000, 18060, 3200, 3260)
     end
 
+    if cycle == 1700 then
+        for i = 1, 2 + ZombRand(3) do
+            local params1 = {
+                cid = Bandit.clanMap.Fallen,
+                x = 18003 + ZombRand(30),
+                y = 3212 + ZombRand(20),
+                z = -3,
+                program = "Bandit",
+                size = 1,
+            }
+            sendClientCommand(player, 'Spawner', 'Clan', params1)
+        end
+    end
+
     if not gmd.nightmares.flag then
         if player:getY() < 3207 and player:getX() > 18004 and player:getX() < 18011 then
             gmd.nightmares.flag = true

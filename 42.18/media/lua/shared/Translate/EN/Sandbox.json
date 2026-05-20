@@ -1,0 +1,82 @@
+{
+    "Sandbox_BWOA": "The Ark",
+
+    "Sandbox_BWOA.FalloutStarted": "Fallout Started",
+    "Sandbox_BWOA.FalloutStarted_tooltip": "Impacts initial radiation and weather conditions.",
+    "Sandbox_BWOA.FalloutStarted_option1": "1 week before awakening",
+    "Sandbox_BWOA.FalloutStarted_option2": "2 weeks before awakening",
+    "Sandbox_BWOA.FalloutStarted_option3": "1 month before awakening",
+    "Sandbox_BWOA.FalloutStarted_option4": "3 months before awakening",
+    "Sandbox_BWOA.FalloutStarted_option5": "6 months before awakening",
+    "Sandbox_BWOA.FalloutStarted_option6": "1 year before awakening",
+
+    "Sandbox_BWOA.FalloutEnds": "Fallout Ends In",
+    "Sandbox_BWOA.FalloutEnds_tooltip": "Impacts radiation and weather conditions duration as well as the duration of the storyline.",
+    "Sandbox_BWOA.FalloutEnds_option1": "1 week after awakening (unrecommended)",
+    "Sandbox_BWOA.FalloutEnds_option2": "2 weeks after awakening",
+    "Sandbox_BWOA.FalloutEnds_option3": "1 month after awakening (recommended)",
+    "Sandbox_BWOA.FalloutEnds_option4": "3 months after awakening",
+    "Sandbox_BWOA.FalloutEnds_option5": "6 months after awakening",
+    "Sandbox_BWOA.FalloutEnds_option6": "1 year after awakening",
+
+    "Sandbox_BWOA.FalloutCurve": "Fallout Curve",
+    "Sandbox_BWOA.FalloutCurve_tooltip": "Controls the rise and decay speed of the fallout period",
+    "Sandbox_BWOA.FalloutCurve_option1": "Very fast rise + Very slow decay",
+    "Sandbox_BWOA.FalloutCurve_option2": "Fast rise + slow decay",
+    "Sandbox_BWOA.FalloutCurve_option3": "Uniform",
+    "Sandbox_BWOA.FalloutCurve_option4": "Slow rise + fast decay",
+    "Sandbox_BWOA.FalloutCurve_option5": "Very slow rise + very fast decay",
+
+    "Sandbox_BWOA.TemperatureDrop": "Temperature Drop",
+    "Sandbox_BWOA.TemperatureDrop_tooltip": "Controls how cold the nuclear winter is.",
+    "Sandbox_BWOA.TemperatureDrop_option1": "Minimal",
+    "Sandbox_BWOA.TemperatureDrop_option2": "Low",
+    "Sandbox_BWOA.TemperatureDrop_option3": "Moderate",
+    "Sandbox_BWOA.TemperatureDrop_option4": "High",
+    "Sandbox_BWOA.TemperatureDrop_option5": "Extreme",
+
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption": "Ark Generator Fuel Consumption",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_tooltip": "Controls how much fuel the Ark generators consume.",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option1": "Minimal",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option2": "Low",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option3": "Moderate",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option4": "High",
+    "Sandbox_BWOA.ArkGeneratorFuelConsumption_option5": "Very High",
+    
+    "Sandbox_BWOA.ShelterOccurance": "Shelter Occurance",
+    "Sandbox_BWOA.ShelterOccurance_tooltip": "Impacts how often random procedurally generated basements will occur. These are independent from normal basements.",
+    "Sandbox_BWOA.ShelterOccurance_option1": "Extremely Rare",
+    "Sandbox_BWOA.ShelterOccurance_option2": "Rare",
+    "Sandbox_BWOA.ShelterOccurance_option3": "Sometimes",
+    "Sandbox_BWOA.ShelterOccurance_option4": "Often",
+    "Sandbox_BWOA.ShelterOccurance_option5": "Very Often",
+
+    "Sandbox_BWOA.HostileGroupSize": "Hostile Presence",
+    "Sandbox_BWOA.HostileGroupSize_tooltip": "Determines the typical size of hostile survivor groups.",
+    "Sandbox_BWOA.HostileGroupSize_option1": "You'll Be Fine",
+    "Sandbox_BWOA.HostileGroupSize_option2": "Probably Fine",
+    "Sandbox_BWOA.HostileGroupSize_option3": "Normal",
+    "Sandbox_BWOA.HostileGroupSize_option4": "Bad Idea",
+    "Sandbox_BWOA.HostileGroupSize_option5": "Very Bad Idea",
+    "Sandbox_BWOA.HostileGroupSize_option6": "You Asked For This",
+
+    "Sandbox_BWOA.ResidueScrap": "Residue Scrap",
+    "Sandbox_BWOA.ResidueScrap_tooltip": "Controls how much scrap materials exist in the world.",
+    "Sandbox_BWOA.ResidueScrap_option1": "None",
+    "Sandbox_BWOA.ResidueScrap_option2": "Very little",
+    "Sandbox_BWOA.ResidueScrap_option3": "Little",
+    "Sandbox_BWOA.ResidueScrap_option4": "Normal",
+    "Sandbox_BWOA.ResidueScrap_option5": "Plenty",
+
+    "Sandbox_BWOA.SkeletonReanimation": "Living Skeletons",
+    "Sandbox_BWOA.SkeletonReanimation_tooltip": "(MAY LEAD TO GAME CRASH!) Skeletons have some chance of reanimation.",
+
+    "Sandbox_BWOA.AngelProximity": "Angel Extra Guidance",
+    "Sandbox_BWOA.AngelProximity_tooltip": "Extra help in discovering unique points of interest.",
+
+    "Sandbox_BWOA.MemoryRegain": "Memory Regain",
+    "Sandbox_BWOA.MemoryRegain_tooltip": "Player can regain some skills over time or by interacting with certain objects.",
+
+    "Sandbox_BWOA.RetroRadiation": "Inventory Retro-Radiation",
+    "Sandbox_BWOA.RetroRadiation_tooltip": "Player inventory can get radiated from ground items."
+}

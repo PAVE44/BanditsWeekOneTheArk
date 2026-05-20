@@ -301,10 +301,14 @@ function ArkSettingsMain:onOptionMouseDown(button, x, y)
         SandboxVars.LightBulbLifespan = 0 -- to protect noah
 
         SandboxVars.ZombieLore.Memory = 1
-        SandboxVars.ZombieLore.Sight = 1
-        SandboxVars.ZombieLore.Hearing = 1
+        -- SandboxVars.ZombieLore.Sight = 1
+        -- SandboxVars.ZombieLore.Hearing = 1
         SandboxVars.ZombieLore.Cognition = 1
         SandboxVars.ZombieLore.CrawlUnderVehicle = 7
+
+        SandboxVars.ZombieConfig.PopulationMultiplier = SandboxVars.ZombieConfig.PopulationMultiplier / 1.3
+        SandboxVars.ZombieConfig.PopulationStartMultiplier = SandboxVars.ZombieConfig.PopulationStartMultiplier / 1.3
+        SandboxVars.ZombieConfig.PopulationPeakMultiplier = SandboxVars.ZombieConfig.PopulationPeakMultiplier / 1.2
 
         SandboxVars.Basement.SpawnFrequency = 7 -- always
 

@@ -1,0 +1,265 @@
+BWOAMissions = BWOAMissions or {}
+
+BWOAMissions.new = true
+
+BWOAMissions.missions = {
+    [1] = {
+        name = getText("IGUI_Missions_1_Name"),
+        desc = getText("IGUI_Missions_1_Description"),
+        revealed = true
+    },
+    [2] = {
+        name = getText("IGUI_Missions_2_Name"),
+        desc = getText("IGUI_Missions_2_Description"),
+    },
+    [3] = {
+        name = getText("IGUI_Missions_3_Name"),
+        desc = getText("IGUI_Missions_3_Description"),
+    },
+    [4] = {
+        name = getText("IGUI_Missions_4_Name"),
+        desc = getText("IGUI_Missions_4_Description"),
+    },
+    [5] = {
+        name = getText("IGUI_Missions_5_Name"),
+        desc = getText("IGUI_Missions_5_Description"),
+    },
+    [6] = {
+        name = getText("IGUI_Missions_6_Name"),
+        desc = getText("IGUI_Missions_6_Description"),
+        map = {symbol = "Fuel", x = 10600, y = 11300}
+    },
+    [7] = {
+        name = getText("IGUI_Missions_7_Name"),
+        desc = getText("IGUI_Missions_7_Description"),
+        map = {symbol = "Hammer", x = 10033, y = 12733}
+    },
+    [8] = {
+        name = getText("IGUI_Missions_8_Name"),
+        desc = getText("IGUI_Missions_8_Description"),
+        map = {symbol = "Tent", x = 9161, y = 12150}
+    },
+    [9] = {
+        name = getText("IGUI_Missions_9_Name"),
+        desc = getText("IGUI_Missions_9_Description"),
+    },
+    [10] = {
+        name = getText("IGUI_Missions_10_Name"),
+        desc = getText("IGUI_Missions_10_Description"),
+    },
+    [11] = {
+        name = getText("IGUI_Missions_11_Name"),
+        desc = getText("IGUI_Missions_11_Description"),
+    },
+    [12] = {
+        name = getText("IGUI_Missions_12_Name"),
+        desc = getText("IGUI_Missions_12_Description"),
+    },
+    [13] = {
+        name = getText("IGUI_Missions_13_Name"),
+        desc = getText("IGUI_Missions_13_Description"),
+    },
+    [14] = {
+        name = getText("IGUI_Missions_14_Name"),
+        desc = getText("IGUI_Missions_14_Description"),
+    },
+    [15] = {
+        name = getText("IGUI_Missions_15_Name"),
+        desc = getText("IGUI_Missions_15_Description"),
+        progressCnt = 15
+    },
+    [50] = {
+        name = getText("IGUI_Missions_50_Name"),
+        desc = getText("IGUI_Missions_50_Description"),
+        map = {symbol = "Question", x = 10130, y = 11077}
+    },
+    [51] = {
+        name = getText("IGUI_Missions_51_Name"),
+        desc = getText("IGUI_Missions_51_Description"),
+    },
+    [100] = {
+        name = getText("IGUI_Missions_100_Name"),
+        desc = getText("IGUI_Missions_100_Description"),
+        chapter = "chapter_2",
+        map = {symbol = "Cross", x = 7386, y = 8353}
+    },
+    [101] = {
+        name = getText("IGUI_Missions_101_Name"),
+        desc = getText("IGUI_Missions_101_Description"),
+        map = {symbol = "Cross", x = 439, y = 9925}
+    },
+    [102] = {
+        name = getText("IGUI_Missions_102_Name"),
+        desc = getText("IGUI_Missions_102_Description"),
+    },
+    [103] = {
+        name = getText("IGUI_Missions_103_Name"),
+        desc = getText("IGUI_Missions_103_Description"),
+    },
+    [110] = {
+        name = getText("IGUI_Missions_110_Name"),
+        desc = getText("IGUI_Missions_110_Description"),
+        chapter = "chapter_3",
+        map = {symbol = "Eye", x = 5560, y = 12500}
+    },
+    [111] = {
+        name = getText("IGUI_Missions_111_Name"),
+        desc = getText("IGUI_Missions_111_Description"),
+        map = {symbol = "MedCross", x = 10861, y = 10033}
+    },
+    [112] = {
+        name = getText("IGUI_Missions_112_Name"),
+        desc = getText("IGUI_Missions_112_Description"),
+    },
+    [113] = {
+        name = getText("IGUI_Missions_113_Name"),
+        desc = getText("IGUI_Missions_113_Description"),
+    },
+    [114] = {
+        name = getText("IGUI_Missions_114_Name"),
+        desc = getText("IGUI_Missions_114_Description"),
+        chapter = "chapter_5",
+    },
+    [115] = {
+        name = getText("IGUI_Missions_115_Name"),
+        desc = getText("IGUI_Missions_115_Description"),
+    },
+    [120] = {
+        name = getText("IGUI_Missions_120_Name"),
+        desc = getText("IGUI_Missions_120_Description"),
+        chapter = "chapter_4",
+        map = {symbol = "Skyscraper", x = 13585, y = 1700}
+    },
+    [131] = {
+        name = getText("IGUI_Missions_131_Name"),
+        desc = getText("IGUI_Missions_131_Description"),
+        progressCnt = 7
+    },
+}
+
+BWOAMissions.LoadMissions = function()
+    local gmd = GetBWOAModData()
+    gmd.missions = BWOAMissions.missions
+end
+
+BWOAMissions.GetRevealed = function()
+    local gmd = GetBWOAModData()
+    local missions = gmd.missions
+    local missionsRevealed = {}
+
+    for i, mission in pairs(missions) do
+        if mission.revealed and not mission.accomplished then
+            table.insert(missionsRevealed, mission)
+        end
+    end
+
+    for i, mission in pairs(missions) do
+        if mission.revealed and mission.accomplished then
+            table.insert(missionsRevealed, mission)
+        end
+    end
+
+    return missionsRevealed
+end
+
+BWOAMissions.Reveal = function(missionId)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission and not mission.revealed and not mission.accomplished then
+        mission.revealed = true
+        BWOAMissions.new = true
+        if mission.map then
+            BWOAUtils.AddToMap(mission.map.x, mission.map.y, mission.map.symbol)
+            BWOASound.PlayPlayer({sound="MapAddSymbol"})
+            BWOAEventControl.Add("SayPlayer", {txt = getText("IGUI_SayPlayer_MapUpdated")}, 100)
+        else
+            BWOASound.PlayPlayer({sound="AmbientHorn"})
+        end
+    end
+end
+
+BWOAMissions.IsRevealed = function(missionId)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission and mission.revealed then
+        return true
+    end
+    return false
+end
+
+BWOAMissions.Hide = function(missionId)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission then
+        mission.revealed = nil
+    end
+end
+
+BWOAMissions.Progress = function(missionId, key)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission and not mission.accomplished then
+        if not mission.revealed then
+            BWOAMissions.Reveal(missionId)
+        end
+        if not mission.progress then
+            mission.progress = {}
+        end
+        mission.progress[key] = true
+        local cnt = 0
+        for k, v in pairs(mission.progress) do
+            cnt = cnt + 1
+        end
+        if cnt >= mission.progressCnt then
+            BWOAMissions.Accomplish(missionId)
+        end
+    end
+end
+
+BWOAMissions.Accomplish = function(missionId)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission and not mission.accomplished then
+
+        if not mission.revealed then
+            BWOAMissions.Reveal(missionId)
+        end
+
+        BWOASound.PlayPlayer({sound="AmbientHorn"})
+        mission.accomplished = true
+        BWOAMissions.new = true
+        if BWOAMissions.onAccomplish[missionId] then
+            BWOAMissions.onAccomplish[missionId]()
+        end
+
+        if mission.chapter then
+            BWOASequence.Chapter({tex = mission.chapter})
+        end
+    end
+end
+
+BWOAMissions.IsAccomplished = function(missionId)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission and mission.accomplished then
+        return true
+    end
+    return false
+end
+
+BWOAMissions.IsActive = function(missionId)
+    local gmd = GetBWOAModData()
+    local mission = gmd.missions[missionId]
+    if mission and mission.revealed and not mission.accomplished then
+        return true
+    end
+    return false
+end
+
+BWOAMissions.onAccomplish = {}
+
+BWOAMissions.onAccomplish[1] = function()
+end
+
+BWOAMissions.onAccomplish[2] = function()
+end

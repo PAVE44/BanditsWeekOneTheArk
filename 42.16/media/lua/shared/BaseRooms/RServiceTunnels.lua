@@ -100,15 +100,57 @@ BWOARooms.ServiceTunnels.Prepare = function ()
     local tablets = {["Bandits.NBCTablets"] = 20}
     BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, tablets, "Locker")
 
-    local leaflet = BanditCompatibility.InstanceItem("Bandits.Note")
-    leaflet:setCanBeWrite(false)
-    leaflet:setName(getText("IGUI_Artifact_Decon"))
-    local md = leaflet:getModData()
+    local leaflet1 = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet1:setCanBeWrite(false)
+    leaflet1:setName(getText("IGUI_Artifact_DeconLeaflet"))
+    local md = leaflet1:getModData()
     md.printContent = "leaflet_decon"
-    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, {leaflet}, "Locker", true)
+
+    local leaflet2 = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet2:setCanBeWrite(false)
+    leaflet2:setName(getText("IGUI_Artifact_NBCTabletsLeaflet"))
+    local md = leaflet2:getModData()
+    md.printContent = "leaflet_nbctablets"
+    BWOAPrepareTools.AddItemsToContainer(9950, 12621, -5, {leaflet1, leaflet2}, "Locker", true)
 
     local generatorItems = {["Bandits.EngineCoolant"] = 4, ["Bandits.EngineLubricant"] = 2, ["Base.Charcoal"] = 4}
     BWOAPrepareTools.AddItemsToContainer(9967, 12625, -5, generatorItems, "Locker")
+
+    local spray = BanditCompatibility.InstanceItem("Base.KnapsackSprayer")
+    if spray then
+        local fluidContainer = spray:getFluidContainer()
+        if fluidContainer then
+            fluidContainer:Empty()
+            fluidContainer:addFluid("Acid", 10)
+        end
+    end
+    BWOAPrepareTools.AddItemsToContainer(9968, 12625, -5, {spray}, "Locker", true)
+
+    for i=1, 4 do
+        local can = BanditCompatibility.InstanceItem("Base.JerryCan")
+        if can then
+            local fluidContainer = can:getFluidContainer()
+            if fluidContainer then
+                fluidContainer:Empty()
+                fluidContainer:addFluid("Acid", 10)
+            end
+            BWOAPrepareTools.AddItemsToContainer(9968, 12625, -5, {can}, "Locker", true)
+        end
+    end
+
+    local leaflet3 = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet3:setCanBeWrite(false)
+    leaflet3:setName(getText("IGUI_Artifact_BackpacksprayerLeaflet"))
+    local md = leaflet3:getModData()
+    md.printContent = "leaflet_backpacksprayer"
+
+    local leaflet4 = BanditCompatibility.InstanceItem("Bandits.Note")
+    leaflet4:setCanBeWrite(false)
+    leaflet4:setName(getText("IGUI_Artifact_AcidLeaflet"))
+    local md = leaflet4:getModData()
+    md.printContent = "leaflet_acid"
+
+    BWOAPrepareTools.AddItemsToContainer(9968, 12625, -5, {leaflet3, leaflet4}, "Locker", true)
 
     -- control room
     local leaflet2 = BanditCompatibility.InstanceItem("Bandits.Note")

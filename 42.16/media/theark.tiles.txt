@@ -2816,6 +2816,72 @@ tileset
         IsLow = 
         solidtrans = 
     }
+    // theark_01_25
+    tile
+    {
+        xy = 1,3
+        CustomName = Window
+        Facing = W
+        GlassRemovedOffset = 2
+        GroupName = Chute
+        IsClosedState = 
+        IsMoveAble = 
+        MaterialType = Metal
+        MoveType = Window
+        OpenTileOffset = 2
+        PickUpTool = Crowbar
+        PickUpWeight = 200
+        PlaceTool = Crowbar
+        SmashedTileOffset = 2
+        windowW = 
+    }
+    // theark_01_26
+    tile
+    {
+        xy = 2,3
+        CustomName = Window
+        Facing = N
+        GlassRemovedOffset = 2
+        GroupName = Chute
+        IsClosedState = 
+        IsMoveAble = 
+        MaterialType = Metal
+        MoveType = Window
+        OpenTileOffset = 2
+        PickUpTool = Crowbar
+        PickUpWeight = 200
+        PlaceTool = Crowbar
+        SmashedTileOffset = 2
+        windowN = 
+    }
+    // theark_01_27
+    tile
+    {
+        xy = 3,3
+        CustomName = Window
+        Facing = W
+        GroupName = Chute
+        IsMoveAble = 
+        MaterialType = Metal
+        MoveType = Window
+        PickUpTool = Crowbar
+        PickUpWeight = 200
+        PlaceTool = Crowbar
+    }
+    // theark_01_28
+    tile
+    {
+        xy = 4,3
+        CustomName = Window
+        Facing = N
+        GroupName = Chute
+        IsMoveAble = 
+        MaterialType = Metal
+        MoveType = Window
+        PickUpTool = Crowbar
+        PickUpWeight = 200
+        PlaceTool = Crowbar
+    }
 }
 tileset
 {

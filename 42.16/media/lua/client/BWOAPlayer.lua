@@ -1206,20 +1206,22 @@ local everyOneMinute = function()
     if not md.bwoa.timeRadiated then md.bwoa.timeRadiated = 0 end
 
     -- music conductor
-    if player:isOutside() then
-        if BWOAPlayer.inside > 480 then
-            BWOAMusic.Play("MusicOutside", 0.6, 1)
+    if BWOAClimate.radiation > 20 then
+        if player:isOutside() then
+            if BWOAPlayer.inside > 480 then
+                BWOAMusic.Play("MusicOutside", 0.6, 1)
+            end
+            BWOAPlayer.outside = BWOAPlayer.outside + 1
+            BWOAPlayer.inside = 0
+        elseif pz < -4 then
+            if BWOAPlayer.outside > 480 then
+                BWOAMusic.Play("MusicDepth", 0.6, 1)
+            end
+            BWOAPlayer.inside = BWOAPlayer.inside + 1
+            BWOAPlayer.outside = 0
+        else
+            BWOAPlayer.inside = BWOAPlayer.inside + 1
         end
-        BWOAPlayer.outside = BWOAPlayer.outside + 1
-        BWOAPlayer.inside = 0
-    elseif pz < -4 then
-        if BWOAPlayer.outside > 480 then
-            BWOAMusic.Play("MusicDepth", 0.6, 1)
-        end
-        BWOAPlayer.inside = BWOAPlayer.inside + 1
-        BWOAPlayer.outside = 0
-    else
-        BWOAPlayer.inside = BWOAPlayer.inside + 1
     end
     -- print ("INSIDE TIME: " .. tostring(BWOAPlayer.inside) .. " OUTSIDE TIME: " .. tostring(BWOAPlayer.outside))
 

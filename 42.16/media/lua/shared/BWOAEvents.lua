@@ -473,6 +473,27 @@ BWOAEvents.HordeAt = function(params)
     end
 end
 
+BWOAEvents.Skeleton = function(params)
+    local fakeItem = BanditCompatibility.InstanceItem("Base.Axe")
+    local fakeZombie = getCell():getFakeZombieForHit()
+    local cell = getCell()
+    local square = cell:getGridSquare(params.x, params.y, params.z)
+    local objects = square:getMovingObjects()
+    for i=0, objects:size()-1 do
+        local object = objects:get(i)
+        if instanceof(object, "IsoZombie") then
+            local zombie = object
+            if not zombie:isSkeleton() then
+                BWOAUtils.ApplyAcid(zombie, true)
+            end
+        end
+    end
+
+    if zombie then
+        
+    end
+end
+
 BWOAEvents.SpawnVehicle = function(params)
     local player = getSpecificPlayer(0)
     if not player then return end

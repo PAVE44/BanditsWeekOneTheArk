@@ -1,5 +1,24 @@
 ZombiePrograms = ZombiePrograms or {}
 
+local function predicateAll(item)
+	return true
+end
+
+local function predicateCooked(item)
+    if item:isFood() then
+        return item:isCooked()
+    end
+	return true
+end
+
+local function predicateFood(item)
+    if item:isFood() then
+        return true
+    end
+    return false
+end
+
+
 ZombiePrograms.Emma = {}
 
 ZombiePrograms.name = "Emma_Robinson"
@@ -25,52 +44,84 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMin = 20,
         minuteMax = 60
     },    ]]
-    sleep2 = {
+    {
+        activity = "sleep",
         hourMin = 0,
         hourMax = 6,
         minuteMin = 0,
         minuteMax = 60
     },
-    jog = {
+    {
+        activity = "jog",
         hourMin = 6,
         hourMax = 7,
-        minuteMin = 15,
-        minuteMax = 60
-    },
-    lab1 = {
-        hourMin = 7,
-        hourMax = 10,
         minuteMin = 0,
         minuteMax = 60
     },
-    radio = {
-        hourMin = 10,
+    {
+        activity = "cook",
+        activityMode = "breakfast",
+        hourMin = 7,
+        hourMax = 8,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    {
+        activity = "lab",
+        hourMin = 8,
+        hourMax = 11,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    {
+        activity = "radio",
+        hourMin = 11,
         hourMax = 12,
         minuteMin = 0,
         minuteMax = 60,
         waMin = 0.5,
         waMax = 32
     },
-    readbook = {
+    {
+        activity = "cook",
+        activityMode = "lunch",
         hourMin = 12,
-        hourMax = 13,
+        hourMax = 14,
         minuteMin = 0,
         minuteMax = 60
     },
-    playpiano = {
-        hourMin = 13,
-        hourMax = 17,
+    {
+        activity = "readbook",
+        hourMin = 14,
+        hourMax = 15,
         minuteMin = 0,
         minuteMax = 60
     },
-    lab2 = {
+    {
+        activity = "lab",
+        hourMin = 15,
+        hourMax = 18,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    {
+        activity = "cook",
+        activityMode = "dinner",
         hourMin = 18,
         hourMax = 20,
         minuteMin = 0,
         minuteMax = 60
     },
-    watchtv = {
+    {
+        activity = "playpiano",
         hourMin = 20,
+        hourMax = 21,
+        minuteMin = 0,
+        minuteMax = 60
+    },
+    {
+        activity = "watchtv",
+        hourMin = 21,
         hourMax = 23,
         minuteMin = 0,
         minuteMax = 60
@@ -111,50 +162,6 @@ local switchStage = function(bandit)
     end
 end
 
-local switchOutfit = function(bandit, expectedBid)
-    local brain = BanditBrain.Get(bandit)
-    local gmd = GetBWOAModData()
-    local ventilation = gmd.ventilation
-    local temp = ventilation.temp
-    local co2 = ventilation.co2
-
-    local co2treshold = 6000
-    local tempTreshold = 16
-
-    if expectedBid == Bandit.banditMap.Emma.Bunker then
-        if temp < tempTreshold and co2 > co2treshold then
-            expectedBid = Bandit.banditMap.Emma.BunkerColdCO2
-        elseif temp < tempTreshold then
-            expectedBid = Bandit.banditMap.Emma.BunkerCold
-        elseif co2 > co2treshold then
-            expectedBid = Bandit.banditMap.Emma.BunkerCO2
-        end
-    end
-
-    if expectedBid == Bandit.banditMap.Emma.Lab then
-        if co2 > co2treshold then
-            expectedBid = Bandit.banditMap.Emma.LabCO2
-        end
-    end
-
-    if expectedBid == Bandit.banditMap.Emma.Defend then
-        if co2 > co2treshold then
-            expectedBid = Bandit.banditMap.Emma.DefendCO2
-        end
-    end
-
-    if expectedBid ~= brain.bid then
-        local task = {
-            action = "Transform", 
-            anim = "Transform",
-            bid = expectedBid,
-            cid = Bandit.clanMap.Emma,
-            time = 150
-        }
-        return task
-    end
-end
-
 ZombiePrograms.Emma.Main = function(bandit)
 
     local tasks = {}
@@ -177,7 +184,7 @@ ZombiePrograms.Emma.Main = function(bandit)
         brain.timeSinceSeenPlayer = wa
     end
     if bandit:CanSee(player) then
-        if brain.timeSinceSeenPlayer < wa - 1 then
+        if brain.timeSinceSeenPlayer < wa - 8 then
             local tab = {}
             tab.id = brain.id
             tab.anim = "WaveHi"
@@ -195,6 +202,29 @@ ZombiePrograms.Emma.Main = function(bandit)
         local subTasks = BWOAPrograms.TagGame(bandit)
         if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
     else
+
+        if not BWOAMissions.IsAccomplished(1) then
+            local config = {}
+            config.mustSee = false
+            config.hearDist = 50
+
+            local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, "Bunker")
+            if reoutfitTask then
+                table.insert(tasks, reoutfitTask)
+                return {status=true, next="Main", tasks=tasks}
+            end
+
+            local closestPlayer = BanditUtils.GetClosestPlayerLocation(bandit, config)
+            if closestPlayer.x and closestPlayer.y and closestPlayer.z and closestPlayer.dist > 4 then
+                Bandit.Say(bandit, "WAITTALK")
+                BWOADialogues.Reveal(ZombiePrograms.name, "4")
+                table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Walk", closestPlayer.dist, false))
+                return {status=true, next="Main", tasks=tasks}
+            else
+                local idleTasks = BWOAPrograms.IdleEmma(bandit)
+                if #idleTasks > 0 then return {status=true, next="Main", tasks=idleTasks} end
+            end
+        end
 
         -- basic needs
         if brain.bladder and brain.bladder > 20 then
@@ -216,7 +246,7 @@ ZombiePrograms.Emma.Main = function(bandit)
                     if sittingData then
                         local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), sittingData.f)
                         local task = {action="UseToiletStanding", anim="SitInChair1", looped=true, f=sittingData.f, fx = fx, fy = fy, ox = toilet.x + sittingData.ox, oy = toilet.y + sittingData.oy, time=1000}
-                        local subTasks = BWOAPrograms.GoAndDo(bandit, toilet, task, 1.1)
+                        local subTasks = BWOAPrograms.GoAndDo(bandit, toilet, task, 1.1, false)
                         if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                     end
 
@@ -225,7 +255,7 @@ ZombiePrograms.Emma.Main = function(bandit)
             end
         elseif brain.hunger and brain.hunger >= 50 then
             -- bandit:addLineChatElement("ACTIVITY: FOOD HUNT", 1, 0, 1)
-            local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+            local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, "Bunker")
             if reoutfitTask then
                 table.insert(tasks, reoutfitTask)
                 return {status=true, next="Main", tasks=tasks}
@@ -252,280 +282,105 @@ ZombiePrograms.Emma.Main = function(bandit)
             end
         end
 
+        -- cleaning radiation
+        local subTasks = BWOAPrograms.Decontaminate(bandit)
+        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+
         -- cleaning blood
-        local blood, dist = BWOABaseObjects.FindClosestBlood({x=bx, y=by}, 10)
-        if blood then
+        local subTasks = BWOAPrograms.CleanBlood(bandit)
+        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
 
-            local hasBroom = BWOAPermaInv.HasType(bandit, "Base.Mop")
-            local hasBleach = BWOAPermaInv.HasType(bandit, "Base.Bleach")
-            if hasBroom and hasBleach then
-                local task = {action="CleanFloor", time=300, blood=blood, x=blood.x, y=blood.y, z=blood.z, time=240}
-                local subTasks = BWOAPrograms.GoAndDo(bandit, blood, task, 0.1)
+        -- return cooked food
+        local inv = BWOAPermaInv.GetAll(bandit)
+        local returnPosition = {x = 9966, y = 12612, z = -4}
+        for _, itemConf in pairs(inv) do
+            if itemConf.cooked then
+                local task = {
+                    action = "DropItem", 
+                    time = 300, 
+                    x = returnPosition.x, y = returnPosition.y, z = returnPosition.z, 
+                    xmin = 0, xmax = 1, 
+                    ymin = 0.6, ymax = 1, 
+                    item = itemConf,
+                }
+                local subTasks = BWOAPrograms.GoAndDo(bandit, returnPosition, task)
                 if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-            else
-                local itemType
-                if hasBroom then
-                    itemType = "Base.Bleach"
-                else
-                    itemType = "Base.Mop"
-                end
+                break
+            end
+        end
 
-                local item, dist = BWOABaseObjects.FindClosestItemTypes({itemType}, {x=bx, y=by}, {})
-                if item then
-                    local task = {action="Collect", time=300, item=item}
-                    local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
+        -- oven handling (must be outside of cooking timeframe to prevent leaving oven on after cooking is over)
+        local ovenList = BWOABaseObjects.FindAllObjects({"Oven"}, {})
+        for _, oven in ipairs(ovenList) do
+            local items = BWOABaseObjects.GetItemStackAt(oven.x, oven.y, oven.z)
+            local empty = true
+            for _, item in pairs(items) do
+                if item.cooked then
+                    local task = {action="Collect", time=300, item=item, cooked=true}
+                    local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task)
                     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                 end
+                if item.class == "food" then
+                    empty = false
+                end
+            end
+
+            local newActive = false
+            if not empty then
+                newActive = true
+            end
+
+            if oven.active ~= newActive then
+                local task = {action="TurnOven", obj=oven, active=newActive, time=300}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             end
         end
 
         -- timed activities
         local schedule = ZombiePrograms.Emma.mainSchedule
-        local activity = BanditUtils.GetScheduledActivity(schedule)
+        local activity, activityMode = BanditUtils.GetScheduledActivity(schedule)
+        -- activity, activityMode = "cook", "lunch" -- test
         if activity then
             if activity == "shower" then
-                bandit:addLineChatElement("ACTIVITY: SHOWER", 1, 0, 1)
+                -- bandit:addLineChatElement("ACTIVITY: SHOWER", 1, 0, 1)
                 local obj, dist = BWOABaseObjects.FindClosestObject({"Shower"}, {x=bx, y=by})
                 if obj then
                     local task = {action="UseToiletStanding", time=300}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
                     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
                 end
-            elseif activity == "sleep1" or activity == "sleep2" then
+            elseif activity == "cook" then
+                -- bandit:addLineChatElement("ACTIVITY: COOK " .. activityMode, 1, 0, 1)
+                local subTasks = BWOAPrograms.Cook(bandit, activityMode)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+            elseif activity == "sleep" then
                 bandit:addLineChatElement("ACTIVITY: SLEEP", 1, 0, 1)
-                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-                if reoutfitTask then
-                    table.insert(tasks, reoutfitTask)
-                    return {status=true, next="Main", tasks=tasks}
-                end
-                local obj, dist = BWOABaseObjects.FindClosestObject({"Beds", "Bed"}, {x=bx, y=by})
-                if obj then
-                    local bed = BWOABaseObjects.GetIsoObject(obj)
-                    if bed then
-                        local facing = bed:getSprite():getProperties():get("Facing")
-                        local gridpos = bed:getSprite():getProperties():get("SpriteGridPos")
-                        if facing == "S" and gridpos == "0,0" then facing = "N" end
-                        if facing == "E" and gridpos == "0,0" then facing = "W" end
-
-                        -- local eoffset = bed:getSprite():getProperties():get("Eoffset")
-                        local task = {action="SleepLong", x=obj.x, y=obj.y, z=obj.z, facing=facing, time=3000}
-                        local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                    end
-                end
+                local subTasks = BWOAPrograms.Sleep(bandit)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             elseif activity == "jog" then
                 bandit:addLineChatElement("ACTIVITY: JOG", 1, 0, 1)
-                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Sport)
-                if reoutfitTask then
-                    table.insert(tasks, reoutfitTask)
-                    return {status=true, next="Main", tasks=tasks}
-                end
                 local subTasks = BWOAPrograms.Jog(bandit)
                 if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             elseif activity == "radio" then
                 -- bandit:addLineChatElement("ACTIVITY: RADIO", 1, 0, 1)
-                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-                if reoutfitTask then
-                    table.insert(tasks, reoutfitTask)
-                    return {status=true, next="Main", tasks=tasks}
-                end
-                local obj, dist = BWOABaseObjects.FindClosestObject({"Radio"}, {x=bx, y=by})
-                if obj then
-                    local task = {action="UseRadio", time=500, fx=obj.x, fy=obj.y}
-                    local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                end
+                local subTasks = BWOAPrograms.RadioCall(bandit)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             elseif activity == "readbook" then
                 bandit:addLineChatElement("ACTIVITY: READ BOOK", 1, 0, 1)
-                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-                if reoutfitTask then
-                    table.insert(tasks, reoutfitTask)
-                    return {status=true, next="Main", tasks=tasks}
-                end
-                local obj, dist = BWOABaseObjects.FindClosestObject({"Couch"}, {x=bx, y=by})
-                if obj then
-                    local task = {action="SitInChair", anim="SitInChairRead", sound="PageFlipBook", item="Bandits.Book", left=true, x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
-                    local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                end
+                local subTasks = BWOAPrograms.ReadBook(bandit)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             elseif activity == "watchtv" then
                 bandit:addLineChatElement("ACTIVITY: WATCH TV", 1, 0, 1)
-                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-                if reoutfitTask then
-                    table.insert(tasks, reoutfitTask)
-                    return {status=true, next="Main", tasks=tasks}
-                end
-                local obj, dist = BWOABaseObjects.FindClosestObject({"Television"}, {x=bx, y=by})
-                if obj then
-                    local tv = BWOABaseObjects.GetIsoObject(obj)
-                    if tv then
-                        local dd = tv:getDeviceData()
-                        local md = dd:getMediaData()
-                        if md then
-                            if dd:getIsTurnedOn() and dd:isPlayingMedia() then
-                                local obj, dist = BWOABaseObjects.FindClosestObject({"Couch"}, {x=bx, y=by})
-                                if obj then
-                                    if dist < 10 then
-                                        local task = {action="SitInChair", anim="SitInChairTalk", x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
-                                        local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                                        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                                    else
-                                        bandit:faceLocationF(obj.x, obj.y)
-                                    end
-                                end
-                            else
-                                local task = {action="PlayVHS", time=600, obj=obj}
-                                local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                            end
-                        else
-                            local hasVHS = BWOAPermaInv.HasType(bandit, "Base.VHS_Retail")
-                            if hasVHS then
-                                local task = {action="InsertVHS", time=600, obj=obj}
-                                local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                            else
-                                local item, dist = BWOABaseObjects.FindClosestItemTypes({"Base.VHS_Retail"}, {x=bx, y=by}, {})
-                                if item then
-                                    local task = {action="Collect", time=300, item=item}
-                                    local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
-                                    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                                end
-                            end
-                        end
-                    end
-                end
+                local subTasks = BWOAPrograms.WatchTV(bandit)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             elseif activity == "playpiano" then
                 -- bandit:addLineChatElement("ACTIVITY: PLAY PIANO", 0, 0, 1)
-                local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-                if reoutfitTask then
-                    table.insert(tasks, reoutfitTask)
-                    return {status=true, next="Main", tasks=tasks}
-                end
-                local piano, pianoDist = BWOABaseObjects.FindClosestObject({"Piano"}, {x=bx, y=by})
-                if piano then
-                    local pianoIso = BWOABaseObjects.GetIsoObject(piano)
-                    if pianoIso then
-                        local stoolPos = {
-                            ["recreational_01_8"] = {x = 1, y = 1, ox = 0.1, oy = 0.27, f="N"},
-                            ["recreational_01_9"] = {x = 0, y = 1, ox = 0.1, oy = 0.27, f="N"},
-                            ["recreational_01_28"] = {x = 1, y = -1, ox = 0.1, oy = 0.53, f="S"},
-                            ["recreational_01_29"] = {x = 0, y = -1, ox = 0.1, oy = 0.53, f="S"},
-                            ["recreational_01_12"] = {x = 1, y = 0, ox = 0.27, oy = 0.1, f="W"},
-                            ["recreational_01_13"] = {x = 1, y = 1, ox = 0.27, oy = 0.1, f="W"},
-                            ["recreational_01_30"] = {x = -1, y = 0, ox = 0.53, oy = 0.1, f="E"},
-                            ["recreational_01_31"] = {x = -1, y = 1, ox = 0.53, oy = 0.1, f="E"},
-                        }
-                        local spriteName = pianoIso:getSprite():getName()
-                        local stoolData = stoolPos[spriteName]
-                        local stool = {
-                            x = piano.x + stoolData.x,
-                            y = piano.y + stoolData.y,
-                            z = piano.z,
-                            cn = "Stool",
-                        }
-
-                        local stoolIso = BWOABaseObjects.GetIsoObject(stool)
-
-                        if stoolIso then
-                            local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), stoolData.f)
-                            local task = {action="Generic", anim="SitPiano", looped=true, voice="InstrumentPiano1", fx = fx, fy = fy, ox = stool.x + stoolData.ox, oy = stool.y + stoolData.oy, time=200}
-                            local subTasks = BWOAPrograms.GoAndDo(bandit, stool, task, 0.7)
-                            if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                        end
-                    end
-                end
-            elseif gmd.research and gmd.research < 100 and BWOABaseControl.power and (activity == "lab1" or activity == "lab2") then
+                local subTasks = BWOAPrograms.PlayPiano(bandit)
+                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+            elseif gmd.research and gmd.research < 100 and BWOABaseControl.power and activity == "lab" then
                 -- bandit:addLineChatElement("ACTIVITY: LAB WORK", 1, 0, 1)
-                local computer, computerDist = BWOABaseObjects.FindClosestObject({"Computer"}, {x=bx, y=by})
-                local microscope, microscopeDist = BWOABaseObjects.FindClosestObject({"Microscope"}, {x=bx, y=by})
-                if computer and microscope then
-
-                    local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Lab)
-                    if reoutfitTask then
-                        table.insert(tasks, reoutfitTask)
-                        return {status=true, next="Main", tasks=tasks}
-                    end
-
-                    local gt = getGameTime()
-                    local minute = gt:getMinutes()
-
-                    if minute < 30 then
-                        local computerIso = BWOABaseObjects.GetIsoObject(computer)
-                        if computerIso then
-                            local chairPos = {
-                                ["appliances_com_01_72"] = {x = 0, y = 1, ox = 0.50, oy = 0.23, f="N"},
-                                ["appliances_com_01_73"] = {x = 1, y = 0, ox = 0.27, oy = 0.50, f="W"},
-                                ["appliances_com_01_74"] = {x = 0, y = -1, ox = 0.50, oy = 0.77, f="S"},
-                                ["appliances_com_01_75"] = {x = -1, y = 0, ox = 0.77, oy = 0.50, f="E"},
-
-                            }
-                            local spriteName = computerIso:getSprite():getName()
-                            local chairData = chairPos[spriteName]
-                            local chair = {
-                                x = computer.x + chairData.x,
-                                y = computer.y + chairData.y,
-                                z = computer.z,
-                                cn = "Chair",
-                            }
-
-                            local chairIso = BWOABaseObjects.GetIsoObject(chair)
-
-                            if chairIso then
-                                local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), chairData.f)
-                                local task = {action="Research", anim="SitComputer", looped=true, voice="ComputerKeyboard", fx = fx, fy = fy, ox = chair.x + chairData.ox, oy = chair.y + chairData.oy, time=200}
-                                local subTasks = BWOAPrograms.GoAndDo(bandit, chair, task, 0.7)
-                                if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                            end
-                        end
-                    else
-                        local microscopeIso = BWOABaseObjects.GetIsoObject(microscope)
-                        if microscopeIso then
-                            local standingPos = {
-                                ["location_community_medical_01_136"] = {x = 0, y = 1, ox = 0.50, oy = 0.10, f="N"},
-                                ["location_community_medical_01_137"] = {x = 1, y = 0, ox = 0.10, oy = 0.50, f="W"},
-                                ["location_community_medical_01_139"] = {x = 0, y = -1, ox = 0.50, oy = 0.90, f="S"},
-                                ["location_community_medical_01_138"] = {x = -1, y = 0, ox = 0.90, oy = 0.50, f="E"},
-                            }
-
-                            local spriteName = microscopeIso:getSprite():getName()
-                            local standingData = standingPos[spriteName]
-                            local standing = {
-                                x = microscope.x + standingData.x,
-                                y = microscope.y + standingData.y,
-                                z = microscope.z,
-                            }
-
-                            local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), standingData.f)
-                            local task = {action="Research", anim="Microscope", looped=true, fx = fx, fy = fy, ox = standing.x + standingData.ox, oy = standing.y + standingData.oy, time=200}
-                            local subTasks = BWOAPrograms.GoAndDo(bandit, standing, task, 0.7)
-                            if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-                        end
-                    end
-                end
-            end
-        end
-
-        local config = {}
-        config.mustSee = false
-        config.hearDist = 50
-
-        if not BWOAMissions.IsAccomplished(1) then
-            local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
-            if reoutfitTask then
-                table.insert(tasks, reoutfitTask)
-                return {status=true, next="Main", tasks=tasks}
-            end
-
-            local closestPlayer = BanditUtils.GetClosestPlayerLocation(bandit, config)
-
-            if closestPlayer.x and closestPlayer.y and closestPlayer.z and closestPlayer.dist > 4 then
-                Bandit.Say(bandit, "WAITTALK")
-                BWOADialogues.Reveal(ZombiePrograms.name, "4")
-                table.insert(tasks, BanditUtils.GetMoveTask(0, closestPlayer.x, closestPlayer.y, closestPlayer.z, "Walk", closestPlayer.dist, false))
-                return {status=true, next="Main", tasks=tasks}
-            else
-                local subTasks = BWOAPrograms.IdleEmma(bandit)
+                local subTasks = BWOAPrograms.Research(bandit)
                 if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
             end
         end
@@ -533,7 +388,7 @@ ZombiePrograms.Emma.Main = function(bandit)
 
     local jukebox, dist = BWOAJukebox.FindClosest(bx, by, bz)
     if jukebox and dist < 21 then
-        local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Dance)
+        local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, "Dance")
         if reoutfitTask then
             table.insert(tasks, reoutfitTask)
             return {status=true, next="Main", tasks=tasks}
@@ -549,7 +404,7 @@ ZombiePrograms.Emma.Main = function(bandit)
         end
     end
 
-    local reoutfitTask = switchOutfit(bandit, Bandit.banditMap.Emma.Bunker)
+    local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, "Bunker")
     if reoutfitTask then
         table.insert(tasks, reoutfitTask)
         return {status=true, next="Main", tasks=tasks}
@@ -576,7 +431,7 @@ ZombiePrograms.Emma.Defend = function(bandit)
     end
 
     local expectedBid = Bandit.banditMap.Emma.Defend
-    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, "Defend")
     if reoutfitTask then
         table.insert(tasks, reoutfitTask)
         return {status=true, next="Defend", tasks=tasks}
@@ -662,8 +517,11 @@ ZombiePrograms.Emma.Exterior = function(bandit)
         return {status=true, next=newStage, tasks=tasks}
     end
 
-    local expectedBid = Bandit.banditMap.Emma.Hazmat
-    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    local expectedBid = Bandit.banditMap.Emma.Postrad
+    if BWOAClimate.radiation > 0 then
+        expectedBid = Bandit.banditMap.Emma.Hazmat
+    end
+    local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, expectedBid)
     if reoutfitTask then
         table.insert(tasks, reoutfitTask)
         return {status=true, next="Exterior", tasks=tasks}
@@ -696,7 +554,7 @@ ZombiePrograms.Emma.Prison = function(bandit)
     local tasks = {}
     
     local expectedBid = Bandit.banditMap.Emma.Prison
-    local reoutfitTask = switchOutfit(bandit, expectedBid)
+    local reoutfitTask = BWOAPrograms.SwitchOutfit(bandit, "Prison")
     if reoutfitTask then
         table.insert(tasks, reoutfitTask)
         return {status=true, next="Prison", tasks=tasks}

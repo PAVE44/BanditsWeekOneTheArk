@@ -1,0 +1,37 @@
+module Bandits {
+    sound Jukebox1 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/jukebox/rhythm_of_93.ogg,
+            reverbFactor = 0.0, 
+            distanceMin = 10,
+            distanceMax = 20,
+        }
+    }
+
+    sound Jukebox2 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/jukebox/neon_rewind.ogg,
+            reverbFactor = 0.0, 
+            distanceMin = 10,
+            distanceMax = 20,
+        }
+    }
+
+    sound Jukebox3 {
+        category = Object, 
+        loop = false,
+        is3D = true,
+        clip {
+            file = media/sound/jukebox/neon_nights.ogg,
+            reverbFactor = 0.0, 
+            distanceMin = 10,
+            distanceMax = 20,
+        }
+    }
+}
