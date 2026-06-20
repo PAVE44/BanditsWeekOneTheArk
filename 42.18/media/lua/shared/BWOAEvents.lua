@@ -75,6 +75,23 @@ BWOAEvents.Spooky = function(params)
     BWOATex.alpha = params.alpha
 end
 
+BWOAEvents.Spooky2 = function(params)
+    local player = getSpecificPlayer(0)
+    if not player then return end
+
+    local bodyDamage = player:getBodyDamage()
+    local head = bodyDamage:getBodyPart(BodyPartType.Head)
+    head:setAdditionalPain(75)
+
+    local stats = player:getStats()
+    stats:set(CharacterStat.INTOXICATION, 25)
+
+    player:StopAllActionQueue()
+    player:playEmote("feelfeint")
+    local sound = player:getDescriptor():getVoicePrefix() .. "FreezeShiver"
+    player:getEmitter():playVocals(sound)
+end
+
 BWOAEvents.Teleport = function(params)
     local playerList = BanditPlayer.GetPlayers()
     for i=0, playerList:size()-1 do
@@ -139,8 +156,8 @@ BWOAEvents.PlayerSetup = function(params)
             nutrition:setWeight(weight - 6)
 
             local stats = player:getStats()
-            stats:set(CharacterStat.HUNGER, 50)
-            stats:set(CharacterStat.THIRST, 40)
+            stats:set(CharacterStat.HUNGER, 0.7)
+            stats:set(CharacterStat.THIRST, 0.8)
         end
     end
 end

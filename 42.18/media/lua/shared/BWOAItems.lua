@@ -16,6 +16,8 @@ BWOAItems.GetItemClass = function(item)
         if fluidContainer and not fluidContainer:isPoisonous() and not fluidContainer:isEmpty() and not fluidContainer:isTainted() then
             class = "drink"
         end
+    elseif item:IsClothing() then
+        class = "clothing"
     end
     return class
 end

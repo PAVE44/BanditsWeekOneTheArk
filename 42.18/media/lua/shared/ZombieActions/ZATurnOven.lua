@@ -7,8 +7,13 @@ end
 
 ZombieActions.TurnOven = {}
 ZombieActions.TurnOven.onStart = function(zombie, task)
-    task.anim = "Give"
-    zombie:setBumpType(task.anim)
+    local oven = BWOABaseObjects.GetIsoObject(task.obj)
+    if not oven then return true end
+
+    if oven:Activated() ~= task.active then
+        task.anim = "Give"
+        zombie:setBumpType(task.anim)
+    end
 
     return true
 end
@@ -23,7 +28,10 @@ ZombieActions.TurnOven.onComplete = function(zombie, task)
     local oven = BWOABaseObjects.GetIsoObject(task.obj)
     if not oven then return true end
 
-    oven:setActivated(task.active)
+    if oven:Activated() ~= task.active then
+        oven:setActivated(task.active)
+        oven:PlayToggleSound()
+    end
 
     return true
 end

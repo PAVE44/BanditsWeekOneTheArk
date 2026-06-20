@@ -136,5 +136,7 @@ ZombieActions.HealPlayer.onComplete = function(zombie, task)
         bodyPart:setBandaged(true, 3.0)
     end
 
+    BWOAEventControl.Add("HaloPlayer", {perk = "Doctor", xp = 100}, 100)
+
     return true
 end

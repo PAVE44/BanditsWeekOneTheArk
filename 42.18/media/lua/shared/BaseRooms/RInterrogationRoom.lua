@@ -111,6 +111,7 @@ BWOARooms.InterrogationRoom.Prepare = function ()
         {id="d3950c33-4eec-4477-b032-000000000000"}, -- ark medical 2
         {id="7fbeacb8-0620-4b8f-9638-000000000000"}, -- ark medical 3
         {id="d8a8fa8f-be1a-462d-8377-000000000000"}, -- ark medical 4
+        {id="6cca967b-3893-410e-a5f4-000000000000"}, -- ark engineering 1 (gx9)
     }
 
     local mediaRecorder = ZomboidRadio.getInstance():getRecordedMedia()

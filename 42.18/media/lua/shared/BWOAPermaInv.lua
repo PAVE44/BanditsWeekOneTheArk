@@ -43,6 +43,10 @@ BWOAPermaInv.Add = function (bandit, item)
         itemConf.tc = 100
     elseif itemConf.class == "media" then
         itemConf.mid = item:getMediaData():getId()
+    elseif itemConf.class == "clothing" then
+        itemConf.dirty = item:getDirtiness()
+        itemConf.blood = item:getBloodLevel()
+        itemConf.wet = item:getWetness()
     end
 
     table.insert(brain.permaInv, itemConf)
@@ -50,12 +54,12 @@ BWOAPermaInv.Add = function (bandit, item)
     sync(bandit, brain.permaInv)
 end
 
-BWOAPermaInv.RemoveOneOfType = function (bandit, itemFullType, cooked)
+BWOAPermaInv.RemoveOneOfType = function (bandit, itemFullType)
     local brain = BanditBrain.Get(bandit)
     if not brain or not brain.permaInv then return end
 
     for i, itemConf in pairs(brain.permaInv) do
-        if itemConf.fullType == itemFullType and (cooked == nil or cooked == itemConf.cooked) then
+        if itemConf.fullType == itemFullType then
             table.remove(brain.permaInv, i)
             sync(bandit, brain.permaInv)
             return
@@ -101,12 +105,13 @@ BWOAPermaInv.GetAll = function (bandit)
     return brain.permaInv
 end
 
-BWOAPermaInv.GetType = function (bandit, itemFullType, cooked)
+
+BWOAPermaInv.Get = function (bandit, predicate)
     local brain = BanditBrain.Get(bandit)
     if not brain or not brain.permaInv then return nil end
 
     for i, itemConf in pairs(brain.permaInv) do
-        if itemConf.fullType == itemFullType and (cooked == nil or cooked == itemConf.cooked) then
+        if not predicate or predicate(itemConf) then
             return itemConf
         end
     end
@@ -114,14 +119,45 @@ BWOAPermaInv.GetType = function (bandit, itemFullType, cooked)
     return nil
 end
 
-BWOAPermaInv.HasType = function (bandit, itemFullType, cntExpected, cooked)
+BWOAPermaInv.Has = function (bandit, cntExpected, predicate)
     local brain = BanditBrain.Get(bandit)
     if not brain or not brain.permaInv then return false end
     if not cntExpected then cntExpected = 1 end
 
     local cnt = 0
     for _, itemConf in pairs(brain.permaInv) do
-        if itemConf.fullType == itemFullType and (cooked == nil or cooked == itemConf.cooked) then
+        if not predicate or predicate(itemConf) then
+            cnt = cnt + 1
+            if cnt >= cntExpected then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+BWOAPermaInv.GetType = function (bandit, itemFullType, predicate)
+    local brain = BanditBrain.Get(bandit)
+    if not brain or not brain.permaInv then return nil end
+
+    for i, itemConf in pairs(brain.permaInv) do
+        if itemConf.fullType == itemFullType and (not predicate or predicate(itemConf)) then
+            return itemConf
+        end
+    end
+
+    return nil
+end
+
+BWOAPermaInv.HasType = function (bandit, itemFullType, cntExpected, predicate)
+    local brain = BanditBrain.Get(bandit)
+    if not brain or not brain.permaInv then return false end
+    if not cntExpected then cntExpected = 1 end
+
+    local cnt = 0
+    for _, itemConf in pairs(brain.permaInv) do
+        if itemConf.fullType == itemFullType and (not predicate or predicate(itemConf)) then
             cnt = cnt + 1
             if cnt >= cntExpected then
                 return true

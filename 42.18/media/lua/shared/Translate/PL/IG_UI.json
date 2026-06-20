@@ -208,7 +208,7 @@
     "IGUI_Missions_1_Name": "Poznaj Emmę",
     "IGUI_Missions_1_Description": "Znajdź i porozmawiaj z Emmą.\nNaciśnij \"T\", aby otworzyć panel czatu.",
     "IGUI_Missions_2_Name": "Zmień ubranie",
-    "IGUI_Missions_2_Description": "Znajdź i załóż strój bunkrowy.",
+    "IGUI_Missions_2_Description": "Znajdź i załóż kombinezon ochronny.",
     "IGUI_Missions_3_Name": "Napraw wentylację",
     "IGUI_Missions_3_Description": "Znajdź wentylację na powierzchni\ni napraw ją za pomocą śrubokręta.",
     "IGUI_Missions_4_Name": "Znajdź ukryty piwnicę",
@@ -261,9 +261,10 @@
     "IGUI_Missions_114_Description": "Jeśli się zarazisz, Emma nie będzie miała wyboru i najpierw poda ci lek do przetestowania.\nW ten sposób chronisz Emmę przed potencjalnymi skutkami ubocznymi eksperymentalnego lekarstwa, jeśli najpierw została ugryziona.",
     "IGUI_Missions_115_Name": "Zaszczep się",
     "IGUI_Missions_115_Description": "Zaszczep się eksperymentalnym związkiem przeciwwirusowym.",
-    "IGUI_Missions_120_Name": "Zbadaj siedzibę Finnegana",
-    "IGUI_Missions_120_Description": "Przeprowadź dokładne przeszukanie biura kierownictwa w siedzibie Finnegana w Louisville Ruins.\n",
-
+    "IGUI_Missions_120_Name": "Wybierz się do siedziby Finnegana",
+    "IGUI_Missions_120_Description": "Pojedź do siedziby Finnegana znajdującej się w ruinach Louisville.\n",
+    "IGUI_Missions_121_Name": "Zbadaj siedzibę Finnegana",
+    "IGUI_Missions_121_Description": "Przeprowadź dokładne przeszukanie biura kierownictwa w siedzibie Finnegana.\n",
     
     "IGUI_Dial_Emma_Robinson_0_Q": "Możesz powtórzyć?",
     "IGUI_Dial_Emma_Robinson_0_A": "Jasne. ",

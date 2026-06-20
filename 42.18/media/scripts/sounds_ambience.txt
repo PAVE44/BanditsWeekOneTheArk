@@ -436,6 +436,13 @@ module Bandits {
             distanceMax = 8,
             reverbFactor = 0.1, 
             volume = 1, 
+        }
+        clip { 
+            file = media/sound/ambient_dark_clouds2.ogg, 
+            distanceMin = 1,
+            distanceMax = 8,
+            reverbFactor = 0.1, 
+            volume = 1, 
         } 
     }
 
@@ -612,6 +619,18 @@ module Bandits {
         is3D = true,
         clip { 
             file = media/sound/spooky_1.ogg,
+            distanceMin = 3,
+            distanceMax = 30,
+            reverbFactor = 0.7, 
+        } 
+    }
+
+    sound Monsters{
+        category = Player, 
+        loop = false,
+        is3D = true,
+        clip { 
+            file = media/sound/monsters.ogg,
             distanceMin = 3,
             distanceMax = 30,
             reverbFactor = 0.7, 

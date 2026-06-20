@@ -17,7 +17,7 @@ function BWOAScenes.Toolbag:placeItems()
         local room = building:getRandomRoom()
         local def = room:getRoomDef()
         local area = def:getArea()
-        if area > 1 then
+        if area > 4 then
             itemSquare = def:getFreeSquare()
             if itemSquare then
                 break
@@ -26,7 +26,7 @@ function BWOAScenes.Toolbag:placeItems()
     end
 
     local x, y, z
-    if itemSquare then
+    if itemSquare and itemSquare:getX() ~= 10061 then -- 10061 is inaccesible balcony
         x, y, z = itemSquare:getX(), itemSquare:getY(), itemSquare:getZ()
     else
         x, y, z = 10033, 12731, 1

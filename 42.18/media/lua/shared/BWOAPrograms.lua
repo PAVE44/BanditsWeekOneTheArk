@@ -52,11 +52,12 @@ BWOAPrograms.SwitchOutfit = function(bandit, outfit)
     end
 end
 
-BWOAPrograms.GoAndDo = function(bandit, point, task, precision, checkCollision)
+BWOAPrograms.GoAndDo = function(bandit, point, task, precision, checkCollision, run)
     local tasks = {}
 
     if precision == nil then precision = 0.7 end
     if checkCollision == nil then checkCollision = true end
+    if run == nil then run = false end
 
     local square = getCell():getGridSquare(point.x, point.y, point.z)
     if not square then return tasks end
@@ -81,9 +82,11 @@ BWOAPrograms.GoAndDo = function(bandit, point, task, precision, checkCollision)
         collide = false
     end
 
+    local walkType = "Walk"
+    if run then walkType = "Run" end
     local dist = BanditUtils.DistTo(bx, by, ax + 0.5, ay + 0.5)
     if dist > precision or collide then
-        table.insert(tasks, BanditUtils.GetMoveTask(0, ax, ay, az, "Walk", dist, false))
+        table.insert(tasks, BanditUtils.GetMoveTask(0, ax, ay, az, walkType, dist, false))
         return tasks
     else
         table.insert(tasks, task)
@@ -96,6 +99,86 @@ BWOAPrograms.Fallen = function(bandit)
     local task = {action="Generic", anim="Fallen", voice=voice, looped=true, time=200}
     table.insert(tasks, task)
     return tasks
+end
+
+BWOAPrograms.EnterVehicle = function(bandit)
+    local tasks = {}
+    local master = BanditPlayer.GetMasterPlayer(bandit)
+    if not master then return tasks end
+
+    local vehicle = master:getVehicle()
+    if not vehicle or not vehicle:isDriver(master) then return tasks end
+
+    local seat = 1
+    local pos = BanditUtils.GetSeatPosition(vehicle, seat)
+    if not pos then return tasks end
+
+    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+    local dist = BanditUtils.DistTo(bx, by, pos.x, pos.y)
+
+    if dist < 1 then
+        bandit:addLineChatElement("I'm in!", 0, 1, 0)
+
+        local brain = BanditBrain.Get(bandit)
+        brain.vehicleId = vehicle:getId()
+        Bandit.ForceSyncPart(bandit, brain)
+        vehicle:getModData().passengerId = brain.id
+    
+            --[[
+            local npcAesthetics = SurvivorFactory.CreateSurvivor(SurvivorType.Neutral, false)
+            npcAesthetics:setForename("Driver")
+            npcAesthetics:setSurname("Driver")
+            npcAesthetics:dressInNamedOutfit("Police")
+
+            -- invisible fake driver that replaces babe
+            local square = bandit:getSquare()
+            local driver = IsoPlayer.new(cell, npcAesthetics, square:getX(), square:getY(), square:getZ())
+
+            driver:setSceneCulled(false)
+            driver:setNPC(true)
+            driver:setGodMod(true)
+            driver:setInvisible(true)
+            driver:setGhostMode(true)
+            driver:getModData().BWOBID = brain.id
+            master:addLineChatElement("I'm in!", 0, 1, 0)
+
+            local vx = driver:getForwardDirection():getX()
+            local vy = driver:getForwardDirection():getY()
+            local forwardVector = Vector3f.new(vx, vy, 0)
+            
+            if vehicle:getChunk() then
+                vehicle:setPassenger(seat, driver, forwardVector)
+                driver:setVehicle(vehicle)
+                driver:setCollidable(false)
+            end
+            ]]
+
+            master:playSound("VehicleDoorOpen")
+            bandit:removeFromSquare()
+            bandit:removeFromWorld()
+            
+  
+    else
+        bandit:addLineChatElement("Wait for me!", 0, 1, 0)
+        table.insert(tasks, BanditUtils.GetMoveTask(0, pos.x, pos.y, pos.z, "Run", dist, false))
+    end
+
+    return tasks
+end
+
+BWOAPrograms.InteractNoah = function(bandit, action)
+
+    local noah = {
+        x = BWOARooms.Control.noah.x + 0.5,
+        y = BWOARooms.Control.noah.y + 0.5,
+        z = BWOARooms.Control.noah.z,
+    }
+
+    local task = {action="InteractNoah", operation="disableAlarm", time=1000, noah=noah}
+    local subTasks = BWOAPrograms.GoAndDo(bandit, noah, task, 0.2)
+    if #subTasks > 0 then return subTasks end
+
+    return {}
 end
 
 BWOAPrograms.FollowMaster = function(bandit)
@@ -359,7 +442,10 @@ BWOAPrograms.Toilet = function(bandit)
                 local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), sittingData.f)
                 local task = {action="UseToiletStanding", anim="SitInChair1", looped=true, f=sittingData.f, fx = fx, fy = fy, ox = toilet.x + sittingData.ox, oy = toilet.y + sittingData.oy, time=1000}
                 local subTasks = BWOAPrograms.GoAndDo(bandit, toilet, task, 1.1, false)
-                if #subTasks > 0 then return subTasks end
+                if #subTasks > 0 then 
+                    BWOANPC.AddThinking(bandit, getTexture(spriteName):splitIcon(), "UseToiletStanding")
+                    return subTasks 
+                end
             end
         end
     end
@@ -390,7 +476,13 @@ BWOAPrograms.Eat = function(bandit)
     if item then
         local task = {action="Collect", time=300, item=item}
         local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
-        if #subTasks > 0 then return subTasks end
+        if #subTasks > 0 then 
+            local itemIso = BanditCompatibility.InstanceItem(item.ftype)
+            if itemIso then
+                BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Eat")
+            end
+            return subTasks 
+        end
     end
     return tasks
 end
@@ -407,7 +499,13 @@ BWOAPrograms.CleanBlood = function(bandit)
         if hasBroom and hasBleach then
             local task = {action="CleanFloor", time=300, blood=blood, x=blood.x, y=blood.y, z=blood.z, time=240}
             local subTasks = BWOAPrograms.GoAndDo(bandit, blood, task, 0.1)
-            if #subTasks > 0 then return subTasks end
+            if #subTasks > 0 then
+                local itemIso = BanditCompatibility.InstanceItem("Base.Mop")
+                if itemIso then
+                    BWOANPC.AddThinking(bandit, itemIso:getTexture(), "CleanBlood")
+                end
+                return subTasks 
+            end
         else
             local itemType
             if hasBroom then
@@ -416,11 +514,17 @@ BWOAPrograms.CleanBlood = function(bandit)
                 itemType = "Base.Mop"
             end
 
-            local item, dist = BWOABaseObjects.FindClosestItemTypes({itemType}, {x=bx, y=by}, {})
+            local item, dist = BWOABaseObjects.FindClosestItemTypes({itemType}, {x=bx, y=by})
             if item then
                 local task = {action="Collect", time=300, item=item}
                 local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
-                if #subTasks > 0 then return subTasks end
+                if #subTasks > 0 then 
+                    local itemIso = BanditCompatibility.InstanceItem(itemType)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "CleanBlood")
+                    end
+                    return subTasks 
+                end
             end
         end
     end
@@ -440,7 +544,13 @@ BWOAPrograms.Decontaminate = function(bandit)
 
             local task = {action="Decontaminate", time=150, fx=item.x, fy=item.y}
             local subTasks = BWOAPrograms.GoAndDo(bandit, item, task, 4)
-            if #subTasks > 0 then return subTasks end
+            if #subTasks > 0 then
+                local itemIso = BanditCompatibility.InstanceItem("Base.KnapsackSprayer")
+                if itemIso then
+                    BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Decontaminate")
+                end
+                return subTasks
+            end
         end
     end
     return {}
@@ -490,13 +600,22 @@ end
 BWOAPrograms.OvenHandling = function(bandit)
     local ovenList = BWOABaseObjects.FindAllObjects({"Oven"}, {})
     for _, oven in ipairs(ovenList) do
-        local items = BWOABaseObjects.GetItemStackAt(oven.x, oven.y, oven.z)
+        local predicateOven = function(item)
+            return not item.ground and item.cont == "Oven"
+        end
+        local items = BWOABaseObjects.GetItemStackAt(oven.x, oven.y, oven.z, predicateOven)
         local empty = true
         for _, item in pairs(items) do
-            if item.cooked then
+            if item.cooked and item.hot then
                 local task = {action="Collect", time=300, item=item, cooked=true}
-                local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task)
-                if #subTasks > 0 then return subTasks end
+                local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task, 0.7, true, true)
+                if #subTasks > 0 then 
+                    local itemIso = BanditCompatibility.InstanceItem(item.ftype)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "OvenHandling")
+                    end
+                    return subTasks 
+                end
             end
             if item.class == "food" then
                 empty = false
@@ -510,8 +629,11 @@ BWOAPrograms.OvenHandling = function(bandit)
 
         if oven.active ~= newActive then
             local task = {action="TurnOven", obj=oven, active=newActive, time=300}
-            local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task)
-            if #subTasks > 0 then return subTasks end
+            local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task, 0.7, true, true)
+            if #subTasks > 0 then
+                BWOANPC.AddThinking(bandit, getTexture(oven.sp):splitIcon(), "OvenHandling")
+                return subTasks
+            end
         end
     end
     return {}
@@ -523,10 +645,23 @@ BWOAPrograms.Cook = function(bandit)
     -- check if already have enough cooked
     local enoughPrep = false
     local outputs = BWOARecipes.GetAllOutputs()
+    local predicateGround = function(item)
+        return item.ground
+    end
     for _, output in pairs(outputs) do
-        local item = BWOABaseObjects.FindClosestItemTypes({output}, {x=bx, y=by}, {})
-        if item and item.ground then
-            enoughPrep = true
+        local item = BWOABaseObjects.FindClosestItemTypes({output}, {x=bx, y=by}, predicateGround)
+        if item then enoughPrep = true end
+    end
+
+    -- count cooking as already made if it's in the oven
+    local oven, dist = BWOABaseObjects.FindClosestObject({"Oven"}, {x=bx, y=by})
+    if oven then
+        local predicateNotGroundNotCooked = function(item)
+            return not item.ground and not item.cooked
+        end
+        local items = BWOABaseObjects.GetItemStackAt(oven.x, oven.y, oven.z, predicateGroundNotCooked)
+        if #items > 0 then
+             enoughPrep = true
         end
     end
     
@@ -540,6 +675,8 @@ BWOAPrograms.Cook = function(bandit)
     elseif hour >= 17 and hour < 24 then
         mealTime = "dinner"
     end
+    -- mealTime = "dinner"
+
     local options = BWOARecipes.GetOptions(mealTime)
     local option = day % #options + 1
     local recipe = BWOARecipes.GetRecipe(options[option])
@@ -549,21 +686,38 @@ BWOAPrograms.Cook = function(bandit)
 
     -- needs to be cooked in a stove
     if recipe.cook then
-        local oven, dist = BWOABaseObjects.FindClosestObject({"Oven"}, {x=bx, y=by})
         if oven then
-            local cookable = BWOAPermaInv.GetType(bandit, recipe.result, false)
+            local predicate = function(item)
+                return not item.cooked
+            end
+            local cookable = BWOAPermaInv.GetType(bandit, recipe.result, predicate)
             if cookable then
                 local task = {action="PutContainer", time=300, item=cookable, container=oven}
                 local subTasks = BWOAPrograms.GoAndDo(bandit, oven, task)
-                if #subTasks > 0 then return subTasks end
+                if #subTasks > 0 then
+                    local itemIso = BanditCompatibility.InstanceItem(cookable.fullType)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Cook")
+                    end
+                    return subTasks
+                end
             else
-                local cookable, dist = BWOABaseObjects.FindClosestItemTypes({recipe.result}, {x=bx, y=by}, {cooked=false})
+                local predicateNotCooked = function(item)
+                    return not item.cooked
+                end
+                local cookable, dist = BWOABaseObjects.FindClosestItemTypes({recipe.result}, {x=bx, y=by}, predicateNotCooked)
                 if cookable then
                     local hasOven = BWOABaseObjects.EnsureObjectAt("Oven", cookable.x, cookable.y, cookable.z)
                     if not hasOven then
                         local task = {action="Collect", time=300, item=cookable}
                         local subTasks = BWOAPrograms.GoAndDo(bandit, cookable, task)
-                        if #subTasks > 0 then return subTasks end
+                        if #subTasks > 0 then
+                            local itemIso = BanditCompatibility.InstanceItem(cookable.ftype)
+                            if itemIso then
+                                BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Cook")
+                            end
+                            return subTasks
+                        end
                     end
                 end
             end
@@ -576,11 +730,20 @@ BWOAPrograms.Cook = function(bandit)
         if not vesselReady then
             local hasVessel = BWOAPermaInv.HasType(bandit, recipe.vessel, recipe.vesselCnt)
             if not hasVessel then
-                local item, dist = BWOABaseObjects.FindClosestItemTypes({recipe.vessel}, {x=bx, y=by}, {})
-                if item and not (item.ground and math.floor(item.x) == makePosition.x and math.floor(item.y) == makePosition.y) then
+                local predicateVessel = function(item)
+                    return not (item.ground and math.floor(item.x) == makePosition.x and math.floor(item.y) == makePosition.y)
+                end
+                local item, dist = BWOABaseObjects.FindClosestItemTypes({recipe.vessel}, {x=bx, y=by}, predicateVessel)
+                if item then
                     local task = {action="Collect", time=300, item=item}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
-                    if #subTasks > 0 then return subTasks end
+                    if #subTasks > 0 then
+                        local itemIso = BanditCompatibility.InstanceItem(item.ftype)
+                        if itemIso then
+                            BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Cook")
+                        end
+                        return subTasks
+                    end
                 end
             else
                 local task = {
@@ -592,7 +755,13 @@ BWOAPrograms.Cook = function(bandit)
                     item = {fullType = recipe.vessel}
                 }
                 local subTasks = BWOAPrograms.GoAndDo(bandit, makePosition, task)
-                if #subTasks > 0 then return subTasks end
+                if #subTasks > 0 then
+                    local itemIso = BanditCompatibility.InstanceItem(recipe.vessel)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Cook")
+                    end
+                    return subTasks
+                end
             end
         else
             local potentialIngredients = recipe.ingredients
@@ -603,11 +772,20 @@ BWOAPrograms.Cook = function(bandit)
                 if ing then
                     table.insert(hasIngredients, potentialIngredient)
                 else
-                    local ing, dist = BWOABaseObjects.FindClosestItemTypes({potentialIngredient}, {x=bx, y=by}, {cooked=false})
+                    local predicateNotCooked = function(item)
+                        return not item.cooked
+                    end
+                    local ing, dist = BWOABaseObjects.FindClosestItemTypes({potentialIngredient}, {x=bx, y=by}, predicateNotCooked)
                     if ing then
                         local task = {action="Collect", time=300, item=ing}
                         local subTasks = BWOAPrograms.GoAndDo(bandit, ing, task)
-                        if #subTasks > 0 then return subTasks end
+                        if #subTasks > 0 then
+                            local itemIso = BanditCompatibility.InstanceItem(ing.ftype)
+                            if itemIso then
+                                BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Cook")
+                            end
+                            return subTasks
+                        end
                     end
                 end
                 if #hasIngredients >= countIngredients then
@@ -621,7 +799,13 @@ BWOAPrograms.Cook = function(bandit)
                 
                 local task = {action="Cook", time=800, makePosition=makePosition, ingredients=hasIngredients, recipe=recipe}
                 local subTasks = BWOAPrograms.GoAndDo(bandit, standPosition, task, 0.2)
-                if #subTasks > 0 then return subTasks end
+                if #subTasks > 0 then 
+                    local itemIso = BanditCompatibility.InstanceItem(recipe.vessel)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Cook")
+                    end
+                    return subTasks
+                end
             end
         end
     end
@@ -645,7 +829,13 @@ BWOAPrograms.Sleep = function(bandit)
             -- local eoffset = bed:getSprite():getProperties():get("Eoffset")
             local task = {action="SleepLong", x=obj.x, y=obj.y, z=obj.z, facing=facing, time=3000}
             local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-            if #subTasks > 0 then return subTasks end
+            if #subTasks > 0 then 
+                local itemIso = BanditCompatibility.InstanceItem("Base.Pillow")
+                if itemIso then
+                    BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Sleep")
+                end
+                return subTasks 
+            end
         end
     end
     return {}
@@ -669,6 +859,7 @@ BWOAPrograms.Jog = function(bandit)
         tx, ty = 9971.5, 12609.5
     end
 
+    BWOANPC.AddThinking(bandit, getTexture("media/ui/thinking_run.png"), "Jog")
     table.insert(tasks, BanditUtils.GetMoveTask(0, tx, ty, -4, "Run", 10, false))
     return tasks
 end
@@ -683,7 +874,10 @@ BWOAPrograms.RadioCall = function(bandit)
 
         local task = {action="UseRadio", time=500, fx=obj.x, fy=obj.y}
         local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-        if #subTasks > 0 then return subTasks end
+        if #subTasks > 0 then
+            BWOANPC.AddThinking(bandit, getTexture(obj.sp):splitIcon(), "RadioCall")
+            return subTasks 
+        end
     end
     return {}
 end
@@ -698,7 +892,13 @@ BWOAPrograms.ReadBook = function(bandit)
 
         local task = {action="SitInChair", anim="SitInChairRead", sound="PageFlipBook", item="Bandits.Book", left=true, x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
         local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-        if #subTasks > 0 then return subTasks end
+        if #subTasks > 0 then
+            local itemIso = BanditCompatibility.InstanceItem("Base.Book")
+            if itemIso then
+                BWOANPC.AddThinking(bandit, itemIso:getTexture(), "ReadBook")
+            end
+            return subTasks 
+        end
     end
     return {}
 end
@@ -723,7 +923,10 @@ BWOAPrograms.WatchTV = function(bandit)
                         if dist < 10 then
                             local task = {action="SitInChair", anim="SitInChairTalk", x=obj.x, y=obj.y, z=obj.z, facing=obj.f, time=1000}
                             local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                            if #subTasks > 0 then return subTasks end
+                            if #subTasks > 0 then
+                                BWOANPC.AddThinking(bandit, getTexture(tv:getSprite():getName()):splitIcon(), "WatchTV")
+                                return subTasks
+                            end
                         else
                             bandit:faceLocationF(obj.x, obj.y)
                         end
@@ -731,20 +934,36 @@ BWOAPrograms.WatchTV = function(bandit)
                 else
                     local task = {action="PlayVHS", time=600, obj=obj}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                    if #subTasks > 0 then return subTasks end
+                    if #subTasks > 0 then
+                        BWOANPC.AddThinking(bandit, getTexture(tv:getSprite():getName()):splitIcon(), "WatchTV")
+                        return subTasks
+                    end
                 end
             else
-                local hasVHS = BWOAPermaInv.HasType(bandit, "Base.VHS_Retail")
+                local vhsItemType = "Base.VHS_Retail"
+                local hasVHS = BWOAPermaInv.HasType(bandit, vhsItemType)
                 if hasVHS then
                     local task = {action="InsertVHS", time=600, obj=obj}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, obj, task)
-                    if #subTasks > 0 then return subTasks end
+                    if #subTasks > 0 then
+                        local itemIso = BanditCompatibility.InstanceItem(vhsItemType)
+                        if itemIso then
+                            BWOANPC.AddThinking(bandit, itemIso:getTexture(), "WatchTV")
+                            return subTasks
+                        end
+                    end
                 else
-                    local item, dist = BWOABaseObjects.FindClosestItemTypes({"Base.VHS_Retail"}, {x=bx, y=by}, {})
+                    local item, dist = BWOABaseObjects.FindClosestItemTypes({vhsItemType}, {x=bx, y=by})
                     if item then
                         local task = {action="Collect", time=300, item=item}
                         local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
-                        if #subTasks > 0 then return subTasks end
+                        if #subTasks > 0 then
+                            local itemIso = BanditCompatibility.InstanceItem(vhsItemType)
+                            if itemIso then
+                                BWOANPC.AddThinking(bandit, itemIso:getTexture(), "WatchTV")
+                                return subTasks
+                            end
+                        end
                     end
                 end
             end
@@ -796,6 +1015,195 @@ BWOAPrograms.PlayPiano = function(bandit)
     return {}
 end
 
+BWOAPrograms.WaterPump = function(bandit)
+    local bx, by = bandit:getX(), bandit:getY()
+
+    local pumpPoint = {x = 9950, y = 12616, z = -4}
+    local pump = WPVirtual.PumpGet(pumpPoint.x, pumpPoint.y, pumpPoint.z)
+    if not pump then return {} end
+
+    local pumpSquare = getCell():getGridSquare(pumpPoint.x, pumpPoint.y, pumpPoint.z)
+    if not pumpSquare then return {} end
+    
+    local pumpIso = WPIso.GetPump(pumpSquare)
+    if not pumpIso then return {} end
+
+    local valvePoint = {x = 9950, y = 12613, z = -4}
+    local valve = WPVirtual.ValveGet(valvePoint.x, valvePoint.y, valvePoint.z)
+    if not valve then return {} end
+
+    local valveSquare = getCell():getGridSquare(valvePoint.x, valvePoint.y, valvePoint.z)
+    if not valveSquare then return {} end
+
+    local valveIso = WPIso.GetValve(valveSquare)
+    if not valveIso then return {} end
+
+    local x1 = BWOARooms.FoodGarden.x1 
+    local x2 = BWOARooms.FoodGarden.x2
+    local y1 = BWOARooms.FoodGarden.y1
+    local y2 = BWOARooms.FoodGarden.y2
+    local z = BWOARooms.FoodGarden.z
+
+    local sum = 0 
+    local count = 0
+    for x = x1, x2 do
+        for y = y1, y2 do
+             local plant = CFarmingSystem.instance:getLuaObjectAt(x, y, z)
+             if plant and plant.waterLvl and plant.waterNeeded and plant.state and plant.state ~= "dead" then
+                local diff = plant.waterNeeded - plant.waterLvl
+                if diff >= 10 then
+                    sum = sum + diff
+                    count = count + 1
+                end
+             end
+        end
+    end
+
+    local shouldActive = false
+    local average = sum / count
+    if average > 30 then
+        shouldActive = true
+    end
+
+    -- print ("calculated water average: " .. average .. ", should active: " .. tostring(shouldActive) .. ", valve state: " .. tostring(valve.c) .. ", pump state: " .. tostring(pump.active))
+
+    if shouldActive == valve.c then
+        local task = {action="TurnValve", obj=valve, close = not valve.c, time=300}
+        local subTasks = BWOAPrograms.GoAndDo(bandit, valve, task, 0.7)
+        if #subTasks > 0 then
+            BWOANPC.AddThinking(bandit, getTexture(valveIso:getSprite():getName()):splitIcon(), "WaterPump")
+            return subTasks
+        end
+    end
+
+    if shouldActive and not pump.active then
+        local task = {action="InteractPump", obj=pump, operation="toggle", active=shouldActive, time=300}
+        local subTasks = BWOAPrograms.GoAndDo(bandit, pump, task, 1)
+        if #subTasks > 0 then
+            BWOANPC.AddThinking(bandit, getTexture(pumpIso:getSprite():getName()):splitIcon(), "WaterPump")
+            return subTasks
+        end
+    end
+
+    return {}
+end
+
+BWOAPrograms.Laundry = function(bandit)
+    local bx, by = bandit:getX(), bandit:getY()
+
+    local washerList = BWOABaseObjects.FindAllObjects({"Washing Machine"}, {})
+    for _, washer in ipairs(washerList) do
+        local washerIso = BWOABaseObjects.GetIsoObject(washer)
+        if washerIso then
+            local predicateDirtyCollect = function(item)
+                return item.class == "clothing" and (not item.holes or item.holes == 0) and not item.bag and (item.dirty > 0 or item.blood > 0) and (item.ground or item.cont ~= "Washing Machine")
+            end
+            local item, dist = BWOABaseObjects.FindClosestItem({x=bx, y=by}, predicateDirtyCollect)
+            if item then
+                local task = {action="Collect", time=300, item=item}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
+                if #subTasks > 0 then 
+                    local itemIso = BanditCompatibility.InstanceItem(item.ftype)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Laundry")
+                    end
+                    return subTasks 
+                end
+            end
+
+            local predicateDirtyInv = function(item)
+                return item.class == "clothing" and (item.dirty > 0 or item.blood > 0)
+            end
+            local item = BWOAPermaInv.Get(bandit, predicateDirtyInv)
+            if item then
+                local task = {action="PutContainer", time=300, item=item, container=washer}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, washer, task)
+                if #subTasks > 0 then
+                    BWOANPC.AddThinking(bandit, getTexture(washerIso:getSprite():getName()):splitIcon(), "Laundry")
+                    return subTasks
+                end
+            end
+
+            local newActive = false
+            local predicateDirtyToWash = function(item)
+                return item.class == "clothing" and (item.dirty > 0 or item.blood > 0) and (not item.ground and item.cont == "Washing Machine")
+            end
+            local items = BWOABaseObjects.GetItemStackAt(washer.x, washer.y, washer.z, predicateDirtyToWash)
+            for _, _ in pairs(items) do
+                 newActive = true
+                 break
+            end
+
+            if washerIso:isActivated() ~= newActive then
+                local task = {action="TurnWashingMachine", time=800, active=newActive, obj=washer}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, washer, task)
+                if #subTasks > 0 then 
+                    BWOANPC.AddThinking(bandit, getTexture(washerIso:getSprite():getName()):splitIcon(), "Laundry")
+                    return subTasks 
+                end
+            end
+        end
+    end
+
+    local dryerList = BWOABaseObjects.FindAllObjects({"Clothing Dryer"}, {})
+    for _, dryer in ipairs(dryerList) do
+        local dryerIso = BWOABaseObjects.GetIsoObject(dryer)
+        if dryerIso then
+            local predicateWetCollect = function(item)
+                return item.class == "clothing" and item.dirty == 0 and item.blood == 0 and item.wet > 0 and (item.ground or item.cont ~= "Clothing Dryer")
+            end
+            local item, dist = BWOABaseObjects.FindClosestItem({x=bx, y=by}, predicateWetCollect)
+            if item then
+                local task = {action="Collect", time=300, item=item}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, item, task)
+                if #subTasks > 0 then 
+                    local itemIso = BanditCompatibility.InstanceItem(item.ftype)
+                    if itemIso then
+                        BWOANPC.AddThinking(bandit, itemIso:getTexture(), "Laundry")
+                    end
+                    return subTasks 
+                end
+            end
+
+            local predicateWetInv = function(item)
+                return item.class == "clothing" and item.dirty == 0 and item.blood == 0 and item.wet and item.wet > 0
+            end
+            local item = BWOAPermaInv.Get(bandit, predicateWetInv)
+            if item then
+                local task = {action="PutContainer", time=300, item=item, container=dryer}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, dryer, task)
+                if #subTasks > 0 then
+                    BWOANPC.AddThinking(bandit, getTexture(dryerIso:getSprite():getName()):splitIcon(), "Laundry")
+                    return subTasks
+                end
+            end
+
+            local newActive = false
+            local predicateWetToDry = function(item)
+                return item.class == "clothing" and item.dirty == 0 and item.blood == 0 and item.wet and item.wet > 0 and (not item.ground and item.cont == "Clothing Dryer")
+            end
+            local items = BWOABaseObjects.GetItemStackAt(dryer.x, dryer.y, dryer.z, predicateWetToDry)
+            for _, _ in pairs(items) do
+                 newActive = true
+                 break
+            end
+
+            if dryerIso:isActivated() ~= newActive then
+                local task = {action="TurnClothingDryer", time=800, active=newActive, obj=dryer}
+                local subTasks = BWOAPrograms.GoAndDo(bandit, dryer, task)
+                if #subTasks > 0 then 
+                    BWOANPC.AddThinking(bandit, getTexture(dryerIso:getSprite():getName()):splitIcon(), "Laundry")
+                    return subTasks 
+                end
+            end
+        end
+    end
+
+
+
+    return {}
+end
+
 BWOAPrograms.Research = function(bandit)
     local bx, by = bandit:getX(), bandit:getY()
 
@@ -834,7 +1242,10 @@ BWOAPrograms.Research = function(bandit)
                     local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), chairData.f)
                     local task = {action="Research", anim="SitComputer", looped=true, voice="ComputerKeyboard", fx = fx, fy = fy, ox = chair.x + chairData.ox, oy = chair.y + chairData.oy, time=200}
                     local subTasks = BWOAPrograms.GoAndDo(bandit, chair, task, 0.7)
-                    if #subTasks > 0 then return subTasks end
+                    if #subTasks > 0 then 
+                        BWOANPC.AddThinking(bandit, getTexture(computerIso:getSprite():getName()):splitIcon(), "Research")
+                        return subTasks 
+                    end
                 end
             end
         else
@@ -858,7 +1269,10 @@ BWOAPrograms.Research = function(bandit)
                 local fx, fy = BanditUtils.GetCordsByFacing(bandit:getX(), bandit:getY(), standingData.f)
                 local task = {action="Research", anim="Microscope", looped=true, fx = fx, fy = fy, ox = standing.x + standingData.ox, oy = standing.y + standingData.oy, time=200}
                 local subTasks = BWOAPrograms.GoAndDo(bandit, standing, task, 0.7)
-                if #subTasks > 0 then return subTasks end
+                if #subTasks > 0 then 
+                    BWOANPC.AddThinking(bandit, getTexture(microscopeIso:getSprite():getName()):splitIcon(), "Research")
+                    return subTasks 
+                end
             end
         end
     end

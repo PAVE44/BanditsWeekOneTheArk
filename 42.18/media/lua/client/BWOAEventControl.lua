@@ -18,18 +18,22 @@ BWOAEventControl.schedule = {
         [4] = {"Chapter", {tex = "chapter_1"}},
     },
     [4] = { -- D1 18.00
-        [7] = {"Spooky", {cnt = 1}},
+        [7] = {"Spooky2", {cnt = 1}},
         [8] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Shock1")}},
     },
     [8] = { -- D1 19.00
-        [17] = {"Spooky", {cnt = 5}},
+        [17] = {"Spooky2", {cnt = 5}},
         [18] = {"SayPlayer", {txt = getText("IGUI_SayPlayer_Shock2")}},
     },
-    [12] = {
+    [13] = {
         [24] = {"ArkNetworkStatus", {arkId = 47}},
+        [33] = {"Spooky2", {}},
     },
     [24] = {
         [39] = {"Horde", {intensity = 6}},
+    },
+    [33] = {
+        [55] = {"Spooky2", {}},
     },
     [56] = {
         [39] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 2}},
@@ -42,6 +46,7 @@ BWOAEventControl.schedule = {
     },
     [120] = {
         [14] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 4}},
+        [15] = {"Spooky2", {}},
     },
     [172] = {
         [30] = {"Assault", {cid = Bandit.clanMap.Surface1, intensity = 1}},
@@ -82,8 +87,8 @@ BWOAEventControl.schedule = {
         [35] = {"BreakNoah", {}},
     },
     [356] = {
-        [15] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
-        [16] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
+        [15] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 6}},
+        [18] = {"Assault", {cid = Bandit.clanMap.Surface3, intensity = 7}},
     },
     [416] = {
         [50] = {"ArkNetworkStatus", {arkId = 50}},

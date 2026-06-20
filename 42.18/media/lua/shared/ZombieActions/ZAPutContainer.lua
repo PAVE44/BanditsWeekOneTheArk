@@ -6,6 +6,20 @@ ZombieActions.PutContainer.onStart = function(zombie, task)
     local hasItem = BWOAPermaInv.HasType(zombie, task.item.fullType)
     if not hasItem then return true end
 
+    local square = zombie:getCell():getGridSquare(task.container.x, task.container.y, task.container.z)
+    if not square then return true end
+
+    local oven = BWOABaseObjects.GetIsoObject(task.container)
+    if oven then
+        local container = oven:getContainer()
+        if container then
+            local sound = container:getOpenSound()
+            if sound then
+                zombie:playSound(sound)
+            end
+        end
+    end
+
     task.anim = "Give"
     zombie:setBumpType(task.anim)
 
@@ -68,9 +82,24 @@ ZombieActions.PutContainer.onComplete = function(zombie, task)
             end
             if task.item.cooked then
                 item:setCooked(true)
+                item:setHeat(2.5)
+            end
+            if task.item.dirty then
+                item:setDirtiness(task.item.dirty)
+            end
+            if task.item.blood then
+                item:setBloodLevel(task.item.blood)
+            end
+            if task.item.wet then
+                item:setWetness(task.item.wet)
             end
             container:AddItem(item)
             BWOAPermaInv.RemoveOneOfType(zombie, task.item.fullType)
+
+            local sound = container:getPutSound()
+            if sound then
+                zombie:playSound(sound)
+            end
         end
     end
 

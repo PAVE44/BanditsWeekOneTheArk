@@ -73,11 +73,25 @@ ZombieActions.DropItem.onComplete = function(zombie, task)
     end
     if task.item.cooked then
         item:setCooked(true)
+        item:setHeat(2.5)
+    end
+    if task.item.dirty then
+        item:setDirtiness(task.item.dirty)
+    end
+    if task.item.blood then
+        item:setBloodLevel(task.item.blood)
+    end
+    if task.item.wet then
+        item:setWetness(task.item.wet)
     end
 
     square:AddWorldInventoryItem(item, ZombRandFloat(task.xmin, task.xmax), ZombRandFloat(task.ymin, task.ymax), task.surface)
     BWOAPermaInv.RemoveOneOfType(zombie, task.item.fullType)
 
+    local sound = item:getDropSound()
+    if sound then
+        zombie:playSound(sound)
+    end
     return true
 end
 

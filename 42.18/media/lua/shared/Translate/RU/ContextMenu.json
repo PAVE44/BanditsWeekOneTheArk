@@ -5,7 +5,7 @@
     "ContextMenu_NeedScrewdriver": "Нужна отвёртка",
     "ContextMenu_FixAirVent": "Починить вентиляцию",
     "ContextMenu_VentNotBroken": "Вентиляция не сломана",
-    "ContextMenu_FuelIntakeDrain": "Слить топливо",
+    "ContextMenu_FuelIntakeDrain": "Перекачать топливо",
     "ContextMenu_FuelIntakeNoVehicle": "Нет топливного танкера в радиусе действия",
     "ContextMenu_FuelIntakeNoFuelLeft": "В баке транспортного средства не осталось топлива",
     "ContextMenu_FuelIntakeGeneratorsFull": "Топливные баки полны",

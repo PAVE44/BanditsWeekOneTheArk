@@ -52,25 +52,16 @@ function TAPray:perform()
     BWOATex.alpha = 1.4
 
     local bodyDamage = self.character:getBodyDamage()
-
-    local maxIndex = BodyPartType.MAX:index()
-    for i = 0, maxIndex - 1 do
-        local partName = BodyPartType.FromIndex(i)
-        local part = bodyDamage:getBodyPart(partName)
-        if part then
-            if bodyDamage:IsBitten(partName) then
-                bodyDamage:SetBitten(partName, false)
-                if part:IsInfected() then
-                    part:SetInfected(false)
-                end
-            end
-        end
-    end
-
     bodyDamage:setInfected(false)
-    bodyDamage:setIsFakeInfected(false)
-    bodyDamage:setInfectionTime(-1.0)
-    bodyDamage:setInfectionMortalityDuration(-1.0);
+	bodyDamage:setInfectionMortalityDuration(-1)
+	bodyDamage:setInfectionTime(-1)
+	-- bodyDamage:setInfectionLevel(0)
+	local bodyParts = bodyDamage:getBodyParts()
+	for i=bodyParts:size()-1, 0, -1  do
+		local bodyPart = bodyParts:get(i)
+		bodyPart:SetInfected(false)
+	end
+	bodyDamage:setInfected(false)
 
     local stats = self.character:getStats()
     stats:set(CharacterStat.ZOMBIE_INFECTION, 0)

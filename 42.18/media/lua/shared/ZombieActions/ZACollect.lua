@@ -20,6 +20,24 @@ ZombieActions.Collect.onStart = function(zombie, task)
     task.anim = anim
     zombie:setBumpType(task.anim)
 
+    local square = zombie:getCell():getGridSquare(task.item.x, task.item.y, task.item.z)
+    if not square then return true end
+
+    if not task.item.ground then
+        local objects = square:getObjects()
+        local cnt = 0
+        for i=0, objects:size() - 1 do
+            local object = objects:get(i)
+            local container = object:getContainer()
+            if container then
+                local sound = container:getOpenSound()
+                if sound then
+                    zombie:playSound(sound)
+                end
+            end
+        end
+    end
+
     return true
 end
 
@@ -80,6 +98,11 @@ ZombieActions.Collect.onComplete = function(zombie, task)
                             if container:getParent() and container:getParent():getOverlaySprite() then
                                 ItemPicker.updateOverlaySprite(container:getParent())
                             end
+                        end
+
+                        local sound = container:getTakeSound()
+                        if sound then
+                            zombie:playSound(sound)
                         end
                         return true
                     end

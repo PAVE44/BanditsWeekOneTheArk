@@ -52,7 +52,7 @@ function BWOAScenes.FinneganReal:placeItems()
             y = 1717,
             z = 3,
             rdid = "2001.9",
-            amid = 120,
+            amid = 120, -- for backward compatibility
         },
     }
     
@@ -71,6 +71,8 @@ function BWOAScenes.FinneganReal:placeItems()
         if doc.amid then
             md.BWOA.onTaken.accomplishMissionId = doc.amid
         end
+        md.BWOA.onRead = {}
+        md.BWOA.onRead.progressMissionId = 121
 
         BWOAPrepareTools.AddWorldItemSpecial(doc.x, doc.y, doc.z, note, {x=ZombRandFloat(0.2, 0.8), y=ZombRandFloat(0.2, 0.8), z=0})
     end

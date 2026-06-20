@@ -64,7 +64,7 @@ local pseudoRadialMap = {
 }
 
 local timeRevealMap = {
-    [1] = {hours = 29, person = "Emma_Robinson", qid = "300.1"},
+    [1] = {hours = 37, person = "Emma_Robinson", qid = "300.1"},
     [2] = {hours = 65, person = "Emma_Robinson", qid = "300.3"},
     [3] = {hours = 110, person = "Emma_Robinson", qid = "300.4"},
     [4] = {hours = 140, person = "Emma_Robinson", qid = "300.5"},
@@ -509,7 +509,7 @@ local onPlayerUpdate = function(player)
         local placeEvents = gmd.placeEvents
         for k_, placeEvent in pairs(placeEvents) do
             if not placeEvent.hidden then
-                if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 6 and pz == placeEvent.z then
+                if math.abs(px - placeEvent.x) < 6 and math.abs(py - placeEvent.y) < 10 and pz == placeEvent.z then
                     if placeEvent.accomplishMissionId then
                         BWOAMissions.Accomplish(placeEvent.accomplishMissionId)
                     end
@@ -1369,6 +1369,23 @@ local onTimedActionPerform = function(data)
             local running = vehicle:isEngineRunning()
             if running then
                 vehicle:shutOff()
+            end
+        end
+
+        -- npc also exit
+        local passengerId = vehicle:getModData().passengerId
+        if passengerId then
+            local gmdBrain = GetBanditClusterData(passengerId)
+            if gmdBrain[passengerId] then
+                local seat = 1
+                local pos = BanditUtils.GetSeatPosition(vehicle, seat)
+                if pos then
+                    gmdBrain[passengerId].bornCoords = {x = pos.x, y = pos.y, z = pos.z}
+                    gmdBrain[passengerId].vehicleId = nil
+                    sendClientCommand(character, 'Spawner', 'Restore', gmdBrain[passengerId])
+                    gmd.permanentNPC[passengerId] = nil
+                    vehicle:getModData().passengerId = nil
+                end
             end
         end
 

@@ -207,7 +207,7 @@
     "IGUI_Missions_1_Name": "Meet Emma",
     "IGUI_Missions_1_Description": "Find and talk to Emma.\nPress \"T\" to open chat panel.",
     "IGUI_Missions_2_Name": "Change",
-    "IGUI_Missions_2_Description": "Find and wear a bunker suit.",
+    "IGUI_Missions_2_Description": "Find and wear a bunker or a hazmat suit.",
     "IGUI_Missions_3_Name": "Fix air vent",
     "IGUI_Missions_3_Description": "Find an air vent located on the surface\nand fix it using a screwdriver.",
     "IGUI_Missions_4_Name": "Find a hidden basement",
@@ -260,9 +260,10 @@
     "IGUI_Missions_114_Description": "If you get infected, Emma will have no choice and give you the drug to test it first.\nThis way you protect Emma from potential side effects of the experimental cure if she was bitten first.",
     "IGUI_Missions_115_Name": "Inject yourself",
     "IGUI_Missions_115_Description": "Inject yourself with the experimental anti-viral compound.",
-    "IGUI_Missions_120_Name": "Investigate Finnegan Headquarters.",
-    "IGUI_Missions_120_Description": "Conduct a thorough search of C-level executives office suite in of Finnegan HQ in Louisville Ruins.\n",
-
+    "IGUI_Missions_120_Name": "Go to Finnegan Headquarters.",
+    "IGUI_Missions_120_Description": "Travel to Finnegan Headquarters in Louisville Ruins.\n",
+    "IGUI_Missions_121_Name": "Investigate Finnegan Headquarters.",
+    "IGUI_Missions_121_Description": "Conduct a thorough search of C-level executives office suite in of Finnegan HQ.\n",
     
     "IGUI_Dial_Emma_Robinson_0_Q": "Can you repeat that?",
     "IGUI_Dial_Emma_Robinson_0_A": "Sure. ",

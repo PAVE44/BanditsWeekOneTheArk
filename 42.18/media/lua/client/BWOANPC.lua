@@ -124,7 +124,7 @@ local function manageNPC()
     }
 
     for id, data in pairs(gmd.permanentNPC) do
-        if not cache[id] and not data.teleportTo then
+        if not cache[id] and not data.teleportTo and not data.vehicleId then
             if math.abs(px - data.x) < 70 and math.abs(py - data.y) < 70 then
 
                 for _, sq in pairs(sqs) do
@@ -157,6 +157,82 @@ local function manageNPC()
                 end
             else
                 -- print ("too far for npc despawn check")
+            end
+        end
+    end
+end
+
+local texturePin = getTexture("media/textures/Foraging/pinIconBlank.png")
+local texturePinW = 24
+local texturePinH = 36
+
+BWOANPC.thinkData = {}
+
+BWOANPC.AddThinking = function (bandit, tex, action)
+    local id = BanditUtils.GetCharacterID(bandit)
+    if id then
+        BWOANPC.thinkData[id] = {}
+        BWOANPC.thinkData[id].tex = tex
+        BWOANPC.thinkData[id].action = action
+        BWOANPC.thinkData[id].alpha = 2
+    end
+end
+
+BWOANPC.ResetThinking = function(id)
+    BWOANPC.thinkData[id] = {}
+end
+
+local function thinking()
+    if not isIngameState() then return end
+    if isServer() then return end
+
+    local player = getSpecificPlayer(0)
+    if player == nil then return end
+    local playerNum = player:getPlayerNum()
+    local zoom = getCore():getZoom(playerNum)
+
+    local gmd = GetBWOAModData()
+
+    for id, npc in pairs(gmd.permanentNPC) do
+        local thinkData = BWOANPC.thinkData[id]
+        if thinkData and thinkData.tex then
+            local bandit = BanditZombie.GetInstanceById(id)
+            if bandit then
+                local action = thinkData.action
+                local tex = thinkData.tex
+                local texW
+                local texH
+                if tex:getWidth() > tex:getHeight() then
+                    texW = 16
+                    texH = 16 * (tex:getHeight() / tex:getWidth())
+                else
+                    texH = 16
+                    texW = 16 * (tex:getWidth() / tex:getHeight())
+                end
+                texW = texW / zoom
+                texH = texH / zoom
+
+                if tex then
+                    local bx, by, bz = bandit:getX(), bandit:getY(), bandit:getZ()
+                    thinkData.alpha = thinkData.alpha or 2
+
+                    -- pin 
+                    local px = isoToScreenX(playerNum, bx, by, bz) - (texW / 2)
+                    local py = isoToScreenY(playerNum, bx, by, bz) - (150 / zoom)
+                    UIManager.DrawTexture(texturePin, px, py, texturePinW / zoom, texturePinH / zoom, thinkData.alpha)
+                    
+                    -- icon tex
+                    local tx = isoToScreenX(playerNum, bx, by, bz) - (texW / 2) + (4 / zoom)
+                    local ty = isoToScreenY(playerNum, bx, by, bz) - (150 / zoom) + (4 / zoom)
+                    
+                    UIManager.DrawTexture(tex, tx, ty, texW, texH, thinkData.alpha)
+                    thinkData.alpha = thinkData.alpha - 0.005
+                    if thinkData.alpha < 0 then
+                        BWOANPC.ResetThinking(id)
+                    end
+                else
+                    BWOANPC.ResetThinking(id)
+                end
             end
         end
     end
@@ -214,3 +290,4 @@ end
 
 Events.EveryOneMinute.Remove(manageNPC)
 Events.EveryOneMinute.Add(manageNPC)
+Events.OnPreUIDraw.Add(thinking)

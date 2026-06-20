@@ -12,7 +12,7 @@ end
 
 BWOAMenu = BWOAMenu or {}
 
-BWOAMenu.version = "1.9.1"
+BWOAMenu.version = "1.10.10"
 
 BWOAMenu.blinking = {}
 
@@ -899,6 +899,10 @@ function BWOAMenu.Spooky(player)
     BWOASequence.Spooky({cnt = 5})
 end
 
+function BWOAMenu.Spooky2(player)
+    BWOASequence.Spooky2({cnt = 5})
+end
+
 function BWOAMenu.Transform(player, zombie)
     Bandit.AddTask(zombie, {
         action="Transform", 
@@ -1041,6 +1045,10 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
 
     if isDebugEnabled() then
 
+        if room then
+            local def = room:getRoomDef()
+            print ("Room: " .. def:getX() .. ", " .. def:getY() .. ", " .. def:getX2() .. ", " .. def:getY2() .. ")")
+        end
         --BWOAMissions.Reveal(120)
         --BWOAMissions.Accomplish(120)
 
@@ -1277,6 +1285,7 @@ local function onPreFillWorldObjectContextMenu(playerID, context, worldobjects, 
         -- context:addOption("Set Dream", player, BWOAMenu.SetDream)
         context:addOption("Load Hatches", player, BWOAMenu.LoadHatches, square)
         context:addOption("Spooky", player, BWOAMenu.Spooky)
+        context:addOption("Spooky2", player, BWOAMenu.Spooky2)
         context:addOption("Emma Cry", player, BWOAMenu.EmmaCry)
         
     end
@@ -1431,7 +1440,7 @@ local function onMouseUp(x, y)
             ISTimedActionQueue.add(TADecontaminate:new(player, square, itemPrimary))
         end
     end
-    print ("Mouse up at " .. tostring(sx) .. ", " .. tostring(sy))
+    -- print ("Mouse up at " .. tostring(sx) .. ", " .. tostring(sy))
 end
 
 Events.EveryTenMinutes.Remove(updateHighlightClusters)

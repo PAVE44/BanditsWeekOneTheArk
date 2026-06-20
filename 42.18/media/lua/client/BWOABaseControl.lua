@@ -1,9 +1,10 @@
 BWOABaseControl = {}
 
-BWOABaseControl.power = false
+BWOABaseControl.power = nil
 BWOABaseControl.powerUsing = 0
 
 BWOABaseControl.intrusion = false
+BWOABaseControl.intrustionTimer = 100
 
 local function onGameStart()
     for room, _ in pairs(BWOARooms) do
@@ -89,6 +90,7 @@ local function manageIntrusion()
             BWOASound.AddNoah({sound = BWOASound.noahSounds[roomName]})
         end
         BWOABaseControl.intrusion = true
+        BWOABaseControl.intrustionTimer = 0
     end
 
     local banditList = BanditZombie.CacheLightB
@@ -112,7 +114,10 @@ local function manageIntrusion()
             BWOASound.AddNoah({sound = BWOASound.noahSounds[roomName]})
         end
         BWOABaseControl.intrusion = true
-    end    
+        BWOABaseControl.intrustionTimer = 0
+    end
+
+    BWOABaseControl.intrustionTimer = BWOABaseControl.intrustionTimer + 1
 end
 
 local function managePower()
@@ -161,7 +166,7 @@ local function managePower()
     -- only swithch if the player is in range
     
     if player and player:getX() >= 9900 and player:getY() >= 12600 and player:getX() <= 10000 and player:getY() <= 12650 then
-        if newPower ~= BWOABaseControl.power then
+        if newPower ~= BWOABaseControl.power or BWOABaseControl.power == nil then
             BWOABaseControl.power = newPower
             BWOASound.ClearNoah()
             if BWOABaseControl.power then
@@ -235,11 +240,11 @@ local function managePower()
 
                 local fuelConsumptionOption = SandboxVars.BWOA.ArkGeneratorFuelConsumption or 3
                 local fuelConsumptionMap = {
-                    [1] = 0.01,
-                    [2] = 0.04,
-                    [3] = 0.08,
-                    [4] = 0.12,
-                    [5] = 0.14
+                    [1] = 0.01,  -- 0.01,
+                    [2] = 0.025, -- 0.04,
+                    [3] = 0.05,  -- 0.08,
+                    [4] = 0.075, -- 0.12,
+                    [5] = 0.1,   -- 0.14
                 }
                 local fuelConstant = fuelConsumptionMap[fuelConsumptionOption] or 0.1
                 -- local fuelConstant = 0.1
@@ -251,7 +256,7 @@ local function managePower()
                 
                 local condDrop = 0.001
                 if not gen.lubricant then gen.lubricant = 100 end
-                gen.lubricant = gen.lubricant - 0.005
+                gen.lubricant = gen.lubricant - 0.004
                 if gen.lubricant < 75 then
                     condDrop = condDrop + (100 - gen.lubricant) * 0.0004
                 end
@@ -285,7 +290,7 @@ local function managePower()
                 end
 
                 -- alerting
-                if minute % 10 == 1 then
+                if minute % 15 == 1 then
                     local fuelAlert = false
                     local conditionAlert = false
                     if gen.fuel < gmd.alerting.generatorFuelAlert then

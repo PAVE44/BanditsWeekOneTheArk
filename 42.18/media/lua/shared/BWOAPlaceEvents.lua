@@ -190,8 +190,10 @@ BWOAPlaceEvents.events = {
         scene = "FinneganReal",
         x = 13585,
         y = 1700,
-        z = 0,
+        z = 3,
         renderDist = 60,
+        accomplishMissionId = 120,
+        revealMissionId = 121,
     },
     ["EmmaGoodbye"] = {
         scene = "EmmaGoodbye",

@@ -130,6 +130,11 @@ BWOAMissions.missions = {
         chapter = "chapter_4",
         map = {symbol = "Skyscraper", x = 13585, y = 1700}
     },
+    [121] = {
+        name = getText("IGUI_Missions_121_Name"),
+        desc = getText("IGUI_Missions_121_Description"),
+        progressCnt = 6
+    },
     [131] = {
         name = getText("IGUI_Missions_131_Name"),
         desc = getText("IGUI_Missions_131_Description"),

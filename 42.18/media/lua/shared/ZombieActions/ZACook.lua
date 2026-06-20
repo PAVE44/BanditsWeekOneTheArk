@@ -127,5 +127,13 @@ ZombieActions.Cook.onComplete = function(zombie, task)
         BWOAPermaInv.Use(zombie, ing, weightMax)
     end
 
+    local player = getSpecificPlayer(0)
+    local px, py = player:getX(), player:getY()
+    local bx, by = zombie:getX(), zombie:getY()
+    local dist = BanditUtils.DistTo(px, py, bx, by)
+    if dist < 10 then
+        BWOAEventControl.Add("HaloPlayer", {perk = "Cooking", xp = 100}, 100)
+    end
+
     return true
 end

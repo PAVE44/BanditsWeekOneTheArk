@@ -236,6 +236,10 @@ BWOASequence.Assault = function(params)
         coords = {x=9922, y=12625, z=-3, size=1}
     end
 
+    if player:getZ() > -4 and player:getX() >= 9880 and player:getX() < 9980 and player:getY() >= 12570 and player:getY() < 12680 then
+        return 
+    end
+
     local hostileGroupSize = SandboxVars.BWOA.HostileGroupSize or 3
     local hostileGroupMultipliers = {
         [1] = 0.20,
@@ -358,6 +362,22 @@ BWOASequence.Spooky = function(params)
         time = time + 200 + ZombRand(200)
         BWOAEventControl.Add("Spooky", params, time)
     end
+end
+
+BWOASequence.Spooky2 = function(params)
+    BWOAEventControl.Add("PlayPlayer", {sound = "Monsters"}, 1)
+
+    local tex = {
+        tex = getTexture("media/textures/blast_w.png"),
+        speed = 0.0014,
+        mode = "full",
+        oscilate = true,
+        alphaMax = 1.2,
+        alpha = 0.02
+    }
+    BWOAEventControl.Add("Tex", tex, 2)
+
+    BWOAEventControl.Add("Spooky2", {}, 500)
 end
 
 BWOASequence.BreakNoah = function(params)

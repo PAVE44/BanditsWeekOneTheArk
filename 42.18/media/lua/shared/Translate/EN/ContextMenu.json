@@ -5,7 +5,7 @@
     "ContextMenu_NeedScrewdriver": "You need a Screwdriver.",
     "ContextMenu_FixAirVent": "Fix Air Vent",
     "ContextMenu_VentNotBroken": "The air vent is not broken.",
-    "ContextMenu_FuelIntakeDrain": "Drain Fuel",
+    "ContextMenu_FuelIntakeDrain": "Transfer Fuel",
     "ContextMenu_FuelIntakeNoVehicle": "No fuel tanker in range.",
     "ContextMenu_FuelIntakeNoFuelLeft": "No fuel left in the vehicle tank.",
     "ContextMenu_FuelIntakeGeneratorsFull": "Fuel tanks are full.",

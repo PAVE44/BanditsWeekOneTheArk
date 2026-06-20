@@ -90,8 +90,20 @@ local function onZombieUpdate(zombie)
 
     BWOAZombie.tick = BWOAZombie.tick + 1
     
-    -- zombie beaufication
-    if zombie:getVariableBoolean("Bandit") then return end
+    -- calming down player
+    local isBandit = zombie:getVariableBoolean("Bandit")
+    if isBandit then
+        local brain = BanditBrain.Get(zombie)
+        if brain and not brain.hostile then
+            local player = getSpecificPlayer(0)
+            if player and player:CanSee(zombie) then
+                player:getStats():set(CharacterStat.PANIC, 0)
+            end
+        end
+    end
+
+    -- zombie beautification
+    if isBandit then return end
     if zombie:getZ() <= -2 then return end
     if zombie:getModData().isDeadBandit then return end
 

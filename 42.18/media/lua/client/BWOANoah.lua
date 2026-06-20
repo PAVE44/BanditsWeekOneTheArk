@@ -192,6 +192,10 @@ BWOANoah.Show = function()
     show()
 end
 
+BWOANoah.LoadScreen = function()
+    loadScreen()
+end
+
 BWOANoah.IsOn = function()
     local gmd = GetBWOAModData()
     return gmd.noah.on
@@ -277,7 +281,11 @@ BWOANoah.Screens.Power = function()
     local text = BWOANoah.ScreenTemplate()
     text[5]  = "POWER CONTROL"
 
-    text[7]  = "> GRID:  ACTIVE"
+    if BWOABaseControl.power then
+        text[7]  = "> GRID:  ACTIVE"
+    else
+        text[7]  = "> GRID:  INACTIVE"
+    end
     text[8]  = "> USAGE: " .. string.format("%.2f", using) .. "L/h"
 
     text[11]  = "SELECT UNIT:"

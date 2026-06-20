@@ -93,12 +93,14 @@ ZombieActions.SleepLong.onWorking = function(zombie, task)
         end
     end
 
-    
-
     zombie:setX(task.x + dx)
     zombie:setY(task.y + dy)
     zombie:setZ(task.z)
     zombie:faceLocationF(task.x + fx, task.y + fy)
+
+    if BWOABaseAPI.alarm then
+        return true
+    end
 
     return false
 end

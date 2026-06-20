@@ -80,7 +80,7 @@ ZombiePrograms.Emma.mainSchedule = {
         minuteMin = 0,
         minuteMax = 60,
         waMin = 0.5,
-        waMax = 32
+        waMax = 40
     },
     {
         activity = "cook",
@@ -174,6 +174,28 @@ ZombiePrograms.Emma.Main = function(bandit)
 
     bandit:setVariable("RunSpeed", 0.91)
     
+    
+    -- unstuck
+    local square = bandit:getSquare()
+    if not square:isFree(false) then
+        local newSquare = BanditUtils.GetAccessSquare(square, bandit)
+        if newSquare then
+            local nbx, nby, nbz = newSquare:getX(), newSquare:getY(), newSquare:getZ()
+            if nbx < bx then
+                nbx = bx - 0.1
+            elseif nbx > bx then
+                nbx = bx + 0.1
+            end
+            if nby < by then
+                nby = by - 0.1
+            elseif nby > by then
+                nby = by + 0.1
+            end
+            bandit:setX(nbx)
+            bandit:setY(nby)
+        end
+    end
+    
     local newStage = switchStage(bandit)
     if newStage then
         return {status=true, next=newStage, tasks=tasks}
@@ -203,7 +225,13 @@ ZombiePrograms.Emma.Main = function(bandit)
     -- #2 special modes
     if brain.mode and brain.mode == "follow" then
         local subTasks = BWOAPrograms.FollowMaster(bandit)
-        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+        if #subTasks > 0 then
+            return {status=true, next="Main", tasks=subTasks}
+        else
+            local subTasks = BWOAPrograms.IdleEmma(bandit)
+            if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+        end
+
     elseif brain.mode and brain.mode == "taggame" then
         local subTasks = BWOAPrograms.TagGame(bandit)
         if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
@@ -253,25 +281,29 @@ ZombiePrograms.Emma.Main = function(bandit)
     local subTasks = BWOAPrograms.OvenHandling(bandit)
     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
 
+    -- #8 crops (water pump / valve)
+    local subTasks = BWOAPrograms.WaterPump(bandit)
+    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+
     -- #8 jukebox dancing
     local subTasks = BWOAPrograms.JukeboxDancing(bandit)
     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
 
-    -- #9 timed activities
+    -- #10 timed activities
     local schedule = ZombiePrograms.Emma.mainSchedule
     local activity, activityMode = BanditUtils.GetScheduledActivity(schedule)
-    activity, activityMode = "cook", "dinner" -- test
+    --activity, activityMode = "watchtv", "dinner" -- test
     if activity then
         if activity == "cook" then
             -- bandit:addLineChatElement("ACTIVITY: COOK " .. activityMode, 1, 0, 1)
             local subTasks = BWOAPrograms.Cook(bandit)
             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
         elseif activity == "sleep" then
-            bandit:addLineChatElement("ACTIVITY: SLEEP", 1, 0, 1)
+            -- bandit:addLineChatElement("ACTIVITY: SLEEP", 1, 0, 1)
             local subTasks = BWOAPrograms.Sleep(bandit)
             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
-        elseif activity == "jog" then
-            bandit:addLineChatElement("ACTIVITY: JOG", 1, 0, 1)
+        elseif activity == "jog" and gmd.ventilation.co2 < 6000 then
+            -- bandit:addLineChatElement("ACTIVITY: JOG", 1, 0, 1)
             local subTasks = BWOAPrograms.Jog(bandit)
             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
         elseif activity == "radio" then
@@ -279,11 +311,11 @@ ZombiePrograms.Emma.Main = function(bandit)
             local subTasks = BWOAPrograms.RadioCall(bandit)
             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
         elseif activity == "readbook" then
-            bandit:addLineChatElement("ACTIVITY: READ BOOK", 1, 0, 1)
+            -- bandit:addLineChatElement("ACTIVITY: READ BOOK", 1, 0, 1)
             local subTasks = BWOAPrograms.ReadBook(bandit)
             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
         elseif activity == "watchtv" then
-            bandit:addLineChatElement("ACTIVITY: WATCH TV", 1, 0, 1)
+            -- bandit:addLineChatElement("ACTIVITY: WATCH TV", 1, 0, 1)
             local subTasks = BWOAPrograms.WatchTV(bandit)
             if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
         elseif activity == "playpiano" then
@@ -303,11 +335,15 @@ ZombiePrograms.Emma.Main = function(bandit)
         return {status=true, next="Main", tasks=tasks}
     end
 
-    -- #10 cleaning blood
+    -- #11 laundry
+    local subTasks = BWOAPrograms.Laundry(bandit)
+    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+
+    -- #12 cleaning blood
     local subTasks = BWOAPrograms.CleanBlood(bandit)
     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
 
-    -- #11 idleing
+    -- #13 idleing
     local idleTasks = BWOAPrograms.IdleEmma(bandit)
     if #idleTasks > 0 then return {status=true, next="Main", tasks=idleTasks} end
 
@@ -357,7 +393,12 @@ ZombiePrograms.Emma.Defend = function(bandit)
 
     if brain.mode == "follow" then
         local subTasks = BWOAPrograms.FollowMaster(bandit)
-        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+        if #subTasks > 0 then 
+            return {status=true, next="Main", tasks=subTasks} 
+        else
+            local subTasks = BWOAPrograms.IdleEmma(bandit)
+            if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+        end
     end
 
     local config = {}
@@ -399,6 +440,11 @@ ZombiePrograms.Emma.Defend = function(bandit)
     local subTasks = BWOAPrograms.HealPlayer(bandit)
     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
 
+    if BWOABaseAPI.alarm and BWOABaseControl.intrustionTimer > 5 then
+        local subTasks = BWOAPrograms.InteractNoah(bandit, "disableAlarm")
+        if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+    end
+
     local subTasks = BWOAPrograms.IdleEmma(bandit)
     if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
 
@@ -426,14 +472,17 @@ ZombiePrograms.Emma.Exterior = function(bandit)
         return {status=true, next="Exterior", tasks=tasks}
     end
 
+    local subTasks = BWOAPrograms.EnterVehicle(bandit)
+    if #subTasks > 0 then return {status=true, next="Exterior", tasks=subTasks} end
+
     local subTasks = BWOAPrograms.HealPlayer(bandit)
-    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+    if #subTasks > 0 then return {status=true, next="Exterior", tasks=subTasks} end
 
     local subTasks = BWOAPrograms.FollowMaster(bandit)
-    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+    if #subTasks > 0 then return {status=true, next="Exterior", tasks=subTasks} end
 
     local subTasks = BWOAPrograms.IdleEmma(bandit)
-    if #subTasks > 0 then return {status=true, next="Main", tasks=subTasks} end
+    if #subTasks > 0 then return {status=true, next="Exterior", tasks=subTasks} end
 
     return {status=true, next="Exterior", tasks=tasks}
 end

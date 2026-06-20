@@ -234,7 +234,7 @@ ark infrastructure ideas:
 + emma zombie sounds :(
 + emma missing texts on hit
 + emma bandit voice
-emma reacting to ark conditions
++ emma reacting to ark conditions
 emma inventory and health panel?
 + entrance to service tunnels remodel
 + second warehouse needs adaptation

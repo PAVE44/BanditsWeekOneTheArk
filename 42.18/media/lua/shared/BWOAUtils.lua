@@ -99,6 +99,29 @@ BanditUtils.AddVehicle = function(btype, dir, square)
     return vehicle
 end
 
+BanditUtils.GetSeatPosition = function(vehicle, seat)
+    local ret = {}
+    if not vehicle:isSeatInstalled(seat) then
+        return false
+    end
+
+    if vehicle:isSeatOccupied(seat) then
+        return false
+    end
+
+    local posn = vehicle:getPassengerPosition(seat, "outside")
+    if not posn then return false end
+
+    local area = vehicle:getScript():getAreaById(posn:getArea())
+    if not area then return false end
+
+    local vector = vehicle:areaPositionWorld4PlayerInteract(area)
+
+    ret.x, ret.y, ret.z = vector:getX(), vector:getY(), 0
+    print ("Vehicle area: x: " .. ret.x .. " y: " .. ret.y)
+    return ret
+end
+
 BanditUtils.GetScheduledActivity = function(schedule)
     local gameTime = getGameTime()
     local hour = gameTime:getHour()

@@ -284,3 +284,43 @@ RecMedia["d8a8fa8f-be1a-462d-8377-000000000000"] = {
 		{ text = "RM_d8a8fa8f-be1a-462d-8377-000000000024", r = 0, g = 255, b = 255, codes = "" },
 	}
 }
+
+-- engineering tapes
+
+-- gx9
+
+RecMedia["6cca967b-3893-410e-a5f4-000000000000"] = {
+	itemDisplayName = "RM_6cca967b-3893-410e-a5f4-00000000000a",
+	title = "RM_6cca967b-3893-410e-a5f4-00000000000b",
+	subtitle = "RM_6cca967b-3893-410e-a5f4-00000000000c",
+	author = nil,
+	extra = nil,
+	spawning = 0,
+	category = "Home-VHS",
+	lines = {
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000001", r = 0, g = 255, b = 255, codes = "" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000002", r = 0, g = 255, b = 255, codes = "" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000003", r = 0, g = 255, b = 255, codes = "ELC+1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000004", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000005", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000006", r = 0, g = 255, b = 255, codes = "ELC+1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000007", r = 0, g = 255, b = 255, codes = "ELC+1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000008", r = 0, g = 255, b = 255, codes = "ELC+1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000009", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000010", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000011", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000012", r = 0, g = 255, b = 255, codes = "ELC+2" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000013", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000014", r = 0, g = 255, b = 255, codes = "ELC+2" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000015", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000016", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000017", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000018", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000019", r = 0, g = 255, b = 255, codes = "ELC+1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000020", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000021", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000022", r = 0, g = 255, b = 255, codes = "BOR-1" },
+		{ text = "RM_6cca967b-3893-410e-a5f4-000000000023", r = 0, g = 255, b = 255, codes = "" },
+	}
+}
+
